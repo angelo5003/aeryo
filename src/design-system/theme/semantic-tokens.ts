@@ -159,5 +159,208 @@ export const semanticTokens = {
         },
       },
     },
+
+    // colorPalette entries: `colorPalette="<name>"` (Button, Badge, Tag, …)
+    // only resolves to real colors for the ~12 families Chakra hardcodes in
+    // its own theme/semantic-tokens/colors.js (gray, red, teal, …) — a
+    // custom family with no matching entry here silently renders as an
+    // unstyled native element (confirmed: colorPalette="ink" with no block
+    // below produced a bare white/black button, not a themed one). `ink`,
+    // `danger`, and `caution` need their own block for the same reason
+    // Chakra ships one for every default family; `teal` already gets one
+    // from Chakra's defaults (deep-merged with AERYO's redefined teal.*
+    // raw values), but only `fg`/`solid`/`contrast` are overridden below —
+    // `solid`/`contrast` so brand-accent components actually use the
+    // WCAG-verified `accent.*` tokens above instead of Chakra's stock
+    // teal formula (solid: teal.600, contrast: literal "white" in both
+    // modes — never checked against AERYO's own teal hex values).
+    //
+    // Every text/background pairing below is a real solid/subtle/muted
+    // combination a component variant can produce (see button.recipe.js:
+    // solid pairs .solid+.contrast, subtle/outline/ghost pair
+    // .subtle-or-.muted+.fg) and is contrast-verified per the WCAG NOTE
+    // above — several of Chakra's own stock shade picks (e.g. fg.700 on
+    // muted.200) landed just under 4.5:1 for AERYO's specific hex values
+    // and needed a shade bumped a step darker/lighter than Chakra's
+    // default formula to clear AA.
+    teal: {
+      fg: {
+        value: { _light: "{colors.teal.800}", _dark: "{colors.teal.300}" },
+      },
+      solid: {
+        value: { _light: "{colors.teal.700}", _dark: "{colors.teal.500}" },
+      },
+      contrast: {
+        value: { _light: "{colors.ink.50}", _dark: "{colors.ink.950}" },
+      },
+    },
+    ink: {
+      contrast: {
+        value: { _light: "{colors.ink.50}", _dark: "{colors.ink.950}" },
+      },
+      fg: {
+        value: { _light: "{colors.ink.800}", _dark: "{colors.ink.200}" },
+      },
+      subtle: {
+        value: { _light: "{colors.ink.100}", _dark: "{colors.ink.900}" },
+      },
+      muted: {
+        value: { _light: "{colors.ink.200}", _dark: "{colors.ink.800}" },
+      },
+      emphasized: {
+        value: { _light: "{colors.ink.300}", _dark: "{colors.ink.700}" },
+      },
+      solid: {
+        value: { _light: "{colors.ink.900}", _dark: "{colors.ink.50}" },
+      },
+      focusRing: {
+        value: { _light: "{colors.ink.400}", _dark: "{colors.ink.400}" },
+      },
+      border: {
+        value: { _light: "{colors.ink.200}", _dark: "{colors.ink.800}" },
+      },
+    },
+    danger: {
+      contrast: { value: { _light: "white", _dark: "white" } },
+      fg: {
+        value: {
+          _light: "{colors.danger.800}",
+          _dark: "{colors.danger.200}",
+        },
+      },
+      subtle: {
+        value: {
+          _light: "{colors.danger.100}",
+          _dark: "{colors.danger.900}",
+        },
+      },
+      muted: {
+        value: {
+          _light: "{colors.danger.200}",
+          _dark: "{colors.danger.800}",
+        },
+      },
+      emphasized: {
+        value: {
+          _light: "{colors.danger.300}",
+          _dark: "{colors.danger.700}",
+        },
+      },
+      solid: {
+        value: {
+          _light: "{colors.danger.600}",
+          _dark: "{colors.danger.600}",
+        },
+      },
+      focusRing: {
+        value: {
+          _light: "{colors.danger.500}",
+          _dark: "{colors.danger.500}",
+        },
+      },
+      border: {
+        value: {
+          _light: "{colors.danger.500}",
+          _dark: "{colors.danger.400}",
+        },
+      },
+    },
+    caution: {
+      contrast: { value: { _light: "white", _dark: "white" } },
+      fg: {
+        value: {
+          _light: "{colors.caution.800}",
+          _dark: "{colors.caution.300}",
+        },
+      },
+      subtle: {
+        value: {
+          _light: "{colors.caution.100}",
+          _dark: "{colors.caution.900}",
+        },
+      },
+      muted: {
+        value: {
+          _light: "{colors.caution.200}",
+          _dark: "{colors.caution.800}",
+        },
+      },
+      emphasized: {
+        value: {
+          _light: "{colors.caution.300}",
+          _dark: "{colors.caution.700}",
+        },
+      },
+      solid: {
+        value: {
+          _light: "{colors.caution.600}",
+          _dark: "{colors.caution.600}",
+        },
+      },
+      focusRing: {
+        value: {
+          _light: "{colors.caution.500}",
+          _dark: "{colors.caution.500}",
+        },
+      },
+      border: {
+        value: {
+          _light: "{colors.caution.500}",
+          _dark: "{colors.caution.400}",
+        },
+      },
+    },
+    // Unlike danger/caution (dark enough at .600 for white text, verified
+    // 5.23:1/4.57:1 above), success's ramp is bright enough at every step
+    // that white-on-.600 only clears 2.48:1 — a hard AA fail. Dark text
+    // (ink.950, same device teal.contrast already uses) on the solid step
+    // clears easily instead: 7.66:1.
+    success: {
+      contrast: {
+        value: { _light: "{colors.ink.950}", _dark: "{colors.ink.950}" },
+      },
+      fg: {
+        value: {
+          _light: "{colors.success.800}",
+          _dark: "{colors.success.200}",
+        },
+      },
+      subtle: {
+        value: {
+          _light: "{colors.success.100}",
+          _dark: "{colors.success.900}",
+        },
+      },
+      muted: {
+        value: {
+          _light: "{colors.success.200}",
+          _dark: "{colors.success.800}",
+        },
+      },
+      emphasized: {
+        value: {
+          _light: "{colors.success.300}",
+          _dark: "{colors.success.700}",
+        },
+      },
+      solid: {
+        value: {
+          _light: "{colors.success.600}",
+          _dark: "{colors.success.600}",
+        },
+      },
+      focusRing: {
+        value: {
+          _light: "{colors.success.500}",
+          _dark: "{colors.success.500}",
+        },
+      },
+      border: {
+        value: {
+          _light: "{colors.success.500}",
+          _dark: "{colors.success.400}",
+        },
+      },
+    },
   },
 } as const;

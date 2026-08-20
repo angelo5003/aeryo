@@ -45,10 +45,9 @@ export const Radius: Story = {
             Radius
           </Heading>
           <Text fontSize="sm" color="fg.muted">
-            From src/design-system/tokens/radii.ts (plus Chakra&apos;s
-            built-in `none`). Prefer md/lg for buttons and form controls,
-            xl/2xl for cards — see the file&apos;s own comment for the full
-            rationale.
+            From src/design-system/tokens/radii.ts (plus Chakra&apos;s built-in
+            `none`). Prefer md/lg for buttons and form controls, xl/2xl for
+            cards — see the file&apos;s own comment for the full rationale.
           </Text>
         </Stack>
         <Stack direction="row" gap="6" wrap="wrap">

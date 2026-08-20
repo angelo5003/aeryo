@@ -18,7 +18,20 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const STEPS = [
-  "0", "1", "2", "3", "4", "5", "6", "8", "10", "12", "16", "20", "24", "32",
+  "0",
+  "1",
+  "2",
+  "3",
+  "4",
+  "5",
+  "6",
+  "8",
+  "10",
+  "12",
+  "16",
+  "20",
+  "24",
+  "32",
 ];
 
 function SpacingRow({ step }: { step: string }) {

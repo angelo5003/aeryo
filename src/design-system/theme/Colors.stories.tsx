@@ -92,10 +92,10 @@ export const RawPalette: Story = {
             Raw palette
           </Heading>
           <Text fontSize="sm" color="fg.muted">
-            The base scales from src/design-system/tokens/colors.ts. `teal`
-            (the one primary) also works directly as `colorPalette` on any
-            Chakra component. `lime` is reserved for wind data only — see the
-            Wind intensity group below, not general UI. `danger`/`caution` are
+            The base scales from src/design-system/tokens/colors.ts. `teal` (the
+            one primary) also works directly as `colorPalette` on any Chakra
+            component. `lime` is reserved for wind data only — see the Wind
+            intensity group below, not general UI. `danger`/`caution` are
             safety-only — never reach for them decoratively.
           </Text>
         </Stack>

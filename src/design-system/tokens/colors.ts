@@ -99,4 +99,25 @@ export const colors = {
     900: { value: "#3F2710" },
     950: { value: "#26170A" },
   },
+  // Added alongside danger/caution's own reasoning above: a third
+  // safety/status-only ramp, not a stock alert-green. Same construction
+  // method as danger/caution — same per-step saturation/lightness curve,
+  // just rotated to a moss/sea-green hue (152°) distinct from both the
+  // teal primary (183°) and the wind-only lime — so all three status
+  // ramps read as one consistent, atmospheric family rather than one
+  // brand-tuned pair plus a bolted-on stock green. Named by role, same as
+  // danger/caution: never reach for `colorPalette="success"` decoratively.
+  success: {
+    50: { value: "#EAFBF3" },
+    100: { value: "#CCF5E2" },
+    200: { value: "#A8EBCC" },
+    300: { value: "#81DFB3" },
+    400: { value: "#63D9A2" },
+    500: { value: "#54D498" },
+    600: { value: "#41B981" },
+    700: { value: "#319667" },
+    800: { value: "#226D4A" },
+    900: { value: "#174A32" },
+    950: { value: "#0E2F20" },
+  },
 } as const;
