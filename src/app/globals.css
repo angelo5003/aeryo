@@ -1,12 +1,18 @@
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+:root,
+.light {
+  --background: #edf8f6;
+  --foreground: #071216;
+}
+
+.dark {
+  --background: #071216;
+  --foreground: #edf8f6;
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  :root:not(.light):not(.dark) {
+    --background: #071216;
+    --foreground: #edf8f6;
   }
 }
 
@@ -26,7 +32,7 @@ body {
   flex-direction: column;
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter), Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -42,8 +48,16 @@ a {
   text-decoration: none;
 }
 
+html.dark {
+  color-scheme: dark;
+}
+
+html.light {
+  color-scheme: light;
+}
+
 @media (prefers-color-scheme: dark) {
-  html {
+  html:not(.light):not(.dark) {
     color-scheme: dark;
   }
 }
