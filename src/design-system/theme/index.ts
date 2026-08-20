@@ -1,9 +1,9 @@
 import { createSystem, defaultConfig, defineConfig } from "@chakra-ui/react";
 
-import { colors } from "./colors";
-import { radii } from "./radii";
+import { colors } from "../tokens/colors";
+import { radii } from "../tokens/radii";
+import { shadows } from "../tokens/shadows";
 import { semanticTokens } from "./semantic-tokens";
-import { shadows } from "./shadows";
 import { fonts } from "./typography";
 
 const config = defineConfig({

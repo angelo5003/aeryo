@@ -3,10 +3,12 @@ import { Box, Grid, Heading, Stack, Text, useToken } from "@chakra-ui/react";
 
 /**
  * Not a component — a living reference for the Aeryo color tokens defined in
- * `src/design-system/theme`. Every swatch is rendered by its token name
- * (`bg="ink.900"`, `bg="rider.riding"`, …), never a hardcoded hex, so this
- * page always reflects whatever is actually registered on the Chakra system
- * — if a token changes here, it changes on this page too.
+ * `src/design-system/tokens/colors.ts` (raw palette) and
+ * `src/design-system/theme/semantic-tokens.ts` (semantic tokens). Every
+ * swatch is rendered by its token name (`bg="ink.900"`, `bg="rider.riding"`,
+ * …), never a hardcoded hex, so this page always reflects whatever is
+ * actually registered on the Chakra system — if a token changes here, it
+ * changes on this page too.
  */
 const meta = {
   title: "Foundations/Colors",
@@ -90,10 +92,10 @@ export const RawPalette: Story = {
             Raw palette
           </Heading>
           <Text fontSize="sm" color="fg.muted">
-            The base scales from src/design-system/theme/colors.ts. `teal` (the
-            one primary) also works directly as `colorPalette` on any Chakra
-            component. `lime` is reserved for wind data only — see the Wind
-            intensity group below, not general UI. `danger`/`caution` are
+            The base scales from src/design-system/tokens/colors.ts. `teal`
+            (the one primary) also works directly as `colorPalette` on any
+            Chakra component. `lime` is reserved for wind data only — see the
+            Wind intensity group below, not general UI. `danger`/`caution` are
             safety-only — never reach for them decoratively.
           </Text>
         </Stack>
