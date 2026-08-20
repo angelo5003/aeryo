@@ -6,5 +6,7 @@ describe("design system theme", () => {
     expect(system.token("colors.teal.500")).toBe("#19AEB5");
     expect(system.token("radii.lg")).toBe("10px");
     expect(system.token("shadows.md")).toBe("var(--chakra-shadows-md)");
+    expect(system.token("fontSizes.xl")).toBe("1.25rem");
+    expect(system.token("fontWeights.bold")).toBe("700");
   });
 });

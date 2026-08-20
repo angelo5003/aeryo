@@ -3,18 +3,30 @@ import { createSystem, defaultConfig, defineConfig } from "@chakra-ui/react";
 import { colors } from "../tokens/colors";
 import { radii } from "../tokens/radii";
 import { shadows } from "../tokens/shadows";
+import {
+  fonts,
+  fontSizes,
+  fontWeights,
+  letterSpacings,
+  lineHeights,
+  textStyles,
+} from "../tokens/typography";
 import { semanticTokens } from "./semantic-tokens";
-import { fonts } from "./typography";
 
 const config = defineConfig({
   theme: {
     tokens: {
       colors,
       fonts,
+      fontSizes,
+      fontWeights,
+      lineHeights,
+      letterSpacings,
       radii,
       shadows,
     },
     semanticTokens,
+    textStyles,
   },
 });
 
