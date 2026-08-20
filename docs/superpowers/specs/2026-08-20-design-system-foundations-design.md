@@ -23,19 +23,18 @@ pairs. A `Colors.stories.tsx` already renders the raw palette and
 semantic tokens live.
 
 An existing critique (`.impeccable/critique/2026-08-20T11-28-12Z__src-design-system-theme.md`)
-flagged one P0 and two P1 contrast bugs in `semantic-tokens.ts` that
-this pass also fixes, since it's touching the same file:
+had flagged one P0 and several P1/P2/P3 issues in `semantic-tokens.ts`.
+**Correction after a full re-read of the current file:** all of those are
+already fixed in the code as it stands today — `accent.contrast` is
+mode-aware with a verified-ratio comment, `fg.subtle`/`fg.muted` carry
+corrected dark values with verified-ratio comments, the restraint
+principle already names `danger`/`caution` as sanctioned exceptions, and
+`border.DEFAULT` already has a decorative-only scope comment. The
+critique file is a stale record of a past state, not a live bug list.
+**`semantic-tokens.ts` needs no content changes in this pass** — it stays
+in place, untouched, in `theme/`.
 
-- **P0**: `accent.contrast` is not mode-aware (flat `ink.50`), producing
-  2.49:1 contrast against `accent.solid` in dark mode. Fix: mode-aware,
-  `ink.950` in dark mode (~7:1+).
-- **P1**: `fg.subtle` (`ink.500`) fails AA against both `bg` (3.77:1) and
-  `bg.subtle` (3.02:1) in dark mode. Fix: shift dark value from `ink.500`
-  toward the already-verified `ink.400`/nearby value.
-- **P1**: `fg.muted` on `bg.muted` lands at 4.12:1, just under AA. Fix:
-  nudge the dark value to clear 4.5:1.
-
-This pass extends that existing system rather than creating a competing
+This pass extends the existing system rather than creating a competing
 `tokens/`/`theme/` tree at the repo root, and does not introduce new
 generic hue families (Slate/Gray/Blue/Green/Yellow) — it maps the
 originally-requested primitive shape onto AERYO's actual brand palette
@@ -60,7 +59,7 @@ src/design-system/
 │   └── index.ts           — re-exports all token modules
 └── theme/
     ├── index.ts            — createSystem/defineConfig, now imports from ../tokens
-    ├── semantic-tokens.ts  — stays in place; P0/P1 contrast fixes applied
+    ├── semantic-tokens.ts  — stays in place, unchanged
     └── Colors.stories.tsx  — moves to Storybook Foundations/ group (see below)
 ```
 
@@ -76,23 +75,14 @@ scales (`ink`, `teal`, `lime`, `danger`, `caution`), each already a full
 file-level comment explaining the restraint principle (why there's no
 generic `blue`/`green`/`gray`/etc.).
 
-`semantic-tokens.ts` changes:
+`semantic-tokens.ts` requires **no changes** — verified during plan
+review that every issue the critique raised (mode-aware
+`accent.contrast`, corrected `fg.subtle`/`fg.muted` dark values, the
+restraint-principle exception note, the `border.DEFAULT` decorative-only
+comment) is already present in the file as committed. It stays in
+`theme/`, untouched.
 
-1. `accent.contrast` becomes mode-aware: `_light: "{colors.ink.50}"`,
-   `_dark: "{colors.ink.950}"` (fixes the P0).
-2. `fg.subtle` dark value moves off `ink.500` to a verified-AA value
-   against both `bg` and `bg.subtle` (fixes P1).
-3. `fg.muted` dark value nudges to clear 4.5:1 against `bg.muted`
-   specifically, re-verifying it still holds against `bg`/`bg.subtle`
-   too (fixes P1).
-4. One-line addition to the top-level restraint-principle comment
-   naming `danger`/`caution` as the sanctioned universal safety-color
-   exception (addresses the critique's P2 consistency note).
-5. One-line comment on `border.DEFAULT` marking it decorative-only, not
-   for interactive-boundary use (addresses the critique's P3 note).
-
-No structural/shape changes to `semantic-tokens.ts` beyond these value
-and comment edits — `background`/`surface`/`border`/`text`/`icon`/
+No structural/shape changes to `semantic-tokens.ts` — `background`/`surface`/`border`/`text`/`icon`/
 `status` naming in the original ask is already covered by the existing
 `bg`/`fg`/`border`/`accent`/`rider`/`session`/`wind` semantic groups,
 which this spec keeps rather than renaming (renaming would break every
