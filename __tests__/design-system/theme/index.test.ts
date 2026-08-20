@@ -9,5 +9,6 @@ describe("design system theme", () => {
     expect(system.token("fontSizes.xl")).toBe("1.25rem");
     expect(system.token("fontWeights.bold")).toBe("700");
     expect(system.token("spacing.4")).toBe("1rem");
+    expect(system.breakpoints.keys()).toContain("md");
   });
 });
