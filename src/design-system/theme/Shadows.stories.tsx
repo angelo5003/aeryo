@@ -1,4 +1,3 @@
-// src/design-system/theme/Shadows.stories.tsx
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 import { Box, Heading, Stack, Text, useToken } from "@chakra-ui/react";
 

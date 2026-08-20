@@ -10,6 +10,12 @@
  * docs/guides/aeryo-branding.md specifies custom numerals (e.g. a bespoke
  * stat-numeral scale) that would justify deviating from it. Add a
  * brand-specific override here if a real typographic need shows up.
+ *
+ * The categories below list the *sanctioned* steps, not an exhaustive set:
+ * because this system is built via `createSystem(defaultConfig, config)`,
+ * the merge is additive per key, so Chakra's full default scale (e.g.
+ * `fontSizes.6xl`, `lineHeights.tall`, `letterSpacings.wider`) still
+ * resolves alongside these. Prefer the named steps below.
  */
 export const fonts = {
   heading: { value: "var(--font-sora), 'Sora', sans-serif" },
@@ -52,6 +58,12 @@ export const letterSpacings = {
 /**
  * Named text-style bundles. Use as `textStyle="display"` etc. instead of
  * setting fontSize/fontWeight/lineHeight/letterSpacing individually.
+ *
+ * `label` intentionally reuses the name of one of Chakra's own default
+ * `textStyles` entries — this is a deliberate override (same pattern as
+ * `colors.teal` reclaiming Chakra's stock teal palette name elsewhere in
+ * this system), not an accidental collision. `textStyle="label"` resolves
+ * to AERYO's definition below, not Chakra's default.
  */
 export const textStyles = {
   display: {

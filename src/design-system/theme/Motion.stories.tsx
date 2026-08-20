@@ -1,4 +1,3 @@
-// src/design-system/theme/Motion.stories.tsx
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 import { useState } from "react";
 import { Box, Button, Heading, Stack, Text, useToken } from "@chakra-ui/react";

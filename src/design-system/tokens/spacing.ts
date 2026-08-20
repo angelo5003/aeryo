@@ -1,8 +1,13 @@
 /**
  * Spacing scale on a 4px base unit (1rem = 16px, so step `1` = 0.25rem =
- * 4px). Covers the steps actually used across layout/gap/padding/margin —
- * intentionally not every integer, to keep the scale to a small, memorable
- * set (§ "Spacing" in docs/guides/aeryo-branding.md's Foundations list).
+ * 4px). These are the *sanctioned* steps — the ones actually used across
+ * layout/gap/padding/margin (§ "Spacing" in docs/guides/aeryo-branding.md's
+ * Foundations list) — not an exhaustive list. Because this system is built
+ * via `createSystem(defaultConfig, config)`, the merge is additive per key:
+ * Chakra's full default scale (e.g. `spacing.7`, `spacing.0.5`) still
+ * resolves alongside these. Prefer the steps below; nothing currently
+ * enforces that preference beyond convention (an ESLint rule would be the
+ * way to make it a real guarantee, once component work needs it).
  */
 export const spacing = {
   0: { value: "0" },
