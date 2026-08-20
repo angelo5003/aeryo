@@ -3,6 +3,7 @@ import { createSystem, defaultConfig, defineConfig } from "@chakra-ui/react";
 import { colors } from "../tokens/colors";
 import { radii } from "../tokens/radii";
 import { shadows } from "../tokens/shadows";
+import { spacing } from "../tokens/spacing";
 import {
   fonts,
   fontSizes,
@@ -24,6 +25,7 @@ const config = defineConfig({
       letterSpacings,
       radii,
       shadows,
+      spacing,
     },
     semanticTokens,
     textStyles,
