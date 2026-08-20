@@ -9,6 +9,8 @@ describe("design system theme", () => {
     expect(system.token("fontSizes.xl")).toBe("1.25rem");
     expect(system.token("fontWeights.bold")).toBe("700");
     expect(system.token("spacing.4")).toBe("1rem");
+    expect(system.token("durations.normal")).toBe("200ms");
+    expect(system.token("easings.easeOut")).toBe("cubic-bezier(0, 0, 0.2, 1)");
     expect(system.breakpoints.keys()).toContain("md");
   });
 });

@@ -2,6 +2,7 @@ import { createSystem, defaultConfig, defineConfig } from "@chakra-ui/react";
 
 import { breakpoints } from "../tokens/breakpoints";
 import { colors } from "../tokens/colors";
+import { durations, easings } from "../tokens/motion";
 import { radii } from "../tokens/radii";
 import { shadows } from "../tokens/shadows";
 import { spacing } from "../tokens/spacing";
@@ -28,6 +29,8 @@ const config = defineConfig({
       radii,
       shadows,
       spacing,
+      durations,
+      easings,
     },
     semanticTokens,
     textStyles,
