@@ -106,7 +106,9 @@ spacing:
 
 # Design System: AERYO
 
-AERYO is a premium, intelligent wind platform for kitesurfing. Dark-first. Mobile-first. iOS. The product name is **AERYO** — never "Kitesurf", never a generic weather app, never an extreme-sports brand.
+AERYO is a premium, intelligent wind-and-community platform for kitesurfing. Dark-first. Mobile-first. **Responsive web** (not native iOS). The product name is **AERYO** — never "Kitesurf", never a generic weather app, never an extreme-sports brand.
+
+**Product framing (read this before generating anything).** AERYO is community-first, not weather-first. The core question the Home screen answers is *"who's riding, and where?"* — not *"what's the wind doing?"*. Wind is real-time, useful, always visible, but it supports the decision to ride together; it is not the headline. Screens generated before this note treated wind as the hero (giant numeral, forecast-first Home) — that direction is superseded below.
 
 This file is the visual source of truth for Stitch. Tokens are copied from the production system in `src/design-system/theme/`. Do not invent new colors, fonts, radii, or accents.
 
@@ -244,6 +246,15 @@ Numbers such as `18 kn`, `WNW 24°`, `12°C`, `82%` must be immediately scannabl
 - **Spot card:** 16:9 or 3:2 cinematic still, then name (Sora 18px), distance, live kn, difficulty label, community rating. Difficulty as **label + icon**, not color alone.
 - **Map:** Dark, restrained, geography quiet. Wind and spots are the subject. Spot markers are small O-rings. No busy Google-default styling.
 
+### Community, presence, session, and chat components (signature — currently missing from generated screens)
+
+- **Rider presence badge:** Small circular avatar with a status ring — Bright Teal ring = riding now, Deep Teal ring = planning, no ring/Subtle Instrument = offline. Never color-only: pair with a one-word label the first time it appears on a screen ("Riding now").
+- **"I'm riding" action:** A primary button (AERYO Teal fill), not a toggle switch — this is a deliberate, confident action a rider takes, not a passive setting. On tap, confirms with the rider's avatar joining the presence stack immediately.
+- **Rider avatar stack:** Overlapping circular avatars (28-32px, 2px Atmospheric Base border between them), capped at 4-5 visible with a `+N` Raised Surface pill for the rest. Used on Home and Spot Detail to show who's riding/planning at a glance.
+- **Session card:** Deep Surface fill, 14-18px radius, hairline border — same card language as spot cards. Shows: spot name, start time, style (Freeride/Big Air/etc. as a small label, not a color-coded chip), rider avatar stack + count, capacity (`8 / 10 riders`), one primary action (`Join` or `View`, never both stacked).
+- **Spot chat preview:** Last 1-2 messages inline on Spot Detail (avatar + name + message, Inter 14px), with a `View chat` link. Full chat screen: message list with sender avatar/name/timestamp, composer pinned above the safe area, Raised Surface input fill matching standard inputs.
+- **Create session form:** Standard input/select stylings (Section 4 "Inputs"). Fields: spot, date, start time, duration, style, max riders, visibility (community/friends). Primary CTA `Create session` full-width, matches the "single page CTA" button rule.
+
 ### Feedback
 
 - **Toasts:** Deep Surface, hairline, 14px radius, Inter 14px, 16px from bottom nav.
@@ -257,10 +268,10 @@ Numbers such as `18 kn`, `WNW 24°`, `12°C`, `82%` must be immediately scannabl
 
 ### Device & structure
 
-- **Platform:** iOS, iPhone 17 Pro / Pro Max. Mobile-first. Portrait.
-- **Safe areas:** Status bar + Dynamic Island respected. Bottom nav above home indicator.
-- **Horizontal inset:** 20px page margin. 16px gutters inside cards.
-- **Width:** Single column. No desktop chrome in Phase 1.
+- **Platform:** Responsive web. Mobile-first (design and generate at mobile width first), scales up to tablet/desktop. Portrait-primary on mobile.
+- **Safe areas:** Respect mobile status-bar/notch inset via standard web safe-area handling. Bottom nav sits above the home-indicator safe area on mobile.
+- **Horizontal inset:** 20px page margin on mobile, growing to 40px+ at desktop widths (`margin-desktop` token). 16px gutters inside cards.
+- **Width:** Single column on mobile. At `md`+ breakpoints, layouts may open into two columns (e.g. spot list + map, session list + detail) — content and hierarchy stay identical to mobile, just given more room, never a different design language.
 
 ### Whitespace
 
@@ -269,13 +280,21 @@ Numbers such as `18 kn`, `WNW 24°`, `12°C`, `82%` must be immediately scannabl
 - **Section gaps:** 24px between modules; 8px inside a module.
 - **Avoid:** Tight meteorological dashboards. Avoid sparse fashion-lookbook emptiness. Sit in the middle: dense enough to decide in seconds, quiet enough to feel premium.
 
-### Hierarchy (every conditions screen)
+### Hierarchy — Home screen (community-first)
 
-1. Wind now (speed, direction, gusts)
-2. Decision (Go / Wait / Caution + why)
-3. Where (recommended spot)
-4. When (next useful window)
-5. Secondary (alerts, upcoming session, quick actions)
+1. **Who's riding** — your home spot's live rider count + a short avatar stack, right at the top.
+2. **Upcoming sessions** — sessions at your spots today/this week, join in one tap.
+3. **Wind snapshot** — compact, not a giant numeral: current speed, direction, one-line trend, for the same spot. Supporting information, not the hero.
+4. **Spot shortcuts** — your saved/home spots, one tap to spot detail.
+5. **Secondary** — community activity, alerts.
+
+### Hierarchy — Spot Detail / Forecast screen
+
+1. Who's here now (active rider list + "I'm riding" action)
+2. Wind now (speed, direction, gusts) and short forecast strip
+3. Upcoming sessions at this spot (join / create)
+4. Spot chat preview (tap through to full chat)
+5. Secondary (photos, spot info, favorite)
 
 ### Touch & accessibility
 
@@ -301,7 +320,8 @@ Use real, specific content — never lorem, never generic beaches.
 
 ### Language to use
 
-- Atmosphere: "dark atmospheric instrument canvas", "aerodynamic", "wind-first", "calm then intelligent"
+- Framing: "community-first", "who's riding right now", "rider presence", "session-driven" — lead with these, not with "wind-first"
+- Atmosphere: "dark atmospheric instrument canvas", "aerodynamic", "calm then intelligent"
 - Buttons: "gently rounded 8–10px corners, compact, not pills"
 - Cards: "14–18px aerodynamic corners, deep surface, hairline teal border, almost no shadow"
 - Wind: "oversized Sora extra-bold knots numeral with circular direction ring"
