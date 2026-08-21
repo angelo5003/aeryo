@@ -111,6 +111,7 @@ export const AeryoCard = React.forwardRef<HTMLDivElement, AeryoCardProps>(
         variant={CHAKRA_VARIANT[variant]}
         size={size}
         borderRadius="xl"
+        overflow="hidden"
         flexDirection={layout === "horizontal" ? "row" : "column"}
         opacity={disabled ? 0.5 : undefined}
         aria-disabled={disabled || undefined}
