@@ -363,4 +363,17 @@ export const semanticTokens = {
       },
     },
   },
+  // Safe-area insets as spacing tokens, so any component can write
+  // `pt="safe.top"` the same way it writes any other spacing value instead
+  // of reaching for a raw CSS var. The underlying --safe-* custom
+  // properties are defined once in src/app/globals.css and stay correct on
+  // both iOS and Android — see the comment there for how.
+  spacing: {
+    safe: {
+      top: { value: "var(--safe-top)" },
+      bottom: { value: "var(--safe-bottom)" },
+      left: { value: "var(--safe-left)" },
+      right: { value: "var(--safe-right)" },
+    },
+  },
 } as const;

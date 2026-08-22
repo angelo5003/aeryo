@@ -16,6 +16,26 @@
   }
 }
 
+/*
+ * Safe-area insets, unified across platforms. iOS reports these natively
+ * via env() once the page's viewport meta has viewport-fit=cover (see the
+ * `viewport` export in src/app/layout.tsx). Android's WebView has had bugs
+ * reporting env() correctly, so Capacitor's SystemBars plugin
+ * (capacitor.config.ts, insetsHandling: "css") injects the same values as
+ * --safe-area-inset-* custom properties instead — var() tries that first
+ * and falls back to env() so this one rule works on both platforms without
+ * caring which one supplied the number.
+ */
+:root {
+  --safe-top: var(--safe-area-inset-top, env(safe-area-inset-top, 0px));
+  --safe-bottom: var(
+    --safe-area-inset-bottom,
+    env(safe-area-inset-bottom, 0px)
+  );
+  --safe-left: var(--safe-area-inset-left, env(safe-area-inset-left, 0px));
+  --safe-right: var(--safe-area-inset-right, env(safe-area-inset-right, 0px));
+}
+
 html {
   height: 100%;
 }
@@ -35,6 +55,14 @@ body {
   font-family: var(--font-inter), Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* Default safe-area protection for the whole app. Full-bleed surfaces
+   * (fixed headers, tab bars) that want their background to run under the
+   * notch/home-indicator while only their content indents should opt out
+   * with their own padding using the `safe.*` Chakra tokens instead. */
+  padding-top: var(--safe-top);
+  padding-bottom: var(--safe-bottom);
+  padding-left: var(--safe-left);
+  padding-right: var(--safe-right);
 }
 
 /*
