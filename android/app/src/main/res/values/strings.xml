@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Aeryo</string>
+    <string name="title_activity_main">Aeryo</string>
+    <string name="package_name">com.aeryo.app</string>
+    <string name="custom_url_scheme">com.aeryo.app</string>
+</resources>

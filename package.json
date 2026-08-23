@@ -17,7 +17,9 @@
     "typegen": "chakra typegen src/design-system/theme/index.ts --tsconfig tsconfig.json",
     "postinstall": "npm run typegen",
     "ios:sync": "cap sync ios",
-    "ios:open": "cap open ios"
+    "ios:open": "cap open ios",
+    "android:sync": "cap sync android",
+    "android:open": "cap open android"
   },
   "overrides": {
     "rolldown": "1.2.4"
@@ -33,6 +35,7 @@
     "react-icons": "^5.7.0"
   },
   "devDependencies": {
+    "@capacitor/android": "^8.5.0",
     "@capacitor/assets": "^3.0.5",
     "@capacitor/cli": "^8.5.0",
     "@capacitor/core": "^8.5.0",

@@ -19,6 +19,21 @@ const config: CapacitorConfig = {
       showSpinner: false,
       backgroundColor: "#0B0F14",
     },
+    // Bundled with @capacitor/core (no separate package) — the current,
+    // Android-16-safe replacement for @capacitor/status-bar's
+    // `overlaysWebView`, which Android no longer allows apps to opt out of.
+    // `insetsHandling: "css"` makes Android inject the same
+    // `--safe-area-inset-*` custom properties iOS reports natively via
+    // `env()`, so `src/app/globals.css` can read one set of variables on
+    // both platforms. `style: "DEFAULT"` follows the OS-level appearance
+    // setting until the app finishes hydrating; `StatusBarSync`
+    // (src/components/ui/status-bar-sync.tsx) then takes over and matches
+    // the app's own color mode (which can differ from the OS setting, e.g.
+    // if the user picked a mode in-app).
+    SystemBars: {
+      insetsHandling: "css",
+      style: "DEFAULT",
+    },
   },
 };
 
