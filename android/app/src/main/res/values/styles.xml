@@ -18,5 +18,14 @@
 
     <style name="AppTheme.NoActionBarLaunch" parent="Theme.SplashScreen">
         <item name="android:background">@drawable/splash</item>
+        <!-- Android 12+'s native SplashScreen API ignores the legacy
+             android:background above and shows its own default (plain gray)
+             background unless told otherwise. This brands it to match the
+             app instead of leaving it generic. The icon shown in that
+             system splash still comes from the launcher icon's default
+             white-circle badge, not the edge-to-edge drawable/splash.png —
+             matching that exactly needs a dedicated icon-safe-zone asset,
+             tracked as a follow-up rather than done here. -->
+        <item name="windowSplashScreenBackground">@color/splash_background</item>
     </style>
 </resources>

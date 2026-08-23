@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Matches capacitor.config.ts's SplashScreen.backgroundColor. Used by
+         Android 12+'s native SplashScreen API (windowSplashScreenBackground
+         in styles.xml) — without this, Android ignores the app's themed
+         drawable/splash.png entirely and shows its own plain gray default
+         background before the app's content loads. -->
+    <color name="splash_background">#0B0F14</color>
+</resources>
