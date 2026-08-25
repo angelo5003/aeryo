@@ -46,6 +46,32 @@ export const semanticTokens = {
         value: { _light: "{colors.ink.200}", _dark: "{colors.ink.800}" },
       },
       panel: { value: { _light: "white", _dark: "{colors.ink.900}" } },
+      // Chakra's Field/Input/Alert recipes read `bg.error` etc directly
+      // (not via `colorPalette` — that's a separate mechanism, see the
+      // `teal`/`ink`/`danger`/`caution`/`success` colorPalette blocks
+      // below) — without these, an invalid Field's tinted surface would
+      // silently use Chakra's stock red/orange/green/blue instead of
+      // AERYO's own danger/caution/success/teal(info) families. Mirrors
+      // Chakra's own choice of the lightest/darkest ramp step for a
+      // background wash.
+      error: {
+        value: { _light: "{colors.danger.50}", _dark: "{colors.danger.950}" },
+      },
+      warning: {
+        value: {
+          _light: "{colors.caution.50}",
+          _dark: "{colors.caution.950}",
+        },
+      },
+      success: {
+        value: {
+          _light: "{colors.success.50}",
+          _dark: "{colors.success.950}",
+        },
+      },
+      info: {
+        value: { _light: "{colors.teal.50}", _dark: "{colors.teal.950}" },
+      },
     },
     fg: {
       DEFAULT: {
@@ -65,6 +91,34 @@ export const semanticTokens = {
       subtle: {
         value: { _light: "{colors.ink.400}", _dark: "#66969F" },
       },
+      // Reuses the same shade steps as the danger/caution/success/teal
+      // colorPalette `.fg` values below — deliberately, not by
+      // coincidence: those were already verified against `.subtle`/
+      // `.muted` colorPalette backgrounds, and separately confirmed here
+      // (9.72/8.62/10.14/8.14:1 etc.) against `bg`/`bg.subtle`, since
+      // Field's `errorText` renders directly on the page background, not
+      // on a tinted `bg.error` surface.
+      error: {
+        value: {
+          _light: "{colors.danger.800}",
+          _dark: "{colors.danger.200}",
+        },
+      },
+      warning: {
+        value: {
+          _light: "{colors.caution.800}",
+          _dark: "{colors.caution.200}",
+        },
+      },
+      success: {
+        value: {
+          _light: "{colors.success.800}",
+          _dark: "{colors.success.200}",
+        },
+      },
+      info: {
+        value: { _light: "{colors.teal.800}", _dark: "{colors.teal.300}" },
+      },
     },
     // Deliberately low-contrast (~1.5:1 effective in dark mode) —
     // decorative hairlines only (guide §23 "subtle borders"). Never rely
@@ -82,6 +136,31 @@ export const semanticTokens = {
           _light: "{colors.ink.100}",
           _dark: "rgba(99, 230, 213, 0.10)",
         },
+      },
+      // Input's `_invalid` state reads `border.error` directly (see
+      // input.js's `--error-color: colors.border.error`) — a UI-component
+      // boundary, so only needs 3:1, not 4.5:1. Same shade steps as the
+      // colorPalette `.border` values below.
+      error: {
+        value: {
+          _light: "{colors.danger.500}",
+          _dark: "{colors.danger.400}",
+        },
+      },
+      warning: {
+        value: {
+          _light: "{colors.caution.500}",
+          _dark: "{colors.caution.400}",
+        },
+      },
+      success: {
+        value: {
+          _light: "{colors.success.500}",
+          _dark: "{colors.success.400}",
+        },
+      },
+      info: {
+        value: { _light: "{colors.teal.500}", _dark: "{colors.teal.400}" },
       },
     },
 
