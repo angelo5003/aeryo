@@ -3,6 +3,7 @@ import { Geist_Mono, Inter, Sora } from "next/font/google";
 import { Provider } from "@/components/ui/provider";
 import { SafeAreaProvider } from "@/components/ui/safe-area";
 import "./globals.css";
+import { SplashProvider } from "./providers/SplashScreen/Provider/SplashProvider";
 
 const sora = Sora({
   variable: "--font-sora",
@@ -42,9 +43,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       suppressHydrationWarning
     >
       <body>
-        <SafeAreaProvider>
-          <Provider>{children}</Provider>
-        </SafeAreaProvider>
+        <SplashProvider>
+          <SafeAreaProvider>
+            <Provider>{children}</Provider>
+          </SafeAreaProvider>
+        </SplashProvider>
       </body>
     </html>
   );
