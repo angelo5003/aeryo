@@ -14,6 +14,7 @@
     "build-storybook": "storybook build",
     "test": "jest",
     "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
     "typegen": "chakra typegen src/design-system/theme/index.ts --tsconfig tsconfig.json",
     "postinstall": "npm run typegen",
     "ios:sync": "cap sync ios",
