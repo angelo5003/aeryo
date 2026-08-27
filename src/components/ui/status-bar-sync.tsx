@@ -25,11 +25,25 @@ export function StatusBarSync() {
   React.useEffect(() => {
     if (!Capacitor.isNativePlatform()) return;
 
-    // `Style.Dark` = dark icons, for a light background (light mode).
-    // `Style.Light` = light icons, for a dark background (dark mode).
-    // (Naming is the icon color, not the background it's drawn on.)
+    // `colorMode` is `undefined` for a brief moment on every mount — until
+    // next-themes has read the persisted/system preference on the client
+    // (its own hydration-safety measure). Guard against that instead of
+    // letting it silently fall through to the light-mode style below: that
+    // would flash (or on some mount timings, get stuck showing) dark
+    // status bar icons on this app's dark background, unreadable against
+    // it. Wait for a real value instead of guessing.
+    if (colorMode !== "light" && colorMode !== "dark") return;
+
+    // Counterintuitively, `@capacitor/core`'s own type definitions name
+    // these for the *background* they're meant for, not the icon color:
+    // `Style.Dark` = "light system bar content on a dark background", and
+    // `Style.Light` = "dark system bar content on a light background". So
+    // dark mode (a dark background) needs `Style.Dark` — reading this as
+    // "Dark = dark icons" (the intuitive-but-wrong reading) is exactly
+    // backwards and was the bug here: it set unreadable dark icons on this
+    // app's dark background.
     const style =
-      colorMode === "dark" ? SystemBarsStyle.Light : SystemBarsStyle.Dark;
+      colorMode === "dark" ? SystemBarsStyle.Dark : SystemBarsStyle.Light;
 
     SystemBars.setStyle({ style }).catch((error: unknown) => {
       console.error("StatusBarSync: failed to set status bar style", error);

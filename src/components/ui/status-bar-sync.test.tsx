@@ -44,6 +44,9 @@ describe("StatusBarSync", () => {
   });
 
   it("sets light (white) icons for dark mode when running natively", async () => {
+    // `@capacitor/core`'s `SystemBarsStyle.Dark` = "light system bar
+    // content on a dark background" — i.e. dark mode wants `Style.Dark`,
+    // not `Style.Light`. See the comment in status-bar-sync.tsx.
     isNativePlatform.mockReturnValue(true);
     useColorMode.mockReturnValue({ colorMode: "dark" });
 
@@ -51,7 +54,7 @@ describe("StatusBarSync", () => {
       render(<StatusBarSync />);
     });
 
-    expect(setStyle).toHaveBeenCalledWith({ style: "LIGHT" });
+    expect(setStyle).toHaveBeenCalledWith({ style: "DARK" });
   });
 
   it("sets dark icons for light mode when running natively", async () => {
@@ -62,7 +65,7 @@ describe("StatusBarSync", () => {
       render(<StatusBarSync />);
     });
 
-    expect(setStyle).toHaveBeenCalledWith({ style: "DARK" });
+    expect(setStyle).toHaveBeenCalledWith({ style: "LIGHT" });
   });
 
   it("re-syncs when color mode changes after mount", async () => {
@@ -74,13 +77,29 @@ describe("StatusBarSync", () => {
       const result = render(<StatusBarSync />);
       rerender = result.rerender;
     });
-    expect(setStyle).toHaveBeenLastCalledWith({ style: "DARK" });
+    expect(setStyle).toHaveBeenLastCalledWith({ style: "LIGHT" });
 
     useColorMode.mockReturnValue({ colorMode: "dark" });
     await act(async () => {
       rerender(<StatusBarSync />);
     });
-    expect(setStyle).toHaveBeenLastCalledWith({ style: "LIGHT" });
+    expect(setStyle).toHaveBeenLastCalledWith({ style: "DARK" });
+  });
+
+  it("does not guess a style while color mode is still unresolved", async () => {
+    // `useColorMode()`'s `colorMode` is `undefined` for a moment on every
+    // real mount (next-themes hasn't read the persisted/system preference
+    // yet). Regression test for the bug where this fell through to the
+    // light-mode branch and set dark (unreadable) icons on a dark
+    // background — see status-bar-sync.tsx.
+    isNativePlatform.mockReturnValue(true);
+    useColorMode.mockReturnValue({ colorMode: undefined });
+
+    await act(async () => {
+      render(<StatusBarSync />);
+    });
+
+    expect(setStyle).not.toHaveBeenCalled();
   });
 
   it("renders nothing visible", async () => {
