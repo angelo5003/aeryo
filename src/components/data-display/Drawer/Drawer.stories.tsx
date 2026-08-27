@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 import { Stack } from "@chakra-ui/react";
-import { expect, within } from "storybook/test";
+import { expect, waitFor, within } from "storybook/test";
 import * as React from "react";
 import { LuMap, LuMenu, LuSettings, LuTrophy, LuWind } from "react-icons/lu";
 import { Button } from "@/components/actions/Button";
@@ -142,12 +142,19 @@ export const Open: Story = {
     // The drawer portals to document.body, outside canvasElement — query
     // the full document for its content.
     const canvas = within(canvasElement.ownerDocument.body);
-    await expect(canvas.getByText("Filters")).toBeVisible();
-    await expect(
-      canvas.getByText(
-        "Narrow down spots by wind speed, distance, and rating.",
-      ),
-    ).toBeVisible();
+    // `defaultOpen` runs the drawer through its enter transition — the
+    // title/body are in the DOM immediately but stay visibility-hidden
+    // until the animation settles, so wait rather than asserting instantly.
+    await waitFor(() =>
+      expect(canvas.getByText("Filters")).toBeVisible(),
+    );
+    await waitFor(() =>
+      expect(
+        canvas.getByText(
+          "Narrow down spots by wind speed, distance, and rating.",
+        ),
+      ).toBeVisible(),
+    );
   },
 };
 
