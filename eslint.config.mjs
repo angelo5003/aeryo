@@ -51,6 +51,15 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Native platform trees: generated Capacitor scaffolding plus the
+    // web build copied in by `cap sync` (android/**/assets/public,
+    // android/**/build). None of it is hand-written app source.
+    "android/**",
+    "ios/**",
+    // Test / coverage output.
+    "coverage/**",
+    "playwright-report/**",
+    "test-results/**",
   ]),
   ...storybook.configs["flat/recommended"],
   {

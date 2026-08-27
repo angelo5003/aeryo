@@ -16,6 +16,10 @@ const config: Config = {
     // Match the "@/*" path alias declared in tsconfig.json
     "^@/(.*)$": "<rootDir>/src/$1",
   },
+  // `e2e/*.spec.ts` are Playwright tests (run via `npm run test:e2e`),
+  // not Jest — without this, Jest's default testMatch picks them up and
+  // the suite fails on `import ... from "@playwright/test"`.
+  testPathIgnorePatterns: ["<rootDir>/node_modules/", "<rootDir>/e2e/"],
   // Without this, coverage only reflects the handful of files that
   // already have tests (previously reported as ~85%, which was
   // misleading) instead of the whole app. `.stories.tsx` files are
