@@ -15,6 +15,39 @@
         "value": "heading",
         "createdAt": "2026-08-28T14:38:06.448Z",
         "reason": "Agent: Chakra heading recipe restates fonts.heading (Sora); token name is not a second family"
+      },
+      {
+        "rule": "overused-font",
+        "value": "roboto",
+        "createdAt": "2026-08-28T14:54:26.786Z",
+        "reason": "Critique 2026-08-20T11-28-12Z: Roboto is Storybook's own chrome font bleeding into the injected scan, not used anywhere in AERYO's stack (zero references in src/ or .storybook/) — confirmed detector self-artifact, not project usage."
+      },
+      {
+        "rule": "text-occlusion",
+        "value": "*",
+        "files": [
+          "src/design-system/theme/Colors.stories.tsx"
+        ],
+        "createdAt": "2026-08-28T14:54:26.896Z",
+        "reason": "Critique 2026-08-20T11-28-12Z: finding is the detector's own injected overlay label covering the Raw Palette story's page heading — a self-artifact of the scan, not a real page defect (confirmed via DOM inspection)."
+      },
+      {
+        "rule": "em-dash-overuse",
+        "value": "*",
+        "files": [
+          "src/design-system/theme/Colors.stories.tsx"
+        ],
+        "createdAt": "2026-08-28T14:54:26.987Z",
+        "reason": "Critique 2026-08-20T11-28-12Z: rule conflates U+00B7 middle-dot (the 'token · value' swatch label convention) with U+2014 em-dash — 23 of 24 counted characters are middle-dots, confirmed by inspection."
+      },
+      {
+        "rule": "line-length",
+        "value": "*",
+        "files": [
+          "src/design-system/theme/Colors.stories.tsx"
+        ],
+        "createdAt": "2026-08-28T14:54:27.091Z",
+        "reason": "Critique 2026-08-20T11-28-12Z: file is a living token-reference/documentation page (see its own header comment), not production UI or marketing copy; line-length targets readable prose."
       }
     ]
   }

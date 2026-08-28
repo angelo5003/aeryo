@@ -12,16 +12,20 @@
  * instead of sitting beside them unused.
  *
  * RESTRAINT PRINCIPLE (docs/guides/aeryo-branding.md §9's "Resolved
- * Palette" addendum): `teal` is the one AERYO primary — the default for
- * anything interactive (buttons, links, active nav). There is no second,
- * general-purpose highlight token. `lime` exists ONLY inside `wind.*`, as
- * the top of the wind-intensity scale — never bind it to a button, badge,
- * or anything outside wind/data visualization. If a new UI element wants
- * "a highlight," reach for a brighter step of `teal` first and ask
- * whether it really needs one at all (§28: does this communicate wind,
- * movement, clarity, freedom or premium quality?). `danger` and `caution`
- * are the two sanctioned safety-only exceptions to "one primary, one
- * highlight" — universal danger/caution colors, never brand decoration.
+ * Palette" addendum): the real rule is "one primary, one controlled
+ * highlight, plus as many safety colors as the product needs" — not the
+ * stricter-sounding "one primary, nothing else" the old comment implied.
+ * `teal` is the one AERYO primary — the default for anything interactive
+ * (buttons, links, active nav). There is no second, general-purpose
+ * highlight token. `lime` exists ONLY inside `wind.*`, as the top of the
+ * wind-intensity scale — never bind it to a button, badge, or anything
+ * outside wind/data visualization. If a new UI element wants "a
+ * highlight," reach for a brighter step of `teal` first and ask whether
+ * it really needs one at all (§28: does this communicate wind, movement,
+ * clarity, freedom or premium quality?). `danger`, `caution`, and
+ * `success` are the three sanctioned safety/status-only exceptions to
+ * "one primary, one highlight" — universal signal colors, never brand
+ * decoration (see colors.ts for why they're named by role, not hue).
  *
  * WCAG NOTE: every dark-mode text/foreground value below is verified
  * against the surface(s) it's actually paired with (WCAG 2.1 contrast
@@ -216,6 +220,10 @@ export const semanticTokens = {
     },
 
     // Session status (guide §32 "Session" states) — same shade principle.
+    // `session.planning` intentionally matches `rider.planning` exactly:
+    // both name "not yet happening, but on the calendar" on the same
+    // shade principle, so the same step is the correct answer twice, not
+    // an accidental duplication (flagged and cleared by a critique pass).
     session: {
       planning: {
         value: { _light: "{colors.teal.700}", _dark: "{colors.teal.600}" },

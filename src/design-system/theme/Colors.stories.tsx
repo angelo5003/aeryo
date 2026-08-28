@@ -27,8 +27,18 @@ function Swatch({ token, label }: { token: string; label: string }) {
     <Stack gap="2">
       <Box
         bg={token}
+        // `border`, not `border.muted` — and still not enough on its own.
+        // `border` is a deliberately faint ~1.5:1 hairline (see
+        // semantic-tokens.ts), so the darkest ramp steps (ink.950,
+        // teal.950, lime.950) can read as blending into Storybook's own
+        // dark chrome rather than as a distinct swatch (critique-flagged).
+        // This is a documentation page, not product UI, so it borrows
+        // `fg.subtle` at low width for a boundary every swatch keeps
+        // regardless of how dark its own fill is — product surfaces still
+        // use the faint `border` hairline; this override doesn't apply
+        // there.
         borderWidth="1px"
-        borderColor="border"
+        borderColor="fg.subtle"
         rounded="lg"
         height="14"
         width="full"
