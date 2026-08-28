@@ -2,12 +2,17 @@
 
 import { Box } from "@chakra-ui/react";
 import Image from "next/image";
+import { KenBurnsFrame } from "@/app/providers/SplashScreen/IntroScreen/KenBurnsFrame";
 import { Heading } from "@/components/typography/Heading";
 import { Text } from "@/components/typography/Text";
 import type { OnboardingSlideContent } from "../onboardingContent";
 
 export interface OnboardingSlideProps {
   slide: OnboardingSlideContent;
+  /** Drives the Ken Burns zoom — only the visible carousel slide should be active. */
+  isActive?: boolean;
+  /** First slide is above-the-fold; later slides can lazy-load. */
+  priority?: boolean;
 }
 
 /**
@@ -19,19 +24,24 @@ export interface OnboardingSlideProps {
  * this within the swipeable track; this component only renders one
  * slide's own content.
  */
-export function OnboardingSlide({ slide }: OnboardingSlideProps) {
+export function OnboardingSlide({
+  slide,
+  isActive = true,
+  priority = false,
+}: OnboardingSlideProps) {
   return (
     <Box position="relative" width="100%" height="100%" overflow="hidden">
-      <Image
-        src={slide.imageSrc}
-        alt=""
-        fill
-        style={{ objectFit: "cover" }}
-        // Only the first slide needs eager loading — the rest are revealed
-        // by swiping, so let Next.js lazy-load them.
-        priority={false}
-        draggable={false}
-      />
+      <KenBurnsFrame active={isActive}>
+        <Image
+          src={slide.imageSrc}
+          alt=""
+          fill
+          style={{ objectFit: "cover" }}
+          // First slide is the LCP of this screen; later slides lazy-load.
+          priority={priority}
+          draggable={false}
+        />
+      </KenBurnsFrame>
 
       {/* Scrim — see IntroScreen.tsx for the same treatment/reasoning. */}
       <Box
