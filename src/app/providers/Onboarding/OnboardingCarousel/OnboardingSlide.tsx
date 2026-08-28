@@ -21,7 +21,7 @@ export interface OnboardingSlideProps {
  * treatment as `IntroScreen` (full-bleed under the safe area, not
  * theme-aware — always sits on a dark photo regardless of the app's own
  * light/dark mode). `OnboardingCarousel` is responsible for positioning
- * this within the swipeable track; this component only renders one
+ * this in the fade stack; this component only renders one
  * slide's own content.
  */
 export function OnboardingSlide({
