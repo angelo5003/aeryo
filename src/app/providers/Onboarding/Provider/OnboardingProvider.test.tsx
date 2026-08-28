@@ -76,4 +76,27 @@ describe("OnboardingProvider", () => {
     expect(screen.getByTestId("state")).toHaveTextContent("true");
     expect(markOnboardingSeen).toHaveBeenCalledTimes(1);
   });
+
+  it("shows null while the persisted flag is still loading", async () => {
+    let resolveFlag!: (value: boolean) => void;
+    hasSeenOnboarding.mockReturnValue(
+      new Promise((resolve) => {
+        resolveFlag = resolve;
+      }),
+    );
+
+    render(
+      <OnboardingProvider>
+        <Consumer />
+      </OnboardingProvider>,
+    );
+
+    expect(screen.getByTestId("state")).toHaveTextContent("null");
+
+    await act(async () => {
+      resolveFlag(false);
+    });
+
+    expect(screen.getByTestId("state")).toHaveTextContent("false");
+  });
 });
