@@ -3,6 +3,7 @@ import { Geist_Mono, Inter, Sora } from "next/font/google";
 import { Provider } from "@/components/ui/provider";
 import { SafeAreaProvider } from "@/components/ui/safe-area";
 import "./globals.css";
+import { OnboardingProvider } from "./providers/Onboarding/Provider/OnboardingProvider";
 import { SplashProvider } from "./providers/SplashScreen/Provider/SplashProvider";
 
 const sora = Sora({
@@ -44,9 +45,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body>
         <SplashProvider>
-          <SafeAreaProvider>
-            <Provider>{children}</Provider>
-          </SafeAreaProvider>
+          <OnboardingProvider>
+            <SafeAreaProvider>
+              <Provider>{children}</Provider>
+            </SafeAreaProvider>
+          </OnboardingProvider>
         </SplashProvider>
       </body>
     </html>
