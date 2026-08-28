@@ -46,6 +46,12 @@ export const semanticTokens = {
         value: { _light: "{colors.ink.200}", _dark: "{colors.ink.800}" },
       },
       panel: { value: { _light: "white", _dark: "{colors.ink.900}" } },
+      // Full-bleed photographic canvas (intro, onboarding). Same value in
+      // both modes on purpose: these screens always sit on a dark photo,
+      // so they must not follow `bg` into off-white in light mode.
+      photo: {
+        value: { _light: "{colors.ink.950}", _dark: "{colors.ink.950}" },
+      },
       // Chakra's Field/Input/Alert recipes read `bg.error` etc directly
       // (not via `colorPalette` — that's a separate mechanism, see the
       // `teal`/`ink`/`danger`/`caution`/`success` colorPalette blocks
@@ -90,6 +96,20 @@ export const semanticTokens = {
       // light enough for that surface (use fg.muted there instead).
       subtle: {
         value: { _light: "{colors.ink.400}", _dark: "#66969F" },
+      },
+      // Type and chrome on a photographic scrim. Same value in both modes
+      // — `fg` would flip to dark ink in light mode and disappear on the
+      // photo. `muted` is the inactive mark (progress dots at rest).
+      photo: {
+        DEFAULT: {
+          value: { _light: "{colors.ink.50}", _dark: "{colors.ink.50}" },
+        },
+        muted: {
+          value: {
+            _light: "color-mix(in srgb, {colors.ink.50} 40%, transparent)",
+            _dark: "color-mix(in srgb, {colors.ink.50} 40%, transparent)",
+          },
+        },
       },
       // Reuses the same shade steps as the danger/caution/success/teal
       // colorPalette `.fg` values below — deliberately, not by

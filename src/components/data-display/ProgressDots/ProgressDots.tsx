@@ -13,7 +13,8 @@ import type { ProgressDotsProps } from "./ProgressDots.types";
  *
  * Prefer `ids` + `activeId`. `count` + `activeIndex` exist only for
  * callers that have no identity for a step (Storybook knobs, unnamed
- * placeholders).
+ * placeholders). Dots use `fg.photo` / `fg.photo.muted` because they
+ * sit on a photographic scrim, not on `bg`/`fg`.
  */
 export function ProgressDots({
   ids,
@@ -42,11 +43,9 @@ export function ProgressDots({
           width={id === currentId ? "6" : "1.5"}
           height="1.5"
           borderRadius="full"
-          // This component sits on top of a full-bleed photo with a dark
-          // scrim (not on the app's normal surfaces), so it uses raw white
-          // with transparency. See ProgressDots.tsx comment for context.
-          // eslint-disable-next-line no-restricted-syntax
-          bg={id === currentId ? "white" : "whiteAlpha.400"}
+          // On a photographic scrim — `fg.photo` / `fg.photo.muted`, not
+          // the theme-aware `fg` pair (those would flip in light mode).
+          bg={id === currentId ? "fg.photo" : "fg.photo.muted"}
           transition="width 0.2s ease-out, background-color 0.2s ease-out"
         />
       ))}

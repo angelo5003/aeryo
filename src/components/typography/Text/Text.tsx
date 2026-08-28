@@ -7,7 +7,7 @@ import type { TextProps } from "./Text.types";
  * Chakra ships no default recipe for `Text` (no built-in variants), so
  * `variant` here is entirely AERYO's own: it selects one of the named
  * `textStyle` bundles in src/design-system/tokens/typography.ts
- * (`body`/`label`/`caption`), rather than letting consumers compose
+ * (`body`/`label`/`caption`/`body.photo`/`label.photo`), rather than letting consumers compose
  * font-size/weight/line-height by hand. Every other Chakra `TextProps`
  * field (style props, responsive props, `as`, `asChild`, `ref`, …)
  * passes through untouched.

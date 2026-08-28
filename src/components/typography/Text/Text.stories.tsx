@@ -5,7 +5,9 @@ import { RESPONSIVE_VIEWPORTS } from "@/components/internal/storybookViewports";
 import { Text } from "./Text";
 import type { TextVariant } from "./Text.types";
 
-const VARIANTS: TextVariant[] = ["body", "label", "caption"];
+const CHROME_VARIANTS: TextVariant[] = ["body", "label", "caption"];
+const PHOTO_VARIANTS: TextVariant[] = ["body.photo", "label.photo"];
+const VARIANTS: TextVariant[] = [...CHROME_VARIANTS, ...PHOTO_VARIANTS];
 
 /**
  * AERYO's body-text primitive — a thin wrapper around Chakra UI's `Text`.
@@ -57,7 +59,7 @@ export const DarkModeStory: Story = {
     <DarkMode>
       <Box bg="bg" p="6">
         <Stack gap="4">
-          {VARIANTS.map((variant) => (
+          {CHROME_VARIANTS.map((variant) => (
             <Text key={variant} {...args} variant={variant} color="fg">
               {variant}: {args.children}
             </Text>
@@ -74,7 +76,7 @@ export const LightModeStory: Story = {
     <LightMode>
       <Box bg="bg" p="6">
         <Stack gap="4">
-          {VARIANTS.map((variant) => (
+          {CHROME_VARIANTS.map((variant) => (
             <Text key={variant} {...args} variant={variant} color="fg">
               {variant}: {args.children}
             </Text>
@@ -82,6 +84,22 @@ export const LightModeStory: Story = {
         </Stack>
       </Box>
     </LightMode>
+  ),
+};
+
+export const OnPhoto: Story = {
+  name: "On photo",
+  parameters: { controls: { disable: true } },
+  render: (args) => (
+    <Box bg="bg.photo" p="6">
+      <Stack gap="4">
+        {PHOTO_VARIANTS.map((variant) => (
+          <Text key={variant} {...args} variant={variant} color="fg.photo">
+            {variant}: {args.children}
+          </Text>
+        ))}
+      </Stack>
+    </Box>
   ),
 };
 

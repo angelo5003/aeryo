@@ -279,7 +279,7 @@ This records the concrete palette actually implemented in
 `src/design-system/theme/`, reconciling §9's philosophy with the original
 AERYO brand reference — the teal/mint/lime moodboard this project started
 from (near-black base `#071216`, surface `#0D2931`, teal `#19AEB5`, mint
-`#63E6D5`, lime `#D7FF3F`, off-white `#EDF8F6`, Sora/Inter typography, a
+`#63E6D5`, lime `#D7FF3F`, off-white `#EDF8F6`, Sora/Manrope typography, a
 wind-flow gradient bar running teal → lime across 0–50+ knots). Read this
 as the resolved answer to §9's "Claude should define the final palette" —
 supersedes the abstract guidance above with real values where they

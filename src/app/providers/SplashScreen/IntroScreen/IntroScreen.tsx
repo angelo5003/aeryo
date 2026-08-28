@@ -4,6 +4,7 @@ import { Box } from "@chakra-ui/react";
 import { motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import { Heading } from "@/components/typography/Heading";
+import { PHOTO_SCRIM_BG_IMAGE } from "@/design-system/theme/photoScrim";
 import { KenBurnsFrame } from "./KenBurnsFrame";
 import { WindLines } from "./WindLines";
 
@@ -65,10 +66,7 @@ export function IntroScreen({ onBackgroundLoad }: IntroScreenProps) {
       <Box
         position="absolute"
         inset={0}
-        style={{
-          background:
-            "linear-gradient(to top, rgba(11, 15, 20, 0.9) 0%, rgba(11, 15, 20, 0.35) 45%, rgba(11, 15, 20, 0) 75%)",
-        }}
+        bgImage={PHOTO_SCRIM_BG_IMAGE}
         pointerEvents="none"
       />
 
@@ -116,7 +114,7 @@ export function IntroScreen({ onBackgroundLoad }: IntroScreenProps) {
             <Heading
               as="p"
               variant="title"
-              color="white"
+              color="fg.photo"
               textAlign="center"
               letterSpacing="wide"
             >

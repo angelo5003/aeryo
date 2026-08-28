@@ -14,6 +14,7 @@ import {
   lineHeights,
   textStyles,
 } from "../tokens/typography";
+import { headingRecipe } from "./headingRecipe";
 import { semanticTokens } from "./semantic-tokens";
 
 const config = defineConfig({
@@ -34,6 +35,9 @@ const config = defineConfig({
     },
     semanticTokens,
     textStyles,
+    recipes: {
+      heading: headingRecipe,
+    },
   },
 });
 

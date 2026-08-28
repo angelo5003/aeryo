@@ -10,7 +10,7 @@ import {
 describe("typography tokens", () => {
   it("defines the font family tokens", () => {
     expect(fonts.heading.value).toContain("Sora");
-    expect(fonts.body.value).toContain("Inter");
+    expect(fonts.body.value).toContain("Manrope");
   });
 
   it("defines the full type scale", () => {
@@ -33,7 +33,12 @@ describe("typography tokens", () => {
       "extrabold",
     ]);
     expect(Object.keys(lineHeights)).toEqual(["tight", "normal", "relaxed"]);
-    expect(Object.keys(letterSpacings)).toEqual(["tight", "normal", "wide"]);
+    expect(Object.keys(letterSpacings)).toEqual([
+      "tight",
+      "normal",
+      "wide",
+      "wider",
+    ]);
   });
 
   it("defines the named textStyles bundles", () => {
@@ -44,8 +49,15 @@ describe("typography tokens", () => {
       "body",
       "caption",
       "label",
+      "body.photo",
+      "label.photo",
     ]);
     expect(textStyles.display.value.fontFamily).toBe("{fonts.heading}");
     expect(textStyles.body.value.fontFamily).toBe("{fonts.body}");
+    expect(textStyles["body.photo"].value.fontFamily).toBe("{fonts.body}");
+    expect(textStyles["label.photo"].value.letterSpacing).toBe(
+      "{letterSpacings.wider}",
+    );
+    expect(letterSpacings.wide.value).toBe("0.04em");
   });
 });

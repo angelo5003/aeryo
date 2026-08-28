@@ -1,6 +1,6 @@
 "use client";
 
-import { Box } from "@chakra-ui/react";
+import { Box, useToken } from "@chakra-ui/react";
 import { motion, useReducedMotion } from "framer-motion";
 
 // Hand-tuned rather than a sourced Lottie file (LottieFiles is behind a
@@ -21,6 +21,7 @@ const LINES = [
  */
 export function WindLines() {
   const reduceMotion = useReducedMotion();
+  const [photoFg] = useToken("colors", ["fg.photo"]);
   if (reduceMotion) return null;
 
   return (
@@ -34,7 +35,7 @@ export function WindLines() {
             left: "-40%",
             width: line.width,
             height: "1px",
-            background: `linear-gradient(90deg, transparent, rgba(255, 255, 255, ${line.opacity}), transparent)`,
+            background: `linear-gradient(90deg, transparent, color-mix(in srgb, ${photoFg} ${line.opacity * 100}%, transparent), transparent)`,
           }}
           animate={{ x: ["0%", "220%"] }}
           transition={{

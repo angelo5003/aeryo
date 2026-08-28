@@ -1,9 +1,10 @@
 /**
- * Typography tokens: font families (brand-anchored, unchanged) plus the
+ * Typography tokens: font families (Sora display, Manrope body, Geist Mono) plus the
  * full type scale (size/weight/line-height/letter-spacing) and the named
  * `textStyles` bundles (`display`/`heading`/`title`/`body`/`caption`/
- * `label`) components reach for via `textStyle="..."` instead of composing
- * fontSize+fontWeight+lineHeight by hand.
+ * `label`/`body.photo`/`label.photo`) components reach for via
+ * `textStyle="..."` instead of composing fontSize+fontWeight+lineHeight
+ * by hand. Sora is display-only: never below `title` (1.25rem).
  *
  * Sizes/weights/line-heights/letter-spacings use Chakra's own proven rem
  * scale rather than a brand-invented one — nothing in
@@ -14,12 +15,13 @@
  * The categories below list the *sanctioned* steps, not an exhaustive set:
  * because this system is built via `createSystem(defaultConfig, config)`,
  * the merge is additive per key, so Chakra's full default scale (e.g.
- * `fontSizes.6xl`, `lineHeights.tall`, `letterSpacings.wider`) still
- * resolves alongside these. Prefer the named steps below.
+ * `fontSizes.6xl`, `lineHeights.tall`) still resolves alongside these.
+ * Prefer the named steps below. `letterSpacings.wider` is ours (photo
+ * labels), not Chakra's default.
  */
 export const fonts = {
   heading: { value: "var(--font-sora), 'Sora', sans-serif" },
-  body: { value: "var(--font-inter), 'Inter', sans-serif" },
+  body: { value: "var(--font-manrope), 'Manrope', sans-serif" },
   mono: { value: "var(--font-geist-mono), ui-monospace, monospace" },
 } as const;
 
@@ -52,7 +54,8 @@ export const lineHeights = {
 export const letterSpacings = {
   tight: { value: "-0.02em" },
   normal: { value: "0" },
-  wide: { value: "0.02em" },
+  wide: { value: "0.04em" },
+  wider: { value: "0.08em" },
 } as const;
 
 /**
@@ -118,6 +121,29 @@ export const textStyles = {
       fontWeight: "{fontWeights.medium}",
       lineHeight: "{lineHeights.normal}",
       letterSpacing: "{letterSpacings.wide}",
+    },
+  },
+  /**
+   * Light type on a dark photograph. More weight, more leading, more
+   * tracking than the chrome twins — the three perceptual axes typeset
+   * wants when ink sits on a photo, not on a panel.
+   */
+  "body.photo": {
+    value: {
+      fontFamily: "{fonts.body}",
+      fontSize: "{fontSizes.md}",
+      fontWeight: "{fontWeights.medium}",
+      lineHeight: "{lineHeights.relaxed}",
+      letterSpacing: "{letterSpacings.normal}",
+    },
+  },
+  "label.photo": {
+    value: {
+      fontFamily: "{fonts.body}",
+      fontSize: "{fontSizes.xs}",
+      fontWeight: "{fontWeights.semibold}",
+      lineHeight: "{lineHeights.relaxed}",
+      letterSpacing: "{letterSpacings.wider}",
     },
   },
 } as const;

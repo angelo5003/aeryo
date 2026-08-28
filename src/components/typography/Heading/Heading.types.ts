@@ -5,7 +5,7 @@ import type { HeadingProps as ChakraHeadingProps } from "@chakra-ui/react";
  * `textStyle` bundles (src/design-system/tokens/typography.ts) — not
  * Chakra's own built-in `size` recipe (`xs`…`7xl`), which is
  * intentionally not exposed here so there's exactly one way to size a
- * heading.
+ * heading. Sora never goes smaller than `title`.
  */
 export type HeadingVariant = "display" | "heading" | "title";
 

@@ -5,7 +5,12 @@ import type { TextProps as ChakraTextProps } from "@chakra-ui/react";
  * `textStyle` bundles (src/design-system/tokens/typography.ts) — not a
  * separate styling system, just AERYO's own vocabulary for them.
  */
-export type TextVariant = "body" | "label" | "caption";
+export type TextVariant =
+  | "body"
+  | "label"
+  | "caption"
+  | "body.photo"
+  | "label.photo";
 
 export interface TextProps extends Omit<ChakraTextProps, "textStyle"> {
   /**

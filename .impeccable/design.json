@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-08-28T13:30:00.000Z",
+  "generatedAt": "2026-08-28T14:40:00.000Z",
   "title": "Design System: AERYO",
   "extensions": {
     "colorMeta": {
@@ -201,26 +201,97 @@
       }
     },
     "typographyMeta": {
-      "display": { "displayName": "Display", "purpose": "Rare hero type. Heading variant=\"display\"." },
-      "headline": { "displayName": "Headline", "purpose": "Screen titles. Heading variant=\"heading\"." },
-      "title": { "displayName": "Title", "purpose": "Card and onboarding titles." },
-      "body": { "displayName": "Body", "purpose": "Default reading text." },
-      "caption": { "displayName": "Caption", "purpose": "Supporting copy." },
-      "label": { "displayName": "Label", "purpose": "Meta and compact UI." }
+      "display": {
+        "displayName": "Display",
+        "purpose": "Rare hero type. Heading variant=\"display\"."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Screen titles. Heading variant=\"heading\"."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Card and onboarding titles. Sora's floor (1.25rem)."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Default reading text. Manrope."
+      },
+      "caption": {
+        "displayName": "Caption",
+        "purpose": "Supporting copy."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Meta and compact UI. Manrope, tracking 0.04em."
+      },
+      "body-photo": {
+        "displayName": "Body on photo",
+        "purpose": "Light type on a dark photograph. Manrope medium, line-height 1.65."
+      },
+      "label-photo": {
+        "displayName": "Label on photo",
+        "purpose": "Meta on a photograph. Manrope semibold, tracking 0.08em."
+      }
     },
     "shadows": [
-      { "name": "xs", "value": "0 1px 2px rgba(2, 8, 10, 0.4)", "purpose": "Smallest rest lift." },
-      { "name": "sm", "value": "0 2px 8px rgba(2, 8, 10, 0.45)", "purpose": "Interactive card hover." },
-      { "name": "md", "value": "0 8px 24px rgba(2, 8, 10, 0.5)", "purpose": "Menus and popovers." },
-      { "name": "lg", "value": "0 16px 40px rgba(2, 8, 10, 0.55)", "purpose": "Dialogs." },
-      { "name": "xl", "value": "0 24px 64px rgba(2, 8, 10, 0.6)", "purpose": "Rare large overlays." }
+      {
+        "name": "xs",
+        "value": "0 1px 2px rgba(2, 8, 10, 0.4)",
+        "purpose": "Smallest rest lift."
+      },
+      {
+        "name": "sm",
+        "value": "0 2px 8px rgba(2, 8, 10, 0.45)",
+        "purpose": "Interactive card hover."
+      },
+      {
+        "name": "md",
+        "value": "0 8px 24px rgba(2, 8, 10, 0.5)",
+        "purpose": "Menus and popovers."
+      },
+      {
+        "name": "lg",
+        "value": "0 16px 40px rgba(2, 8, 10, 0.55)",
+        "purpose": "Dialogs."
+      },
+      {
+        "name": "xl",
+        "value": "0 24px 64px rgba(2, 8, 10, 0.6)",
+        "purpose": "Rare large overlays."
+      }
     ],
     "motion": [
-      { "name": "fast", "value": "120ms", "purpose": "Immediate feedback." },
-      { "name": "normal", "value": "200ms", "purpose": "Default state change." },
-      { "name": "slow", "value": "320ms", "purpose": "Larger layout or overlay." },
-      { "name": "easeOut", "value": "cubic-bezier(0, 0, 0.2, 1)", "purpose": "Default settle. No bounce." },
-      { "name": "onboarding-page", "value": "480ms cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "One-slide carousel settle." }
+      {
+        "name": "fast",
+        "value": "120ms",
+        "purpose": "Immediate feedback."
+      },
+      {
+        "name": "normal",
+        "value": "200ms",
+        "purpose": "Default state change."
+      },
+      {
+        "name": "slow",
+        "value": "320ms",
+        "purpose": "Larger layout or overlay."
+      },
+      {
+        "name": "easeOut",
+        "value": "cubic-bezier(0, 0, 0.2, 1)",
+        "purpose": "Default settle. No bounce."
+      },
+      {
+        "name": "easeInOut",
+        "value": "cubic-bezier(0.4, 0, 0.2, 1)",
+        "purpose": "Photo dissolve between onboarding slides (0.5s)."
+      },
+      {
+        "name": "onboarding-page",
+        "value": "480ms cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Documented one-slide carousel settle."
+      }
     ],
     "breakpoints": [
       { "name": "sm", "value": "30em" },
@@ -237,15 +308,15 @@
       "refersTo": "button-primary",
       "description": "Solid AERYO Teal action. Intent primary, variant solid, size md.",
       "html": "<button class=\"ds-btn-primary\" type=\"button\">Next</button>",
-      "css": ".ds-btn-primary { background: #106B70; color: #EDF8F6; font-family: Inter, sans-serif; font-size: 1rem; font-weight: 600; height: 2.5rem; padding: 0.5rem 1rem; border: none; border-radius: 8px; cursor: pointer; transition: background 200ms cubic-bezier(0, 0, 0.2, 1); } .ds-btn-primary:hover { background: #19AEB5; } .ds-btn-primary:focus-visible { outline: 2px solid #2FC3B8; outline-offset: 2px; } .ds-btn-primary:active { transform: scale(0.99); }"
+      "css": ".ds-btn-primary { background: #106B70; color: #EDF8F6; font-family: Manrope, sans-serif; font-size: 1rem; font-weight: 600; height: 2.5rem; padding: 0.5rem 1rem; border: none; border-radius: 8px; cursor: pointer; transition: background 200ms cubic-bezier(0, 0, 0.2, 1); } .ds-btn-primary:hover { background: #19AEB5; } .ds-btn-primary:focus-visible { outline: 2px solid #2FC3B8; outline-offset: 2px; } .ds-btn-primary:active { transform: scale(0.99); }"
     },
     {
       "name": "Ghost Button",
       "kind": "button",
       "refersTo": "button-ghost",
-      "description": "On photo scrims (Skip). No fill.",
+      "description": "On photo scrims (Skip). No fill. Type is fg.photo.",
       "html": "<button class=\"ds-btn-ghost\" type=\"button\">Skip</button>",
-      "css": ".ds-btn-ghost { background: transparent; color: #EDF8F6; font-family: Inter, sans-serif; font-size: 0.875rem; font-weight: 500; height: 2rem; padding: 0.25rem 0.75rem; border: none; border-radius: 8px; cursor: pointer; } .ds-btn-ghost:hover { background: rgba(237, 248, 246, 0.08); } .ds-btn-ghost:focus-visible { outline: 2px solid #63E6D5; outline-offset: 2px; }"
+      "css": ".ds-btn-ghost { background: transparent; color: #EDF8F6; font-family: Manrope, sans-serif; font-size: 0.875rem; font-weight: 500; height: 2rem; padding: 0.25rem 0.75rem; border: none; border-radius: 8px; cursor: pointer; } .ds-btn-ghost:hover { background: rgba(237, 248, 246, 0.08); } .ds-btn-ghost:focus-visible { outline: 2px solid #63E6D5; outline-offset: 2px; }"
     },
     {
       "name": "Default Card",
@@ -253,7 +324,7 @@
       "refersTo": "card-default",
       "description": "Panel plus muted hairline. Resting product surface.",
       "html": "<article class=\"ds-card\"><h3 class=\"ds-card-title\">IJmuiden</h3><p class=\"ds-card-body\">14 riding · 6 planning</p></article>",
-      "css": ".ds-card { background: #0D2931; color: #EDF8F6; border: 1px solid rgba(99, 230, 213, 0.1); border-radius: 14px; padding: 1rem; } .ds-card-title { font-family: Sora, sans-serif; font-size: 1.25rem; font-weight: 600; line-height: 1.5; margin: 0 0 0.5rem; } .ds-card-body { font-family: Inter, sans-serif; font-size: 1rem; line-height: 1.5; margin: 0; color: #76A1A9; }"
+      "css": ".ds-card { background: #0D2931; color: #EDF8F6; border: 1px solid rgba(99, 230, 213, 0.1); border-radius: 14px; padding: 1rem; } .ds-card-title { font-family: Sora, sans-serif; font-size: 1.25rem; font-weight: 600; line-height: 1.5; margin: 0 0 0.5rem; } .ds-card-body { font-family: Manrope, sans-serif; font-size: 1rem; line-height: 1.5; margin: 0; color: #76A1A9; }"
     },
     {
       "name": "Interactive Card",
@@ -261,7 +332,7 @@
       "refersTo": "card-default",
       "description": "Same as default; hover raises hairline and sm shadow; press scales to 0.99.",
       "html": "<article class=\"ds-card-interactive\" tabindex=\"0\"><h3 class=\"ds-card-title\">Scheveningen</h3><p class=\"ds-card-body\">Good from 14:00</p></article>",
-      "css": ".ds-card-interactive { background: #0D2931; color: #EDF8F6; border: 1px solid rgba(99, 230, 213, 0.1); border-radius: 14px; padding: 1rem; cursor: pointer; transition: border-color 120ms cubic-bezier(0, 0, 0.2, 1), box-shadow 120ms cubic-bezier(0, 0, 0.2, 1), transform 120ms cubic-bezier(0, 0, 0.2, 1); } .ds-card-interactive:hover { border-color: rgba(99, 230, 213, 0.16); box-shadow: 0 2px 8px rgba(2, 8, 10, 0.45); } .ds-card-interactive:active { transform: scale(0.99); } .ds-card-interactive:focus-visible { outline: 2px solid #19AEB5; outline-offset: 2px; } .ds-card-title { font-family: Sora, sans-serif; font-size: 1.25rem; font-weight: 600; margin: 0 0 0.5rem; } .ds-card-body { font-family: Inter, sans-serif; font-size: 1rem; margin: 0; color: #76A1A9; }"
+      "css": ".ds-card-interactive { background: #0D2931; color: #EDF8F6; border: 1px solid rgba(99, 230, 213, 0.1); border-radius: 14px; padding: 1rem; cursor: pointer; transition: border-color 120ms cubic-bezier(0, 0, 0.2, 1), box-shadow 120ms cubic-bezier(0, 0, 0.2, 1), transform 120ms cubic-bezier(0, 0, 0.2, 1); } .ds-card-interactive:hover { border-color: rgba(99, 230, 213, 0.16); box-shadow: 0 2px 8px rgba(2, 8, 10, 0.45); } .ds-card-interactive:active { transform: scale(0.99); } .ds-card-interactive:focus-visible { outline: 2px solid #19AEB5; outline-offset: 2px; } .ds-card-title { font-family: Sora, sans-serif; font-size: 1.25rem; font-weight: 600; margin: 0 0 0.5rem; } .ds-card-body { font-family: Manrope, sans-serif; font-size: 1rem; margin: 0; color: #76A1A9; }"
     },
     {
       "name": "Outline Input",
@@ -269,7 +340,7 @@
       "refersTo": "input-outline",
       "description": "Token-backed field. Invalid uses border.error.",
       "html": "<label class=\"ds-field\">Spot name<input class=\"ds-input\" type=\"text\" placeholder=\"IJmuiden\" /></label>",
-      "css": ".ds-field { display: flex; flex-direction: column; gap: 0.5rem; font-family: Inter, sans-serif; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.02em; color: #76A1A9; } .ds-input { height: 2.5rem; padding: 0.5rem 0.75rem; border: 1px solid rgba(99, 230, 213, 0.16); border-radius: 8px; background: #0D2931; color: #EDF8F6; font-size: 1rem; font-weight: 400; } .ds-input::placeholder { color: #66969F; } .ds-input:focus-visible { outline: 2px solid #19AEB5; outline-offset: 0; border-color: #19AEB5; } .ds-input[aria-invalid=\"true\"] { border-color: #D96F62; }"
+      "css": ".ds-field { display: flex; flex-direction: column; gap: 0.5rem; font-family: Manrope, sans-serif; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.04em; color: #76A1A9; } .ds-input { height: 2.5rem; padding: 0.5rem 0.75rem; border: 1px solid rgba(99, 230, 213, 0.16); border-radius: 8px; background: #0D2931; color: #EDF8F6; font-family: Manrope, sans-serif; font-size: 1rem; font-weight: 400; } .ds-input::placeholder { color: #66969F; } .ds-input:focus-visible { outline: 2px solid #19AEB5; outline-offset: 0; border-color: #19AEB5; } .ds-input[aria-invalid=\"true\"] { border-color: #D96F62; }"
     },
     {
       "name": "Status Pill",
@@ -277,15 +348,21 @@
       "refersTo": "status-pill",
       "description": "Pill is allowed. Semantic status, not a second accent.",
       "html": "<span class=\"ds-pill\">Riding</span>",
-      "css": ".ds-pill { display: inline-flex; align-items: center; font-family: Inter, sans-serif; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.02em; color: #071216; background: #19AEB5; border-radius: 9999px; padding: 0.125rem 0.5rem; }"
+      "css": ".ds-pill { display: inline-flex; align-items: center; font-family: Manrope, sans-serif; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.04em; color: #071216; background: #19AEB5; border-radius: 9999px; padding: 0.125rem 0.5rem; }"
     },
     {
       "name": "Progress Dots",
       "kind": "custom",
-      "refersTo": "status-pill",
-      "description": "Onboarding step index on a photo scrim. Decorative, not tappable.",
+      "description": "Onboarding step index on a photo scrim. Decorative, not tappable. fg.photo / fg.photo.muted.",
       "html": "<div class=\"ds-dots\" role=\"group\" aria-label=\"Step 2 of 5\"><span class=\"ds-dot\"></span><span class=\"ds-dot ds-dot-active\"></span><span class=\"ds-dot\"></span><span class=\"ds-dot\"></span><span class=\"ds-dot\"></span></div>",
-      "css": ".ds-dots { display: flex; gap: 0.5rem; align-items: center; } .ds-dot { width: 0.375rem; height: 0.375rem; border-radius: 9999px; background: rgba(255, 255, 255, 0.4); } .ds-dot-active { width: 1.5rem; background: #ffffff; }"
+      "css": ".ds-dots { display: flex; gap: 0.5rem; align-items: center; } .ds-dot { width: 0.375rem; height: 0.375rem; border-radius: 9999px; background: rgba(237, 248, 246, 0.4); } .ds-dot-active { width: 1.5rem; background: #EDF8F6; }"
+    },
+    {
+      "name": "Photo Screen Type",
+      "kind": "custom",
+      "description": "Intro/onboarding type on a dark photographic scrim. Title is Sora at the floor; body is Manrope body.photo.",
+      "html": "<section class=\"ds-photo\"><h2 class=\"ds-photo-title\">Adventure Awaits</h2><p class=\"ds-photo-body\">Find your spot. See who is riding.</p></section>",
+      "css": ".ds-photo { background: linear-gradient(to top, rgba(7, 18, 22, 0.9) 0%, rgba(7, 18, 22, 0.35) 45%, #071216 100%); color: #EDF8F6; min-height: 12rem; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; text-align: center; padding: 2rem 1.5rem; border-radius: 14px; gap: 0.75rem; } .ds-photo-title { font-family: Sora, sans-serif; font-size: 1.25rem; font-weight: 600; line-height: 1.5; margin: 0; } .ds-photo-body { font-family: Manrope, sans-serif; font-size: 1rem; font-weight: 500; line-height: 1.65; margin: 0; }"
     }
   ],
   "narrative": {
@@ -295,33 +372,66 @@
       "One primary (AERYO Teal). No second general-purpose highlight.",
       "Photographic full-bleed for brand moments; token surfaces for product chrome.",
       "Hybrid depth: tonal ink steps at rest, real shadow when something floats or is pressable.",
-      "Named text styles only (display / heading / title / body / caption / label).",
-      "Portrait phone in a native shell; safe-area as spacing tokens (safe.top and siblings)."
+      "Named text styles only (`display` / `heading` / `title` / `body` / `caption` / `label`).",
+      "Portrait phone in a native shell; safe-area as spacing tokens (`safe.top` and siblings)."
     ],
     "rules": [
-      { "name": "The One Teal Rule", "body": "If a new element wants “a highlight,” use a brighter teal step first, then ask whether it needs one at all. Lime is not a candidate.", "section": "colors" },
-      { "name": "The Wind Lime Rule", "body": "Lime lives inside wind.* only. Strong wind may go lime; extreme wind is caution, a safety state, not “more lime.”", "section": "colors" },
-      { "name": "The Color-Plus-Data Rule", "body": "Condition quality is never color alone. Pair color with icon, label, and a number.", "section": "colors" },
-      { "name": "The Hairline Rule", "body": "border / border.muted are low-contrast decorative edges. Interactive outlines need a dedicated stronger boundary.", "section": "colors" },
-      { "name": "The One Scale Rule", "body": "Reach for textStyle / Heading/Text variants. Do not invent a parallel size ladder.", "section": "typography" },
-      { "name": "The Float-When-It-Floats Rule", "body": "If it is not hovering, popping over, or pressable, prefer tone + hairline over box-shadow.", "section": "elevation" },
-      { "name": "The No-Pill-By-Default Rule", "body": "A pill must earn it (avatar, StatusPill). Primary actions stay rounded.md.", "section": "shapes" }
+      {
+        "name": "The One Teal Rule",
+        "body": "If a new element wants “a highlight,” use a brighter teal step first, then ask whether it needs one at all. Lime is not a candidate.",
+        "section": "colors"
+      },
+      {
+        "name": "The Wind Lime Rule",
+        "body": "Lime lives inside `wind.*` only. Strong wind may go lime; extreme wind is caution, a safety state, not “more lime.”",
+        "section": "colors"
+      },
+      {
+        "name": "The Color-Plus-Data Rule",
+        "body": "Condition quality is never color alone. Pair color with icon, label, and a number.",
+        "section": "colors"
+      },
+      {
+        "name": "The Hairline Rule",
+        "body": "`border` / `border.muted` are low-contrast decorative edges. Interactive outlines (input, focus, button stroke) need a dedicated stronger boundary (`border.error`, focus ring, or accent).",
+        "section": "colors"
+      },
+      {
+        "name": "The One Scale Rule",
+        "body": "Reach for `textStyle` / `Heading`/`Text` variants. Do not invent a parallel size ladder.",
+        "section": "typography"
+      },
+      {
+        "name": "The Sora Floor Rule",
+        "body": "Sora never renders below `title` (1.25rem). Anything smaller is Manrope. Chakra heading `size` xs–xl collapses to `title` so a leftover `size=\"sm\"` cannot put Sora on a caption.",
+        "section": "typography"
+      },
+      {
+        "name": "The Float-When-It-Floats Rule",
+        "body": "If it is not hovering, popping over, or pressable, prefer tone + hairline over `box-shadow`.",
+        "section": "elevation"
+      },
+      {
+        "name": "The No-Pill-By-Default Rule",
+        "body": "A pill must earn it (avatar, StatusPill). Primary actions stay `rounded.md`.",
+        "section": "shapes"
+      }
     ],
     "dos": [
-      "Do use bg / fg / border / accent semantic tokens so light and dark stay paired.",
+      "Do use `bg` / `fg` / `border` / `accent` semantic tokens so light and dark stay paired. Use `bg.photo` / `fg.photo` on full-bleed photography (those do not flip with color mode).",
       "Do put photography on intro/onboarding and keep product lists on ink panels.",
       "Do mark wind with teal → lime → caution, plus a label and a number.",
-      "Do pad full-bleed content with safe.* after opting the photo out of body insets.",
-      "Do wrap Chakra; consumers import @/components/..., never raw palettes for brand color."
+      "Do pad full-bleed content with `safe.*` after opting the photo out of body insets.",
+      "Do wrap Chakra; consumers import `@/components/...`, never raw palettes for brand color."
     ],
     "donts": [
       "Don't add a second brand accent. Mint is teal.300, not a new family.",
       "Don't put Wind Lime on buttons or badges.",
-      "Don't use stock Chakra red/orange/green for status; use danger / caution / success.",
-      "Don't default buttons to rounded.full.",
+      "Don't use stock Chakra red/orange/green for status; use `danger` / `caution` / `success`.",
+      "Don't default buttons to `rounded.full`.",
       "Don't rely on hairline borders as the only interactive edge.",
       "Don't expose exact GPS as a visual pattern; presence is a status pill, not a live dot on a map in V1.",
-      "Don't invent nav, marketplace, or forecast-dashboard chrome that is not in the codebase yet."
+      "Don't reach for raw palette steps (`ink.950`, `white`, `whiteAlpha`) in app UI. Name the role in `semantic-tokens.ts` instead."
     ]
   }
 }

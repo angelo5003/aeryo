@@ -132,6 +132,7 @@ export const SemanticTokens: Story = {
             { token: "bg.subtle", label: "bg.subtle" },
             { token: "bg.muted", label: "bg.muted" },
             { token: "bg.panel", label: "bg.panel" },
+            { token: "bg.photo", label: "bg.photo" },
           ]}
         />
         <SemanticGroup
@@ -140,6 +141,8 @@ export const SemanticTokens: Story = {
             { token: "fg", label: "fg (DEFAULT)" },
             { token: "fg.muted", label: "fg.muted" },
             { token: "fg.subtle", label: "fg.subtle" },
+            { token: "fg.photo", label: "fg.photo" },
+            { token: "fg.photo.muted", label: "fg.photo.muted" },
           ]}
         />
         <SemanticGroup
