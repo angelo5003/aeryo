@@ -28,6 +28,35 @@ test.describe("onboarding carousel", () => {
     ).toBeVisible({ timeout: 5000 });
   });
 
+  test("dragging does not change slides — only Next does", async ({ page }) => {
+    await getToOnboarding(page);
+
+    const region = page.getByRole("region", { name: "Onboarding" });
+    const box = await region.boundingBox();
+    expect(box).toBeTruthy();
+
+    await page.mouse.move(
+      box!.x + box!.width * 0.8,
+      box!.y + box!.height * 0.35,
+    );
+    await page.mouse.down();
+    await page.mouse.move(
+      box!.x + box!.width * 0.2,
+      box!.y + box!.height * 0.35,
+      { steps: 12 },
+    );
+    await page.mouse.up();
+
+    await expect(
+      page.getByRole("heading", { name: "Adventure Awaits" }),
+    ).toBeVisible();
+
+    await page.getByRole("button", { name: "Next" }).click();
+    await expect(
+      page.getByRole("heading", { name: "Discover the Elements" }),
+    ).toBeVisible();
+  });
+
   test("Next advances through all 5 slides, Get Started completes and persists", async ({
     page,
   }) => {

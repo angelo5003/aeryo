@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
-import { expect, fn, userEvent, within } from "storybook/test";
+import { expect, fn, userEvent, waitFor, within } from "storybook/test";
 import { OnboardingCarousel } from "./OnboardingCarousel";
 
 const meta = {
@@ -37,9 +37,11 @@ export const NextAdvancesToSecondSlide: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await userEvent.click(canvas.getByRole("button", { name: "Next" }));
-    await expect(
-      canvas.getByRole("heading", { name: "Discover the Elements" }),
-    ).toBeVisible();
+    await waitFor(() =>
+      expect(
+        canvas.getByRole("heading", { name: "Discover the Elements" }),
+      ).toBeVisible(),
+    );
     await expect(
       canvas.getByRole("group", { name: "Step 2 of 5" }),
     ).toBeVisible();
@@ -55,9 +57,11 @@ export const LastSlideShowsGetStarted: Story = {
     await next();
     await next();
     await next();
-    await expect(
-      canvas.getByRole("heading", { name: "Track Your Progress" }),
-    ).toBeVisible();
+    await waitFor(() =>
+      expect(
+        canvas.getByRole("heading", { name: "Track Your Progress" }),
+      ).toBeVisible(),
+    );
     await expect(canvas.queryByRole("button", { name: "Skip" })).toBeNull();
 
     await userEvent.click(canvas.getByRole("button", { name: "Get Started" }));
