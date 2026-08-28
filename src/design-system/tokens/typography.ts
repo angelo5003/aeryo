@@ -12,6 +12,12 @@
  * stat-numeral scale) that would justify deviating from it. Add a
  * brand-specific override here if a real typographic need shows up.
  *
+ * §11's "Data/metric" numeral-legibility call-out (`18 kn`, `NW 24°`) does
+ * not need a new size step — it needs fixed-width digits so a readout
+ * doesn't jitter as it updates. That's `fontVariantNumeric: "tabular-nums"`,
+ * applied where a value is guaranteed numeric (`AeryoCardMeta`'s `value`
+ * slot), not a blanket change to `body`/`caption` where most text isn't.
+ *
  * The categories below list the *sanctioned* steps, not an exhaustive set:
  * because this system is built via `createSystem(defaultConfig, config)`,
  * the merge is additive per key, so Chakra's full default scale (e.g.

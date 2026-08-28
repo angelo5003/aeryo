@@ -30,9 +30,16 @@ export const AeryoCardMeta = React.forwardRef<
   return (
     <Flex ref={ref} align="center" gap="2" {...rest}>
       {icon}
+      {/* `tabular-nums` — this slot is always a metric ("18 kt", "4.8",
+          "12 km" per this component's own doc comment), and digits at a
+          fixed width stop a mixed-width readout from jittering as it
+          updates (critique-flagged §11 numeral-legibility gap). Scoped to
+          this component, not promoted to `body`/`caption` generally,
+          since most text in those variants isn't numeric. */}
       <Text
         variant={effectiveSize === "sm" ? "caption" : "body"}
         fontWeight="semibold"
+        fontVariantNumeric="tabular-nums"
       >
         {value}
       </Text>
