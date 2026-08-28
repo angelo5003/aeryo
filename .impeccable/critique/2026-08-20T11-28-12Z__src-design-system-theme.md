@@ -10,6 +10,19 @@ slug: src-design-system-theme
 ---
 Method: dual-agent (two isolated background sub-agents, Assessment A and Assessment B)
 
+## Resolution Status (as of 2026-08-28)
+
+**All findings below are resolved.** The P0/P1 contrast failures, the P2
+un-anchored-color gap, and the P3 border scoping were already fixed in
+`src/design-system/theme/semantic-tokens.ts` and
+`src/design-system/tokens/colors.ts` by the time this status was written —
+independently re-verified with the same WCAG relative-luminance math this
+critique used (see per-issue notes below), not just trusted from the
+file's own comments. The Minor Observations and Questions to Consider were
+closed out in commit `72f38b3` ("polish: close out remaining theme critique
+findings"). Sam (the one applicable persona) no longer hits any contrast
+failure at this layer.
+
 ### Design Health Score
 
 | # | Heuristic | Score | Key Issue |
@@ -53,41 +66,54 @@ The palette-resolution work itself (the "combine the image with the branding" pa
 Why it matters: `accent.solid`/`accent.contrast` is the primary-button pairing — the only sanctioned brand accent per the restraint principle — and every primary CTA built on this token in dark mode gets label text below even the 3:1 large-text/UI floor, let alone 4.5:1 normal text. It's the single most-used token pair in the system.
 Fix: make `accent.contrast` mode-aware like every other multi-value token — `ink.950` for dark mode (`#071216` on `#19AEB5` ≈ 7:1+) instead of the current flat `ink.50`.
 Suggested command: /impeccable polish
+**Resolved.** `accent.contrast` is mode-aware: `ink.50`/`teal.700` light, `ink.950`/`teal.500` dark. Re-verified: **5.76:1** light, **7.01:1** dark.
 
 **[P1] `fg.subtle` (`ink.500`) fails AA against both `bg` (3.77:1) and `bg.subtle` (3.02:1)**
 Why it matters: this is the *more* muted of two muted-text tiers, so it's likely reached for on captions and timestamps — exactly where small text size makes the shortfall worse.
 Fix: shift the dark value from `ink.500` toward `ink.400`, or explicitly scope it to large-text/icon-only use and document that.
 Suggested command: /impeccable polish
+**Resolved.** Dark value moved to `#66969F`, with the token's own comment scoping it to `bg`/`bg.subtle` only (not `bg.muted`, use `fg.muted` there). Re-verified: **5.81:1** / **4.66:1**.
 
 **[P1] `fg.muted` on `bg.muted` lands at 4.12:1, just under AA**
 Why it matters: `bg.muted` is a real promoted surface (hover/input states) and nothing prevents pairing `fg.muted` text on it.
 Fix: nudge one value so the combination clears 4.5:1, or document that `fg.muted` shouldn't land on `bg.muted`.
 Suggested command: /impeccable polish
+**Resolved.** Dark value moved to `#76A1A9`. Re-verified: **4.57:1** on `bg.muted` (also 6.72:1 / 5.40:1 on `bg` / `bg.subtle`).
 
 **[P2] `wind.extreme`/`session.cancelled` use un-anchored Chakra stock orange/red, breaking the system's own stated rigor**
 Why it matters: contrast itself is fine (8.4:1 and 6.9:1) — this is a consistency/authorship gap. The file's central claim ("one primary, one controlled highlight, everything else derived") is quietly false once red/orange count as unexamined hue families the top-level restraint comment never names.
 Fix: add one line to the restraint-principle comment in `semantic-tokens.ts` explicitly sanctioning red/orange as universal danger/caution exceptions (this is actually already true in practice — it just isn't stated where the "policy" is stated).
 Suggested command: /impeccable document
+**Resolved.** `colors.ts` defines real AERYO-anchored `danger`/`caution`/`success` ramps (not Chakra stock), and `semantic-tokens.ts`'s restraint-principle comment now names all three as the sanctioned safety/status exceptions, worded as the actual rule ("one primary, one highlight, plus as many safety colors as needed") rather than the stricter-sounding original phrasing (see also the Questions to Consider answer below; commit `72f38b3`).
 
 **[P3] `border.DEFAULT` dark mode is ~1.5:1 effective, far under the 3:1 UI-component floor**
 Why it matters: fine if purely decorative (§23's "subtle borders"), risky if any future input/button ever relies on it alone to signal an edge.
 Fix: a one-line comment marking it decorative-only, with a stronger token reserved for interactive boundaries.
 Suggested command: /impeccable document
+**Resolved.** Comment marks it decorative-only and points interactive edges at a dedicated stronger token. Re-verified effective contrast against `bg`: **1.42:1**, confirmed intentional per that scoping.
 
 ### Persona Red Flags
 
 **Sam (Accessibility-Dependent User)** — the only persona that applies to a pure token layer, since every future screen inherits whatever contrast exists here. Full walkthrough: primary text and most of the wind-severity ramp pass comfortably; `accent.contrast`/`accent.solid` fails badly (2.49:1); `fg.subtle` fails in both places it's used; `fg.muted` fails on one of its three surface pairings. The other four standard personas (Alex, Jordan, Riley, Casey) are n/a — no screens, copy, or interaction states exist yet for them to react to.
+**Resolved.** All three failing pairings above are fixed and re-verified (see Priority Issues). Sam no longer hits a contrast failure anywhere in this token layer.
 
 ### Minor Observations
 
 - `rider.planning` and `session.planning` resolve to identical values under two separate namespaces — harmless, slightly redundant.
+  **Resolved.** Commented in `semantic-tokens.ts` as intentional: both name "not yet happening, on the calendar" on the same shade principle, so the same step is the correct answer twice.
 - The darkest ramp step of each family (`ink.950`, `teal.950`, `lime.950`) is correctly computed but visually hard to distinguish from Storybook's own dark chrome in the Raw Palette story — a documentation-page visibility nuance, not a token defect.
-- `Colors.stories.tsx` renders every swatch by live token reference (never hardcoded hex) and labels both the token name and resolved value — a genuinely good living-reference pattern that keeps docs from drifting from code.
+  **Resolved.** `Colors.stories.tsx`'s `Swatch` now borders with `fg.subtle` instead of the deliberately-faint `border` token, scoped to this documentation page only — product UI still uses the intentional hairline.
+- `Colors.stories.tsx` renders every swatch by live token reference (never hardcoded hex) and labels both the token name and resolved value — a genuinely good living-reference pattern that keeps docs from drifting from code. (No action — praise, not a finding.)
 - `typography.ts` explicitly declines a custom type scale "until a real need shows up" — honest restraint, but it means §11's called-out "Data/metric" numeral legibility requirement (`18 kn`, `NW 24°`) isn't implemented yet. Already flagged in the file's own comment, not a hidden gap.
+  **Resolved.** The real need showed up: `WeatherCard`/`AeryoCardMeta` already render exactly this content. `AeryoCardMeta`'s `value` slot (always a metric per its own doc comment) now gets `fontVariantNumeric: "tabular-nums"`, not a new size step and not a blanket change to `body`/`caption` where most text isn't numeric. `typography.ts`'s comment updated to match.
 - Detector false positives (both confirmed, not asserted): `em-dash-overuse: 24` on the Semantic Tokens story is actually 1 real em-dash + 23 middle-dots (`·`) from the `token · value` label convention — the rule conflates U+00B7 with U+2014. `text-occlusion` on Raw Palette is the detector's own injected overlay label covering the page's own heading — a self-artifact, not a page defect. `line-length`/`overused-font` are technically accurate but arguably inapplicable to an internal documentation page rather than production UI/marketing copy.
+  **Resolved.** Persisted as scoped, reasoned ignores in `.impeccable/config.json` via `hook-admin.mjs`: `overused-font=roboto` project-wide (confirmed unused anywhere in the stack — a scan artifact, not a real font), and `text-occlusion`/`em-dash-overuse`/`line-length` file-scoped to `Colors.stories.tsx` only. Future critique/audit passes won't re-flag these.
 
 ### Questions to Consider
 
 - If the restraint principle is "one primary, one controlled highlight, nothing else," should the code just say the real rule out loud — "one primary + one highlight + as many safety colors as needed" — instead of implying something stricter than what's actually implemented?
+  **Answered.** Yes — `semantic-tokens.ts`'s restraint-principle comment now states that exact rule and names all three safety exceptions (danger/caution/success).
 - `accent.contrast` is the one token that isn't mode-aware — was that a deliberate simplification, or did the "every token gets `_light`/`_dark`" discipline just never reach the one pairing that turns out to fail WCAG outright?
+  **Answered.** The latter — an oversight, not a deliberate simplification. Fixed under the P0 above; `accent.contrast` is now mode-aware like every other multi-value token.
 - §17 calls data visualization "a brand expression, not a utility layer" — confining `lime` to exactly one semantic slot is disciplined, but does it deliver on that ambition, or is AERYO's supposed signature data-viz moment currently just one CSS variable away from looking like every other dark dashboard, until a real chart component exists?
+  **Still open.** No chart component exists yet to evaluate this against — not answerable as a token-layer fix. Revisit when a real wind/data-viz component is built.
