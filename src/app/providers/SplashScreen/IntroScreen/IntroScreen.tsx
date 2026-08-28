@@ -4,6 +4,7 @@ import { Box } from "@chakra-ui/react";
 import { motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import { Heading } from "@/components/typography/Heading";
+import { KenBurnsFrame } from "./KenBurnsFrame";
 import { WindLines } from "./WindLines";
 
 export interface IntroScreenProps {
@@ -43,12 +44,7 @@ export function IntroScreen({ onBackgroundLoad }: IntroScreenProps) {
         marginRight: "calc(-1 * var(--safe-right))",
       }}
     >
-      <motion.div
-        style={{ position: "absolute", inset: 0 }}
-        initial={{ scale: 1 }}
-        animate={{ scale: reduceMotion ? 1 : 1.06 }}
-        transition={{ duration: 6, ease: "easeOut" }}
-      >
+      <KenBurnsFrame>
         <Image
           src="/splash.png"
           alt=""
@@ -58,7 +54,7 @@ export function IntroScreen({ onBackgroundLoad }: IntroScreenProps) {
           // Fires once this image has painted — see IntroScreenProps above.
           onLoad={onBackgroundLoad}
         />
-      </motion.div>
+      </KenBurnsFrame>
 
       <WindLines />
 

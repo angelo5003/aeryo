@@ -17,6 +17,7 @@ export function ProgressDots({ count, activeIndex }: ProgressDotsProps) {
       gap="2"
       role="group"
       aria-label={`Step ${activeIndex + 1} of ${count}`}
+      aria-live="polite"
     >
       {Array.from({ length: count }, (_, index) => (
         <Box
