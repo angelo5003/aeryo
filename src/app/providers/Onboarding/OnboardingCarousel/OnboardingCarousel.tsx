@@ -75,11 +75,10 @@ export function OnboardingCarousel({ onComplete }: OnboardingCarouselProps) {
         height="100%"
         overflow="hidden"
         zIndex={0}
-        // Raw `ink.950`, not semantic `bg` — this screen always sits on
-        // a dark photo, independent of the app's light/dark mode. A
-        // not-yet-decoded next photo must not flash a light surface
-        // through the dissolve.
-        bg="ink.950"
+        // `bg.photo`, not `bg` — this screen always sits on a dark photo,
+        // independent of the app's light/dark mode. A not-yet-decoded
+        // next photo must not flash a light surface through the dissolve.
+        bg="bg.photo"
       >
         {ONBOARDING_SLIDES.map((slide) => {
           const isActive = slide.id === activeId;

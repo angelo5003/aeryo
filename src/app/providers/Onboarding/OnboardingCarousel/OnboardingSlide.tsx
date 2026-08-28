@@ -5,6 +5,7 @@ import Image from "next/image";
 import { KenBurnsFrame } from "@/app/providers/SplashScreen/IntroScreen/KenBurnsFrame";
 import { Heading } from "@/components/typography/Heading";
 import { Text } from "@/components/typography/Text";
+import { PHOTO_SCRIM_BG_IMAGE } from "@/design-system/theme/photoScrim";
 import type { OnboardingSlideContent } from "../onboardingContent";
 
 export interface OnboardingSlideProps {
@@ -22,7 +23,9 @@ export interface OnboardingSlideProps {
  * theme-aware — always sits on a dark photo regardless of the app's own
  * light/dark mode). `OnboardingCarousel` is responsible for positioning
  * this in the fade stack; this component only renders one
- * slide's own content.
+ * slide's own content. Type on the photograph uses `body.photo` (Manrope,
+ * one step heavier and looser than chrome body) so light text on the dark
+ * scrim stays readable.
  */
 export function OnboardingSlide({
   slide,
@@ -47,10 +50,7 @@ export function OnboardingSlide({
       <Box
         position="absolute"
         inset={0}
-        style={{
-          background:
-            "linear-gradient(to top, rgba(11, 15, 20, 0.9) 0%, rgba(11, 15, 20, 0.35) 45%, rgba(11, 15, 20, 0) 75%)",
-        }}
+        bgImage={PHOTO_SCRIM_BG_IMAGE}
         pointerEvents="none"
       />
 
@@ -68,10 +68,10 @@ export function OnboardingSlide({
           px={8}
           textAlign="center"
         >
-          <Heading as="h2" variant="title" color="white">
+          <Heading as="h2" variant="title" color="fg.photo">
             {slide.heading}
           </Heading>
-          <Text variant="body" color="white">
+          <Text variant="body.photo" color="fg.photo">
             {slide.body}
           </Text>
         </Box>

@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Geist_Mono, Inter, Sora } from "next/font/google";
+import { Geist_Mono, Manrope, Sora } from "next/font/google";
 import { Provider } from "@/components/ui/provider";
 import { SafeAreaProvider } from "@/components/ui/safe-area";
 import "./globals.css";
@@ -12,8 +12,8 @@ const sora = Sora({
   weight: ["400", "600", "700", "800"],
 });
 
-const inter = Inter({
-  variable: "--font-inter",
+const manrope = Manrope({
+  variable: "--font-manrope",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
 });
@@ -40,7 +40,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${sora.variable} ${inter.variable} ${geistMono.variable}`}
+      className={`${sora.variable} ${manrope.variable} ${geistMono.variable}`}
       suppressHydrationWarning
     >
       <body>

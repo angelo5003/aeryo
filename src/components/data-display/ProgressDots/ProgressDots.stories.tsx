@@ -18,7 +18,7 @@ const meta = {
   },
   decorators: [
     (Story) => (
-      <Box bg="black" p="6">
+      <Box bg="bg.photo" p="6">
         <Story />
       </Box>
     ),

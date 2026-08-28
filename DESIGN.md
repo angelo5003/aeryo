@@ -33,23 +33,35 @@ typography:
     lineHeight: 1.5
     letterSpacing: "normal"
   body:
-    fontFamily: "var(--font-inter), Inter, sans-serif"
+    fontFamily: "var(--font-manrope), Manrope, sans-serif"
     fontSize: "1rem"
     fontWeight: 400
     lineHeight: 1.5
     letterSpacing: "normal"
   caption:
-    fontFamily: "var(--font-inter), Inter, sans-serif"
+    fontFamily: "var(--font-manrope), Manrope, sans-serif"
     fontSize: "0.875rem"
     fontWeight: 400
     lineHeight: 1.5
     letterSpacing: "normal"
   label:
-    fontFamily: "var(--font-inter), Inter, sans-serif"
+    fontFamily: "var(--font-manrope), Manrope, sans-serif"
     fontSize: "0.75rem"
     fontWeight: 500
     lineHeight: 1.5
-    letterSpacing: "0.02em"
+    letterSpacing: "0.04em"
+  body-photo:
+    fontFamily: "var(--font-manrope), Manrope, sans-serif"
+    fontSize: "1rem"
+    fontWeight: 500
+    lineHeight: 1.65
+    letterSpacing: "normal"
+  label-photo:
+    fontFamily: "var(--font-manrope), Manrope, sans-serif"
+    fontSize: "0.75rem"
+    fontWeight: 600
+    lineHeight: 1.65
+    letterSpacing: "0.08em"
 rounded:
   xs: "4px"
   sm: "6px"
@@ -148,9 +160,9 @@ Omitted as a UI accent. **Wind Lime** (`#D7FF3F`, `lime.300`) exists only on the
 
 ### Neutral
 
-- **North Sea Ink** (`#071216`, `ink.950`): default dark background (`bg`).
+- **North Sea Ink** (`#071216`, `ink.950`): default dark background (`bg` in dark mode). Photographic canvas is the semantic `bg.photo` (always this value, both modes).
 - **North Sea Surface** (`#0D2931`, `ink.900`): dark `bg.subtle` / panel.
-- **Off-White** (`#EDF8F6`, `ink.50`): default light background and dark-mode foreground (`fg`).
+- **Off-White** (`#EDF8F6`, `ink.50`): default light background and dark-mode foreground (`fg`). Type on photography is `fg.photo` (always this value). Inactive marks on photography are `fg.photo.muted` (this value at 40%).
 - **Hairline (dark)** (`rgba(99, 230, 213, 0.16)`): default dark `border`. Decorative only.
 
 Foreground roles: `fg` (ink.950 / ink.50), `fg.muted` (ink.500 / `#76A1A9`), `fg.subtle` (ink.400 / `#66969F`, not on `bg.muted`).
@@ -168,23 +180,27 @@ Foreground roles: `fg` (ink.950 / ink.50), `fg.muted` (ink.500 / `#76A1A9`), `fg
 ## Typography
 
 **Display Font:** Sora (`--font-sora`, fallback Sora, sans-serif)
-**Body Font:** Inter (`--font-inter`, fallback Inter, sans-serif)
-**Label/Mono Font:** Geist Mono (`--font-geist-mono`) for code/data only, not costume “technical” UI
+**Body Font:** Manrope (`--font-manrope`, fallback Manrope, sans-serif)
+**Label/Mono Font:** Geist Mono (`--font-geist-mono`) for code/data only, not costume “technical” UI. Labels use Manrope (`textStyle="label"`), not Mono.
 
-**Character:** Sora is geometric and aerodynamic on headings. Inter is the readable workhorse. Do not size headings with Chakra’s `size` recipe; use `Heading` `variant` which maps to `textStyle`.
+**Character:** Sora is geometric and aerodynamic on headings. Manrope is the same geometric family of thought, tuned for reading and chrome — a cousin, not Inter’s default workhorse. Do not size headings with Chakra’s `size` recipe; use `Heading` `variant` which maps to `textStyle`. Sora’s smallest size is `title` (1.25rem).
 
 ### Hierarchy
 
 - **Display** (extrabold 800, 3rem / `5xl`, line-height 1.2, tracking `-0.02em`): rare hero type. `Heading variant="display"`.
 - **Headline** (bold 700, 1.875rem / `3xl`, line-height 1.2): screen titles. `Heading variant="heading"` (default).
-- **Title** (semibold 600, 1.25rem / `xl`, line-height 1.5): card titles, onboarding headings. `Heading variant="title"`.
+- **Title** (semibold 600, 1.25rem / `xl`, line-height 1.5): card titles, onboarding headings. Sora’s floor. `Heading variant="title"`.
 - **Body** (regular 400, 1rem, line-height 1.5): default reading text. `Text variant="body"`.
 - **Caption** (regular 400, 0.875rem / `sm`): supporting copy. `Text variant="caption"`.
-- **Label** (medium 500, 0.75rem / `xs`, tracking `0.02em`): meta, overlines, compact UI. `Text variant="label"`.
+- **Label** (medium 500, 0.75rem / `xs`, tracking `0.04em`): meta, compact UI. `Text variant="label"`.
+- **Body on photo** (medium 500, 1rem, line-height 1.65): onboarding and other light type on a dark photograph. `Text variant="body.photo"`.
+- **Label on photo** (semibold 600, 0.75rem / `xs`, tracking `0.08em`): meta on a photograph. `Text variant="label.photo"`.
 
 ### Named Rules
 
 **The One Scale Rule.** Reach for `textStyle` / `Heading`/`Text` variants. Do not invent a parallel size ladder.
+
+**The Sora Floor Rule.** Sora never renders below `title` (1.25rem). Anything smaller is Manrope. Chakra heading `size` xs–xl collapses to `title` so a leftover `size="sm"` cannot put Sora on a caption.
 
 ## Layout
 
@@ -252,7 +268,7 @@ Pass-through Chakra `Input` on AERYO tokens (`border`, `bg.muted`, `border.error
 
 ### Signature: full-bleed photo screens
 
-Intro and onboarding: cover photo, Ken Burns zoom (`scale` 1 → 1.06 over 6s, skipped under reduced motion), gradient scrim `rgba(11, 15, 20)` 0.9 → 0, white type. Not theme-aware. `ProgressDots` sit on that scrim (white / whiteAlpha), not on `bg`/`fg`.
+Intro and onboarding: cover photo, Ken Burns zoom (`scale` 1 → 1.06 over 6s, skipped under reduced motion), gradient scrim from `bg.photo` at 90% → 0, type in `fg.photo`. Not theme-aware — `bg.photo` / `fg.photo` stay North Sea Ink / Off-White in both modes. `ProgressDots` sit on that scrim (`fg.photo` / `fg.photo.muted`), not on `bg`/`fg`.
 
 ### Motion (incumbent)
 
@@ -262,7 +278,7 @@ Durations: fast 120ms, normal 200ms, slow 320ms. Easing: `easeOut` `cubic-bezier
 
 ### Do:
 
-- **Do** use `bg` / `fg` / `border` / `accent` semantic tokens so light and dark stay paired.
+- **Do** use `bg` / `fg` / `border` / `accent` semantic tokens so light and dark stay paired. Use `bg.photo` / `fg.photo` on full-bleed photography (those do not flip with color mode).
 - **Do** put photography on intro/onboarding and keep product lists on ink panels.
 - **Do** mark wind with teal → lime → caution, plus a label and a number.
 - **Do** pad full-bleed content with `safe.*` after opting the photo out of body insets.
@@ -276,4 +292,4 @@ Durations: fast 120ms, normal 200ms, slow 320ms. Easing: `easeOut` `cubic-bezier
 - **Don't** default buttons to `rounded.full`.
 - **Don't** rely on hairline borders as the only interactive edge.
 - **Don't** expose exact GPS as a visual pattern; presence is a status pill, not a live dot on a map in V1.
-- **Don't** invent nav, marketplace, or forecast-dashboard chrome that is not in the codebase yet.
+- **Don't** reach for raw palette steps (`ink.950`, `white`, `whiteAlpha`) in app UI. Name the role in `semantic-tokens.ts` instead.

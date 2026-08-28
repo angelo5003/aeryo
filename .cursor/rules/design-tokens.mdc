@@ -6,23 +6,22 @@ alwaysApply: true
 
 # Design tokens
 
-App UI must use the Aeryo token system. Do not put raw hex, `rgb()`, `rgba()`, `hsl()`, or `oklch()` in component props, `style={{}}`, or local constants.
+App UI must use **semantic** color tokens (`bg`, `fg`, `bg.photo`, `accent.solid`, …). Do not put raw hex, `rgb()`, `rgba()`, `hsl()`, `oklch()`, or primitive palette steps (`ink.950`, `teal.500`) in component props, `style={{}}`, or local constants.
 
-Tokens live in `src/design-system/tokens/` and are wired through `src/design-system/theme/`. ESLint (`no-restricted-syntax` in `eslint.config.mjs`) fails the build on hardcoded hex in `src/`.
+Tokens live in `src/design-system/tokens/` (primitives) and `src/design-system/theme/semantic-tokens.ts` (roles). ESLint fails the build on hardcoded hex in `src/`.
 
 ```tsx
 // ❌ BAD
 <Box bg="#0B0F14" />
-<Box style={{ color: "rgb(11, 15, 20)" }} />
+<Box bg="ink.950" color="white" />
 
-// ✅ GOOD — semantic (theme-aware light/dark)
+// ✅ GOOD — semantic, theme-aware product chrome
 <Box bg="bg" color="fg" />
 
-// ✅ GOOD — raw palette, when the surface is NOT theme-aware
-// (full-bleed photo screens that stay dark in both modes)
-<Box bg="ink.950" color="white" />
+// ✅ GOOD — semantic, photographic surfaces (same in light and dark)
+<Box bg="bg.photo" color="fg.photo" />
 ```
 
-If the color you need is missing, add it in `src/design-system/tokens/colors.ts` (and a semantic token in `semantic-tokens.ts` if it has a role). Do not invent a one-off hex in the component.
+If the role you need is missing, add a semantic token in `semantic-tokens.ts` that points at a primitive. Do not invent a one-off hex or use `ink.*` in a screen.
 
-Do not use Chakra's unthemed palettes (`gray`, `red`, `orange`, `whiteAlpha`, …). Use `teal` (the one primary), `danger`/`caution`/`success` for status, `ink.*` for neutrals, `lime` only for wind data.
+Do not use Chakra's unthemed palettes (`gray`, `red`, `orange`, `whiteAlpha`, …). Use `teal` (the one primary), `danger`/`caution`/`success` for status, `lime` only for wind data.

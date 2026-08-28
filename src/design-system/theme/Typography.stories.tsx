@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
-import { Box, Heading, Stack, Text, useToken } from "@chakra-ui/react";
+import { Box, Stack, Text, useToken } from "@chakra-ui/react";
+import { Heading } from "@/components/typography/Heading";
+import { Text as AeryoText } from "@/components/typography/Text";
 
 /**
  * Living reference for the Aeryo type tokens in
@@ -49,15 +51,27 @@ function ScaleRow({
 }
 
 function TextStyleRow({ name }: { name: string }) {
+  const onPhoto = name.endsWith(".photo");
   return (
-    <Stack gap="1">
-      <Text fontSize="xs" fontFamily="mono" color="fg.muted">
-        textStyle=&quot;{name}&quot;
-      </Text>
-      <Text textStyle={name} color="fg">
-        Wind first. Reduce complexity.
-      </Text>
-    </Stack>
+    <Box
+      bg={onPhoto ? "bg.photo" : undefined}
+      px={onPhoto ? "4" : undefined}
+      py={onPhoto ? "3" : undefined}
+      rounded={onPhoto ? "md" : undefined}
+    >
+      <Stack gap="1">
+        <Text
+          fontSize="xs"
+          fontFamily="mono"
+          color={onPhoto ? "fg.photo.muted" : "fg.muted"}
+        >
+          textStyle=&quot;{name}&quot;
+        </Text>
+        <Text textStyle={name} color={onPhoto ? "fg.photo" : "fg"}>
+          Wind first. Reduce complexity.
+        </Text>
+      </Stack>
+    </Box>
   );
 }
 
@@ -66,20 +80,21 @@ export const Typography: Story = {
     <Box bg="bg" p="8">
       <Stack gap="10">
         <Stack gap="1">
-          <Heading as="h2" size="md" color="fg">
+          <Heading as="h2" variant="title" color="fg">
             Typography
           </Heading>
-          <Text fontSize="sm" color="fg.muted">
-            From src/design-system/tokens/typography.ts. Font sizes, weights,
-            line-heights and letter-spacings are the raw scale; textStyles are
-            named bundles built from that scale.
-          </Text>
+          <AeryoText variant="caption" color="fg.muted">
+            From src/design-system/tokens/typography.ts. Display/heading/title
+            are Sora (never below title); body/caption/label are Manrope;
+            body.photo/label.photo compensate light type on a dark photograph;
+            mono is Geist Mono for data.
+          </AeryoText>
         </Stack>
 
         <Stack gap="3">
-          <Heading as="h3" size="sm" color="fg">
+          <AeryoText variant="label" color="fg.muted">
             Font sizes
-          </Heading>
+          </AeryoText>
           {["xs", "sm", "md", "lg", "xl", "2xl", "3xl", "4xl", "5xl"].map(
             (t) => (
               <ScaleRow key={t} category="fontSizes" token={t} sample="Aa" />
@@ -88,9 +103,9 @@ export const Typography: Story = {
         </Stack>
 
         <Stack gap="3">
-          <Heading as="h3" size="sm" color="fg">
+          <AeryoText variant="label" color="fg.muted">
             Font weights
-          </Heading>
+          </AeryoText>
           {["normal", "medium", "semibold", "bold", "extrabold"].map((t) => (
             <ScaleRow
               key={t}
@@ -102,9 +117,9 @@ export const Typography: Story = {
         </Stack>
 
         <Stack gap="3">
-          <Heading as="h3" size="sm" color="fg">
+          <AeryoText variant="label" color="fg.muted">
             Line heights
-          </Heading>
+          </AeryoText>
           {["tight", "normal", "relaxed"].map((t) => (
             <ScaleRow
               key={t}
@@ -116,10 +131,10 @@ export const Typography: Story = {
         </Stack>
 
         <Stack gap="3">
-          <Heading as="h3" size="sm" color="fg">
+          <AeryoText variant="label" color="fg.muted">
             Letter spacing
-          </Heading>
-          {["tight", "normal", "wide"].map((t) => (
+          </AeryoText>
+          {["tight", "normal", "wide", "wider"].map((t) => (
             <ScaleRow
               key={t}
               category="letterSpacings"
@@ -130,14 +145,21 @@ export const Typography: Story = {
         </Stack>
 
         <Stack gap="4">
-          <Heading as="h3" size="sm" color="fg">
+          <AeryoText variant="label" color="fg.muted">
             Text styles
-          </Heading>
-          {["display", "heading", "title", "body", "caption", "label"].map(
-            (name) => (
-              <TextStyleRow key={name} name={name} />
-            ),
-          )}
+          </AeryoText>
+          {[
+            "display",
+            "heading",
+            "title",
+            "body",
+            "caption",
+            "label",
+            "body.photo",
+            "label.photo",
+          ].map((name) => (
+            <TextStyleRow key={name} name={name} />
+          ))}
         </Stack>
       </Stack>
     </Box>
