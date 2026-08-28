@@ -4,6 +4,12 @@ test.describe("color mode rendering", () => {
   test("renders the dark bg token under dark system preference", async ({
     page,
   }) => {
+    await page.addInitScript(() => {
+      window.localStorage.setItem(
+        "CapacitorStorage.aeryo:onboarding-seen",
+        "true",
+      );
+    });
     await page.emulateMedia({ colorScheme: "dark" });
     await page.goto("/");
 
@@ -22,6 +28,12 @@ test.describe("color mode rendering", () => {
   test("renders the light bg token under light system preference", async ({
     page,
   }) => {
+    await page.addInitScript(() => {
+      window.localStorage.setItem(
+        "CapacitorStorage.aeryo:onboarding-seen",
+        "true",
+      );
+    });
     await page.emulateMedia({ colorScheme: "light" });
     await page.goto("/");
 
