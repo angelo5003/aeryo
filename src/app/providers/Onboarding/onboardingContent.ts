@@ -1,5 +1,5 @@
 export interface OnboardingSlideContent {
-  /** Stable id — used as the React key. */
+  /** Stable id — used as the React key and as carousel selection state. */
   id: string;
   /** Path under `public/` for the full-bleed background photo. */
   imageSrc: string;
@@ -15,6 +15,9 @@ export interface OnboardingSlideContent {
  * hype/clichés. Photos are pre-cropped 941×1672 (~9:16) portraits under
  * `public/assets/onboarding/` — same full-bleed treatment as the intro
  * screen's `splash.png` (see `IntroScreen.tsx`).
+ *
+ * Ids are authored and stable (not generated). A UUID library would only
+ * add churn for content that already has a natural identity.
  */
 export const ONBOARDING_SLIDES: OnboardingSlideContent[] = [
   {
@@ -48,3 +51,25 @@ export const ONBOARDING_SLIDES: OnboardingSlideContent[] = [
     body: "Log every session. Watch your riding grow, one wind day at a time.",
   },
 ];
+
+export const ONBOARDING_SLIDE_IDS = ONBOARDING_SLIDES.map((slide) => slide.id);
+
+export const FIRST_ONBOARDING_SLIDE_ID = ONBOARDING_SLIDE_IDS[0];
+export const LAST_ONBOARDING_SLIDE_ID =
+  ONBOARDING_SLIDE_IDS[ONBOARDING_SLIDE_IDS.length - 1];
+
+/** First two slides: LCP plus the one Next reveals immediately. */
+export const PRELOAD_ONBOARDING_SLIDE_IDS = new Set(
+  ONBOARDING_SLIDE_IDS.slice(0, 2),
+);
+
+/** Next slide in display order, or `undefined` when `currentId` is last/unknown. */
+export function getNextOnboardingSlideId(
+  currentId: string,
+): string | undefined {
+  const current = ONBOARDING_SLIDES.findIndex((slide) => slide.id === currentId);
+  if (current === -1) {
+    return undefined;
+  }
+  return ONBOARDING_SLIDES[current + 1]?.id;
+}
