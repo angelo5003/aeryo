@@ -1,0 +1,27 @@
+---
+description: Identify list items and selection state by id, not array index.
+globs: src/**/*.{ts,tsx}
+alwaysApply: true
+---
+
+# Identity is an id, not an index
+
+When an item has (or can have) a stable `id`, use that for React `key`, selection state, and "is this the active one?" comparisons. Do not store or compare array indexes.
+
+```tsx
+// ❌ BAD
+const [activeIndex, setActiveIndex] = useState(0);
+items.map((item, index) => (
+  <Row key={index} active={index === activeIndex} />
+));
+
+// ✅ GOOD
+const [activeId, setActiveId] = useState(items[0].id);
+items.map((item) => (
+  <Row key={item.id} active={item.id === activeId} />
+));
+```
+
+Authored ids on static content (`"adventure-awaits"`) beat generated UUIDs. Do not add `uuid` for lists that already have a natural identity. `crypto.randomUUID()` is only for records created at runtime that have no id yet.
+
+Index is allowed only when the caller supplies no id (anonymous placeholders). Even then, prefer minting a local id over using the loop index as `key` if the list can reorder.

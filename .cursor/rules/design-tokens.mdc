@@ -1,0 +1,28 @@
+---
+description: Always use Aeryo design tokens — never hardcode colors, spacing, radii, or motion.
+globs: src/**/*.{ts,tsx}
+alwaysApply: true
+---
+
+# Design tokens
+
+App UI must use the Aeryo token system. Do not put raw hex, `rgb()`, `rgba()`, `hsl()`, or `oklch()` in component props, `style={{}}`, or local constants.
+
+Tokens live in `src/design-system/tokens/` and are wired through `src/design-system/theme/`. ESLint (`no-restricted-syntax` in `eslint.config.mjs`) fails the build on hardcoded hex in `src/`.
+
+```tsx
+// ❌ BAD
+<Box bg="#0B0F14" />
+<Box style={{ color: "rgb(11, 15, 20)" }} />
+
+// ✅ GOOD — semantic (theme-aware light/dark)
+<Box bg="bg" color="fg" />
+
+// ✅ GOOD — raw palette, when the surface is NOT theme-aware
+// (full-bleed photo screens that stay dark in both modes)
+<Box bg="ink.950" color="white" />
+```
+
+If the color you need is missing, add it in `src/design-system/tokens/colors.ts` (and a semantic token in `semantic-tokens.ts` if it has a role). Do not invent a one-off hex in the component.
+
+Do not use Chakra's unthemed palettes (`gray`, `red`, `orange`, `whiteAlpha`, …). Use `teal` (the one primary), `danger`/`caution`/`success` for status, `ink.*` for neutrals, `lime` only for wind data.

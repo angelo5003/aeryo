@@ -5,10 +5,15 @@ import { motion, useReducedMotion } from "framer-motion";
 import * as React from "react";
 import { Button } from "@/components/actions/Button";
 import { ProgressDots } from "@/components/data-display/ProgressDots";
-import { ONBOARDING_SLIDES } from "../onboardingContent";
+import {
+  FIRST_ONBOARDING_SLIDE_ID,
+  getNextOnboardingSlideId,
+  LAST_ONBOARDING_SLIDE_ID,
+  ONBOARDING_SLIDE_IDS,
+  ONBOARDING_SLIDES,
+  PRELOAD_ONBOARDING_SLIDE_IDS,
+} from "../onboardingContent";
 import { OnboardingSlide } from "./OnboardingSlide";
-
-const SLIDE_COUNT = ONBOARDING_SLIDES.length;
 
 // Photo dissolve: long enough to read as a fade, not a cut. Incoming
 // eases in over the current photo, which holds until it's covered — so
@@ -26,21 +31,22 @@ export interface OnboardingCarouselProps {
  * `OnboardingSlide`), advanced only by the `Next`/`Get Started` button,
  * with a dot progress indicator and a `Skip` button (top-right, every
  * slide but the last). Gestures do not change slides. Tapping Next
- * crossfades the next photo over the current one. Mounted by `page.tsx`
- * only when `useOnboarding().hasCompletedOnboarding` is `false`.
+ * crossfades the next photo over the current one. Selection is by slide
+ * `id`, never a stored index. Mounted by `page.tsx` only when
+ * `useOnboarding().hasCompletedOnboarding` is `false`.
  */
 export function OnboardingCarousel({ onComplete }: OnboardingCarouselProps) {
   const reduceMotion = useReducedMotion();
-  const [activeIndex, setActiveIndex] = React.useState(0);
+  const [activeId, setActiveId] = React.useState(FIRST_ONBOARDING_SLIDE_ID);
 
-  const isLastSlide = activeIndex === SLIDE_COUNT - 1;
+  const isLastSlide = activeId === LAST_ONBOARDING_SLIDE_ID;
 
   const handleNext = React.useCallback(() => {
     if (isLastSlide) {
       onComplete();
-    } else {
-      setActiveIndex((index) => Math.min(index + 1, SLIDE_COUNT - 1));
+      return;
     }
+    setActiveId((currentId) => getNextOnboardingSlideId(currentId) ?? currentId);
   }, [isLastSlide, onComplete]);
 
   return (
@@ -69,12 +75,14 @@ export function OnboardingCarousel({ onComplete }: OnboardingCarouselProps) {
         height="100%"
         overflow="hidden"
         zIndex={0}
-        // Same ink as the slide scrim, so a not-yet-decoded next photo
-        // never flashes the page background through the dissolve.
-        bg="#0B0F14"
+        // Raw `ink.950`, not semantic `bg` — this screen always sits on
+        // a dark photo, independent of the app's light/dark mode. A
+        // not-yet-decoded next photo must not flash a light surface
+        // through the dissolve.
+        bg="ink.950"
       >
-        {ONBOARDING_SLIDES.map((slide, index) => {
-          const isActive = index === activeIndex;
+        {ONBOARDING_SLIDES.map((slide) => {
+          const isActive = slide.id === activeId;
           return (
             <motion.div
               key={slide.id}
@@ -99,7 +107,7 @@ export function OnboardingCarousel({ onComplete }: OnboardingCarouselProps) {
               <OnboardingSlide
                 slide={slide}
                 isActive={isActive}
-                priority={index <= 1}
+                priority={PRELOAD_ONBOARDING_SLIDE_IDS.has(slide.id)}
               />
             </motion.div>
           );
@@ -138,7 +146,7 @@ export function OnboardingCarousel({ onComplete }: OnboardingCarouselProps) {
           gap="4"
           pb="10"
         >
-          <ProgressDots count={SLIDE_COUNT} activeIndex={activeIndex} />
+          <ProgressDots ids={ONBOARDING_SLIDE_IDS} activeId={activeId} />
           <Button intent="primary" fullWidth onClick={handleNext}>
             {isLastSlide ? "Get Started" : "Next"}
           </Button>

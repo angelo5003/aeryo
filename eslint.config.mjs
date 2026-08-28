@@ -16,6 +16,10 @@ const COLOR_PROP_NAMES =
   "bg|bgColor|background|backgroundColor|color|textColor|borderColor|borderTopColor|borderBottomColor|borderLeftColor|borderRightColor|fill|stroke|colorPalette";
 const RAW_COLOR_LITERAL =
   "^(#([0-9a-fA-F]{3,4}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})\\b|(rgb|rgba|hsl|hsla|oklch|oklab|lab|lch)\\()";
+// Hex anywhere in a string — catches `bg="#0B0F14"` *and* the same hex
+// buried in a gradient / assigned to a const that later feeds a style prop.
+const HEX_COLOR_ANYWHERE =
+  "#([0-9a-fA-F]{3,4}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})\\b";
 
 const noDefaultChakraColors = [
   "error",
@@ -32,12 +36,22 @@ const noDefaultChakraColors = [
   {
     selector: `JSXAttribute[name.name=/^(${COLOR_PROP_NAMES})$/] Literal[value=/${RAW_COLOR_LITERAL}/]`,
     message:
-      "Don't hardcode a raw color value in a component. Use an Aeryo design token — add one in src/design-system/theme if it doesn't exist yet.",
+      "Don't hardcode a raw color value in a component. Use an Aeryo design token — add one in src/design-system/tokens if it doesn't exist yet.",
   },
   {
     selector: `Property[key.name=/^(${COLOR_PROP_NAMES})$/] Literal[value=/${RAW_COLOR_LITERAL}/]`,
     message:
-      "Don't hardcode a raw color value in a component. Use an Aeryo design token — add one in src/design-system/theme if it doesn't exist yet.",
+      "Don't hardcode a raw color value in a component. Use an Aeryo design token — add one in src/design-system/tokens if it doesn't exist yet.",
+  },
+  {
+    selector: `Literal[value=/${HEX_COLOR_ANYWHERE}/]`,
+    message:
+      "Don't hardcode a hex color. Use an Aeryo token (`bg=\"ink.950\"`, `color=\"fg\"`, …). Raw hex belongs only in src/design-system/tokens and src/design-system/theme.",
+  },
+  {
+    selector: `TemplateElement[value.raw=/${HEX_COLOR_ANYWHERE}/]`,
+    message:
+      "Don't hardcode a hex color. Use an Aeryo token (`bg=\"ink.950\"`, `color=\"fg\"`, …). Raw hex belongs only in src/design-system/tokens and src/design-system/theme.",
   },
 ];
 
@@ -65,13 +79,17 @@ const eslintConfig = defineConfig([
   {
     // Keep components (and stories) on Aeryo design tokens instead of
     // Chakra's stock palette or raw hex/rgb/hsl values. Exempt:
-    //  - src/design-system/theme/**  — where the raw values live and get named
+    //  - src/design-system/tokens/** — the named raw palette (hex lives here)
+    //  - src/design-system/theme/**  — semantic tokens that reference those
     //  - src/components/ui/**        — Chakra CLI-generated primitives
     //    (provider, toaster, tooltip, color-mode); infrastructure, not
-    //    brand-surfaced app UI. Components we build for the app live in
-    //    src/design-system/components and src/features instead.
+    //    brand-surfaced app UI.
     files: ["src/**/*.{ts,tsx}"],
-    ignores: ["src/design-system/theme/**", "src/components/ui/**"],
+    ignores: [
+      "src/design-system/theme/**",
+      "src/design-system/tokens/**",
+      "src/components/ui/**",
+    ],
     rules: {
       "no-restricted-syntax": noDefaultChakraColors,
     },

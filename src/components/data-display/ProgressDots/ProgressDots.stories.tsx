@@ -35,6 +35,23 @@ export const LastStep: Story = {
   args: { activeIndex: 4 },
 };
 
+export const WithIds: Story = {
+  args: {
+    ids: [
+      "adventure-awaits",
+      "discover-the-elements",
+      "master-the-conditions",
+    ],
+    activeId: "discover-the-elements",
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(
+      canvas.getByRole("group", { name: "Step 2 of 3" }),
+    ).toBeVisible();
+  },
+};
+
 export const AccessibleLabel: Story = {
   args: { count: 5, activeIndex: 2 },
   play: async ({ canvasElement }) => {

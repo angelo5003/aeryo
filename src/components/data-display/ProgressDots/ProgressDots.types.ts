@@ -1,6 +1,13 @@
 export interface ProgressDotsProps {
-  /** Total number of steps/slides. */
-  count: number;
-  /** Zero-based index of the currently active step. */
-  activeIndex: number;
+  /**
+   * Stable ids for each step. Prefer this — dots key and compare by id.
+   * Falls back to `count` / `activeIndex` only when no ids are supplied.
+   */
+  ids?: readonly string[];
+  /** Currently active step. Used with `ids`. */
+  activeId?: string;
+  /** Fallback total when `ids` is omitted. */
+  count?: number;
+  /** Fallback selection when `activeId` is omitted. */
+  activeIndex?: number;
 }
