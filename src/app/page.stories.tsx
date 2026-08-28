@@ -1,19 +1,22 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 import { expect, fireEvent, waitFor, within } from "storybook/test";
+import { OnboardingProvider } from "@/app/providers/Onboarding/Provider/OnboardingProvider";
 import { SplashProvider } from "@/app/providers/SplashScreen/Provider/SplashProvider";
 import Home from "./page";
 
-// `Home` reads `useSplashScreen()` (SplashProvider) to hide the native
-// splash once its background image paints — outside a SplashProvider it
-// throws, so every story needs this decorator. See
-// src/app/providers/SplashScreen/Provider/SplashProvider.tsx.
+// `Home` reads `useSplashScreen()` (SplashProvider) and `useOnboarding()`
+// (OnboardingProvider) — outside either it throws, so every story needs
+// both decorators. See src/app/providers/SplashScreen/Provider/SplashProvider.tsx
+// and src/app/providers/Onboarding/Provider/OnboardingProvider.tsx.
 const meta = {
   component: Home,
   tags: ["ai-generated"],
   decorators: [
     (Story) => (
       <SplashProvider>
-        <Story />
+        <OnboardingProvider>
+          <Story />
+        </OnboardingProvider>
       </SplashProvider>
     ),
   ],
@@ -36,16 +39,17 @@ export const Default: Story = {
       timeout: 2000,
     });
     await waitFor(
-      () =>
-        expect(canvas.getByText("Where the Unseen Leads")).toBeVisible(),
+      () => expect(canvas.getByText("Where the Unseen Leads")).toBeVisible(),
       { timeout: 2000 },
     );
   },
 };
 
 // Simulates the background image finishing its load, which is the signal
-// page.tsx waits for before starting the swap to the real app content.
-export const TransitionsToHome: Story = {
+// page.tsx waits for before starting the swap away from the intro. On a
+// first "launch" (Storybook has no persisted Preferences value), that swap
+// lands on the onboarding carousel, not home directly.
+export const TransitionsToOnboarding: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const background = canvasElement.querySelector('img[alt=""]');
@@ -56,7 +60,7 @@ export const TransitionsToHome: Story = {
     await waitFor(
       () =>
         expect(
-          canvas.getByRole("heading", { level: 1, name: /hello world/i }),
+          canvas.getByRole("heading", { name: "Adventure Awaits" }),
         ).toBeVisible(),
       { timeout: 4000 },
     );
