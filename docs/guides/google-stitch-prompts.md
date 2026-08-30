@@ -33,6 +33,7 @@ visual language instead of drifting screen to screen.
 > farm, not an extreme-sports poster.
 >
 > **Color palette (dark-first):**
+>
 > - Base background: `#071216` (near-black atmospheric ink)
 > - Surface / panel: `#0D2931`
 > - Off-white foreground/text: `#EDF8F6`
@@ -98,6 +99,7 @@ visual language instead of drifting screen to screen.
 >
 > Content, top to bottom, in strict priority order — opportunity before raw
 > data:
+>
 > 1. **Header** — small "Good afternoon" / location line, avatar top-right.
 > 2. **Best opportunity card** (the hero element) — large, on an ink surface
 >    panel (`#0D2931`), rounded 18px corners. Shows a condition-quality
@@ -154,6 +156,7 @@ visual language instead of drifting screen to screen.
 > off-white text on that scrim.
 >
 > Below the photo, on ink-panel background, in this exact priority order:
+>
 > 1. **Current conditions** — large wind speed number (tabular numerals),
 >    direction compass/arrow icon, and a GO/MAYBE/NO-GO status pill, all
 >    together — never the number alone.
@@ -226,6 +229,7 @@ visual language instead of drifting screen to screen.
 > Top: avatar, display name, and a short bio line, centered or left-aligned
 > on an ink panel. Below it, a vertical list of settings-style rows, each a
 > full-width tappable row with a label and a chevron:
+>
 > - **Rider profile** — weight, skill level, riding disciplines
 > - **Equipment** — kite sizes, board type
 > - **Preferences** — preferred conditions, travel/driving radius

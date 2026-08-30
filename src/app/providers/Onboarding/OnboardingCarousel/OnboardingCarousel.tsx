@@ -46,7 +46,9 @@ export function OnboardingCarousel({ onComplete }: OnboardingCarouselProps) {
       onComplete();
       return;
     }
-    setActiveId((currentId) => getNextOnboardingSlideId(currentId) ?? currentId);
+    setActiveId(
+      (currentId) => getNextOnboardingSlideId(currentId) ?? currentId,
+    );
   }, [isLastSlide, onComplete]);
 
   return (
@@ -123,7 +125,13 @@ export function OnboardingCarousel({ onComplete }: OnboardingCarouselProps) {
       >
         {!isLastSlide && (
           <Box display="flex" justifyContent="flex-end" pt="2">
-            <Button variant="ghost" size="sm" onClick={onComplete}>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={onComplete}
+              color="fg.photo"
+              fontWeight="bold"
+            >
               Skip
             </Button>
           </Box>
