@@ -3,6 +3,7 @@
 import { Box } from "@chakra-ui/react";
 import { motion, useReducedMotion } from "framer-motion";
 import * as React from "react";
+import { LuArrowRight } from "react-icons/lu";
 import { Button } from "@/components/actions/Button";
 import { ProgressDots } from "@/components/data-display/ProgressDots";
 import {
@@ -154,8 +155,17 @@ export function OnboardingCarousel({ onComplete }: OnboardingCarouselProps) {
           pb="10"
         >
           <ProgressDots ids={ONBOARDING_SLIDE_IDS} activeId={activeId} />
-          <Button intent="primary" fullWidth onClick={handleNext}>
-            {isLastSlide ? "Get Started" : "Next"}
+          <Button
+            intent="primary"
+            fullWidth
+            onClick={handleNext}
+            fontWeight="bold"
+            color="fg.photo"
+            iconRight={<LuArrowRight />}
+            justifyContent="center"
+            alignItems="center"
+          >
+            {isLastSlide ? "Get Started" : "Next".toUpperCase()}
           </Button>
         </Box>
       </Box>
