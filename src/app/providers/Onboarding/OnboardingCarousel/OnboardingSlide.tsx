@@ -68,7 +68,7 @@ export function OnboardingSlide({
           px={8}
           textAlign="center"
         >
-          <Heading as="h2" variant="title" color="fg.photo">
+          <Heading as="h1" variant="heading" color="fg.photo">
             {slide.heading}
           </Heading>
           <Text variant="body.photo" color="fg.photo">
