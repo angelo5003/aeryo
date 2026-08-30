@@ -1,6 +1,7 @@
 "use client";
 
 import { Box } from "@chakra-ui/react";
+import { motion, useReducedMotion } from "framer-motion";
 import * as React from "react";
 import { OnboardingCarousel } from "@/app/providers/Onboarding/OnboardingCarousel/OnboardingCarousel";
 import { useOnboarding } from "@/app/providers/Onboarding/Provider/OnboardingProvider";
@@ -13,6 +14,12 @@ import { Heading } from "@/components/typography/Heading";
 // room to be seen instead of flashing by on a warm cache/fast device.
 const MIN_INTRO_MS = 2500;
 
+// Same dissolve OnboardingCarousel uses between slides (see its own
+// comment) — the incoming screen eases in over the intro, which holds
+// underneath until it's covered, instead of a cut.
+const FADE_DURATION_S = 0.5;
+const FADE_EASE = [0.4, 0, 0.2, 1] as const;
+
 // Capacitor always loads the app at "/" (this route) — there's no separate
 // "intro"/"onboarding" URL a real launch ever visits. So the native-splash
 // → JS-intro → onboarding (first launch only) → real-app sequence has to
@@ -21,6 +28,7 @@ const MIN_INTRO_MS = 2500;
 // OnboardingProvider for how "seen onboarding" is persisted, and
 // IntroScreen/OnboardingCarousel for the actual screens.
 export default function Home() {
+  const reduceMotion = useReducedMotion();
   const { hideNativeSplash } = useSplashScreen();
   const { hasCompletedOnboarding, completeOnboarding } = useOnboarding();
   const [minDwellElapsed, setMinDwellElapsed] = React.useState(false);
@@ -33,22 +41,73 @@ export default function Home() {
   const [appReady] = React.useState(true);
 
   const showIntro = !(minDwellElapsed && appReady);
+  // `hasCompletedOnboarding` is `null` for one tick while the persisted
+  // flag is still being read — treat that the same as "not completed yet"
+  // (render onboarding rather than flashing home content first) so there's
+  // no flicker of home behind the carousel on a first launch.
+  const showOnboarding = !showIntro && hasCompletedOnboarding !== true;
 
   const handleBackgroundLoad = React.useCallback(() => {
     hideNativeSplash();
     window.setTimeout(() => setMinDwellElapsed(true), MIN_INTRO_MS);
   }, [hideNativeSplash]);
 
-  if (showIntro) {
-    return <IntroScreen onBackgroundLoad={handleBackgroundLoad} />;
-  }
+  // Keep the intro mounted for one fade duration after `showIntro` flips
+  // false, so onboarding's first slide has something to dissolve over
+  // instead of the intro just disappearing.
+  const [introMounted, setIntroMounted] = React.useState(true);
+  React.useEffect(() => {
+    if (showIntro) return;
+    const timeout = window.setTimeout(
+      () => setIntroMounted(false),
+      reduceMotion ? 0 : FADE_DURATION_S * 1000,
+    );
+    return () => clearTimeout(timeout);
+  }, [showIntro, reduceMotion]);
 
-  // `hasCompletedOnboarding` is `null` for one tick while the persisted
-  // flag is still being read — treat that the same as "not completed yet"
-  // (render nothing rather than flashing home content first) so there's
-  // no flicker of home behind the carousel on a first launch.
-  if (hasCompletedOnboarding !== true) {
-    return <OnboardingCarousel onComplete={completeOnboarding} />;
+  if (showIntro || showOnboarding) {
+    return (
+      <>
+        {introMounted && (
+          // `height: 0` + `overflow: visible` so this wrapper takes no
+          // space of its own in body's flex column — IntroScreen already
+          // sizes and positions itself full-bleed via its own negative
+          // safe-area margins, same as when it's returned directly below.
+          // A `position: fixed`/`absolute` wrapper would double-cancel
+          // that margin instead.
+          <motion.div
+            style={{
+              height: 0,
+              overflow: "visible",
+              zIndex: showIntro ? 1 : 0,
+            }}
+            initial={false}
+            animate={{ opacity: showIntro ? 1 : 0 }}
+            transition={
+              reduceMotion
+                ? { duration: 0 }
+                : { duration: 0, delay: FADE_DURATION_S }
+            }
+          >
+            <IntroScreen onBackgroundLoad={handleBackgroundLoad} />
+          </motion.div>
+        )}
+        {showOnboarding && (
+          <motion.div
+            style={{ height: 0, overflow: "visible", zIndex: 1 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={
+              reduceMotion
+                ? { duration: 0 }
+                : { duration: FADE_DURATION_S, ease: FADE_EASE }
+            }
+          >
+            <OnboardingCarousel onComplete={completeOnboarding} />
+          </motion.div>
+        )}
+      </>
+    );
   }
 
   return (
