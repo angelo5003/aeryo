@@ -7,6 +7,11 @@ import type { ProgressDotsProps } from "./ProgressDots.types";
  * future feature needs tappable dots, that's a new prop on top of this
  * component, not a change to its current behavior.
  *
+ * Every dot is the same size — the active step is communicated by color
+ * alone, not by growing into a pill (AERYO's component direction calls
+ * out "excessive pills" as something to avoid; see
+ * `docs/guides/aeryo-branding.md` §23/§28).
+ *
  * Not theme-aware (no `_dark`/`_light` split) — designed to sit on top of
  * a photo with a dark scrim, same as `IntroScreen`'s logo/tagline, not on
  * the app's own `bg`/`fg` surface.
@@ -40,13 +45,13 @@ export function ProgressDots({
       {steps.map((id) => (
         <Box
           key={id}
-          width={id === currentId ? "6" : "1.5"}
+          width="1.5"
           height="1.5"
           borderRadius="full"
           // On a photographic scrim — `fg.photo` / `fg.photo.muted`, not
           // the theme-aware `fg` pair (those would flip in light mode).
           bg={id === currentId ? "fg.photo" : "fg.photo.muted"}
-          transition="width 0.2s ease-out, background-color 0.2s ease-out"
+          transition="background-color 0.2s ease-out"
         />
       ))}
     </HStack>
