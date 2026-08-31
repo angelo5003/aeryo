@@ -164,8 +164,9 @@ export function OnboardingCarousel({ onComplete }: OnboardingCarouselProps) {
             iconRight={<LuArrowRight />}
             justifyContent="center"
             alignItems="center"
+            textTransform={isLastSlide ? undefined : "uppercase"}
           >
-            {isLastSlide ? "Get Started" : "Next".toUpperCase()}
+            {isLastSlide ? "Get Started" : "Next"}
           </Button>
         </Box>
       </Box>
