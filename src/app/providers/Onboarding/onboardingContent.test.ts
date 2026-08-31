@@ -21,6 +21,9 @@ describe("onboardingContent", () => {
     expect(getNextOnboardingSlideId("find-your-community")).toBe(
       "track-your-progress",
     );
+    expect(getNextOnboardingSlideId("track-your-progress")).toBe(
+      "ready-when-you-are",
+    );
     expect(getNextOnboardingSlideId(LAST_ONBOARDING_SLIDE_ID)).toBeUndefined();
     expect(getNextOnboardingSlideId("not-a-slide")).toBeUndefined();
   });

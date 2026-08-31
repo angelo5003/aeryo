@@ -8,13 +8,15 @@ export interface OnboardingSlideContent {
 }
 
 /**
- * The 5 onboarding slides, in display order. Order and copy follow AERYO's
+ * The 6 onboarding slides, in display order. Order and copy follow AERYO's
  * emotional hierarchy (docs/guides/aeryo-branding.md §27: Curiosity →
  * Understanding → Confidence → Freedom → Progression) — copy is
  * deliberately short and declarative per the brand voice (§26), not
  * hype/clichés. Photos are pre-cropped 941×1672 (~9:16) portraits under
  * `public/assets/onboarding/` — same full-bleed treatment as the intro
- * screen's `splash.png` (see `IntroScreen.tsx`).
+ * screen's `splash.png` (see `IntroScreen.tsx`). The final slide closes
+ * the flow (no Skip/progress dots — see `OnboardingCarousel.tsx`) and
+ * hands off to account creation / login, which live outside onboarding.
  *
  * Ids are authored and stable (not generated). A UUID library would only
  * add churn for content that already has a natural identity.
@@ -49,6 +51,12 @@ export const ONBOARDING_SLIDES: OnboardingSlideContent[] = [
     imageSrc: "/assets/onboarding/track-your-progress-screen.webp",
     heading: "Track Your Progress",
     body: "Log every session. Watch your riding grow, one wind day at a time.",
+  },
+  {
+    id: "ready-when-you-are",
+    imageSrc: "/assets/onboarding/end-of-onboarding-flow-screen.webp",
+    heading: "Ready When You Are",
+    body: "Create your account and log your first session.",
   },
 ];
 
