@@ -20,7 +20,7 @@ export const Default: Story = {
       canvas.getByRole("heading", { name: "Adventure Awaits" }),
     ).toBeVisible();
     await expect(
-      canvas.getByRole("group", { name: "Step 1 of 5" }),
+      canvas.getByRole("group", { name: "Step 1 of 6" }),
     ).toBeVisible();
   },
 };
@@ -43,12 +43,12 @@ export const NextAdvancesToSecondSlide: Story = {
       ).toBeVisible(),
     );
     await expect(
-      canvas.getByRole("group", { name: "Step 2 of 5" }),
+      canvas.getByRole("group", { name: "Step 2 of 6" }),
     ).toBeVisible();
   },
 };
 
-export const LastSlideShowsGetStarted: Story = {
+export const LastSlideShowsCreateAccount: Story = {
   play: async ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
     const next = () =>
@@ -57,14 +57,18 @@ export const LastSlideShowsGetStarted: Story = {
     await next();
     await next();
     await next();
+    await next();
     await waitFor(() =>
       expect(
-        canvas.getByRole("heading", { name: "Track Your Progress" }),
+        canvas.getByRole("heading", { name: "Ready When You Are" }),
       ).toBeVisible(),
     );
     await expect(canvas.queryByRole("button", { name: "Skip" })).toBeNull();
+    await expect(canvas.queryByRole("group")).toBeNull();
 
-    await userEvent.click(canvas.getByRole("button", { name: "Get Started" }));
+    await userEvent.click(
+      canvas.getByRole("button", { name: "Create account" }),
+    );
     await expect(args.onComplete).toHaveBeenCalledTimes(1);
   },
 };

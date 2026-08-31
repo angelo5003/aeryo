@@ -6,6 +6,9 @@ import * as React from "react";
 import { LuArrowRight } from "react-icons/lu";
 import { Button } from "@/components/actions/Button";
 import { ProgressDots } from "@/components/data-display/ProgressDots";
+import { Stack } from "@/components/primitives/Stack";
+import { Link } from "@/components/typography/Link";
+import { Text } from "@/components/typography/Text";
 import {
   FIRST_ONBOARDING_SLIDE_ID,
   getNextOnboardingSlideId,
@@ -28,13 +31,15 @@ export interface OnboardingCarouselProps {
 }
 
 /**
- * The onboarding carousel itself: 5 full-bleed photo slides (see
- * `OnboardingSlide`), advanced only by the `Next`/`Get Started` button,
+ * The onboarding carousel itself: 6 full-bleed photo slides (see
+ * `OnboardingSlide`), advanced only by the `Next`/`Create account` button,
  * with a dot progress indicator and a `Skip` button (top-right, every
- * slide but the last). Gestures do not change slides. Tapping Next
- * crossfades the next photo over the current one. Selection is by slide
- * `id`, never a stored index. Mounted by `page.tsx` only when
- * `useOnboarding().hasCompletedOnboarding` is `false`.
+ * slide but the last). Neither is rendered on the last slide — there's
+ * nothing left to skip or track progress toward once the flow has ended.
+ * Gestures do not change slides. Tapping Next crossfades the next photo
+ * over the current one. Selection is by slide `id`, never a stored index.
+ * Mounted by `page.tsx` only when `useOnboarding().hasCompletedOnboarding`
+ * is `false`.
  */
 export function OnboardingCarousel({ onComplete }: OnboardingCarouselProps) {
   const reduceMotion = useReducedMotion();
@@ -125,7 +130,7 @@ export function OnboardingCarousel({ onComplete }: OnboardingCarouselProps) {
         zIndex={1}
       >
         {!isLastSlide && (
-          <Box display="flex" justifyContent="flex-end" pt="2">
+          <Stack direction="row" justify="flex-end" pt="2">
             <Button
               variant="ghost"
               size="sm"
@@ -135,7 +140,7 @@ export function OnboardingCarousel({ onComplete }: OnboardingCarouselProps) {
             >
               Skip
             </Button>
-          </Box>
+          </Stack>
         )}
       </Box>
 
@@ -147,21 +152,17 @@ export function OnboardingCarousel({ onComplete }: OnboardingCarouselProps) {
         px="8"
         zIndex={1}
       >
-        <Box
-          display="flex"
-          flexDirection="column"
-          alignItems="center"
-          gap="4"
-          pb="10"
-        >
-          <ProgressDots ids={ONBOARDING_SLIDE_IDS} activeId={activeId} />
+        <Stack direction="column" align="center" gap="4" pb="10">
+          {!isLastSlide && (
+            <ProgressDots ids={ONBOARDING_SLIDE_IDS} activeId={activeId} />
+          )}
           <Button
             intent="primary"
             fullWidth
             onClick={handleNext}
             fontWeight="bold"
             color="fg.photo"
-            iconRight={<LuArrowRight />}
+            iconRight={isLastSlide ? undefined : <LuArrowRight />}
             justifyContent="center"
             alignItems="center"
             textTransform={isLastSlide ? undefined : "uppercase"}
@@ -169,10 +170,17 @@ export function OnboardingCarousel({ onComplete }: OnboardingCarouselProps) {
             transitionDuration="fast"
             transitionTimingFunction="easeOut"
             _active={{ transform: "scale(0.96)" }}
+            p="5"
+            fontSize="md"
           >
-            {isLastSlide ? "Get Started" : "Next"}
+            {isLastSlide ? "Create account" : "Next"}
           </Button>
-        </Box>
+          {isLastSlide && (
+            <Text variant="label.photo" color="fg.photo">
+              Already have an account? <Link color="fg.photo">Log in</Link>
+            </Text>
+          )}
+        </Stack>
       </Box>
     </Box>
   );
