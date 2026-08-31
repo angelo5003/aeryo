@@ -165,6 +165,10 @@ export function OnboardingCarousel({ onComplete }: OnboardingCarouselProps) {
             justifyContent="center"
             alignItems="center"
             textTransform={isLastSlide ? undefined : "uppercase"}
+            transitionProperty="transform"
+            transitionDuration="fast"
+            transitionTimingFunction="easeOut"
+            _active={{ transform: "scale(0.96)" }}
           >
             {isLastSlide ? "Get Started" : "Next"}
           </Button>
