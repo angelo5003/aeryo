@@ -57,7 +57,7 @@ test.describe("onboarding carousel", () => {
     ).toBeVisible();
   });
 
-  test("Next advances through all 5 slides, Get Started completes and persists", async ({
+  test("Next advances through all 6 slides, Create account completes and persists", async ({
     page,
   }) => {
     await getToOnboarding(page);
@@ -67,6 +67,7 @@ test.describe("onboarding carousel", () => {
       "Master the Conditions",
       "Find Your Community",
       "Track Your Progress",
+      "Ready When You Are",
     ];
 
     for (const heading of headings) {
@@ -77,7 +78,8 @@ test.describe("onboarding carousel", () => {
     }
 
     await expect(page.getByRole("button", { name: "Skip" })).toHaveCount(0);
-    await page.getByRole("button", { name: "Get Started" }).click();
+    await expect(page.getByRole("group")).toHaveCount(0);
+    await page.getByRole("button", { name: "Create account" }).click();
 
     await expect(
       page.getByRole("heading", { level: 1, name: "Hello world" }),
