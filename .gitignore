@@ -57,3 +57,6 @@ ios/App/DerivedData/
 ios/**/xcuserdata/
 ios/**/*.xcuserstate
 ios/App/App/public/
+
+# claude code session markers
+.claude/.headroom_wrap_marker.json
