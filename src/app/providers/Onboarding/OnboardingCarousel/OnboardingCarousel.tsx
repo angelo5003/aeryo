@@ -177,7 +177,8 @@ export function OnboardingCarousel({ onComplete }: OnboardingCarouselProps) {
           </Button>
           {isLastSlide && (
             <Text variant="label.photo" color="fg.photo">
-              Already have an account? <Link color="fg.photo">Log in</Link>
+              Already have an account?{" "}
+              <Link color="fg.photo.accent">Log in</Link>
             </Text>
           )}
         </Stack>

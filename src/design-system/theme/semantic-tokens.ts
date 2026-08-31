@@ -114,6 +114,17 @@ export const semanticTokens = {
             _dark: "color-mix(in srgb, {colors.ink.50} 40%, transparent)",
           },
         },
+        // Teal text on the photo scrim (e.g. a link next to a solid CTA
+        // button, meant to read as "the same brand teal"). NOT sourced
+        // from `accent.solid` — that's mode-aware (teal.700 light /
+        // teal.500 dark) so it matches the *button* in both modes, but
+        // teal.700 only clears ~3:1 against `bg.photo` (fails 4.5:1 AA for
+        // normal text). Same fix as `fg.photo` above: `bg.photo` never
+        // switches with app mode, so this shouldn't either — fixed at
+        // teal.500, verified ~7:1 against `bg.photo`/ink.950.
+        accent: {
+          value: { _light: "{colors.teal.500}", _dark: "{colors.teal.500}" },
+        },
       },
       // Reuses the same shade steps as the danger/caution/success/teal
       // colorPalette `.fg` values below — deliberately, not by
