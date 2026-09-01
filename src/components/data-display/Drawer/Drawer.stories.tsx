@@ -81,6 +81,18 @@ const meta = {
   },
   parameters: {
     layout: "padded",
+    // `DrawerContent` portals to `document.body` (see `Drawer.tsx`). The
+    // Docs page renders every story inline in one shared document by
+    // default, so every `defaultOpen` story's portaled content would land
+    // in that same `document.body` and stack on top of each other —
+    // rendering each story in its own iframe gives it its own document
+    // instead.
+    docs: {
+      story: {
+        inline: false,
+        iframeHeight: "500px",
+      },
+    },
   },
 } satisfies Meta<typeof Drawer>;
 

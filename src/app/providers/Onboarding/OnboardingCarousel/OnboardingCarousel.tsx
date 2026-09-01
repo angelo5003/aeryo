@@ -4,6 +4,7 @@ import { Box } from "@chakra-ui/react";
 import { motion, useReducedMotion } from "framer-motion";
 import * as React from "react";
 import { LuArrowRight } from "react-icons/lu";
+import AccountBottomSheet from "@/app/shared/AccountBottomSheet/AccountBottomSheet";
 import { Button } from "@/components/actions/Button";
 import { ProgressDots } from "@/components/data-display/ProgressDots";
 import { Stack } from "@/components/primitives/Stack";
@@ -44,18 +45,20 @@ export interface OnboardingCarouselProps {
 export function OnboardingCarousel({ onComplete }: OnboardingCarouselProps) {
   const reduceMotion = useReducedMotion();
   const [activeId, setActiveId] = React.useState(FIRST_ONBOARDING_SLIDE_ID);
+  const [isAccountBottomSheetOpen, setIsAccountBottomSheetOpen] =
+    React.useState(false);
 
   const isLastSlide = activeId === LAST_ONBOARDING_SLIDE_ID;
 
-  const handleNext = React.useCallback(() => {
+  const handleOnboardingComplete = React.useCallback(() => {
     if (isLastSlide) {
-      onComplete();
+      setIsAccountBottomSheetOpen(true);
       return;
     }
     setActiveId(
       (currentId) => getNextOnboardingSlideId(currentId) ?? currentId,
     );
-  }, [isLastSlide, onComplete]);
+  }, [isLastSlide]);
 
   return (
     <Box
@@ -156,32 +159,36 @@ export function OnboardingCarousel({ onComplete }: OnboardingCarouselProps) {
           {!isLastSlide && (
             <ProgressDots ids={ONBOARDING_SLIDE_IDS} activeId={activeId} />
           )}
-          <Button
-            intent="primary"
-            fullWidth
-            onClick={handleNext}
-            fontWeight="bold"
-            color="fg.photo"
-            iconRight={isLastSlide ? undefined : <LuArrowRight />}
-            justifyContent="center"
-            alignItems="center"
-            textTransform={isLastSlide ? undefined : "uppercase"}
-            transitionProperty="transform"
-            transitionDuration="fast"
-            transitionTimingFunction="easeOut"
-            _active={{ transform: "scale(0.96)" }}
-            p="5"
-            fontSize="md"
-          >
-            {isLastSlide ? "Create account" : "Next"}
-          </Button>
-          {isLastSlide && (
+
+          {(!isLastSlide || !isAccountBottomSheetOpen) && (
+            <Button
+              intent="primary"
+              fullWidth
+              onClick={handleOnboardingComplete}
+              fontWeight="bold"
+              color="fg.photo"
+              iconRight={isLastSlide ? undefined : <LuArrowRight />}
+              justifyContent="center"
+              alignItems="center"
+              textTransform={isLastSlide ? undefined : "uppercase"}
+              transitionProperty="transform"
+              transitionDuration="fast"
+              transitionTimingFunction="easeOut"
+              _active={{ transform: "scale(0.96)" }}
+              p="5"
+              fontSize="md"
+            >
+              {isLastSlide ? "Create account" : "Next"}
+            </Button>
+          )}
+          {isLastSlide && !isAccountBottomSheetOpen && (
             <Text variant="label.photo" color="fg.photo">
               Already have an account?{" "}
               <Link color="fg.photo.accent">Log in</Link>
             </Text>
           )}
         </Stack>
+        <AccountBottomSheet open={isAccountBottomSheetOpen} />
       </Box>
     </Box>
   );
