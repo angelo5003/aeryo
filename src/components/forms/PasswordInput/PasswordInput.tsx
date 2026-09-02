@@ -1,13 +1,9 @@
-import {
-  Group,
-  InputElement,
-  mergeRefs,
-  useControllableState,
-} from "@chakra-ui/react";
+import { mergeRefs, useControllableState } from "@chakra-ui/react";
 import * as React from "react";
 import { LuEye, LuEyeOff } from "react-icons/lu";
 import { IconButton } from "@/components/actions/IconButton";
 import { Input } from "@/components/forms/Input";
+import { InputGroup } from "@/components/forms/InputGroup";
 import type { PasswordInputProps } from "./PasswordInput.types";
 
 /**
@@ -40,16 +36,12 @@ export const PasswordInput = React.forwardRef<
   const inputRef = React.useRef<HTMLInputElement>(null);
 
   return (
-    <Group {...rootProps}>
-      <Input
-        {...rest}
-        ref={mergeRefs(ref, inputRef)}
-        type={visible ? "text" : "password"}
-        // Room for the end InputElement's icon button — same offset the
-        // Chakra CLI's `input-group` snippet computes by default.
-        pe="calc(var(--input-height) - 6px)"
-      />
-      <InputElement placement="end">
+    <InputGroup
+      {...rootProps}
+      // Same offset the Chakra CLI's `input-group` snippet computes by
+      // default, for the end element's icon button.
+      endOffset="6px"
+      endElement={
         <IconButton
           tabIndex={-1}
           intent="secondary"
@@ -66,7 +58,13 @@ export const PasswordInput = React.forwardRef<
         >
           {visible ? <LuEyeOff /> : <LuEye />}
         </IconButton>
-      </InputElement>
-    </Group>
+      }
+    >
+      <Input
+        {...rest}
+        ref={mergeRefs(ref, inputRef)}
+        type={visible ? "text" : "password"}
+      />
+    </InputGroup>
   );
 });
