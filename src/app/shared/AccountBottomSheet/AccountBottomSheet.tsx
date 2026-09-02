@@ -1,4 +1,5 @@
 import type React from "react";
+import CreateAccountForm from "@/app/ui/pages/account/CreateAccountForm/CreateAccountForm";
 import {
   Drawer,
   DrawerBody,
@@ -6,7 +7,6 @@ import {
   DrawerHeader,
   DrawerTitle,
 } from "@/components/data-display/Drawer";
-import { Text } from "@/components/typography/Text";
 
 export type AccountBottomSheetProps = {
   open: boolean;
@@ -22,12 +22,14 @@ const AccountBottomSheet: React.FC<AccountBottomSheetProps> = ({ open }) => {
       closeOnInteractOutside={false}
       onOpenChange={() => {}}
     >
-      <DrawerContent>
+      <DrawerContent padding="8">
         <DrawerHeader>
-          <DrawerTitle>Quick Actions</DrawerTitle>
+          <DrawerTitle fontSize="2xl" fontWeight="bold" color="fg">
+            AERYO
+          </DrawerTitle>
         </DrawerHeader>
         <DrawerBody>
-          <Text variant="body">Bottom-placed drawer content.</Text>
+          <CreateAccountForm />
         </DrawerBody>
       </DrawerContent>
     </Drawer>
