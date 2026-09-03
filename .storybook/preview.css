@@ -1,0 +1,16 @@
+/*
+ * globals.css pins `body` to the viewport (`position: fixed; overflow:
+ * hidden`) so the native app never lets iOS scroll the whole screen when
+ * the keyboard opens — see the comment in src/app/globals.css. Storybook
+ * docs/story pages are normal long HTML pages and need `body` to scroll
+ * like usual, so this undoes just that one rule for Storybook only.
+ */
+html,
+body {
+  overflow: auto;
+}
+
+body {
+  position: static;
+  height: auto;
+}

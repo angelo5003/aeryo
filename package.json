@@ -29,6 +29,7 @@
     "rolldown": "1.2.4"
   },
   "dependencies": {
+    "@capacitor/keyboard": "^8.0.5",
     "@capacitor/preferences": "^8.0.1",
     "@capacitor/splash-screen": "^8.0.2",
     "@chakra-ui/react": "^3.36.1",
