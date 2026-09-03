@@ -1,4 +1,5 @@
 import type { CapacitorConfig } from "@capacitor/cli";
+import { KeyboardResize } from "@capacitor/keyboard";
 
 const config: CapacitorConfig = {
   appId: "com.aeryo.app",
@@ -12,7 +13,7 @@ const config: CapacitorConfig = {
     scrollEnabled: false,
   },
   server: {
-    url: "http://192.168.1.71:3000",
+    url: "http://192.168.1.107:3000",
     cleartext: true,
   },
   plugins: {
@@ -36,6 +37,16 @@ const config: CapacitorConfig = {
     SystemBars: {
       insetsHandling: "css",
       style: "DEFAULT",
+    },
+    // Without this, iOS defaults to `Native` resize — the whole WKWebView
+    // shrinks when the keyboard opens, which recalculates every `dvh`
+    // value on screen (e.g. the Drawer's `size="full"` height) and makes
+    // the entire layout visibly compress/"drop". `None` keeps the web
+    // view's size untouched; the keyboard just overlays on top instead —
+    // matching the "screen should stay still" rule already established in
+    // globals.css (see the `body { position: fixed }` comment there).
+    Keyboard: {
+      resize: KeyboardResize.None,
     },
   },
 };
