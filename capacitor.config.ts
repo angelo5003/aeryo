@@ -8,6 +8,9 @@ const config: CapacitorConfig = {
   // Mac's LAN address changes (`ipconfig getifaddr en0`), and make sure your
   // iPhone is on the same Wi-Fi network. Remove this `server` block before
   // shipping a production build.
+  ios: {
+    scrollEnabled: false,
+  },
   server: {
     url: "http://192.168.1.71:3000",
     cleartext: true,
