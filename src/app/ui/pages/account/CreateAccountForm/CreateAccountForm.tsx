@@ -9,6 +9,7 @@ import { FormError } from "@/components/forms/FormError/FormError";
 import { Input } from "@/components/forms/Input/Input";
 import { InputGroup } from "@/components/forms/InputGroup/InputGroup";
 import type { CreateAccountValues } from "@/server/validation/account/create-account.schema";
+import ContinueWithBox from "../ContinueWithBox";
 import { useCreateAccountForm } from "../hooks/useCreateAccountForm";
 
 const CreateAccountForm: React.FC = () => {
@@ -36,11 +37,6 @@ const CreateAccountForm: React.FC = () => {
             type="email"
             placeholder="you@example.com"
             size="lg"
-            // bron: node_modules/@chakra-ui/react/dist/esm/theme/recipes/input.js
-            // (--error-color: colors.border.error) — zonder deze conditie
-            // overschrijft de vaste accentkleur de rode focus-ring van een
-            // invalid veld zodra het focus krijgt (bv. na handleSubmit's
-            // auto-focus op het eerste veld met een fout).
             focusRingColor={errors.email ? "border.error" : "accent.solid"}
             {...register("email")}
           />
@@ -92,6 +88,7 @@ const CreateAccountForm: React.FC = () => {
       >
         Create Account
       </Button>
+      <ContinueWithBox />
     </Form>
   );
 };
