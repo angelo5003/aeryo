@@ -16,38 +16,48 @@ const CreateAccountForm: React.FC = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = methods;
 
-  // TODO(you): wire this up to Supabase Auth once it's provisioned
-  // (see PRODUCT.md / docs/guides/kitesurf-app.md — "Supabase is not
-  // provisioned yet"). For now this just proves validated data reaches
-  // a submit handler.
-  const onSubmit = (values: CreateAccountValues) => {
-    console.log("create account submit", values);
+  const onSubmit = (data: CreateAccountValues) => {
+    console.log(data);
   };
-
   return (
     <Form methods={methods} onSubmit={handleSubmit(onSubmit)}>
       <FormError />
-      <Field label="Email" required errorText={errors.email?.message}>
+      <Field
+        label="Email"
+        required
+        errorText={errors.email?.message}
+        invalid={!!errors.email}
+      >
         <InputGroup startElement={<LuMail />}>
           <Input
             type="email"
             placeholder="you@example.com"
             size="lg"
-            focusRingColor="accent.solid"
+            // bron: node_modules/@chakra-ui/react/dist/esm/theme/recipes/input.js
+            // (--error-color: colors.border.error) — zonder deze conditie
+            // overschrijft de vaste accentkleur de rode focus-ring van een
+            // invalid veld zodra het focus krijgt (bv. na handleSubmit's
+            // auto-focus op het eerste veld met een fout).
+            focusRingColor={errors.email ? "border.error" : "accent.solid"}
             {...register("email")}
           />
         </InputGroup>
       </Field>
-      <Field label="Password" required errorText={errors.password?.message}>
+      <Field
+        label="Password"
+        required
+        errorText={errors.password?.message}
+        invalid={!!errors.password}
+      >
         <InputGroup startElement={<LuLockKeyhole />}>
           <Input
             type="password"
             placeholder="Password"
             size="lg"
-            focusRingColor="accent.solid"
+            focusRingColor={errors.password ? "border.error" : "accent.solid"}
             {...register("password")}
           />
         </InputGroup>
@@ -56,13 +66,16 @@ const CreateAccountForm: React.FC = () => {
         label="Confirm Password"
         required
         errorText={errors.confirmPassword?.message}
+        invalid={!!errors.confirmPassword}
       >
         <InputGroup startElement={<LuLockKeyhole />}>
           <Input
             type="password"
             placeholder="Confirm Password"
             size="lg"
-            focusRingColor="accent.solid"
+            focusRingColor={
+              errors.confirmPassword ? "border.error" : "accent.solid"
+            }
             {...register("confirmPassword")}
           />
         </InputGroup>
@@ -72,7 +85,6 @@ const CreateAccountForm: React.FC = () => {
         size="lg"
         color="fg"
         fontWeight="bold"
-        loading={isSubmitting}
         _active={{ transform: "scale(0.96)" }}
         transitionProperty="transform"
         transitionDuration="fast"

@@ -18,6 +18,7 @@
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "test:e2e": "playwright test",
+    "leergids:pdf": "node scripts/html-to-pdf.mjs",
     "typegen": "chakra typegen src/design-system/theme/index.ts --tsconfig tsconfig.json",
     "postinstall": "npm run typegen",
     "ios:sync": "cap sync ios",
