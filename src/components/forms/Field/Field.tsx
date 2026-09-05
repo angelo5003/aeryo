@@ -8,10 +8,12 @@ import type { FieldProps } from "./Field.types";
  * `Textarea`, `Select`, …). A thin wrapper around Chakra UI's `Field`;
  * Chakra is an implementation detail consumers never import directly.
  *
- * Error/helper text colors come from `fg.error`/`fg.muted`
- * (semantic-tokens.ts) — `fg.error` was added there specifically so this
- * renders in AERYO's own `danger` family instead of Chakra's stock red.
- * Every other Chakra `Field.RootProps` field (`invalid`, `required`,
+ * Label color comes from `fg.emphasized`, error/helper text from
+ * `fg.error`/`fg.muted` (semantic-tokens.ts) — `fg.error` was added there
+ * specifically so this renders in AERYO's own `danger` family instead of
+ * Chakra's stock red, and `fg.emphasized` so the label reads one step
+ * stronger than helper text instead of Chakra's stock (unthemed) label
+ * color. Every other Chakra `Field.RootProps` field (`invalid`, `required`,
  * `disabled`, `orientation`, style props, responsive props, `ref`, …)
  * passes through untouched.
  */
@@ -23,7 +25,7 @@ export const Field = React.forwardRef<HTMLDivElement, FieldProps>(
     return (
       <ChakraField.Root ref={ref} {...rest}>
         {label && (
-          <ChakraField.Label>
+          <ChakraField.Label color="fg.emphasized">
             {label}
             <ChakraField.RequiredIndicator fallback={optionalText} />
           </ChakraField.Label>

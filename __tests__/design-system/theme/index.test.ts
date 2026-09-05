@@ -6,6 +6,7 @@ describe("design system theme", () => {
     expect(system).toBeDefined();
     expect(system.token("colors.teal.500")).toBe("#19AEB5");
     expect(system.token("colors.bg.photo")).toBeDefined();
+    expect(system.token("colors.bg.emphasized")).toBeDefined();
     expect(system.token("colors.fg.photo")).toBeDefined();
     expect(system.token("colors.fg.photo.muted")).toBeDefined();
     expect(system.token("radii.lg")).toBe("10px");
