@@ -49,6 +49,17 @@ export const semanticTokens = {
       muted: {
         value: { _light: "{colors.ink.200}", _dark: "{colors.ink.800}" },
       },
+      // Next lift after `muted` — Stitch "High Surface" (#1B4650 / ink.700).
+      // Overrides Chakra's stock gray.200/gray.800 so `bg="bg.emphasized"`
+      // stays on the ink ladder (light ink.300 / dark ink.700) instead of
+      // an unthemed gray well. Same pairing as `ink.emphasized`. Body
+      // text: `fg` only — verified 8.94:1 (light, ink.950 on ink.300) and
+      // 9.50:1 (dark, ink.50 on ink.700). Don't put fg.emphasized /
+      // fg.muted / fg.subtle on this surface (none of them clear 4.5:1
+      // in both modes).
+      emphasized: {
+        value: { _light: "{colors.ink.300}", _dark: "{colors.ink.700}" },
+      },
       panel: { value: { _light: "white", _dark: "{colors.ink.900}" } },
       // Full-bleed photographic canvas (intro, onboarding). Same value in
       // both modes on purpose: these screens always sit on a dark photo,
@@ -96,10 +107,22 @@ export const semanticTokens = {
       // Dark value is NOT ink.500 (#3D7784) — that's only 3.77:1 against
       // bg and 3.02:1 against bg.subtle, both AA fails. #66969F is
       // verified 5.80:1/4.66:1 against bg/bg.subtle. Scope: verified for
-      // bg/bg.subtle only — don't place fg.subtle on bg.muted, it isn't
-      // light enough for that surface (use fg.muted there instead).
+      // bg/bg.subtle only — don't place fg.subtle on bg.muted or
+      // bg.emphasized (use fg.muted on muted, `fg` on emphasized).
       subtle: {
         value: { _light: "{colors.ink.400}", _dark: "#66969F" },
+      },
+      // One step stronger than `muted` (field labels, list-item titles) —
+      // added from the Figma designs' recurring #BCC9CA label color, which
+      // is within ~5% of `ink.200` (a difference invisible at this
+      // lightness), so this reuses the existing ramp step rather than
+      // adding a new raw hex. Verified 12.52/8.52/10.05:1 (dark, ink.200 on
+      // bg/bg.muted/bg.subtle) and 6.86/6.09/4.91:1 (light, ink.600 on the
+      // same three) — both modes clear AA's 4.5:1 with room to spare.
+      // Not for bg.emphasized: light-mode ink.600 on ink.300 is only
+      // 3.51:1 (use `fg` there).
+      emphasized: {
+        value: { _light: "{colors.ink.600}", _dark: "{colors.ink.200}" },
       },
       // Type and chrome on a photographic scrim. Same value in both modes
       // — `fg` would flip to dark ink in light mode and disappear on the

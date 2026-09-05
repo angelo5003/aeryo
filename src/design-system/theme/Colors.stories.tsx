@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
-import { Box, Grid, Heading, Stack, Text, useToken } from "@chakra-ui/react";
+import { useState } from "react";
+import { Box, Grid, Heading, Stack, Text } from "@chakra-ui/react";
 
 /**
  * Not a component — a living reference for the Aeryo color tokens defined in
@@ -10,6 +11,23 @@ import { Box, Grid, Heading, Stack, Text, useToken } from "@chakra-ui/react";
  * actually registered on the Chakra system — if a token changes here, it
  * changes on this page too.
  */
+
+// Semantic tokens resolve to `var(--chakra-colors-bg)` etc, not a fixed hex
+// (see semantic-tokens.ts — per-mode via _light/_dark). `useToken` returns
+// that unresolved var reference, which isn't useful on this reference page:
+// you want to know *which color it actually is*. Reading the swatch's own
+// computed background instead resolves it for whichever mode is currently
+// rendering, and works identically for raw palette swatches (already plain
+// hex) — one code path for both.
+function rgbToHex(rgb: string): string {
+  const match = rgb.match(/rgba?\(([^)]+)\)/);
+  if (!match) return rgb;
+  const [r, g, b, a = 1] = match[1].split(",").map(Number);
+  const hex = (n: number) => Math.round(n).toString(16).padStart(2, "0");
+  // Alpha-carrying tokens (e.g. `border` in dark mode, `fg.photo.muted`)
+  // get an 8-digit hex so the transparency isn't silently dropped.
+  return `#${hex(r)}${hex(g)}${hex(b)}${a < 1 ? hex(a * 255) : ""}`.toUpperCase();
+}
 const meta = {
   title: "Foundations/Colors",
   tags: ["ai-generated"],
@@ -22,10 +40,13 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 function Swatch({ token, label }: { token: string; label: string }) {
-  const [resolved] = useToken("colors", token);
+  const [hex, setHex] = useState<string>();
   return (
     <Stack gap="2">
       <Box
+        ref={(node: HTMLDivElement | null) => {
+          if (node) setHex(rgbToHex(getComputedStyle(node).backgroundColor));
+        }}
         bg={token}
         // `border`, not `border.muted` — and still not enough on its own.
         // `border` is a deliberately faint ~1.5:1 hairline (see
@@ -48,7 +69,7 @@ function Swatch({ token, label }: { token: string; label: string }) {
           {label}
         </Text>
         <Text fontSize="xs" color="fg.muted" fontFamily="mono">
-          {token} &middot; {resolved}
+          {token} &middot; {hex ?? "…"}
         </Text>
       </Stack>
     </Stack>
@@ -129,9 +150,9 @@ export const SemanticTokens: Story = {
           </Heading>
           <Text fontSize="sm" color="fg.muted">
             From src/design-system/theme/semantic-tokens.ts. These carry
-            per-mode values, so each swatch shows the CSS variable it resolves
-            through rather than a fixed hex — the color you see is whichever
-            mode (light/dark) this page is currently rendering in.
+            per-mode values, so the hex shown underneath each swatch is
+            whichever mode (light/dark) this page is currently rendering in,
+            resolved from the actual rendered swatch — not a static lookup.
           </Text>
         </Stack>
 
@@ -141,6 +162,7 @@ export const SemanticTokens: Story = {
             { token: "bg", label: "bg (DEFAULT)" },
             { token: "bg.subtle", label: "bg.subtle" },
             { token: "bg.muted", label: "bg.muted" },
+            { token: "bg.emphasized", label: "bg.emphasized" },
             { token: "bg.panel", label: "bg.panel" },
             { token: "bg.photo", label: "bg.photo" },
           ]}
@@ -149,6 +171,7 @@ export const SemanticTokens: Story = {
           title="Text"
           tokens={[
             { token: "fg", label: "fg (DEFAULT)" },
+            { token: "fg.emphasized", label: "fg.emphasized" },
             { token: "fg.muted", label: "fg.muted" },
             { token: "fg.subtle", label: "fg.subtle" },
             { token: "fg.photo", label: "fg.photo" },
