@@ -95,20 +95,34 @@ explanation.
 
 ## Guide Generation Rule
 
-When generating educational guides, use two tracks if the user has a
-non-English native language they learn better in:
+**Default: match the language of the user's request.** If the user writes
+in English, the whole guide — explanation and technical material alike —
+stays in English. Never silently switch the output to another language.
+
+Whether a second, native-language track is warranted is decided once, at
+first use of this skill in the project — see `SKILL.md` § "Output
+Language (first run)" for the ask-and-remember flow. Once a language
+preference is recorded there:
+
+- **a language is recorded** → always add the second track below,
+  automatically, without the user asking again per request;
+- **"no translation" is recorded** → never add it; stay English-only.
+
+Don't infer a language from a name, past habit, or a topic being hard —
+only the recorded preference (or an explicit ask in the current message)
+decides this.
+
+When a second track is warranted, split it exactly like this:
 
 1. **English source material** for technical instructions/configuration —
    may be advanced and precise, since technical docs and official sources
-   are usually English-first.
+   are usually English-first. This track is never translated.
 2. **Native-language learning material** for the user's explanation and
-   study guide — kept simple, in whatever language the user actually
-   learns best in (ask once if unknown, then remember it).
+   study guide only — kept simple, in the language confirmed above.
 
 Don't translate standard technical terms automatically — explain the term
 in the native language first, then give the standard English term, when
-that helps. If the user is equally comfortable learning in English, skip
-the second track entirely rather than manufacturing a translation.
+that helps.
 
 ---
 
