@@ -8,6 +8,7 @@ import { Form } from "@/components/forms/Form/Form";
 import { FormError } from "@/components/forms/FormError/FormError";
 import { Input } from "@/components/forms/Input/Input";
 import { InputGroup } from "@/components/forms/InputGroup/InputGroup";
+import { Stack } from "@/components/primitives/Stack/Stack";
 import type { CreateAccountValues } from "@/server/validation/account/create-account.schema";
 import ContinueWithBox from "../ContinueWithBox";
 import { useCreateAccountForm } from "../hooks/useCreateAccountForm";
@@ -76,19 +77,21 @@ const CreateAccountForm: React.FC = () => {
           />
         </InputGroup>
       </Field>
-      <Button
-        type="submit"
-        size="lg"
-        color="fg"
-        fontWeight="bold"
-        _active={{ transform: "scale(0.96)" }}
-        transitionProperty="transform"
-        transitionDuration="fast"
-        transitionTimingFunction="easeOut"
-      >
-        Create Account
-      </Button>
-      <ContinueWithBox />
+      <Stack direction="column" gap="12">
+        <Button
+          type="submit"
+          size="lg"
+          color="fg"
+          fontWeight="bold"
+          _active={{ transform: "scale(0.96)" }}
+          transitionProperty="transform"
+          transitionDuration="fast"
+          transitionTimingFunction="easeOut"
+        >
+          Create Account
+        </Button>
+        <ContinueWithBox />
+      </Stack>
     </Form>
   );
 };
