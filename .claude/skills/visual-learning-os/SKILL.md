@@ -27,6 +27,12 @@ description: >
 > "Output Language" ask-and-remember flow below, and added the
 > "Delivery — Offer PDF Export" step.
 >
+> **v5.1.1**: Debugging Mode's "verify the fix" step now defaults to
+> non-technical, in-app steps ("open X → do Y → you should see Z")
+> instead of a shell/test command, and points to the `run` skill to
+> perform that verification when one is available. See
+> `reference/domain-modes.md` § Debugging Mode.
+>
 > Reference files (read only when the task needs them):
 > - `reference/domain-modes.md` — architecture, framework/language
 >   learning, type-system rules, UI/design-system rules, API-layer rules,

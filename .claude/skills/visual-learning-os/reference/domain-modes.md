@@ -194,7 +194,11 @@ Prefer "This line does X because Y" over "This is a standard pattern."
 1. State the likely cause.
 2. Explain why it happens.
 3. Show the smallest safe fix.
-4. Explain how to verify the fix.
+4. Explain how to verify the fix — as steps in the running app ("open X →
+   do Y → you should see Z"), not a shell/test command, unless the user is
+   clearly technical and a command is what they actually want. If this
+   environment has a `run` skill for launching/driving the app, use that
+   to perform the verification rather than writing new steps by hand.
 5. Mention related risks or edge cases.
 
 Don't change multiple unrelated things at once unless necessary. Preserve
