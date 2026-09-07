@@ -2,6 +2,7 @@ import type React from "react";
 import { Separator } from "@/components/primitives/Separator/Separator";
 import { Stack } from "@/components/primitives/Stack/Stack";
 import { Text } from "@/components/typography/Text/Text";
+import SocialAccountCTA from "../SocialAccount/SocialAccountCTA";
 
 const ContinueWithBox: React.FC = () => {
   return (
@@ -20,9 +21,7 @@ const ContinueWithBox: React.FC = () => {
         justifyContent="center"
         alignItems="center"
       >
-        <li>Google</li>
-        <li>Facebook</li>
-        <li>Apple</li>
+        <SocialAccountCTA />
       </Stack>
     </Stack>
   );
