@@ -33,6 +33,11 @@ description: >
 > perform that verification when one is available. See
 > `reference/domain-modes.md` § Debugging Mode.
 >
+> **v5.1.2**: Added "Sources — Show Your Work" — grounding (Skills
+> Workflow rule 6) now leaves a visible one-line-per-source trail on
+> substantive answers, and a Sources footer on PDF guides, instead of
+> happening invisibly with no way to check it.
+>
 > Reference files (read only when the task needs them):
 > - `reference/domain-modes.md` — architecture, framework/language
 >   learning, type-system rules, UI/design-system rules, API-layer rules,
@@ -291,6 +296,29 @@ precedence over this skill, which takes precedence over default behavior.
 
 ---
 
+# Sources — Show Your Work
+
+Grounding (Skills Workflow rule 6) happens whether or not it's visible — but
+invisible grounding can't be checked, so any substantive answer, guide, or
+explanation ends with a short **Sources** line naming where the non-trivial
+claims came from. Skip it only for quick clarifications or yes/no answers.
+
+1. **Track sources as you go**, not by reconstructing them afterward — each
+   time step 6 fires (repo file, bundled docs, installed types, a skill/MCP
+   doc tool, or a fetched official-docs page), note what was used.
+2. **One line per source, plainest form:**
+   - Repo file → `src/components/actions/Button/Button.tsx`
+   - Bundled docs → `node_modules/next/dist/docs/.../link.md`
+   - Skill/MCP doc tool → the skill or tool name (`chakra-ui-builder`,
+     `mcp__claude_ai_Vercel__search_vercel_documentation`)
+   - Fetched official docs → the URL
+3. **Nothing non-trivial was grounded (pure reasoning/opinion/recap)?** Say
+   so in one line instead of inventing a source list — don't pad it.
+4. **In a PDF**, this becomes a small "Sources" footer on the last page —
+   see `reference/visual-style-guide.md` § Print-Ready Guide Mode.
+
+---
+
 # Delivery — Offer PDF Export
 
 Every time this skill produces a substantive answer, guide, or explanation
@@ -303,7 +331,9 @@ whether the user wants it as a PDF — don't generate one speculatively.
    already given — don't re-derive or re-explain it. Structure it per
    `reference/visual-style-guide.md` (A4 portrait, safe margins, section
    hierarchy, print-safe contrast, `@page { size: A4; margin: ... }` CSS).
-   Write it to a file in the scratchpad directory.
+   Include the Sources list from the "Sources — Show Your Work" section
+   above as a small footer on the last page. Write it to a file in the
+   scratchpad directory.
 3. **Render to PDF with what's already installed** — check before
    assuming a specific tool is present:
    - Preferred: a headless Chrome/Chromium print-to-PDF (`--headless

@@ -69,6 +69,11 @@ consistent spacing, clean page breaks, complete diagrams, no cropped
 content. Design every page to remain useful printed in grayscale where
 practical.
 
+End the last page with a small **Sources** footer — one line per source
+from `SKILL.md` § "Sources — Show Your Work" (repo file, docs path, skill/
+MCP tool, or URL). Small, muted text is fine; it just needs to be present
+and legible, not prominent.
+
 ---
 
 ## Render Validation
@@ -77,7 +82,9 @@ Before finalizing any visual guide, check: A4 dimensions ✓, no cropped
 content ✓, no overlapping elements ✓, no text outside the page ✓,
 consistent margins ✓, readable labels ✓, readable title ✓, clear section
 hierarchy ✓, correct page breaks ✓, complete diagrams ✓, print-friendly
-quality ✓, visuals actually improve understanding ✓.
+quality ✓, visuals actually improve understanding ✓, Sources footer present
+and legible ✓ (or explicitly noted as not applicable, per "Sources — Show
+Your Work" in `SKILL.md`).
 
 If a check fails: fix or regenerate, render again, inspect again, only
 then deliver the final file. Never present an unchecked render as final.
