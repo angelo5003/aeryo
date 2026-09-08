@@ -23,7 +23,7 @@ const SocialAccountCTA: React.FC = () => {
               justifyContent="center"
               _active={{
                 transform: "scale(0.96)",
-                backgroundColor: "accent.solid",
+                color: "fg",
               }}
               transitionProperty="transform"
               transitionDuration="fast"
