@@ -1,5 +1,6 @@
 import React from "react";
-import { IconButton } from "@/components/actions/IconButton/IconButton";
+import { Button } from "@/components/actions/Button/Button";
+import { Box } from "@/components/primitives/Box/Box";
 import { SOCIAL_ACCOUNT_PROVIDERS } from "./socialAccount";
 
 const SocialAccountCTA: React.FC = () => {
@@ -8,15 +9,19 @@ const SocialAccountCTA: React.FC = () => {
       {SOCIAL_ACCOUNT_PROVIDERS.map((social) => {
         const Icon = social.icon;
         return (
-          <li key={social.id}>
-            <IconButton
-              aria-label={`Continue with ${social.name}`}
+          <Box as="li" key={social.id} width="full">
+            <Button
               variant="outline"
-              size="lg"
+              size="md"
+              iconLeft={<Icon aria-hidden="true" />}
+              aria-label={`Continue with ${social.name}`}
+              fullWidth
+              justifyContent="center"
             >
-              <Icon />
-            </IconButton>
-          </li>
+              {/* Native span: Chakra `translate` is a CSS transform token, not the HTML attribute. */}
+              <span translate="no">{social.name}</span>
+            </Button>
+          </Box>
         );
       })}
     </React.Fragment>

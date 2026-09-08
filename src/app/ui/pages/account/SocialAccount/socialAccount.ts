@@ -12,18 +12,19 @@ export type SocialAccountProvider = {
 
 export const SOCIAL_ACCOUNT_PROVIDERS: SocialAccountProvider[] = [
   {
+    id: "apple",
+    name: "Apple",
+    icon: FaApple,
+  },
+  {
     id: "google",
     name: "Google",
     icon: FcGoogle,
   },
+
   {
     id: "facebook",
     name: "Facebook",
     icon: FaFacebook,
-  },
-  {
-    id: "apple",
-    name: "Apple",
-    icon: FaApple,
   },
 ];
