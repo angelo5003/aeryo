@@ -1,0 +1,50 @@
+---
+description: Testing conventions — query priority, naming, no user-event, no real contact details. Full doc in TESTING.md.
+globs: src/**/*.{test,spec}.{ts,tsx}
+alwaysApply: true
+---
+
+# Testing
+
+Full conventions, including sections not live yet (GraphQL mocking,
+`test-utils/interactions`), live in `TESTING.md` at the repo root. This is
+the condensed, must-follow subset for what's actually installed today.
+
+## Query selector priority (use in this order)
+
+1. `getByRole("button", { name: "Submit" })`
+2. `getByLabelText("Email")`
+3. `getByPlaceholderText("Enter email")`
+4. `getByText("Welcome")`
+5. `getByDisplayValue`, `getByAltText`, `getByTitle`
+6. `getByTestId` — avoid unless absolutely necessary
+
+## Naming
+
+`describe("ComponentName")`, `it("does X when Y happens")` — no generic
+names like `"Render"` or `"Works"`.
+
+## Interactions
+
+`@testing-library/user-event` isn't installed — use `fireEvent` from
+`@testing-library/react` directly. Do not add `user-event` to reach for it;
+that's a `TESTING.md`-tracked "planned" swap, not a default.
+
+## Chakra-rendering components
+
+Wrap with `Provider` from `@/components/ui/provider`, not a one-off
+`ChakraProvider`. See `CreateAccountForm.test.tsx` for a working example.
+
+## Test data — never real contact details
+
+```tsx
+// ❌ BAD
+const mock = { phone: "07911 123456", email: "jane.doe@gmail.com" };
+
+// ✅ GOOD — reserved test ranges
+const mock = { phone: "07700 900123", email: "jane.doe@example.com" };
+```
+
+Phone: UK Ofcom fictitious ranges (`07700 900000`–`07700 900999` mobile,
+`01632 960000`–`01632 960999` landline). Email: RFC 2606 reserved domains
+(`@example.com`, `@example.org`, `@example.net`).
