@@ -8,6 +8,7 @@ import { Form } from "@/components/forms/Form/Form";
 import { FormError } from "@/components/forms/FormError/FormError";
 import { Input } from "@/components/forms/Input/Input";
 import { InputGroup } from "@/components/forms/InputGroup/InputGroup";
+import { PasswordInput } from "@/components/forms/PasswordInput/PasswordInput";
 import { Stack } from "@/components/primitives/Stack/Stack";
 import type { CreateAccountValues } from "@/server/validation/account/create-account.schema";
 import ContinueWithBox from "../ContinueWithBox";
@@ -49,15 +50,13 @@ const CreateAccountForm: React.FC = () => {
         errorText={errors.password?.message}
         invalid={!!errors.password}
       >
-        <InputGroup startElement={<LuLockKeyhole />}>
-          <Input
-            type="password"
-            placeholder="Password"
-            size="lg"
-            focusRingColor={errors.password ? "border.error" : "accent.solid"}
-            {...register("password")}
-          />
-        </InputGroup>
+        <PasswordInput
+          placeholder="Password"
+          size="lg"
+          rootProps={{ startElement: <LuLockKeyhole /> }}
+          focusRingColor={errors.password ? "border.error" : "accent.solid"}
+          {...register("password")}
+        />
       </Field>
       <Field
         label="Confirm Password"
@@ -65,23 +64,20 @@ const CreateAccountForm: React.FC = () => {
         errorText={errors.confirmPassword?.message}
         invalid={!!errors.confirmPassword}
       >
-        <InputGroup startElement={<LuLockKeyhole />}>
-          <Input
-            type="password"
-            placeholder="Confirm Password"
-            size="lg"
-            focusRingColor={
-              errors.confirmPassword ? "border.error" : "accent.solid"
-            }
-            {...register("confirmPassword")}
-          />
-        </InputGroup>
+        <PasswordInput
+          placeholder="Confirm Password"
+          size="lg"
+          rootProps={{ startElement: <LuLockKeyhole /> }}
+          focusRingColor={
+            errors.confirmPassword ? "border.error" : "accent.solid"
+          }
+          {...register("confirmPassword")}
+        />
       </Field>
       <Stack direction="column" gap="12">
         <Button
           type="submit"
           size="lg"
-          color="fg"
           fontWeight="bold"
           _active={{ transform: "scale(0.96)" }}
           transitionProperty="transform"
