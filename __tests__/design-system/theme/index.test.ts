@@ -1,10 +1,12 @@
 import { system } from "@/design-system/theme";
 import { headingRecipe } from "@/design-system/theme/headingRecipe";
+import { semanticTokens } from "@/design-system/theme/semantic-tokens";
 
 describe("design system theme", () => {
   it("builds a valid Chakra system", () => {
     expect(system).toBeDefined();
     expect(system.token("colors.teal.500")).toBe("#19AEB5");
+    expect(system.token("colors.paper.50")).toBe("#F7FAFB");
     expect(system.token("colors.bg.photo")).toBeDefined();
     expect(system.token("colors.bg.emphasized")).toBeDefined();
     expect(system.token("colors.fg.photo")).toBeDefined();
@@ -27,5 +29,32 @@ describe("design system theme", () => {
     expect(headingRecipe.variants.size.xl.textStyle).toBe("title");
     expect(headingRecipe.variants.size["3xl"].textStyle).toBe("heading");
     expect(headingRecipe.variants.size["5xl"].textStyle).toBe("display");
+  });
+
+  it("maps light surfaces to paper instead of mint ink.50", () => {
+    expect(semanticTokens.colors.bg.DEFAULT.value._light).toBe(
+      "{colors.paper.50}",
+    );
+    expect(semanticTokens.colors.bg.subtle.value._light).toBe(
+      "{colors.paper.100}",
+    );
+    expect(semanticTokens.colors.bg.muted.value._light).toBe(
+      "{colors.paper.200}",
+    );
+    expect(semanticTokens.colors.bg.emphasized.value._light).toBe(
+      "{colors.paper.300}",
+    );
+    expect(semanticTokens.colors.border.DEFAULT.value._light).toBe(
+      "{colors.paper.300}",
+    );
+    expect(semanticTokens.colors.bg.DEFAULT.value._dark).toBe(
+      "{colors.ink.950}",
+    );
+    expect(semanticTokens.colors.fg.DEFAULT.value._light).toBe(
+      "{colors.ink.950}",
+    );
+    expect(semanticTokens.colors.fg.photo.DEFAULT.value._light).toBe(
+      "{colors.ink.50}",
+    );
   });
 });

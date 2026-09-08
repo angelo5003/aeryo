@@ -46,6 +46,6 @@ test.describe("color mode rendering", () => {
     const bg = await page.evaluate(
       () => getComputedStyle(document.body).backgroundColor,
     );
-    expect(bg).toBe("rgb(237, 248, 246)");
+    expect(bg).toBe("rgb(247, 250, 251)");
   });
 });

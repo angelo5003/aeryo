@@ -41,24 +41,23 @@ export const semanticTokens = {
   colors: {
     bg: {
       DEFAULT: {
-        value: { _light: "{colors.ink.50}", _dark: "{colors.ink.950}" },
+        value: { _light: "{colors.paper.50}", _dark: "{colors.ink.950}" },
       },
       subtle: {
-        value: { _light: "{colors.ink.100}", _dark: "{colors.ink.900}" },
+        value: { _light: "{colors.paper.100}", _dark: "{colors.ink.900}" },
       },
       muted: {
-        value: { _light: "{colors.ink.200}", _dark: "{colors.ink.800}" },
+        value: { _light: "{colors.paper.200}", _dark: "{colors.ink.800}" },
       },
-      // Next lift after `muted` — Stitch "High Surface" (#1B4650 / ink.700).
-      // Overrides Chakra's stock gray.200/gray.800 so `bg="bg.emphasized"`
-      // stays on the ink ladder (light ink.300 / dark ink.700) instead of
-      // an unthemed gray well. Same pairing as `ink.emphasized`. Body
-      // text: `fg` only — verified 8.94:1 (light, ink.950 on ink.300) and
-      // 9.50:1 (dark, ink.50 on ink.700). Don't put fg.emphasized /
-      // fg.muted / fg.subtle on this surface (none of them clear 4.5:1
-      // in both modes).
+      // Next lift after `muted`. Dark stays Stitch "High Surface"
+      // (ink.700). Light uses `paper.300` so the well stays a cool gray,
+      // not mint `ink.300`. Body text: `fg` in both modes — 14.75:1
+      // (light, ink.950 on paper.300) and 9.50:1 (dark, ink.50 on
+      // ink.700). Light also clears `fg.emphasized` here (5.79:1);
+      // dark still does not — don't put fg.muted / fg.subtle on this
+      // surface in either mode.
       emphasized: {
-        value: { _light: "{colors.ink.300}", _dark: "{colors.ink.700}" },
+        value: { _light: "{colors.paper.300}", _dark: "{colors.ink.700}" },
       },
       panel: { value: { _light: "white", _dark: "{colors.ink.900}" } },
       // Full-bleed photographic canvas (intro, onboarding). Same value in
@@ -117,10 +116,10 @@ export const semanticTokens = {
       // is within ~5% of `ink.200` (a difference invisible at this
       // lightness), so this reuses the existing ramp step rather than
       // adding a new raw hex. Verified 12.52/8.52/10.05:1 (dark, ink.200 on
-      // bg/bg.muted/bg.subtle) and 6.86/6.09/4.91:1 (light, ink.600 on the
-      // same three) — both modes clear AA's 4.5:1 with room to spare.
-      // Not for bg.emphasized: light-mode ink.600 on ink.300 is only
-      // 3.51:1 (use `fg` there).
+      // bg/bg.muted/bg.subtle) and 7.10/6.38/6.79:1 (light, ink.600 on
+      // paper.50/200/100) — both modes clear AA's 4.5:1 with room to spare.
+      // Light also clears bg.emphasized (5.79:1 on paper.300). Dark still
+      // does not — use `fg` on emphasized in dark mode.
       emphasized: {
         value: { _light: "{colors.ink.600}", _dark: "{colors.ink.200}" },
       },
@@ -185,13 +184,13 @@ export const semanticTokens = {
     border: {
       DEFAULT: {
         value: {
-          _light: "{colors.ink.200}",
+          _light: "{colors.paper.300}",
           _dark: "rgba(99, 230, 213, 0.16)",
         },
       },
       muted: {
         value: {
-          _light: "{colors.ink.100}",
+          _light: "{colors.paper.200}",
           _dark: "rgba(99, 230, 213, 0.10)",
         },
       },
@@ -343,13 +342,13 @@ export const semanticTokens = {
         value: { _light: "{colors.ink.800}", _dark: "{colors.ink.200}" },
       },
       subtle: {
-        value: { _light: "{colors.ink.100}", _dark: "{colors.ink.900}" },
+        value: { _light: "{colors.paper.100}", _dark: "{colors.ink.900}" },
       },
       muted: {
-        value: { _light: "{colors.ink.200}", _dark: "{colors.ink.800}" },
+        value: { _light: "{colors.paper.200}", _dark: "{colors.ink.800}" },
       },
       emphasized: {
-        value: { _light: "{colors.ink.300}", _dark: "{colors.ink.700}" },
+        value: { _light: "{colors.paper.300}", _dark: "{colors.ink.700}" },
       },
       solid: {
         value: { _light: "{colors.ink.900}", _dark: "{colors.ink.50}" },
@@ -358,7 +357,7 @@ export const semanticTokens = {
         value: { _light: "{colors.ink.400}", _dark: "{colors.ink.400}" },
       },
       border: {
-        value: { _light: "{colors.ink.200}", _dark: "{colors.ink.800}" },
+        value: { _light: "{colors.paper.300}", _dark: "{colors.ink.800}" },
       },
     },
     danger: {

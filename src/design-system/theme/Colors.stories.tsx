@@ -127,10 +127,13 @@ export const RawPalette: Story = {
             one primary) also works directly as `colorPalette` on any Chakra
             component. `lime` is reserved for wind data only — see the Wind
             intensity group below, not general UI. `danger`/`caution` are
-            safety-only — never reach for them decoratively.
+            safety-only — never reach for them decoratively. `paper` is
+            light-mode chrome only (quiet canvas / wells / hairlines), not a
+            colorPalette.
           </Text>
         </Stack>
         <Scale family="ink" steps={SCALE_STEPS} />
+        <Scale family="paper" steps={[50, 100, 200, 300]} />
         <Scale family="teal" steps={SCALE_STEPS} />
         <Scale family="lime" steps={SCALE_STEPS} />
         <Scale family="danger" steps={SCALE_STEPS} />
