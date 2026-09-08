@@ -81,7 +81,7 @@ const CreateAccountForm: React.FC = () => {
           fontWeight="bold"
           _active={{ transform: "scale(0.96)" }}
           transitionProperty="transform"
-          transitionDuration="fast"
+          transitionDuration="normal"
           transitionTimingFunction="easeOut"
         >
           Create Account
