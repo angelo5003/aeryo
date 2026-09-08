@@ -283,6 +283,12 @@
       "skillPath": "skills/tailwind-capacitor/SKILL.md",
       "computedHash": "de539cbaa1b2be1a391c06447f58be9114b97cd0241e8d181bfb11f5b2b2a7c1"
     },
+    "ui-ux-pro-max": {
+      "source": "nextlevelbuilder/ui-ux-pro-max-skill",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/ui-ux-pro-max/SKILL.md",
+      "computedHash": "4080ff883b26b670a5a224fb332e89ecc15319535f4d14279947ad7812fec558"
+    },
     "webapp-to-capacitor": {
       "source": "Cap-go/capgo-skills",
       "sourceType": "github",
