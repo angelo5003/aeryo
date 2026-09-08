@@ -1,0 +1,18 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jq -r '.tool_input.file_path // .tool_response.filePath // empty' | { read -r f; case \"$f\" in *.ts|*.tsx) out=$(cd \"${CLAUDE_PROJECT_DIR}\" && { npx eslint \"$f\"; npx tsc --noEmit --incremental --tsBuildInfoFile .tsbuildinfo.hook; } 2>&1); if [ -n \"$out\" ]; then jq -n --arg ctx \"$out\" '{hookSpecificOutput:{hookEventName:\"PostToolUse\",additionalContext:$ctx}}'; fi ;; esac; } 2>/dev/null",
+            "timeout": 45,
+            "statusMessage": "Typecheck + lint"
+          }
+        ]
+      }
+    ]
+  },
+  "description": "Shared team hook: typecheck + lint on every Edit/Write/MultiEdit touching a .ts/.tsx file, surfaced back to Claude as additionalContext so type/lint errors get caught and self-corrected immediately instead of at review time."
+}
