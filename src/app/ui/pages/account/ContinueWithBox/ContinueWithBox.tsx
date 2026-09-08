@@ -1,6 +1,7 @@
 import type React from "react";
 import { Separator } from "@/components/primitives/Separator/Separator";
 import { Stack } from "@/components/primitives/Stack/Stack";
+import { Link } from "@/components/typography/Link/Link";
 import { Text } from "@/components/typography/Text/Text";
 import SocialAccountCTA from "../SocialAccount/SocialAccountCTA";
 
@@ -28,8 +29,22 @@ const ContinueWithBox: React.FC = () => {
         </Text>
         <Separator flex="1" borderColor="bg.emphasized" aria-hidden="true" />
       </Stack>
-      <Stack direction="column" gap="3" as="ul" width="full">
+      <Stack direction="column" gap="4" as="ul" width="full">
         <SocialAccountCTA />
+      </Stack>
+      <Stack
+        direction="row"
+        align="center"
+        justify="center"
+        gap="1"
+        flexWrap="wrap"
+      >
+        <Text color="fg.muted" fontSize="md">
+          Already have an account?
+        </Text>
+        <Link href="#" fontWeight="medium" color="rider.riding" fontSize="md">
+          Log in
+        </Link>
       </Stack>
     </Stack>
   );

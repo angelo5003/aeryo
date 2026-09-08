@@ -14,11 +14,6 @@ const SocialAccountCTA: React.FC = () => {
               variant="outline"
               size="lg"
               iconLeft={
-                // `Icon` is a plain react-icons SVG, not a Chakra
-                // component — it can't resolve token strings like "fg"
-                // itself. `Box asChild` applies the token as real CSS
-                // `color`, which the SVG then inherits via `currentColor`
-                // — same technique as FormError.tsx's icon.
                 <Box asChild color={social.iconColor}>
                   <Icon aria-hidden="true" />
                 </Box>
