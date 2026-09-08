@@ -14,15 +14,22 @@ const SocialAccountCTA: React.FC = () => {
               variant="outline"
               size="lg"
               iconLeft={
-                <Box asChild color={social.iconColor}>
+                <Box asChild color={social.iconColor} boxSize="5">
                   <Icon aria-hidden="true" />
                 </Box>
               }
               aria-label={`Continue with ${social.name}`}
               fullWidth
               justifyContent="center"
+              _active={{
+                transform: "scale(0.96)",
+                backgroundColor: "accent.solid",
+              }}
+              transitionProperty="transform"
+              transitionDuration="fast"
+              transitionTimingFunction="easeOut"
             >
-              <span translate="no">{social.name}</span>
+              <span translate="no">Sign Up with {social.name}</span>
             </Button>
           </Box>
         );
