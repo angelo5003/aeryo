@@ -17,9 +17,13 @@
  *     matches the reference's own wind-flow gradient bar, which runs
  *     teal → lime as knots increase.
  *
- * `ink` is the neutral/atmospheric scale, anchored at the reference's
- * literal background (#071216), surface (#0D2931), and off-white
- * (#EDF8F6). It's additive — Chakra's built-in `gray` scale is untouched.
+ * `ink` is the atmospheric scale, anchored at the reference's literal
+ * background (#071216), surface (#0D2931), and off-white (#EDF8F6).
+ * Dark chrome and on-photo type still use it. Light-mode *surfaces* do
+ * not: `ink.50` is a mint wash that reads cheap as a full-bleed canvas,
+ * so light `bg` / `border` map to `paper` instead (quiet cool near-white).
+ * `ink.50` stays the brand off-white for `fg` in dark mode, photo type,
+ * and on-accent contrast. Additive — Chakra's built-in `gray` is untouched.
  *
  * `teal` intentionally reclaims Chakra's default palette name (so
  * `colorPalette="teal"` resolves to AERYO's actual brand color, not
@@ -46,6 +50,16 @@ export const colors = {
     800: { value: "#123640" },
     900: { value: "#0D2931" },
     950: { value: "#071216" },
+  },
+  // Light-mode product chrome only — not a colorPalette, not dark surfaces.
+  // Cool near-white with ~1–2% teal so white `bg.panel` cards still lift,
+  // without the mint wash of `ink.50`. Semantic `_light` bg/border/ink
+  // wells point here; keep in sync with `--background` in globals.css.
+  paper: {
+    50: { value: "#F7FAFB" },
+    100: { value: "#F2F5F6" },
+    200: { value: "#EAEEF0" },
+    300: { value: "#DDE4E7" },
   },
   teal: {
     50: { value: "#E9FBF8" },

@@ -1,6 +1,7 @@
 :root,
 .light {
-  --background: #edf8f6;
+  /* Keep in sync with `paper.50` / `ink.950` in tokens/colors.ts */
+  --background: #f7fafb;
   --foreground: #071216;
 }
 
