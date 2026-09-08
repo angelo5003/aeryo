@@ -24,6 +24,7 @@ const SocialAccountCTA: React.FC = () => {
               _active={{
                 transform: "scale(0.96)",
                 color: "fg",
+                borderColor: "fg",
               }}
               transitionProperty="transform"
               transitionDuration="fast"
