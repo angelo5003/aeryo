@@ -31,8 +31,7 @@ Order of sources (prefer the earliest that answers the question):
    - Chakra: `chakra-ui-builder` / `chakra-ui-refactor` / `chakra-ui-migrate` skills.
    - Next.js/Vercel: `vercel:nextjs` skill or
      `mcp__claude_ai_Vercel__search_vercel_documentation`.
-   - Supabase (once provisioned): `supabase` skill or
-     `mcp__claude_ai_Supabase__search_docs`.
+   - Supabase: `supabase` skill or `mcp__claude_ai_Supabase__search_docs`.
    - GraphQL (once adopted): `graphql-schema` / `graphql-operations` skills, or
      `mcp__claude_ai_GraphOS_MCP_Tools__ApolloDocsSearch` for Apollo-specific
      questions.
@@ -50,6 +49,7 @@ Order of sources (prefer the earliest that answers the question):
    | `next`, `eslint-config-next` | https://nextjs.org/docs |
    | `typescript`, `ts-node`, `@types/*` | https://www.typescriptlang.org/docs/ |
    | `@chakra-ui/react`, `@chakra-ui/cli` | https://chakra-ui.com/docs |
+   | `@supabase/supabase-js` | https://supabase.com/docs |
    | `@emotion/react` | https://emotion.sh/docs/introduction |
    | `framer-motion` (imported as `motion`) | https://motion.dev/docs/react |
    | `next-themes` | https://github.com/pacocoursey/next-themes |
