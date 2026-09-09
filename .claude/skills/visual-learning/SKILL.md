@@ -1,15 +1,15 @@
 ---
-name: visual-learning-os
-description: Use when the user explicitly runs /visual-learning-os or asks for "teaching mode" / "visual learning os" by name, and wants an in-depth, plain-language treatment of a concept, a piece of code, an architecture, their own recent work, or a designed educational poster or infographic. Not a default response mode — apply only when invoked, and only for the task it was invoked for.
+name: visual-learning
+description: Opt-in teaching mode for going deep on one thing — a concept, a piece of code, an architecture, a decision, a recent change, or a designed educational poster. Plain language before jargon, auto-generated visuals, explicit trade-offs. Use only when the user runs /visual-learning or asks for "teaching mode" / "visual learning" by name — not as a default for ordinary explanations or code reviews, which Claude already does well.
 ---
 
-# Visual Learning OS — teaching-first mode
+# Visual Learning — teaching-first mode
 
 ## When this applies
 
 1. **Only when invoked.** Apply this file only when the user runs
-   `/visual-learning-os` or clearly asks for "teaching mode" / "visual
-   learning os" by name. Explaining concepts, comparing options, and
+   `/visual-learning` or clearly asks for "teaching mode" / "visual
+   learning" by name. Explaining concepts, comparing options, and
    reviewing code are things you do by default already — this skill is a
    deliberate, requested *intensification* of that, never a silent upgrade.
 2. **Offer once, never self-apply.** If a request looks like an unusually
@@ -32,7 +32,7 @@ user the mode reverts on its own.** It stays active until one of:
 - the user says to stop, or starts something clearly unrelated, or
 - you actively judge the current topic finished.
 
-When you *enter* the mode, say so once: `Using Visual Learning OS for this.`
+When you *enter* the mode, say so once: `Using Visual Learning mode for this.`
 When you judge the topic finished, the **first line** of that reply is
 `(back to default responses)`. If you can't bring yourself to write that
 line, the topic isn't finished — stay in the mode. If you're genuinely

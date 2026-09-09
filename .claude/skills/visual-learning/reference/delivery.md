@@ -1,6 +1,6 @@
 # Delivery — read on demand from SKILL.md
 
-Three conditional add-ons for Visual Learning OS output: choosing the output
+Three conditional add-ons for Visual Learning output: choosing the output
 language on first use, adding a **Sources** line, and offering a **PDF**.
 None of these is automatic — each has a trigger below.
 
