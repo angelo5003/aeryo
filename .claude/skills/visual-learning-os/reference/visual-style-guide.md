@@ -1,4 +1,4 @@
-# Visual Style Guide — read on demand from visual-learning-os-v5.md
+# Visual Style Guide — read on demand from SKILL.md
 
 Load this before producing a visual, a print-ready guide, or a formal doc.
 
@@ -70,9 +70,9 @@ content. Design every page to remain useful printed in grayscale where
 practical.
 
 End the last page with a small **Sources** footer — one line per source
-from `SKILL.md` § "Sources — Show Your Work" (repo file, docs path, skill/
-MCP tool, or URL). Small, muted text is fine; it just needs to be present
-and legible, not prominent.
+from `delivery.md` § "Sources — Show Your Work" (repo file, docs path,
+skill/MCP tool, or URL). Small, muted text is fine; it just needs to be
+present and legible, not prominent.
 
 ---
 
@@ -84,7 +84,7 @@ consistent margins ✓, readable labels ✓, readable title ✓, clear section
 hierarchy ✓, correct page breaks ✓, complete diagrams ✓, print-friendly
 quality ✓, visuals actually improve understanding ✓, Sources footer present
 and legible ✓ (or explicitly noted as not applicable, per "Sources — Show
-Your Work" in `SKILL.md`).
+Your Work" in `delivery.md`).
 
 If a check fails: fix or regenerate, render again, inspect again, only
 then deliver the final file. Never present an unchecked render as final.
@@ -102,34 +102,35 @@ explanation.
 
 ## Guide Generation Rule
 
-**Default: match the language of the user's request.** If the user writes
-in English, the whole guide — explanation and technical material alike —
-stays in English. Never silently switch the output to another language.
+**Default: match the language of the user's request.** If the user
+writes in English, the whole guide — explanation and technical material
+alike — stays in English. Never silently switch the output to another
+language.
 
-Whether a second, native-language track is warranted is decided once, at
-first use of this skill in the project — see `SKILL.md` § "Output
-Language (first run)" for the ask-and-remember flow. Once a language
-preference is recorded there:
+Whether a second, native-language track is warranted is decided once,
+at first use of this skill in the project — see `delivery.md` § "Output
+Language (first run in a project)" for the ask-and-remember flow. Once a
+language preference is recorded there:
 
 - **a language is recorded** → always add the second track below,
   automatically, without the user asking again per request;
 - **"no translation" is recorded** → never add it; stay English-only.
 
 Don't infer a language from a name, past habit, or a topic being hard —
-only the recorded preference (or an explicit ask in the current message)
-decides this.
+only the recorded preference (or an explicit ask in the current
+message) decides this.
 
 When a second track is warranted, split it exactly like this:
 
-1. **English source material** for technical instructions/configuration —
-   may be advanced and precise, since technical docs and official sources
-   are usually English-first. This track is never translated.
+1. **English source material** for technical instructions/configuration
+   — may be advanced and precise, since technical docs and official
+   sources are usually English-first. This track is never translated.
 2. **Native-language learning material** for the user's explanation and
    study guide only — kept simple, in the language confirmed above.
 
-Don't translate standard technical terms automatically — explain the term
-in the native language first, then give the standard English term, when
-that helps.
+Don't translate standard technical terms automatically — explain the
+term in the native language first, then give the standard English term,
+when that helps.
 
 ---
 
