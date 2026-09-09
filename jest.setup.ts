@@ -1,9 +1,9 @@
 import "@testing-library/jest-dom";
 
-// jsdom doesn't implement matchMedia. next-themes (used by
-// `@/components/ui/provider`'s ColorModeProvider, which wraps every
-// Chakra-rendering test via `Provider`) calls it on mount to read the
-// OS color-scheme preference, so any such render throws without this.
+// jsdom doesn't implement matchMedia. ColorModeProvider (used by
+// `@/components/ui/provider`, which wraps every Chakra-rendering test)
+// calls it on mount to read the OS color-scheme preference, so any such
+// render throws without this.
 if (typeof window !== "undefined" && !window.matchMedia) {
   window.matchMedia = (query: string) => ({
     matches: false,

@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Geist_Mono, Manrope, Sora } from "next/font/google";
 import { Provider } from "@/components/ui/provider";
 import { SafeAreaProvider } from "@/components/ui/safe-area";
+import { THEME_INIT_SCRIPT } from "@/components/ui/theme-init-script";
 import "./globals.css";
 import { OnboardingProvider } from "./providers/Onboarding/Provider/OnboardingProvider";
 import { SplashProvider } from "./providers/SplashScreen/Provider/SplashProvider";
@@ -43,6 +44,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${sora.variable} ${manrope.variable} ${geistMono.variable}`}
       suppressHydrationWarning
     >
+      <head>
+        {/* Must stay in this Server Component. An in-tree Client
+            Component <script> hydrates against Emotion's SSR <style>. */}
+        <script id="aeryo-theme-init">{THEME_INIT_SCRIPT}</script>
+      </head>
       <body>
         <SplashProvider>
           <OnboardingProvider>

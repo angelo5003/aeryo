@@ -26,8 +26,8 @@ export function StatusBarSync() {
     if (!Capacitor.isNativePlatform()) return;
 
     // `colorMode` is `undefined` for a brief moment on every mount — until
-    // next-themes has read the persisted/system preference on the client
-    // (its own hydration-safety measure). Guard against that instead of
+    // ColorModeProvider has read the persisted/system preference on the
+    // client (hydration-safety). Guard against that instead of
     // letting it silently fall through to the light-mode style below: that
     // would flash (or on some mount timings, get stuck showing) dark
     // status bar icons on this app's dark background, unreadable against

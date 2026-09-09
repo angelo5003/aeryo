@@ -88,8 +88,8 @@ describe("StatusBarSync", () => {
 
   it("does not guess a style while color mode is still unresolved", async () => {
     // `useColorMode()`'s `colorMode` is `undefined` for a moment on every
-    // real mount (next-themes hasn't read the persisted/system preference
-    // yet). Regression test for the bug where this fell through to the
+    // real mount (ColorModeProvider hasn't read the persisted/system
+    // preference yet). Regression test for the bug where this fell through to the
     // light-mode branch and set dark (unreadable) icons on a dark
     // background — see status-bar-sync.tsx.
     isNativePlatform.mockReturnValue(true);

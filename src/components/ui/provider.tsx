@@ -5,11 +5,10 @@ import { system } from "@/design-system/theme";
 import { ColorModeProvider, type ColorModeProviderProps } from "./color-mode";
 import { StatusBarSync } from "./status-bar-sync";
 
-export function Provider(props: ColorModeProviderProps) {
-  const { children, ...colorModeProps } = props;
+export function Provider({ children }: ColorModeProviderProps) {
   return (
     <ChakraProvider value={system}>
-      <ColorModeProvider {...colorModeProps}>
+      <ColorModeProvider>
         <StatusBarSync />
         {children}
       </ColorModeProvider>
