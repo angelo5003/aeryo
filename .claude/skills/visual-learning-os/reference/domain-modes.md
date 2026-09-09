@@ -1,4 +1,4 @@
-# Domain Modes — read on demand from visual-learning-os-v5.md
+# Domain Modes — read on demand from SKILL.md
 
 Everything below assumes the Core Principle, Response Structure, Existing
 System First, and Project Stack Profile from the core file already apply.
