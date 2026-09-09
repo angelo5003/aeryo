@@ -503,6 +503,69 @@ export const semanticTokens = {
       },
     },
   },
+  // Mode-aware elevation. Overrides Chakra's stock semantic shadows
+  // (`gray.900` / `black`) so `shadow="md"` on Card, Dialog, Drawer,
+  // Menu, Popover all tint `ink` — the same family as surfaces. Light is
+  // a cool ambient at low opacity (not a dirty smudge on `paper`); dark
+  // is the heavier ink lift for floating chrome. Opacity slash syntax
+  // matches Chakra's own semantic shadows.js; the color path must stay
+  // `{colors.ink.*}`, never `gray` / `black` / raw rgba.
+  shadows: {
+    xs: {
+      value: {
+        _light:
+          "0px 1px 2px {colors.ink.950/6}, 0px 0px 1px {colors.ink.950/8}",
+        _dark: "0 1px 2px {colors.ink.950/40}",
+      },
+    },
+    sm: {
+      value: {
+        _light:
+          "0px 2px 8px {colors.ink.950/8}, 0px 1px 2px {colors.ink.950/6}",
+        _dark: "0 2px 8px {colors.ink.950/45}",
+      },
+    },
+    md: {
+      value: {
+        _light:
+          "0px 8px 24px {colors.ink.950/10}, 0px 2px 6px {colors.ink.950/6}",
+        _dark: "0 8px 24px {colors.ink.950/50}",
+      },
+    },
+    lg: {
+      value: {
+        _light:
+          "0px 16px 40px {colors.ink.950/12}, 0px 4px 12px {colors.ink.950/6}",
+        _dark: "0 16px 40px {colors.ink.950/55}",
+      },
+    },
+    xl: {
+      value: {
+        _light:
+          "0px 24px 64px {colors.ink.950/14}, 0px 8px 16px {colors.ink.950/6}",
+        _dark: "0 24px 64px {colors.ink.950/60}",
+      },
+    },
+    "2xl": {
+      value: {
+        _light:
+          "0px 24px 64px {colors.ink.950/16}, 0px 0px 1px {colors.ink.950/10}",
+        _dark: "0 24px 64px {colors.ink.950/60}",
+      },
+    },
+    inner: {
+      value: {
+        _light: "inset 0 2px 4px 0 {colors.ink.950/4}",
+        _dark: "inset 0 2px 4px 0 {colors.ink.950/40}",
+      },
+    },
+    inset: {
+      value: {
+        _light: "inset 0 0 0 1px {colors.ink.950/6}",
+        _dark: "inset 0 0 0 1px {colors.ink.50/8}",
+      },
+    },
+  },
   // Safe-area insets as spacing tokens, so any component can write
   // `pt="safe.top"` the same way it writes any other spacing value instead
   // of reaching for a raw CSS var. The underlying --safe-* custom

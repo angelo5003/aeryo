@@ -18,6 +18,10 @@ export const LOCAL_VARIANT_STYLES: Record<
     bg: "bg.panel",
     borderWidth: "1px",
     borderColor: "border.muted",
+    // White panel on `paper` needs a cool ambient lift in light; dark
+    // already separates via surface color + hairline. `sm` (not `xs`) so
+    // the card actually reads as paper sitting on the canvas.
+    boxShadow: { _light: "sm", _dark: "none" },
   },
   filled: {
     bg: "bg.muted",
@@ -28,13 +32,14 @@ export const LOCAL_VARIANT_STYLES: Record<
     bg: "bg.panel",
     borderWidth: "1px",
     borderColor: "border.muted",
+    boxShadow: { _light: "sm", _dark: "none" },
     cursor: "pointer",
     transitionProperty: "border-color, box-shadow, transform",
     transitionDuration: "fast",
     transitionTimingFunction: "easeOut",
     _hover: {
       borderColor: "border",
-      boxShadow: "sm",
+      boxShadow: "md",
     },
     _active: {
       transform: "scale(0.99)",
