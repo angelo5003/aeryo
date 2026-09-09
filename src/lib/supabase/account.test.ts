@@ -11,7 +11,9 @@ jest.mock("./client", () => ({
 
 describe("isUsernameAvailable", () => {
   it("returns true when the RPC reports the username is free", async () => {
-    jest.mocked(supabase.rpc).mockResolvedValue({ data: true, error: null } as unknown as any);
+    jest
+      .mocked(supabase.rpc)
+      .mockResolvedValue({ data: true, error: null } as unknown as any);
 
     await expect(isUsernameAvailable("stormrider")).resolves.toBe(true);
     expect(supabase.rpc).toHaveBeenCalledWith("is_username_available", {
@@ -20,7 +22,9 @@ describe("isUsernameAvailable", () => {
   });
 
   it("returns false when the RPC reports the username is taken", async () => {
-    jest.mocked(supabase.rpc).mockResolvedValue({ data: false, error: null } as unknown as any);
+    jest
+      .mocked(supabase.rpc)
+      .mockResolvedValue({ data: false, error: null } as unknown as any);
 
     await expect(isUsernameAvailable("stormrider")).resolves.toBe(false);
   });

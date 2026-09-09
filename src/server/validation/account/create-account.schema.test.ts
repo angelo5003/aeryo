@@ -83,7 +83,10 @@ describe("createAccountSchema", () => {
   });
 
   it("rejects a username shorter than 4 characters", () => {
-    const result = createAccountSchema.safeParse({ ...validInput, username: "abc" });
+    const result = createAccountSchema.safeParse({
+      ...validInput,
+      username: "abc",
+    });
 
     expect(result.success).toBe(false);
     expect(result.error?.issues[0]).toMatchObject({

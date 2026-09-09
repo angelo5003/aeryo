@@ -4,11 +4,7 @@ import * as React from "react";
 import { isUsernameAvailable } from "@/lib/supabase/account";
 
 export type UsernameAvailability =
-  | "idle"
-  | "checking"
-  | "available"
-  | "taken"
-  | "error";
+  "idle" | "checking" | "available" | "taken" | "error";
 
 const USERNAME_PATTERN = /^[a-zA-Z0-9_]{4,12}$/;
 const DEBOUNCE_MS = 400;

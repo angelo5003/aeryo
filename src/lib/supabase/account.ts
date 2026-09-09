@@ -1,8 +1,6 @@
 import { supabase } from "./client";
 
-export async function isUsernameAvailable(
-  username: string,
-): Promise<boolean> {
+export async function isUsernameAvailable(username: string): Promise<boolean> {
   const { data, error } = await supabase.rpc("is_username_available", {
     check_username: username,
   });
