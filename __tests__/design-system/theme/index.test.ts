@@ -57,4 +57,35 @@ describe("design system theme", () => {
       "{colors.ink.50}",
     );
   });
+
+  it("tints every shadow with ink, never Chakra gray or raw rgba", () => {
+    const steps = [
+      "xs",
+      "sm",
+      "md",
+      "lg",
+      "xl",
+      "2xl",
+      "inner",
+      "inset",
+    ] as const;
+    for (const step of steps) {
+      const { _light, _dark } = semanticTokens.shadows[step].value;
+      expect(_light).toContain("{colors.ink.");
+      expect(_dark).toContain("{colors.ink.");
+      expect(_light).not.toMatch(/gray|black|rgba\(/);
+      expect(_dark).not.toMatch(/gray|black|rgba\(/);
+    }
+    const css = JSON.stringify(system.getTokenCss());
+    expect(css).toContain("--chakra-shadows-sm");
+    expect(css).toContain("--chakra-colors-ink-950");
+    const shadowDeclarations = [
+      ...css.matchAll(/"--chakra-shadows-[^"]+":\s*"([^"]+)"/g),
+    ].map((match) => match[1]);
+    expect(shadowDeclarations.length).toBeGreaterThan(0);
+    for (const value of shadowDeclarations) {
+      expect(value).toMatch(/ink-950|ink-50/);
+      expect(value).not.toMatch(/gray|black|rgba\(/);
+    }
+  });
 });

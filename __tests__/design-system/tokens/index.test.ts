@@ -5,7 +5,7 @@ describe("tokens barrel", () => {
     expect(tokens.colors.teal[500].value).toBe("#19AEB5");
     expect(tokens.colors.paper[50].value).toBe("#F7FAFB");
     expect(tokens.radii.lg.value).toBe("10px");
-    expect(tokens.shadows.md.value).toBe("0 8px 24px rgba(2, 8, 10, 0.5)");
+    expect(tokens.shadows.md.value).toBe("0 8px 24px {colors.ink.950/50}");
     expect(tokens.fonts.heading.value).toContain("Sora");
     expect(tokens.fontSizes.xl.value).toBe("1.25rem");
     expect(tokens.spacing["4"].value).toBe("1rem");
