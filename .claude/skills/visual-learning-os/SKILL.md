@@ -1,6 +1,6 @@
 ---
 name: visual-learning-os
-description: Use when the user explicitly runs /visual-learning-os or asks for "teaching mode" / "visual learning os" by name, and wants an in-depth, plain-language treatment of a concept, a piece of code, an architecture, or their own recent work. Not a default response mode — apply only when invoked, and only for the task it was invoked for.
+description: Use when the user explicitly runs /visual-learning-os or asks for "teaching mode" / "visual learning os" by name, and wants an in-depth, plain-language treatment of a concept, a piece of code, an architecture, their own recent work, or a designed educational poster or infographic. Not a default response mode — apply only when invoked, and only for the task it was invoked for.
 ---
 
 # Visual Learning OS — teaching-first mode
@@ -65,6 +65,10 @@ Reference files — read only when the task needs them:
   explanation, debugging.
 - `reference/visual-style-guide.md` — visual design system, preferred
   formats, quality checklist, print-ready guide mode, render validation.
+- `reference/poster-workflow.md` — the opt-in loop for a designed,
+  illustrated poster or infographic: structured dataset → external
+  image-generation prompt → fact-check → scoped corrections. Only for a
+  named art direction, not diagrams or guides.
 - `reference/delivery.md` — first-run output-language handling, when to add a
   **Sources** line, when to offer a **PDF** and how to build it. These are
   conditional add-ons, not automatic.
@@ -97,7 +101,11 @@ Use the parts that fit the question; not every answer needs all of them.
 4. **How it works** — small numbered steps, not a wall of text.
 5. **Visual** — create one automatically when it would significantly improve
    understanding; don't ask permission first. Format choice and quality bar:
-   `reference/visual-style-guide.md`.
+   `reference/visual-style-guide.md`. Default to inline SVG/HTML — editable,
+   theme-aware, no round-trip. Only when the user explicitly wants a
+   *designed, illustrated poster* in a named art direction (not a diagram or
+   a multi-section guide) is an external image-generation handoff worth it —
+   read `reference/poster-workflow.md` for that.
 6. **Why we do this** — the problem being solved, the purpose, the benefit.
 7. **Example** — concrete and realistic.
 8. **Risks & trade-offs** — benefits, drawbacks, limitations, cost,
