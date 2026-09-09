@@ -1,7 +1,8 @@
 "use client";
 
-import type React from "react";
-import { LuLockKeyhole, LuMail } from "react-icons/lu";
+import { Box, Spinner } from "@chakra-ui/react";
+import * as React from "react";
+import { LuCheck, LuLockKeyhole, LuMail, LuUser, LuX } from "react-icons/lu";
 import { Button } from "@/components/actions/Button/Button";
 import { Field } from "@/components/forms/Field/Field";
 import { Form } from "@/components/forms/Form/Form";
@@ -10,24 +11,56 @@ import { Input } from "@/components/forms/Input/Input";
 import { InputGroup } from "@/components/forms/InputGroup/InputGroup";
 import { PasswordInput } from "@/components/forms/PasswordInput/PasswordInput";
 import { Stack } from "@/components/primitives/Stack/Stack";
+import { signUpWithEmail } from "@/lib/supabase/account";
 import type { CreateAccountValues } from "@/server/validation/account/create-account.schema";
 import ContinueWithBox from "../ContinueWithBox";
 import { useCreateAccountForm } from "../hooks/useCreateAccountForm";
+import { useUsernameAvailability } from "../hooks/useUsernameAvailability";
 
 const CreateAccountForm: React.FC = () => {
   const methods = useCreateAccountForm();
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    watch,
+    setError,
+    formState: { errors, isSubmitting },
   } = methods;
+  const [formError, setFormError] = React.useState<string>();
 
-  const onSubmit = (data: CreateAccountValues) => {
-    console.log(data);
+  const username = watch("username");
+  const availability = useUsernameAvailability(username);
+
+  const usernameStatusIcon =
+    availability === "checking" ? (
+      <Spinner size="xs" />
+    ) : availability === "available" ? (
+      <Box asChild color="fg.success">
+        <LuCheck />
+      </Box>
+    ) : availability === "taken" ? (
+      <Box asChild color="fg.error">
+        <LuX />
+      </Box>
+    ) : undefined;
+
+  const onSubmit = async (data: CreateAccountValues) => {
+    setFormError(undefined);
+
+    if (availability === "taken") {
+      setError("username", { message: "That username is taken" });
+      return;
+    }
+
+    const { error } = await signUpWithEmail(data);
+    if (error) {
+      setFormError(error);
+    }
   };
+
   return (
     <Form methods={methods} onSubmit={handleSubmit(onSubmit)}>
-      <FormError />
+      <FormError>{formError}</FormError>
       <Field
         label="Email"
         required
@@ -41,6 +74,24 @@ const CreateAccountForm: React.FC = () => {
             size="lg"
             focusRingColor={errors.email ? "border.error" : "accent.solid"}
             {...register("email")}
+          />
+        </InputGroup>
+      </Field>
+      <Field
+        label="Username"
+        required
+        errorText={
+          errors.username?.message ??
+          (availability === "taken" ? "That username is taken" : undefined)
+        }
+        invalid={!!errors.username || availability === "taken"}
+      >
+        <InputGroup startElement={<LuUser />} endElement={usernameStatusIcon}>
+          <Input
+            placeholder="stormrider"
+            size="lg"
+            focusRingColor={errors.username ? "border.error" : "accent.solid"}
+            {...register("username")}
           />
         </InputGroup>
       </Field>
@@ -79,6 +130,7 @@ const CreateAccountForm: React.FC = () => {
           type="submit"
           size="lg"
           fontWeight="bold"
+          loading={isSubmitting}
           _active={{ transform: "scale(0.96)" }}
           transitionProperty="transform"
           transitionDuration="normal"
