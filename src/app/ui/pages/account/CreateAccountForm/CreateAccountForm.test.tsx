@@ -1,6 +1,16 @@
 import { act, fireEvent, render, screen } from "@testing-library/react";
 import { Provider } from "@/components/ui/provider";
+import { signUpWithEmail } from "@/lib/supabase/account";
 import CreateAccountForm from "./CreateAccountForm";
+import { useUsernameAvailability } from "../hooks/useUsernameAvailability";
+
+jest.mock("@/lib/supabase/account", () => ({
+  signUpWithEmail: jest.fn(),
+}));
+
+jest.mock("../hooks/useUsernameAvailability", () => ({
+  useUsernameAvailability: jest.fn(),
+}));
 
 // `required` fields append a trailing "*" (Field's RequiredIndicator) to
 // the label's textContent, which getByLabelText matches against literally
@@ -14,6 +24,13 @@ const fillField = (label: string, value: string) => {
   });
 };
 
+const fillValidForm = () => {
+  fillField("Email", "user@example.com");
+  fillField("Username", "stormrider");
+  fillField("Password", "SecurePass123");
+  fillField("Confirm Password", "SecurePass123");
+};
+
 const submit = async () => {
   await act(async () => {
     fireEvent.click(screen.getByRole("button", { name: "Create Account" }));
@@ -21,17 +38,26 @@ const submit = async () => {
 };
 
 describe("CreateAccountForm", () => {
-  it("renders the email, password, and confirm-password fields plus the continue-with composition", () => {
+  beforeEach(() => {
+    jest.mocked(useUsernameAvailability).mockReturnValue("available");
+    jest.mocked(signUpWithEmail).mockResolvedValue({ error: null });
+  });
+
+  it("renders the email, username, password, and confirm-password fields plus the continue-with composition", () => {
     render(<CreateAccountForm />, { wrapper: Provider });
 
-    expect(screen.getByLabelText(labelStartingWith("Email"))).toBeInTheDocument();
+    expect(
+      screen.getByLabelText(labelStartingWith("Email")),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByLabelText(labelStartingWith("Username")),
+    ).toBeInTheDocument();
     expect(
       screen.getByLabelText(labelStartingWith("Password")),
     ).toBeInTheDocument();
     expect(
       screen.getByLabelText(labelStartingWith("Confirm Password")),
     ).toBeInTheDocument();
-    // Composition check: ContinueWithBox renders inside CreateAccountForm.
     expect(screen.getByRole("link", { name: "Log in" })).toBeInTheDocument();
   });
 
@@ -41,6 +67,9 @@ describe("CreateAccountForm", () => {
     await submit();
 
     expect(screen.getByText("Invalid email address")).toBeInTheDocument();
+    expect(
+      screen.getByText("Username must be at least 4 characters"),
+    ).toBeInTheDocument();
     expect(
       screen.getByText("Password must be at least 8 characters"),
     ).toBeInTheDocument();
@@ -52,33 +81,48 @@ describe("CreateAccountForm", () => {
   it("flags a confirm-password that doesn't match the password", async () => {
     render(<CreateAccountForm />, { wrapper: Provider });
 
-    fillField("Email", "user@example.com");
-    fillField("Password", "SecurePass123");
+    fillValidForm();
     fillField("Confirm Password", "SomethingElse123");
     await submit();
 
     expect(screen.getByText("Passwords do not match")).toBeInTheDocument();
   });
 
-  it("submits with no errors once every field satisfies the schema", async () => {
-    const logSpy = jest.spyOn(console, "log").mockImplementation(() => {});
+  it("blocks submission and shows an error when the username is taken", async () => {
+    jest.mocked(useUsernameAvailability).mockReturnValue("taken");
     render(<CreateAccountForm />, { wrapper: Provider });
 
-    fillField("Email", "user@example.com");
-    fillField("Password", "SecurePass123");
-    fillField("Confirm Password", "SecurePass123");
+    fillValidForm();
     await submit();
 
-    expect(logSpy).toHaveBeenCalledWith({
+    expect(screen.getByText("That username is taken")).toBeInTheDocument();
+    expect(signUpWithEmail).not.toHaveBeenCalled();
+  });
+
+  it("calls signUpWithEmail once every field satisfies the schema and the username is available", async () => {
+    render(<CreateAccountForm />, { wrapper: Provider });
+
+    fillValidForm();
+    await submit();
+
+    expect(signUpWithEmail).toHaveBeenCalledWith({
       email: "user@example.com",
+      username: "stormrider",
       password: "SecurePass123",
       confirmPassword: "SecurePass123",
     });
     expect(screen.queryByText("Invalid email address")).not.toBeInTheDocument();
-    expect(
-      screen.queryByText("Passwords do not match"),
-    ).not.toBeInTheDocument();
+  });
 
-    logSpy.mockRestore();
+  it("shows the server's error message when signUpWithEmail fails", async () => {
+    jest
+      .mocked(signUpWithEmail)
+      .mockResolvedValue({ error: "Email already registered" });
+    render(<CreateAccountForm />, { wrapper: Provider });
+
+    fillValidForm();
+    await submit();
+
+    expect(screen.getByText("Email already registered")).toBeInTheDocument();
   });
 });
