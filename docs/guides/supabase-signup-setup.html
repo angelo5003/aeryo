@@ -134,9 +134,23 @@
   .callout.coral ol li { color: var(--coral-tx); }
   .callout.coral ol li span { color: var(--ink); }
 
+  /* Print / Save-as-PDF: make the page itself 1600x900 so nothing is clipped,
+     and force the pastel fills to render (Chrome drops backgrounds otherwise). */
   @media print {
-    body { background: #fff; padding: 0; }
-    .poster { border: none; }
+    @page { size: 1600px 900px; margin: 0; }
+    html, body {
+      background: #fff;
+      padding: 0;
+      display: block;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .poster {
+      width: 1600px;
+      min-height: 900px;
+      border: none;
+      border-radius: 0;
+    }
   }
 </style>
 </head>
