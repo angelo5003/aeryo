@@ -38,7 +38,9 @@ image, say so and offer the native path.
 
 2. **Image-generation prompt** for an external tool (ChatGPT image mode is the
    current best fit; the prompt ports). Build it from `visual-style-guide.md`:
-   format, the named style, palette as hex, typography roles, the Step 1 text
+   format (**16:9 landscape by default** per that file's Layout rule — a
+   poster is a single surface studied on screen; go A4 portrait only if the
+   user asks), the named style, palette as hex, typography roles, the Step 1 text
    with "reproduce verbatim, check every word's spelling," and an explicit
    exclusion of **added slogans, captions, or filler text in the margins** —
    image tools pad empty space with invented copy. If the text isn't English,
