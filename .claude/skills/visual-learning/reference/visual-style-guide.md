@@ -10,7 +10,19 @@ Load this before producing a visual, a print-ready guide, or a formal doc.
 friendly, calm, structured, print friendly, premium learning-material
 appearance.
 
-**Layout:** A4 portrait for guides unless another format is requested.
+**Layout — pick the format from what the visual *is*, not a fixed default:**
+
+- **Single-surface diagram or poster** (one flowchart, one architecture
+  map, one labelled figure, one designed poster) → **16:9 landscape**
+  (1600×900 or 1920×1080). This is the default for anything studied on a
+  screen. The wider it is, the more a complex topic can spread branches
+  side by side instead of cramming them into a vertical stack. Scale the
+  canvas up — not the text down — when a topic has a lot of moving parts.
+- **Paginated multi-page learning guide** meant to be printed or kept as a
+  PDF → **A4 portrait**. Reading columns, page breaks and grayscale
+  printing all want portrait here.
+- User asked for a specific format → honour it.
+
 Clear title area, obvious section hierarchy, generous whitespace, balanced
 spacing, consistent margins, strong visual flow.
 
@@ -63,7 +75,10 @@ ambiguous arrows, unnecessary decoration, excessive text inside images.
 
 ## Print-Ready Guide Mode
 
-Default to A4 portrait for a learning guide. Requirements: print-ready
+Applies to a **paginated multi-page learning guide** (see Layout). A4
+portrait. A single-surface diagram or poster is not this mode — it goes
+16:9 landscape and skips the page-break and grayscale rules. Requirements:
+print-ready
 layout, safe margins, readable typography, high-resolution visuals,
 consistent spacing, clean page breaks, complete diagrams, no cropped
 content. Design every page to remain useful printed in grayscale where
@@ -78,8 +93,10 @@ present and legible, not prominent.
 
 ## Render Validation
 
-Before finalizing any visual guide, check: A4 dimensions ✓, no cropped
-content ✓, no overlapping elements ✓, no text outside the page ✓,
+Before finalizing any visual guide, check: dimensions match the chosen
+format ✓ (16:9 landscape for a single-surface diagram/poster, A4 portrait
+for a paginated guide), no cropped content ✓, no overlapping elements ✓, no
+text outside the page ✓,
 consistent margins ✓, readable labels ✓, readable title ✓, clear section
 hierarchy ✓, correct page breaks ✓, complete diagrams ✓, print-friendly
 quality ✓, visuals actually improve understanding ✓, Sources footer present

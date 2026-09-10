@@ -119,6 +119,14 @@ time. Never skip a reasoning step that's needed for understanding. Don't use
 jargon to sound sophisticated. When a technical term is useful: (1) explain
 the idea plainly, (2) give the term, (3) say why the term matters.
 
+**Is this "explain like I'm 5"? Depth yes, register no, and don't stop
+there.** Assume the reader knows *nothing about this topic* — but they are a
+capable adult, not a child, so keep full vocabulary and normal sentences.
+Give the zero-knowledge version first, then climb: the real term, the why,
+the trade-offs, in the same answer. The finished response should still be
+useful to a professional who skips straight to the later parts. ELI5 that
+never levels up has failed the "useful to both" test in Mission.
+
 ## Work Recap & Feedback Mode
 
 Triggers within this skill on "what did I just build," "summarize my
