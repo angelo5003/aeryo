@@ -31,8 +31,7 @@ Order of sources (prefer the earliest that answers the question):
    - Chakra: `chakra-ui-builder` / `chakra-ui-refactor` / `chakra-ui-migrate` skills.
    - Next.js/Vercel: `vercel:nextjs` skill or
      `mcp__claude_ai_Vercel__search_vercel_documentation`.
-   - Supabase (once provisioned): `supabase` skill or
-     `mcp__claude_ai_Supabase__search_docs`.
+   - Supabase: `supabase` skill or `mcp__claude_ai_Supabase__search_docs`.
    - GraphQL (once adopted): `graphql-schema` / `graphql-operations` skills, or
      `mcp__claude_ai_GraphOS_MCP_Tools__ApolloDocsSearch` for Apollo-specific
      questions.
@@ -44,30 +43,31 @@ Order of sources (prefer the earliest that answers the question):
 5. **Official docs, fetched** — only when 1–4 don't cover it. Every package in
    `package.json` maps to one of these:
 
-   | Package(s) | Official docs |
-   | --- | --- |
-   | `react`, `react-dom` | https://react.dev/ |
-   | `next`, `eslint-config-next` | https://nextjs.org/docs |
-   | `typescript`, `ts-node`, `@types/*` | https://www.typescriptlang.org/docs/ |
-   | `@chakra-ui/react`, `@chakra-ui/cli` | https://chakra-ui.com/docs |
-   | `@emotion/react` | https://emotion.sh/docs/introduction |
-   | `framer-motion` (imported as `motion`) | https://motion.dev/docs/react |
-   | `next-themes` | https://github.com/pacocoursey/next-themes |
-   | `react-icons` | https://react-icons.github.io/react-icons/ |
-   | `@lottiefiles/dotlottie-react` | https://docs.lottiefiles.com/en/runtimes/distributions/react |
-   | `react-hook-form` | https://react-hook-form.com/ |
-   | `@hookform/resolvers` | https://github.com/react-hook-form/resolvers |
-   | `zod` | https://zod.dev/ |
-   | `@capacitor/*` (core, android, ios, keyboard, preferences, splash-screen, cli, assets) | https://capacitorjs.com/docs |
-   | `jest`, `jest-environment-jsdom`, `@types/jest` | https://jestjs.io/docs/getting-started |
-   | `@testing-library/react`, `@testing-library/dom`, `@testing-library/jest-dom` | https://testing-library.com/docs/ |
-   | `playwright`, `@playwright/test` | https://playwright.dev/docs/intro |
-   | `storybook`, `@storybook/*`, `@chromatic-com/storybook`, `eslint-plugin-storybook` | https://storybook.js.org/docs |
-   | `vitest`, `@vitest/*` | https://vitest.dev/guide/ |
-   | `vite` | https://vitejs.dev/guide/ |
-   | `eslint` | https://eslint.org/docs/latest/ |
-   | `prettier` | https://prettier.io/docs/ |
-   | `serve` | https://github.com/vercel/serve |
+   | Package(s)                                                                             | Official docs                                                |
+   | -------------------------------------------------------------------------------------- | ------------------------------------------------------------ |
+   | `react`, `react-dom`                                                                   | https://react.dev/                                           |
+   | `next`, `eslint-config-next`                                                           | https://nextjs.org/docs                                      |
+   | `typescript`, `ts-node`, `@types/*`                                                    | https://www.typescriptlang.org/docs/                         |
+   | `@chakra-ui/react`, `@chakra-ui/cli`                                                   | https://chakra-ui.com/docs                                   |
+   | `@supabase/supabase-js`                                                                | https://supabase.com/docs                                    |
+   | `@emotion/react`                                                                       | https://emotion.sh/docs/introduction                         |
+   | `framer-motion` (imported as `motion`)                                                 | https://motion.dev/docs/react                                |
+   | `next-themes`                                                                          | https://github.com/pacocoursey/next-themes                   |
+   | `react-icons`                                                                          | https://react-icons.github.io/react-icons/                   |
+   | `@lottiefiles/dotlottie-react`                                                         | https://docs.lottiefiles.com/en/runtimes/distributions/react |
+   | `react-hook-form`                                                                      | https://react-hook-form.com/                                 |
+   | `@hookform/resolvers`                                                                  | https://github.com/react-hook-form/resolvers                 |
+   | `zod`                                                                                  | https://zod.dev/                                             |
+   | `@capacitor/*` (core, android, ios, keyboard, preferences, splash-screen, cli, assets) | https://capacitorjs.com/docs                                 |
+   | `jest`, `jest-environment-jsdom`, `@types/jest`                                        | https://jestjs.io/docs/getting-started                       |
+   | `@testing-library/react`, `@testing-library/dom`, `@testing-library/jest-dom`          | https://testing-library.com/docs/                            |
+   | `playwright`, `@playwright/test`                                                       | https://playwright.dev/docs/intro                            |
+   | `storybook`, `@storybook/*`, `@chromatic-com/storybook`, `eslint-plugin-storybook`     | https://storybook.js.org/docs                                |
+   | `vitest`, `@vitest/*`                                                                  | https://vitest.dev/guide/                                    |
+   | `vite`                                                                                 | https://vitejs.dev/guide/                                    |
+   | `eslint`                                                                               | https://eslint.org/docs/latest/                              |
+   | `prettier`                                                                             | https://prettier.io/docs/                                    |
+   | `serve`                                                                                | https://github.com/vercel/serve                              |
 
    Update this table whenever `package.json` gains a dependency that isn't
    covered by an existing row.

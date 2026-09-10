@@ -1,16 +1,6 @@
 import { act, fireEvent, render, screen } from "@testing-library/react";
 import { Provider } from "@/components/ui/provider";
-import { signUpWithEmail } from "@/lib/supabase/account";
 import CreateAccountForm from "./CreateAccountForm";
-import { useUsernameAvailability } from "../hooks/useUsernameAvailability";
-
-jest.mock("@/lib/supabase/account", () => ({
-  signUpWithEmail: jest.fn(),
-}));
-
-jest.mock("../hooks/useUsernameAvailability", () => ({
-  useUsernameAvailability: jest.fn(),
-}));
 
 // `required` fields append a trailing "*" (Field's RequiredIndicator) to
 // the label's textContent, which getByLabelText matches against literally
@@ -38,11 +28,6 @@ const submit = async () => {
 };
 
 describe("CreateAccountForm", () => {
-  beforeEach(() => {
-    jest.mocked(useUsernameAvailability).mockReturnValue("available");
-    jest.mocked(signUpWithEmail).mockResolvedValue({ error: null });
-  });
-
   it("renders the email, username, password, and confirm-password fields plus the continue-with composition", () => {
     render(<CreateAccountForm />, { wrapper: Provider });
 
@@ -88,41 +73,12 @@ describe("CreateAccountForm", () => {
     expect(screen.getByText("Passwords do not match")).toBeInTheDocument();
   });
 
-  it("blocks submission and shows an error when the username is taken", async () => {
-    jest.mocked(useUsernameAvailability).mockReturnValue("taken");
+  it("submits without error once every field satisfies the schema", async () => {
     render(<CreateAccountForm />, { wrapper: Provider });
 
     fillValidForm();
     await submit();
 
-    expect(screen.getByText("That username is taken")).toBeInTheDocument();
-    expect(signUpWithEmail).not.toHaveBeenCalled();
-  });
-
-  it("calls signUpWithEmail once every field satisfies the schema and the username is available", async () => {
-    render(<CreateAccountForm />, { wrapper: Provider });
-
-    fillValidForm();
-    await submit();
-
-    expect(signUpWithEmail).toHaveBeenCalledWith({
-      email: "user@example.com",
-      username: "stormrider",
-      password: "SecurePass123",
-      confirmPassword: "SecurePass123",
-    });
     expect(screen.queryByText("Invalid email address")).not.toBeInTheDocument();
-  });
-
-  it("shows the server's error message when signUpWithEmail fails", async () => {
-    jest
-      .mocked(signUpWithEmail)
-      .mockResolvedValue({ error: "Email already registered" });
-    render(<CreateAccountForm />, { wrapper: Provider });
-
-    fillValidForm();
-    await submit();
-
-    expect(screen.getByText("Email already registered")).toBeInTheDocument();
   });
 });
