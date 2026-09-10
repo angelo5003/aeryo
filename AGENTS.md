@@ -35,11 +35,15 @@ Order of sources (prefer the earliest that answers the question):
    - GraphQL (once adopted): `graphql-schema` / `graphql-operations` skills, or
      `mcp__claude_ai_GraphOS_MCP_Tools__ApolloDocsSearch` for Apollo-specific
      questions.
+   - Storybook (components, stories, props): `storybook` MCP (`docs-list`,
+     `docs-show`, `get-storybook-story-instructions`, `test-run`). Requires
+     Storybook running at `http://localhost:6006/mcp`. See
+     `.cursor/rules/storybook-mcp.mdc`.
    - Everything else in `package.json` (TypeScript, Zod, react-hook-form,
-     Capacitor, Jest, Testing Library, Playwright, Storybook, Vitest, ESLint,
-     Prettier, …): no dedicated skill or MCP tool exists — skip straight from
-     installed types/source (step 3) to official docs fetched (step 5), using
-     the table below.
+     Capacitor, Jest, Testing Library, Playwright, Vitest, ESLint, Prettier, …):
+     no dedicated skill or MCP tool exists — skip straight from installed
+     types/source (step 3) to official docs fetched (step 5), using the table
+     below.
 5. **Official docs, fetched** — only when 1–4 don't cover it. Every package in
    `package.json` maps to one of these:
 
@@ -84,3 +88,23 @@ Rules:
   `// per node_modules/next/dist/docs/01-app/.../link.md` or
   `// matches src/components/actions/Button/Button.tsx`.
 - Before calling code done: `npm run typecheck` and `npm run lint` must pass.
+
+# Aeryo Engineering Constitution
+
+## 1. Evidence First
+Never guess. For version-sensitive, framework-specific, or native mobile behavior:
+1. Inspect the existing repository.
+2. Verify installed package.json versions.
+3. Use an applicable official MCP.
+4. Read official documentation.
+Never fabricate APIs, database schemas, or Capacitor native bridge methods.
+
+## 2. Plan Before Implementation
+For non-trivial tasks, output a concrete implementation plan using a strict bulleted list that details:
+* Affected files
+* App Store compliance risks
+* Required verification steps
+Wait for explicit approval before writing any code.
+
+## 3. Mobile-First Architecture
+This application targets the Apple App Store and Google Play Store via Capacitor. Treat native mobile performance, offline-first capabilities (for areas with poor connectivity), and high-contrast UI suitability (for outdoor, high-glare environments like beaches) as primary constraints.

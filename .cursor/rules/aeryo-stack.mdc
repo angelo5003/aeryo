@@ -1,0 +1,7 @@
+---
+description: Aeryo core tech stack and engineering rules
+alwaysApply: true
+---
+
+@AGENTS.md
+@.claude/rules/aeryo-core.md
