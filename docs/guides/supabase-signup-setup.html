@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Supabase Signup Setup — aeryo</title>
+<style>
+  :root {
+    --ink: #1E293B;
+    --muted: #52607A;
+    --page: #FFFFFF;
+    --hair: #CBD5E1;
+
+    --purple-bd: #7C6BF0; --purple-bg: #EDE9FE; --purple-tx: #4C3BB5;
+    --teal-bd:   #14B8A6; --teal-bg:   #D5F5F0; --teal-tx:   #0F766E;
+    --amber-bd:  #F59E0B; --amber-bg:  #FEF0CE; --amber-tx:  #B45309;
+    --coral-bd:  #F87171; --coral-bg:  #FEE2E2; --coral-tx:  #B91C1C;
+    --grey-bd:   #94A3B8; --grey-bg:   #E2E8F0; --grey-tx:   #334155;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: #EEF1F5; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    color: var(--ink);
+    display: flex;
+    justify-content: center;
+    padding: 24px;
+  }
+
+  code, .mono {
+    font-family: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+    font-size: 0.92em;
+    white-space: pre-wrap;
+    word-break: normal;
+  }
+
+  .poster {
+    width: 1600px;
+    min-height: 900px;
+    background: var(--page);
+    border: 1px solid var(--hair);
+    border-radius: 14px;
+    padding: 30px 34px 34px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  /* ---------- header ---------- */
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 24px;
+    border-bottom: 2px solid var(--hair);
+    padding-bottom: 16px;
+  }
+  h1 { font-size: 38px; line-height: 1.05; margin: 0 0 6px; letter-spacing: -0.5px; }
+  .subtitle { font-size: 15px; color: var(--muted); margin: 0; }
+
+  .legend {
+    list-style: none; margin: 0; padding: 12px 16px;
+    background: #F8FAFC; border: 1px solid var(--hair); border-radius: 10px;
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px 18px;
+    font-size: 12px; color: var(--grey-tx); flex: none;
+  }
+  .legend li { display: flex; align-items: center; gap: 7px; white-space: nowrap; }
+  .dot { width: 11px; height: 11px; border-radius: 50%; flex: none; }
+  .dot.purple { background: var(--purple-bd); }
+  .dot.teal   { background: var(--teal-bd); }
+  .dot.amber  { background: var(--amber-bd); }
+  .dot.coral  { background: var(--coral-bd); }
+  .dot.grey   { background: var(--grey-bd); }
+
+  /* ---------- body grid ---------- */
+  main {
+    display: grid;
+    grid-template-columns: 748px 1fr;
+    gap: 34px;
+    flex: 1;
+  }
+  h2 {
+    font-size: 19px; margin: 0 0 14px;
+    padding-bottom: 6px; border-bottom: 2px solid currentColor;
+    display: inline-block;
+  }
+  .flow h2 { color: var(--purple-tx); }
+  .details h2 { color: var(--teal-tx); }
+
+  /* ---------- flow nodes ---------- */
+  .node {
+    border: 2px solid; border-radius: 10px; padding: 10px 14px;
+    text-align: center;
+  }
+  .node .nt { font-weight: 700; font-size: 14.5px; display: block; margin-bottom: 3px; }
+  .node .nd { font-size: 12px; color: var(--muted); line-height: 1.4; }
+  .node.grey   { border-color: var(--grey-bd);   background: var(--grey-bg); }
+  .node.purple { border-color: var(--purple-bd); background: var(--purple-bg); }
+  .node.teal   { border-color: var(--teal-bd);   background: var(--teal-bg); }
+  .node.amber  { border-color: var(--amber-bd);  background: var(--amber-bg); }
+  .node.coral  { border-color: var(--coral-bd);  background: var(--coral-bg); }
+  .node.grey .nd, .node.purple .nd, .node.teal .nd, .node.amber .nd, .node.coral .nd { color: inherit; opacity: .85; }
+
+  .arrow { text-align: center; color: var(--muted); font-size: 17px; line-height: 1; padding: 5px 0; }
+  .arrow small { display: block; font-size: 11px; margin-top: 2px; }
+
+  .branches { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; align-items: start; }
+  .branch { display: flex; flex-direction: column; gap: 0; }
+  .branch .arrow { padding: 4px 0; }
+
+  .join { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .join .cell { text-align: center; color: var(--muted); font-size: 12px; }
+  .join .cell .a { font-size: 17px; }
+  .dashed .a { opacity: .55; }
+
+  /* ---------- details table ---------- */
+  table { width: 100%; border-collapse: collapse; font-size: 11.5px; }
+  th, td { text-align: left; vertical-align: top; padding: 7px 9px; border-bottom: 1px solid var(--hair); }
+  th { font-size: 11px; text-transform: none; color: var(--muted); background: #F8FAFC; border-bottom: 2px solid var(--hair); }
+  td:first-child { width: 168px; }
+  td:nth-child(2) { width: 210px; }
+  tbody tr:last-child td { border-bottom: none; }
+
+  /* ---------- callouts ---------- */
+  .callout { border: 1.5px solid; border-radius: 10px; padding: 12px 15px; margin-top: 16px; font-size: 12.5px; line-height: 1.5; }
+  .callout h3 { margin: 0 0 6px; font-size: 14px; }
+  .callout.teal  { border-color: var(--teal-bd);  background: #ECFBF8; }
+  .callout.teal h3 { color: var(--teal-tx); }
+  .callout.coral { border-color: var(--coral-bd); background: #FEF1F1; }
+  .callout.coral h3 { color: var(--coral-tx); }
+  .callout ul, .callout ol { margin: 4px 0 0; padding-left: 20px; }
+  .callout li { margin: 3px 0; }
+  .callout.coral ol li { color: var(--coral-tx); }
+  .callout.coral ol li span { color: var(--ink); }
+
+  @media print {
+    body { background: #fff; padding: 0; }
+    .poster { border: none; }
+  }
+</style>
+</head>
+<body>
+<div class="poster">
+
+  <header>
+    <div class="title-block">
+      <h1>Supabase Signup Setup — aeryo</h1>
+      <p class="subtitle">Hoe e-mailregistratie werkt: één browser client, één SQL-migratie, één formulier.</p>
+    </div>
+    <ul class="legend">
+      <li><span class="dot purple"></span>Username-check (vóór sessie)</li>
+      <li><span class="dot teal"></span>Auth (Supabase Auth)</li>
+      <li><span class="dot amber"></span>Database-trigger</li>
+      <li><span class="dot coral"></span>Datatabel (public)</li>
+      <li><span class="dot grey"></span>Gedeeld / neutraal</li>
+    </ul>
+  </header>
+
+  <main>
+    <!-- ================= FLOW ================= -->
+    <section class="flow">
+      <h2>Stroomdiagram</h2>
+
+      <div class="node grey">
+        <span class="nt">CreateAccountForm — client</span>
+        <span class="nd"><code>react-hook-form</code> + <code>zod</code>, daarna <code>supabase-js</code> browser client<br>(geen SSR, geen cookies — static export)</span>
+      </div>
+
+      <div class="arrow">↓<small>splitst in twee takken</small></div>
+
+      <div class="branches">
+        <!-- left branch: username check -->
+        <div class="branch">
+          <div class="node purple">
+            <span class="nt"><code>useUsernameAvailability</code></span>
+            <span class="nd">hook met 400ms debounce,<br>volgt het <code>username</code>-veld</span>
+          </div>
+          <div class="arrow">↓</div>
+          <div class="node purple">
+            <span class="nt"><code>is_username_available(check_username text)</code></span>
+            <span class="nd">Postgres-RPC, aanroepbaar door de rol <code>anon</code>,<br>geeft alleen een <code>boolean</code> terug</span>
+          </div>
+        </div>
+
+        <!-- right branch: account aanmaken -->
+        <div class="branch">
+          <div class="node teal">
+            <span class="nt"><code>signUpWithEmail()</code></span>
+            <span class="nd">verpakt <code>supabase.auth.signUp</code>,<br>geeft <code>username</code> mee in <code>options.data</code></span>
+          </div>
+          <div class="arrow">↓</div>
+          <div class="node teal">
+            <span class="nt"><code>auth.users</code></span>
+            <span class="nd">Supabase Auth voegt de gebruikersrij toe</span>
+          </div>
+          <div class="arrow">↓</div>
+          <div class="node amber">
+            <span class="nt"><code>on_auth_user_created</code></span>
+            <span class="nd">trigger: <code>after insert</code>, <code>for each row</code></span>
+          </div>
+          <div class="arrow">↓</div>
+          <div class="node amber">
+            <span class="nt"><code>handle_new_user()</code></span>
+            <span class="nd"><code>security definer</code>, <code>search_path = ''</code>,<br>kopieert <code>raw_user_meta_data-&gt;&gt;'username'</code><br>naar <code>profiles</code> (<code>username</code> én <code>display_name</code>)</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="join">
+        <div class="cell dashed"><div class="a">⇣</div>leest</div>
+        <div class="cell"><div class="a">↓</div>voegt toe</div>
+      </div>
+
+      <div class="node coral">
+        <span class="nt"><code>public.profiles</code></span>
+        <span class="nd">
+          RLS aan — één rij per auth-gebruiker<br>
+          <code>username</code>: <code>unique</code>, 4–12 tekens, patroon <code>^[a-zA-Z0-9_]+$</code><br>
+          <code>id</code> verwijst naar <code>auth.users(id) on delete cascade</code>
+        </span>
+      </div>
+    </section>
+
+    <!-- ================= DETAILS ================= -->
+    <section class="details">
+      <h2>Belangrijke objecten</h2>
+
+      <table>
+        <thead>
+          <tr><th>Object</th><th>Rol</th><th>Waarom het zo is opgebouwd</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>public.profiles</code> (tabel)</td>
+            <td>Publieke app-data, 1-op-1 gekoppeld aan <code>auth.users</code> via <code>id</code></td>
+            <td><code>auth.users</code> is privé; de app heeft een publieke plek nodig. Database-constraints plus een <code>unique</code> index maken de database de echte poortwachter voor usernames.</td>
+          </tr>
+          <tr>
+            <td>3 RLS-policies</td>
+            <td><code>authenticated</code> mag alle profielen <code>SELECT</code>en; een gebruiker mag alleen zijn eigen rij <code>INSERT</code>en/<code>UPDATE</code>n (<code>auth.uid() = id</code>)</td>
+            <td>Checks in de frontend zijn geen beveiliging; eigenaarschap wordt afgedwongen in Postgres.</td>
+          </tr>
+          <tr>
+            <td><code>handle_new_user()</code> + trigger <code>on_auth_user_created</code></td>
+            <td>Na een nieuwe <code>auth.users</code>-rij: kopieer de <code>username</code> naar <code>profiles</code></td>
+            <td>De insert draait vóórdat de gebruiker een session heeft, dus de RLS-check <code>auth.uid() = id</code> zou hem weigeren.</td>
+          </tr>
+          <tr>
+            <td><code>is_username_available()</code></td>
+            <td>Boolean-check voor het registratieformulier, aanroepbaar door <code>anon</code></td>
+            <td>Het formulier heeft nog geen session; alleen ja/nee teruggeven (nooit rijdata) maakt het veilig om bloot te stellen.</td>
+          </tr>
+          <tr>
+            <td><code>revoke execute</code> op <code>handle_new_user()</code> van <code>anon, authenticated</code></td>
+            <td>Voorkomt dat de trigger-functie óók een aanroepbare RPC is</td>
+            <td>De security-advisor van Supabase markeert <code>security definer</code>-functies die <code>anon</code> direct kan aanroepen.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="callout teal">
+        <h3>Waarom <code>security definer</code></h3>
+        <code>security definer</code> betekent "draai met de rechten van de eigenaar van de functie, niet die van de aanroeper" — een bewuste omzeiling van row-level security (RLS). Twee toepassingen, twee redenen:
+        <ul>
+          <li><code>handle_new_user</code>: MOET RLS omzeilen omdat de profiel-insert plaatsvindt in het gat tussen "gebruiker aangemaakt" en "gebruiker heeft een session". Gehard met <code>search_path = ''</code> en door de execute-rechten voor <code>anon</code>/<code>authenticated</code> in te trekken.</li>
+          <li><code>is_username_available</code>: omzeilt RLS zodat <code>anon</code> in <code>profiles</code> kan kijken, maar lekt alleen ja/nee over een naam die de gebruiker al heeft ingetypt.</li>
+        </ul>
+      </div>
+
+      <div class="callout coral">
+        <h3>Openstaande punten</h3>
+        <ol>
+          <li><span>Uniekheid van usernames is nu hoofdlettergevoelig: "Stormrider" en "stormrider" kunnen allebei bestaan.</span></li>
+          <li><span>De trigger geeft een fout (500) als de <code>username</code>-metadata ontbreekt bij registratie.</span></li>
+          <li><span>De migratie is mogelijk niet geregistreerd in de <code>schema_migrations</code>-tabel van het live project.</span></li>
+        </ol>
+      </div>
+    </section>
+  </main>
+</div>
+</body>
+</html>
