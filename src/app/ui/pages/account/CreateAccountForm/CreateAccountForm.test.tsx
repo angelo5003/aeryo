@@ -125,4 +125,41 @@ describe("CreateAccountForm", () => {
 
     expect(screen.getByText("Email already registered")).toBeInTheDocument();
   });
+
+  it("disables the submit button while the availability check is still running", () => {
+    jest.mocked(useUsernameAvailability).mockReturnValue("checking");
+    render(<CreateAccountForm />, { wrapper: Provider });
+
+    fillValidForm();
+
+    expect(
+      screen.getByRole("button", { name: "Create Account" }),
+    ).toBeDisabled();
+  });
+
+  it("blocks submission while the availability check is still running", async () => {
+    jest.mocked(useUsernameAvailability).mockReturnValue("checking");
+    jest.mocked(signUpWithEmail).mockClear();
+    render(<CreateAccountForm />, { wrapper: Provider });
+
+    fillValidForm();
+    await submit();
+
+    expect(signUpWithEmail).not.toHaveBeenCalled();
+  });
+
+  it("maps the trigger's collision error to a username-field message", async () => {
+    jest
+      .mocked(signUpWithEmail)
+      .mockResolvedValue({ error: "Database error saving new user" });
+    render(<CreateAccountForm />, { wrapper: Provider });
+
+    fillValidForm();
+    await submit();
+
+    expect(screen.getByText("That username is taken")).toBeInTheDocument();
+    expect(
+      screen.queryByText("Database error saving new user"),
+    ).not.toBeInTheDocument();
+  });
 });

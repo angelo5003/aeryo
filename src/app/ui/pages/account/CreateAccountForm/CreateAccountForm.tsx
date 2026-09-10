@@ -52,9 +52,17 @@ const CreateAccountForm: React.FC = () => {
       return;
     }
 
+    if (availability === "checking") {
+      return;
+    }
+
     const { error } = await signUpWithEmail(data);
     if (error) {
-      setFormError(error);
+      if (error.includes("Database error saving new user")) {
+        setError("username", { message: "That username is taken" });
+      } else {
+        setFormError(error);
+      }
     }
   };
 
@@ -131,6 +139,7 @@ const CreateAccountForm: React.FC = () => {
           size="lg"
           fontWeight="bold"
           loading={isSubmitting}
+          disabled={availability === "checking"}
           _active={{ transform: "scale(0.96)" }}
           transitionProperty="transform"
           transitionDuration="normal"
