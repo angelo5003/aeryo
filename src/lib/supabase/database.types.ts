@@ -1,5 +1,5 @@
 // Generated via mcp__claude_ai_Supabase__generate_typescript_types against
-// the aeryo-v2 project (acffbblkuqsqddsmfkpb). Regenerate after any schema
+// the aeryo project (acffbblkuqsqddsmfkpb). Regenerate after any schema
 // change: supabase gen types typescript --project-id <ref> > database.types.ts
 export type Json =
   | string
