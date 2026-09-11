@@ -1,6 +1,6 @@
-// Generated via mcp__claude_ai_Supabase__generate_typescript_types against
-// the aeryo project (acffbblkuqsqddsmfkpb). Regenerate after any schema
-// change: supabase gen types typescript --project-id <ref> > database.types.ts
+// Generated via `supabase gen types typescript --project-id acffbblkuqsqddsmfkpb`
+// against the aeryo project (acffbblkuqsqddsmfkpb). Regenerate after every
+// schema change — never hand-edit this file.
 export type Json =
   | string
   | number
@@ -17,7 +17,24 @@ export type Database = {
   };
   public: {
     Tables: {
-      [_ in never]: never;
+      profiles: {
+        Row: {
+          created_at: string;
+          id: string;
+          username: string;
+        };
+        Insert: {
+          created_at?: string;
+          id: string;
+          username: string;
+        };
+        Update: {
+          created_at?: string;
+          id?: string;
+          username?: string;
+        };
+        Relationships: [];
+      };
     };
     Views: {
       [_ in never]: never;
