@@ -11,3 +11,4 @@ alwaysApply: true
 @.claude/rules/04-frontend-architecture-performance.md
 @.claude/rules/05-app-store-compliance-auth-security.md
 @.claude/rules/06-escalation-protocol.md
+@.claude/rules/07-planning-mode.md

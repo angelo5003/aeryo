@@ -105,6 +105,7 @@ For non-trivial tasks, output a concrete implementation plan using a strict bull
 * App Store compliance risks
 * Required verification steps
 Wait for explicit approval before writing any code.
+When the user starts a prompt with `PLAN:`, follow `.claude/rules/07-planning-mode.md` instead: blueprint only, no production code.
 
 ## 3. Mobile-First Architecture
 This application targets the Apple App Store and Google Play Store via Capacitor. Treat native mobile performance, offline-first capabilities (for areas with poor connectivity), and high-contrast UI suitability (for outdoor, high-glare environments like beaches) as primary constraints.
