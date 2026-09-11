@@ -1,0 +1,13 @@
+---
+description: Aeryo core tech stack and engineering rules
+alwaysApply: true
+---
+
+@AGENTS.md
+@.claude/rules/00-project-context-architecture.md
+@.claude/rules/01-learning-mode-output-style.md
+@.claude/rules/02-supabase-data-architecture.md
+@.claude/rules/03-capacitor-mobile-offline-first.md
+@.claude/rules/04-frontend-architecture-performance.md
+@.claude/rules/05-app-store-compliance-auth-security.md
+@.claude/rules/06-escalation-protocol.md
