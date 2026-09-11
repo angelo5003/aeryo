@@ -109,8 +109,7 @@ them.
 
 ## Evidence First & Dependency Lockdown
 
-Never guess version-sensitive, framework-specific, or native mobile
-behavior. Training data is not a source.
+Never guess or rely on model memory for version-sensitive or framework-specific behavior. You are strictly required to use official documentation, official MCP servers (such as Next.js DevTools or Storybook MCP), available agent Skills, or installed package types as the primary source of truth. If information is unclear, investigate these official tools before writing any code.
 
 **Authoritative versions are `package.json` and the lockfile.** Read them
 before any stack-sensitive work. Version numbers elsewhere in rules or chat
