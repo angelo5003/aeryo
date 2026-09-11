@@ -9,9 +9,10 @@
 > not follow them.
 >
 > **Renamed-file cleanup done in this pass:** `.cursor/rules/aeryo-stack.mdc`
-> now imports all seven files below instead of the old `aeryo-core.md`;
+> now imports all eight files below instead of the old `aeryo-core.md`;
 > every `aeryo-core.md §9` cross-reference in files `00`–`05` now points
-> here instead.
+> here instead. `07-planning-mode.md` is the later opt-in planning layer
+> (`PLAN:`), same tier as `00`–`06`.
 
 ## System Rule Precedence (highest to lowest)
 
@@ -25,8 +26,8 @@ convenient:
    `01-learning-mode-output-style.md`, `02-supabase-data-architecture.md`,
    `03-capacitor-mobile-offline-first.md`,
    `04-frontend-architecture-performance.md`,
-   `05-app-store-compliance-auth-security.md`, and this file. All equal
-   tier; none of them outranks another.
+   `05-app-store-compliance-auth-security.md`, this file, and
+   `07-planning-mode.md`. All equal tier; none of them outranks another.
 3. `AGENTS.md` — grounding (source order, static export constraints,
    Chakra denylist).
 4. `TESTING.md`.

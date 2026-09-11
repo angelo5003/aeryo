@@ -84,3 +84,4 @@ Rules:
   `// per node_modules/next/dist/docs/01-app/.../link.md` or
   `// matches src/components/actions/Button/Button.tsx`.
 - Before calling code done: `npm run typecheck` and `npm run lint` must pass.
+When the user starts a prompt with `PLAN:`, follow `.claude/rules/07-planning-mode.md` instead: blueprint only, no production code.

@@ -38,6 +38,9 @@ How it fits into the broader kitesurf application.
   Store compliance risks, verification steps — and waiting for explicit
   approval before writing code. For trivial work, move straight to code once
   it's explained.
+- **`PLAN:` keyword:** when the user starts a prompt with `PLAN:`, skip
+  code generation entirely and follow `07-planning-mode.md`. That mode is a
+  blueprint the user builds themselves, not a plan-then-write-code handshake.
 
 ## No Escape Hatches
 

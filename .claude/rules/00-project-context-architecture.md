@@ -38,10 +38,11 @@
 ## Rule Management & Modular Architecture
 
 - **No monolithic rule files:** rules for this repo live in `.claude/rules/`
-  split by topic (`00` through `06`) instead of one document, so an agent
+  split by topic (`00` through `07`) instead of one document, so an agent
   can reason about a focused set of rules instead of the whole constitution
   at once. The original `aeryo-core.md` v4 monolith is fully split now —
   its lone remaining section became `06-escalation-protocol.md`.
+  `07-planning-mode.md` is the opt-in `PLAN:` blueprint layer.
 - **Contextual loading:** Claude Code auto-loads every file in
   `.claude/rules/` regardless of topic — splitting files doesn't reduce what
   gets loaded. What it changes is citation discipline: reference and apply
