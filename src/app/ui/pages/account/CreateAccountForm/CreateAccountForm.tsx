@@ -13,22 +13,34 @@ import { Stack } from "@/components/primitives/Stack/Stack";
 import type { CreateAccountValues } from "@/server/validation/account/create-account.schema";
 import ContinueWithBox from "../ContinueWithBox";
 import { useCreateAccountForm } from "../hooks/useCreateAccountForm";
+import { accountActions } from "../utilities/accountActions/accountActions";
 
 const CreateAccountForm: React.FC = () => {
   const methods = useCreateAccountForm();
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
+    setError,
   } = methods;
+  const { createAccount } = accountActions();
 
-  const onSubmit = (data: CreateAccountValues) => {
-    console.log(data);
+  const onSubmit = async (data: CreateAccountValues) => {
+    try {
+      await createAccount(data);
+    } catch (error) {
+      setError("root", {
+        message:
+          error instanceof Error
+            ? error.message
+            : "Something went wrong. Please try again.",
+      });
+    }
   };
 
   return (
     <Form methods={methods} onSubmit={handleSubmit(onSubmit)}>
-      <FormError />
+      <FormError>{errors.root?.message}</FormError>
       <Field
         label="Email"
         required
@@ -99,6 +111,8 @@ const CreateAccountForm: React.FC = () => {
           transitionProperty="transform"
           transitionDuration="normal"
           transitionTimingFunction="easeOut"
+          loading={isSubmitting}
+          disabled={isSubmitting}
         >
           Create Account
         </Button>
