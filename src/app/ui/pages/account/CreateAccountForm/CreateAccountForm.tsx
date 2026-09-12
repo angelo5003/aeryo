@@ -22,12 +22,14 @@ const CreateAccountForm: React.FC = () => {
     handleSubmit,
     formState: { errors, isSubmitting },
     setError,
+    reset,
   } = methods;
   const { createAccount } = accountActions();
 
   const onSubmit = async (data: CreateAccountValues) => {
     try {
       await createAccount(data);
+      reset();
     } catch (error) {
       setError("root", {
         message:
