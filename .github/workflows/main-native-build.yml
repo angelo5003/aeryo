@@ -4,6 +4,10 @@ on:
   push:
     branches: [main]
 
+env:
+  NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+  NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY }}
+
 jobs:
   ios-build:
     runs-on: macos-latest
@@ -15,9 +19,6 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run build
-        env:
-          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
-          NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY }}
       - run: npx cap sync ios
       - name: Build for iOS Simulator (no signing — Simulator target only)
         working-directory: ios/App
@@ -45,9 +46,6 @@ jobs:
       - uses: android-actions/setup-android@v3
       - run: npm ci
       - run: npm run build
-        env:
-          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
-          NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY }}
       - run: npx cap sync android
       - name: Build unsigned debug APK
         working-directory: android
