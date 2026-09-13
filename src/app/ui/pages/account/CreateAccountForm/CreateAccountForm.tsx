@@ -1,33 +1,38 @@
 "use client";
 
 import type React from "react";
-import { LuLockKeyhole, LuMail } from "react-icons/lu";
+import { LuLockKeyhole, LuMail, LuUser } from "react-icons/lu";
 import { Button } from "@/components/actions/Button/Button";
 import { Field } from "@/components/forms/Field/Field";
 import { Form } from "@/components/forms/Form/Form";
 import { FormError } from "@/components/forms/FormError/FormError";
+import { FormSuccess } from "@/components/forms/FormSuccess/FormSuccess";
 import { Input } from "@/components/forms/Input/Input";
 import { InputGroup } from "@/components/forms/InputGroup/InputGroup";
 import { PasswordInput } from "@/components/forms/PasswordInput/PasswordInput";
 import { Stack } from "@/components/primitives/Stack/Stack";
-import type { CreateAccountValues } from "@/server/validation/account/create-account.schema";
 import ContinueWithBox from "../ContinueWithBox";
 import { useCreateAccountForm } from "../hooks/useCreateAccountForm";
+import { useCreateAccountSubmit } from "../hooks/useCreateAccountSubmit/useCreateAccountSubmit";
 
 const CreateAccountForm: React.FC = () => {
   const methods = useCreateAccountForm();
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = methods;
 
-  const onSubmit = (data: CreateAccountValues) => {
-    console.log(data);
-  };
+  const { onSubmit, needsConfirmation } = useCreateAccountSubmit(methods);
+
   return (
     <Form methods={methods} onSubmit={handleSubmit(onSubmit)}>
-      <FormError />
+      <FormError>{errors.root?.message}</FormError>
+      {needsConfirmation && (
+        <FormSuccess>
+          Please check your email for a confirmation link.
+        </FormSuccess>
+      )}
       <Field
         label="Email"
         required
@@ -41,6 +46,21 @@ const CreateAccountForm: React.FC = () => {
             size="lg"
             focusRingColor={errors.email ? "border.error" : "accent.solid"}
             {...register("email")}
+          />
+        </InputGroup>
+      </Field>
+      <Field
+        label="Username"
+        required
+        errorText={errors.username?.message}
+        invalid={!!errors.username}
+      >
+        <InputGroup startElement={<LuUser />}>
+          <Input
+            placeholder="stormrider"
+            size="lg"
+            focusRingColor={errors.username ? "border.error" : "accent.solid"}
+            {...register("username")}
           />
         </InputGroup>
       </Field>
@@ -83,6 +103,8 @@ const CreateAccountForm: React.FC = () => {
           transitionProperty="transform"
           transitionDuration="normal"
           transitionTimingFunction="easeOut"
+          loading={isSubmitting}
+          disabled={isSubmitting}
         >
           Create Account
         </Button>

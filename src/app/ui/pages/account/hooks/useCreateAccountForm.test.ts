@@ -18,6 +18,7 @@ describe("useCreateAccountForm", () => {
 
     act(() => {
       result.current.setValue("email", "not-an-email");
+      result.current.setValue("username", "stormrider");
       result.current.setValue("password", "SecurePass123");
       result.current.setValue("confirmPassword", "SecurePass123");
     });
@@ -35,6 +36,7 @@ describe("useCreateAccountForm", () => {
 
     act(() => {
       result.current.setValue("email", "user@example.com");
+      result.current.setValue("username", "stormrider");
       result.current.setValue("password", "SecurePass123");
       result.current.setValue("confirmPassword", "SecurePass123");
     });
@@ -43,5 +45,23 @@ describe("useCreateAccountForm", () => {
     });
 
     expect(result.current.formState.errors).toEqual({});
+  });
+
+  it("rejects a username shorter than 4 characters", async () => {
+    const { result } = renderCreateAccountForm();
+
+    act(() => {
+      result.current.setValue("email", "user@example.com");
+      result.current.setValue("username", "ab");
+      result.current.setValue("password", "SecurePass123");
+      result.current.setValue("confirmPassword", "SecurePass123");
+    });
+    await act(async () => {
+      await result.current.trigger();
+    });
+
+    expect(result.current.formState.errors.username?.message).toBe(
+      "Username must be at least 4 characters",
+    );
   });
 });
