@@ -6,14 +6,14 @@ import { Button } from "@/components/actions/Button/Button";
 import { Field } from "@/components/forms/Field/Field";
 import { Form } from "@/components/forms/Form/Form";
 import { FormError } from "@/components/forms/FormError/FormError";
+import { FormSuccess } from "@/components/forms/FormSuccess/FormSuccess";
 import { Input } from "@/components/forms/Input/Input";
 import { InputGroup } from "@/components/forms/InputGroup/InputGroup";
 import { PasswordInput } from "@/components/forms/PasswordInput/PasswordInput";
 import { Stack } from "@/components/primitives/Stack/Stack";
-import type { CreateAccountValues } from "@/server/validation/account/create-account.schema";
 import ContinueWithBox from "../ContinueWithBox";
 import { useCreateAccountForm } from "../hooks/useCreateAccountForm";
-import { accountActions } from "../utilities/accountActions/accountActions";
+import { useCreateAccountSubmit } from "../hooks/useCreateAccountSubmit/useCreateAccountSubmit";
 
 const CreateAccountForm: React.FC = () => {
   const methods = useCreateAccountForm();
@@ -21,28 +21,18 @@ const CreateAccountForm: React.FC = () => {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-    setError,
-    reset,
   } = methods;
-  const { createAccount } = accountActions();
 
-  const onSubmit = async (data: CreateAccountValues) => {
-    try {
-      await createAccount(data);
-      reset();
-    } catch (error) {
-      setError("root", {
-        message:
-          error instanceof Error
-            ? error.message
-            : "Something went wrong. Please try again.",
-      });
-    }
-  };
+  const { onSubmit, needsConfirmation } = useCreateAccountSubmit(methods);
 
   return (
     <Form methods={methods} onSubmit={handleSubmit(onSubmit)}>
       <FormError>{errors.root?.message}</FormError>
+      {needsConfirmation && (
+        <FormSuccess>
+          Please check your email for a confirmation link.
+        </FormSuccess>
+      )}
       <Field
         label="Email"
         required
