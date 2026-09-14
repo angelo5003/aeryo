@@ -4,6 +4,7 @@ import { Provider } from "@/components/ui/provider";
 import { SafeAreaProvider } from "@/components/ui/safe-area";
 import { THEME_INIT_SCRIPT } from "@/components/ui/theme-init-script";
 import "./globals.css";
+import { AppUrlAuthHandler } from "./providers/AppUrl/AppUrlAuthHandler";
 import { AuthProvider } from "./providers/Auth/AuthProvider";
 import { OnboardingProvider } from "./providers/Onboarding/Provider/OnboardingProvider";
 import { SplashProvider } from "./providers/SplashScreen/Provider/SplashProvider";
@@ -52,6 +53,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       </head>
       <body>
         <SplashProvider>
+          <AppUrlAuthHandler />
           <OnboardingProvider>
             <AuthProvider>
               <SafeAreaProvider>
