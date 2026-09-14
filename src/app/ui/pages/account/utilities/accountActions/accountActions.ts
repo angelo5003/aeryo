@@ -1,3 +1,4 @@
+import { APP_URL_SCHEME } from "@/app/providers/AppUrl/pathFromAppUrl";
 import { supabase } from "@/lib/supabase/client";
 import type { CreateAccountValues } from "@/server/validation/account/create-account.schema";
 
@@ -7,9 +8,16 @@ const createAccount = async (data: CreateAccountValues) => {
     email: data.email,
     password: data.password,
     options: {
+      // `data` is user metadata only — per node_modules/@supabase/auth-js
+      // SignUpWithPasswordCredentials, emailRedirectTo is a sibling of
+      // `data`, not a field inside it. Nested here it was silently ignored
+      // and Supabase kept sending confirmation links to the dashboard's
+      // default Site URL instead of back into the app.
       data: {
         username: data.username,
       },
+      // Send the confirmation email link back into the app itself, not a browser.
+      emailRedirectTo: `${APP_URL_SCHEME}://auth-confirm`,
     },
   });
   if (error) {
