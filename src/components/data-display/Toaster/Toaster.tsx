@@ -9,11 +9,24 @@ import {
   createToaster,
 } from "@chakra-ui/react";
 
+/**
+ * The one toaster instance for the whole app. Call `toaster.create(...)`
+ * (or `.success`/`.error`/…) from anywhere — no React context needed.
+ * Mount `<Toaster />` once, near the root (see `layout.tsx`).
+ */
 export const toaster = createToaster({
   placement: "bottom-end",
   pauseOnPageIdle: true,
 });
 
+/**
+ * AERYO's toaster. Renders whatever `toaster.create(...)` queues up.
+ * Colors per `toast.type` (`success`/`warning`/`error`/`info`) come from
+ * AERYO's own `success`/`caution`/`danger`/`teal` families, not Chakra's
+ * stock red/orange/green — see `src/design-system/theme/toastRecipe.ts`
+ * for the override. `type: "loading"` and anything unrecognized fall back
+ * to the neutral `bg.panel`/`fg` surface.
+ */
 export const Toaster = () => {
   return (
     <Portal>
@@ -21,7 +34,7 @@ export const Toaster = () => {
         {(toast) => (
           <Toast.Root width={{ md: "sm" }}>
             {toast.type === "loading" ? (
-              <Spinner size="sm" color="blue.solid" />
+              <Spinner size="sm" color="currentColor" />
             ) : (
               <Toast.Indicator />
             )}

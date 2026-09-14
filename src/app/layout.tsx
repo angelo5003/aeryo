@@ -3,6 +3,7 @@ import { Geist_Mono, Manrope, Sora } from "next/font/google";
 import { Provider } from "@/components/ui/provider";
 import { SafeAreaProvider } from "@/components/ui/safe-area";
 import { THEME_INIT_SCRIPT } from "@/components/ui/theme-init-script";
+import { Toaster } from "@/components/data-display/Toaster";
 import "./globals.css";
 import { AppUrlAuthHandler } from "./providers/AppUrl/AppUrlAuthHandler";
 import { AuthProvider } from "./providers/Auth/AuthProvider";
@@ -53,6 +54,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       </head>
       <body>
         <SplashProvider>
+          <Toaster />
           <AppUrlAuthHandler />
           <OnboardingProvider>
             <AuthProvider>

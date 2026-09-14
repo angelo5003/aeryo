@@ -16,6 +16,7 @@ import {
 } from "../tokens/typography";
 import { headingRecipe } from "./headingRecipe";
 import { semanticTokens } from "./semantic-tokens";
+import { toastRecipe } from "./toastRecipe";
 
 const config = defineConfig({
   theme: {
@@ -37,6 +38,9 @@ const config = defineConfig({
     textStyles,
     recipes: {
       heading: headingRecipe,
+    },
+    slotRecipes: {
+      toast: toastRecipe,
     },
   },
 });
