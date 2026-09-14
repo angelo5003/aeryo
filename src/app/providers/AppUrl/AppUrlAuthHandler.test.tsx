@@ -7,6 +7,7 @@ const getLaunchUrl = jest.fn();
 const remove = jest.fn().mockResolvedValue(undefined);
 const isNativePlatform = jest.fn();
 const setSession = jest.fn();
+const toasterCreate = jest.fn();
 
 jest.mock("@capacitor/core", () => ({
   Capacitor: {
@@ -29,6 +30,12 @@ jest.mock("@/lib/supabase/client", () => ({
   },
 }));
 
+jest.mock("@/components/ui/toaster", () => ({
+  toaster: {
+    create: (...args: unknown[]) => toasterCreate(...args),
+  },
+}));
+
 // Fires the app-open event the same way a real link tap would, and waits
 // for the resulting state updates to settle.
 const openWithUrl = async (url: string) => {
@@ -45,6 +52,7 @@ describe("AppUrlAuthHandler", () => {
     remove.mockClear();
     isNativePlatform.mockReset();
     setSession.mockReset();
+    toasterCreate.mockReset();
 
     isNativePlatform.mockReturnValue(true);
     addListener.mockResolvedValue({ remove });
@@ -90,5 +98,29 @@ describe("AppUrlAuthHandler", () => {
       expect.any(Error),
     );
     spy.mockRestore();
+  });
+
+  it("shows an error toast when Supabase rejects the tokens", async () => {
+    jest.spyOn(console, "error").mockImplementation(() => {});
+    setSession.mockResolvedValue({ error: new Error("expired") });
+
+    await openWithUrl(
+      "com.aeryo.app://auth-confirm#access_token=abc&refresh_token=def",
+    );
+    // Let the setSession promise's .then() callback run.
+    await act(async () => {});
+
+    expect(toasterCreate).toHaveBeenCalledWith(
+      expect.objectContaining({ type: "error" }),
+    );
+  });
+
+  it("does not show a toast when the sign-in succeeds", async () => {
+    await openWithUrl(
+      "com.aeryo.app://auth-confirm#access_token=abc&refresh_token=def",
+    );
+    await act(async () => {});
+
+    expect(toasterCreate).not.toHaveBeenCalled();
   });
 });
