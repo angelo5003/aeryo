@@ -20,71 +20,73 @@ const meta = {
   parameters: {
     layout: "centered",
   },
+  // `.storybook/preview.tsx` wraps every story in `Provider`, which already
+  // mounts the one app `Toaster`. A second copy here would subscribe another
+  // zag-js toast group to the same `createToaster()` store (the store
+  // publishes to every subscriber) — Success/Error play tests then time
+  // out waiting for a single visible title.
   render: () => (
-    <>
-      <Toaster />
-      <Wrap gap="3" justify="center">
-        <Button
-          intent="success"
-          onClick={() =>
-            toaster.create({
-              type: "success",
-              title: "Session logged",
-              description: "Nice riding out there.",
-            })
-          }
-        >
-          Success
-        </Button>
-        <Button
-          intent="warning"
-          onClick={() =>
-            toaster.create({
-              type: "warning",
-              title: "Wind dropping",
-              description: "Forecast is softening for the next hour.",
-            })
-          }
-        >
-          Warning
-        </Button>
-        <Button
-          intent="danger"
-          onClick={() =>
-            toaster.create({
-              type: "error",
-              title: "Couldn't confirm your account",
-              description: "That link may have expired. Try again.",
-            })
-          }
-        >
-          Error
-        </Button>
-        <Button
-          intent="primary"
-          onClick={() =>
-            toaster.create({
-              type: "info",
-              title: "New spot nearby",
-              description: "A rider just checked in 2km away.",
-            })
-          }
-        >
-          Info
-        </Button>
-        <Button
-          intent="secondary"
-          onClick={() =>
-            toaster.create({
-              type: "loading",
-              title: "Syncing session…",
-            })
-          }
-        >
-          Loading
-        </Button>
-      </Wrap>
-    </>
+    <Wrap gap="3" justify="center">
+      <Button
+        intent="success"
+        onClick={() =>
+          toaster.create({
+            type: "success",
+            title: "Session logged",
+            description: "Nice riding out there.",
+          })
+        }
+      >
+        Success
+      </Button>
+      <Button
+        intent="warning"
+        onClick={() =>
+          toaster.create({
+            type: "warning",
+            title: "Wind dropping",
+            description: "Forecast is softening for the next hour.",
+          })
+        }
+      >
+        Warning
+      </Button>
+      <Button
+        intent="danger"
+        onClick={() =>
+          toaster.create({
+            type: "error",
+            title: "Couldn't confirm your account",
+            description: "That link may have expired. Try again.",
+          })
+        }
+      >
+        Error
+      </Button>
+      <Button
+        intent="primary"
+        onClick={() =>
+          toaster.create({
+            type: "info",
+            title: "New spot nearby",
+            description: "A rider just checked in 2km away.",
+          })
+        }
+      >
+        Info
+      </Button>
+      <Button
+        intent="secondary"
+        onClick={() =>
+          toaster.create({
+            type: "loading",
+            title: "Syncing session…",
+          })
+        }
+      >
+        Loading
+      </Button>
+    </Wrap>
   ),
 } satisfies Meta<typeof Toaster>;
 
@@ -148,7 +150,6 @@ export const DarkModeStory: Story = {
         >
           Error
         </Button>
-        <Toaster />
       </Wrap>
     </DarkMode>
   ),
@@ -167,7 +168,6 @@ export const LightModeStory: Story = {
         >
           Error
         </Button>
-        <Toaster />
       </Wrap>
     </LightMode>
   ),
