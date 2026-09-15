@@ -30,7 +30,7 @@ jest.mock("@/lib/supabase/client", () => ({
   },
 }));
 
-jest.mock("@/components/ui/toaster", () => ({
+jest.mock("@/components/data-display/Toaster", () => ({
   toaster: {
     create: (...args: unknown[]) => toasterCreate(...args),
   },

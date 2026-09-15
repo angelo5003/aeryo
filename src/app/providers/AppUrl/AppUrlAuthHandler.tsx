@@ -1,6 +1,6 @@
 "use client";
 
-import { toaster } from "@/components/ui/toaster";
+import { toaster } from "@/components/data-display/Toaster";
 import { supabase } from "@/lib/supabase/client";
 import { AppUrlListener } from "./AppUrlListener";
 import { sessionFromAppUrl } from "./sessionFromAppUrl";
