@@ -34,12 +34,12 @@ export function AppUrlAuthHandler() {
     // per node_modules/@supabase/supabase-js — auth.setSession(tokens)
     void supabase.auth.setSession(tokens).then(({ error }) => {
       if (!error) return;
-      console.error("AppUrlAuthHandler: setSession failed", error);
       // Surface it — without this the user is just stuck staring at
       // whatever screen was already open, with no sign anything went wrong.
       toaster.create({
         title: "Couldn't confirm your account",
-        description: "That link may have expired or already been used. Try signing up again.",
+        description:
+          "That link may have expired or already been used. Try signing up again.",
         type: "error",
       });
     });

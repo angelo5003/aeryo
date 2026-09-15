@@ -83,8 +83,7 @@ describe("AppUrlAuthHandler", () => {
     expect(setSession).not.toHaveBeenCalled();
   });
 
-  it("logs an error when Supabase rejects the tokens", async () => {
-    const spy = jest.spyOn(console, "error").mockImplementation(() => {});
+  it("passes confirmation failure copy to the toaster when Supabase rejects the tokens", async () => {
     setSession.mockResolvedValue({ error: new Error("expired") });
 
     await openWithUrl(
@@ -93,26 +92,13 @@ describe("AppUrlAuthHandler", () => {
     // Let the setSession promise's .then() callback run.
     await act(async () => {});
 
-    expect(spy).toHaveBeenCalledWith(
-      "AppUrlAuthHandler: setSession failed",
-      expect.any(Error),
-    );
-    spy.mockRestore();
-  });
-
-  it("shows an error toast when Supabase rejects the tokens", async () => {
-    jest.spyOn(console, "error").mockImplementation(() => {});
-    setSession.mockResolvedValue({ error: new Error("expired") });
-
-    await openWithUrl(
-      "com.aeryo.app://auth-confirm#access_token=abc&refresh_token=def",
-    );
-    // Let the setSession promise's .then() callback run.
-    await act(async () => {});
-
-    expect(toasterCreate).toHaveBeenCalledWith(
-      expect.objectContaining({ type: "error" }),
-    );
+    expect(toasterCreate).toHaveBeenCalledTimes(1);
+    expect(toasterCreate).toHaveBeenCalledWith({
+      title: "Couldn't confirm your account",
+      description:
+        "That link may have expired or already been used. Try signing up again.",
+      type: "error",
+    });
   });
 
   it("does not show a toast when the sign-in succeeds", async () => {
