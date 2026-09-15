@@ -12,7 +12,7 @@ import {
 /**
  * The one toaster instance for the whole app. Call `toaster.create(...)`
  * (or `.success`/`.error`/…) from anywhere — no React context needed.
- * Mount `<Toaster />` once, near the root (see `layout.tsx`).
+ * Mounted once inside `Provider` (ChakraProvider required).
  */
 export const toaster = createToaster({
   placement: "bottom-end",
