@@ -1,6 +1,6 @@
 ---
 name: visual-learning
-description: Opt-in teaching mode for generating 16:9 educational posters and multi-image storyboards with repo artifact persistence and code validation. Uses 'Jip en Janneke' language and modular reference files.
+description: Use when the user runs /visual-learning to teach a topic with an educational poster or storyboard, or /visual-learning --from-plan to visualize a just-built feature against its real code.
 ---
 
 # Visual Learning — Master Router
