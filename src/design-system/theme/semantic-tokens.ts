@@ -387,9 +387,12 @@ export const semanticTokens = {
         },
       },
       solid: {
+        // danger.600 (white text) was 3.92:1 — under WCAG AA's 4.5:1 floor
+        // for normal text (00-project-context-architecture.md, Contrast).
+        // danger.700 (white text) is 7.27:1 — clears AA and AAA.
         value: {
-          _light: "{colors.danger.600}",
-          _dark: "{colors.danger.600}",
+          _light: "{colors.danger.700}",
+          _dark: "{colors.danger.700}",
         },
       },
       focusRing: {
