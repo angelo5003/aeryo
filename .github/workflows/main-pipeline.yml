@@ -1,0 +1,130 @@
+name: Production Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+# Zorgt ervoor dat oude builds stoppen als je snel achter elkaar pusht
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  database:
+    name: Supabase Migrations
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Supabase CLI
+        uses: supabase/setup-cli@v1
+        with:
+          version: latest
+      - name: Push Migrations
+        run: supabase db push
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+          SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
+          SUPABASE_PROJECT_ID: ${{ secrets.SUPABASE_PROJECT_ID }}
+
+  web-deploy:
+    name: Web Deployment (Vercel)
+    runs-on: ubuntu-latest
+    needs: database # Wacht met de Aeryo webversie tot de database klaar is
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+      - name: Install dependencies
+        # npm ci draait automatisch je "postinstall": "npm run typegen" voor Chakra
+        run: npm ci
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
+      - name: Pull Vercel Environment
+        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+      - name: Build Next.js App
+        run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
+      - name: Deploy to Vercel
+        run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
+
+  android-build:
+    name: Android Native Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: "zulu"
+          java-version: "17"
+          cache: "gradle"
+      - name: Install dependencies
+        run: npm ci
+      - name: Sync Capacitor Android
+        # Gebruikt nu netjes jouw eigen package.json script
+        run: npm run android:sync
+      - name: Build Android APK
+        working-directory: ./android
+        run: ./gradlew assembleRelease
+      - name: Upload Android Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: aeryo-android-apk
+          path: android/app/build/outputs/apk/release/app-release.apk
+
+  ios-build:
+    name: iOS Native Build
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+      - name: Install dependencies
+        run: npm ci
+      - name: Sync Capacitor iOS
+        # Gebruikt nu netjes jouw eigen package.json script
+        run: npm run ios:sync
+      - name: Cache CocoaPods
+        uses: actions/cache@v4
+        with:
+          path: ios/App/Pods
+          key: ${{ runner.os }}-pods-${{ hashFiles('ios/App/Podfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pods-
+      - name: Install CocoaPods
+        working-directory: ./ios/App
+        run: pod install
+      - name: Build iOS App
+        working-directory: ./ios/App
+        run: xcodebuild -workspace App.xcworkspace -scheme App -configuration Release -sdk iphoneos build CODE_SIGNING_ALLOWED=NO
+      - name: Upload iOS Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: aeryo-ios-app
+          path: ios/App/build/Products/Release-iphoneos/App.app
+
+  release:
+    name: Create GitHub Release
+    runs-on: ubuntu-latest
+    needs: [web-deploy, android-build, ios-build]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Semantic Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npx semantic-release
