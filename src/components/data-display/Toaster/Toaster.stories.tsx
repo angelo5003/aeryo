@@ -19,6 +19,18 @@ const meta = {
   tags: ["autodocs", "ai-generated"],
   parameters: {
     layout: "centered",
+    // `Toaster` portals to `document.body` (see `Toaster.tsx`). The Docs
+    // page renders every story inline in one shared document by default,
+    // so every story's `toaster.create(...)` call lands in that same
+    // portal and piles on top of the others — rendering each story in its
+    // own iframe gives it its own document instead. Same fix and same
+    // reasoning as `Drawer.stories.tsx`.
+    docs: {
+      story: {
+        inline: false,
+        iframeHeight: "300px",
+      },
+    },
   },
   // `.storybook/preview.tsx` wraps every story in `Provider`, which already
   // mounts the one app `Toaster`. A second copy here would subscribe another
