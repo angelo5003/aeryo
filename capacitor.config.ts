@@ -12,10 +12,18 @@ const config: CapacitorConfig = {
   ios: {
     scrollEnabled: false,
   },
-  server: {
-    url: "http://192.168.1.107:3000",
-    cleartext: true,
-  },
+  // CI runners set `CI=true` (GitHub Actions, and CI generally). Skip the
+  // dev live-reload server there so release builds load the real bundled
+  // `out/` webDir instead of a LAN dev address — required before any store
+  // build per .claude/rules/05-app-store-compliance-auth-security.md.
+  ...(process.env.CI
+    ? {}
+    : {
+        server: {
+          url: "http://192.168.1.107:3000",
+          cleartext: true,
+        },
+      }),
   plugins: {
     SplashScreen: {
       launchShowDuration: 500,

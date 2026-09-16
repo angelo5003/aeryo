@@ -71,6 +71,11 @@ jobs:
           cache: "gradle"
       - name: Install dependencies
         run: npm ci
+      - name: Build Next.js App
+        run: npm run build
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY }}
       - name: Sync Capacitor Android
         run: npm run android:sync
       - name: Build Android APK
@@ -94,21 +99,19 @@ jobs:
           cache: "npm"
       - name: Install dependencies
         run: npm ci
+      - name: Build Next.js App
+        run: npm run build
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY }}
       - name: Sync Capacitor iOS
         run: npm run ios:sync
-      - name: Cache CocoaPods
-        uses: actions/cache@v4
-        with:
-          path: ios/App/Pods
-          key: ${{ runner.os }}-pods-${{ hashFiles('ios/App/Podfile.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-pods-
-      - name: Install CocoaPods
-        working-directory: ./ios/App
-        run: pod install
+      # iOS uses Swift Package Manager (Package.swift), not CocoaPods —
+      # no Podfile/.xcworkspace in this repo. `xcodebuild` resolves SPM
+      # packages itself; no separate install step is needed.
       - name: Build iOS App
         working-directory: ./ios/App
-        run: xcodebuild -workspace App.xcworkspace -scheme App -configuration Release -sdk iphoneos build CODE_SIGNING_ALLOWED=NO
+        run: xcodebuild -project App.xcodeproj -scheme App -configuration Release -sdk iphoneos build CODE_SIGNING_ALLOWED=NO
       - name: Upload iOS Artifact
         uses: actions/upload-artifact@v4
         with:
