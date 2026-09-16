@@ -1,5 +1,6 @@
 "use client";
 
+import { toaster } from "@/components/data-display/Toaster";
 import { supabase } from "@/lib/supabase/client";
 import { AppUrlListener } from "./AppUrlListener";
 import { sessionFromAppUrl } from "./sessionFromAppUrl";
@@ -32,7 +33,15 @@ export function AppUrlAuthHandler() {
     // Hand the tokens to Supabase — this is what actually signs the user in.
     // per node_modules/@supabase/supabase-js — auth.setSession(tokens)
     void supabase.auth.setSession(tokens).then(({ error }) => {
-      if (error) console.error("AppUrlAuthHandler: setSession failed", error);
+      if (!error) return;
+      // Surface it — without this the user is just stuck staring at
+      // whatever screen was already open, with no sign anything went wrong.
+      toaster.create({
+        title: "Couldn't confirm your account",
+        description:
+          "That link may have expired or already been used. Try signing up again.",
+        type: "error",
+      });
     });
   };
 
