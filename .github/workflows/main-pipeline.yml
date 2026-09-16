@@ -122,11 +122,15 @@ jobs:
     name: Create GitHub Release
     runs-on: ubuntu-latest
     needs: [web-deploy, android-build, ios-build]
-    # default GITHUB_TOKEN is read-only unless a job states otherwise;
-    # semantic-release needs contents:write to push the version tag/notes.
+    # default GITHUB_TOKEN is read-only unless a job states otherwise.
+    # contents:write lets semantic-release push the version tag/notes;
+    # issues/pull-requests:write let its "success" step comment on the
+    # issues/PRs associated with released commits.
     # per https://semantic-release.org/usage/ci-configuration#authentication
     permissions:
       contents: write
+      issues: write
+      pull-requests: write
     steps:
       - uses: actions/checkout@v4
       - name: Setup Node.js
