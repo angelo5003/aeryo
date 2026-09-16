@@ -65,6 +65,9 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Local Vercel CLI build output (`vercel build`) — gitignored, generated,
+    // never hand-written.
+    ".vercel/**",
     // Native platform trees: generated Capacitor scaffolding plus the
     // web build copied in by `cap sync` (android/**/assets/public,
     // android/**/build). None of it is hand-written app source.
