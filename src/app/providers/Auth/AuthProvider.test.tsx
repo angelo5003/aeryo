@@ -33,6 +33,13 @@ function Consumer() {
   );
 }
 
+const buildComponent = () =>
+  render(
+    <AuthProvider>
+      <Consumer />
+    </AuthProvider>,
+  );
+
 describe("AuthProvider", () => {
   beforeEach(() => {
     unsubscribe.mockClear();
@@ -47,22 +54,14 @@ describe("AuthProvider", () => {
   });
 
   it("stays not-ready and logged-out until Supabase answers", () => {
-    render(
-      <AuthProvider>
-        <Consumer />
-      </AuthProvider>,
-    );
+    buildComponent();
 
     expect(screen.getByTestId("ready")).toHaveTextContent("false");
     expect(screen.getByTestId("session")).toHaveTextContent("logged-out");
   });
 
   it("reports logged-in once Supabase reports a session", () => {
-    render(
-      <AuthProvider>
-        <Consumer />
-      </AuthProvider>,
-    );
+    buildComponent();
 
     act(() => {
       authStateCallback("SIGNED_IN", fakeSession);
@@ -73,11 +72,7 @@ describe("AuthProvider", () => {
   });
 
   it("reports logged-out once Supabase reports no session", () => {
-    render(
-      <AuthProvider>
-        <Consumer />
-      </AuthProvider>,
-    );
+    buildComponent();
 
     act(() => {
       authStateCallback("SIGNED_OUT", null);
@@ -88,11 +83,7 @@ describe("AuthProvider", () => {
   });
 
   it("unsubscribes from Supabase's listener on unmount", () => {
-    const { unmount } = render(
-      <AuthProvider>
-        <Consumer />
-      </AuthProvider>,
-    );
+    const { unmount } = buildComponent();
 
     unmount();
 

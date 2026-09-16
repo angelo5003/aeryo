@@ -20,6 +20,13 @@ function Consumer() {
   );
 }
 
+const buildComponent = () =>
+  render(
+    <OnboardingProvider>
+      <Consumer />
+    </OnboardingProvider>,
+  );
+
 describe("OnboardingProvider", () => {
   beforeEach(() => {
     hasSeenOnboarding.mockReset();
@@ -37,11 +44,7 @@ describe("OnboardingProvider", () => {
   it("starts as null (loading) then resolves to false when nothing was seen", async () => {
     hasSeenOnboarding.mockResolvedValue(false);
     await act(async () => {
-      render(
-        <OnboardingProvider>
-          <Consumer />
-        </OnboardingProvider>,
-      );
+      buildComponent();
     });
     expect(screen.getByTestId("state")).toHaveTextContent("false");
   });
@@ -49,11 +52,7 @@ describe("OnboardingProvider", () => {
   it("resolves to true when the persisted flag says onboarding was seen", async () => {
     hasSeenOnboarding.mockResolvedValue(true);
     await act(async () => {
-      render(
-        <OnboardingProvider>
-          <Consumer />
-        </OnboardingProvider>,
-      );
+      buildComponent();
     });
     expect(screen.getByTestId("state")).toHaveTextContent("true");
   });
@@ -61,11 +60,7 @@ describe("OnboardingProvider", () => {
   it("completeOnboarding immediately flips state and persists it", async () => {
     hasSeenOnboarding.mockResolvedValue(false);
     await act(async () => {
-      render(
-        <OnboardingProvider>
-          <Consumer />
-        </OnboardingProvider>,
-      );
+      buildComponent();
     });
     expect(screen.getByTestId("state")).toHaveTextContent("false");
 
@@ -85,11 +80,7 @@ describe("OnboardingProvider", () => {
       }),
     );
 
-    render(
-      <OnboardingProvider>
-        <Consumer />
-      </OnboardingProvider>,
-    );
+    buildComponent();
 
     expect(screen.getByTestId("state")).toHaveTextContent("null");
 

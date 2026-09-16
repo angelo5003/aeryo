@@ -1,4 +1,5 @@
 import { render, screen } from "@testing-library/react";
+import type { ReactNode } from "react";
 
 import { SafeAreaProvider, useSafeArea } from "./safe-area";
 
@@ -10,6 +11,9 @@ function Consumer() {
     </div>
   );
 }
+
+const buildComponent = (children: ReactNode = <Consumer />) =>
+  render(<SafeAreaProvider>{children}</SafeAreaProvider>);
 
 describe("useSafeArea", () => {
   it("returns zero insets when used outside SafeAreaProvider", () => {
@@ -23,29 +27,17 @@ describe("useSafeArea", () => {
     // effect) doesn't crash and produces well-formed numbers. Real
     // non-zero values only exist inside the native iOS/Android WebView;
     // see the spec's manual-verification testing plan for that.
-    render(
-      <SafeAreaProvider>
-        <Consumer />
-      </SafeAreaProvider>,
-    );
+    buildComponent();
     expect(screen.getByTestId("insets")).toHaveTextContent("0,0,0,0");
   });
 
   it("still renders children when wrapped in SafeAreaProvider", () => {
-    render(
-      <SafeAreaProvider>
-        <div data-testid="child">content</div>
-      </SafeAreaProvider>,
-    );
+    buildComponent(<div data-testid="child">content</div>);
     expect(screen.getByTestId("child")).toHaveTextContent("content");
   });
 
   it("renders an inert, non-interactive probe element alongside children", () => {
-    render(
-      <SafeAreaProvider>
-        <div>content</div>
-      </SafeAreaProvider>,
-    );
+    buildComponent(<div>content</div>);
     const probe = document.querySelector('[aria-hidden="true"]');
     expect(probe).not.toBeNull();
     expect(probe).toHaveStyle({ pointerEvents: "none" });

@@ -2,9 +2,16 @@ import { render, screen } from "@testing-library/react";
 import { Provider } from "@/components/ui/provider";
 import ContinueWithBox from "./ContinueWithBox";
 
+const buildComponent = () =>
+  render(
+    <Provider>
+      <ContinueWithBox />
+    </Provider>,
+  );
+
 describe("ContinueWithBox", () => {
   it("renders the divider label, every social CTA, and the login link", () => {
-    render(<ContinueWithBox />, { wrapper: Provider });
+    buildComponent();
 
     // <section aria-labelledby="..."> gets an implicit "region" role once it
     // has an accessible name, so this outranks getByText per the query

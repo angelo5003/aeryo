@@ -1,5 +1,4 @@
 import { act, fireEvent, render, screen } from "@testing-library/react";
-import type { ReactNode } from "react";
 import { OnboardingProvider } from "@/app/providers/Onboarding/Provider/OnboardingProvider";
 import { Provider } from "@/components/ui/provider";
 import CreateAccountForm from "./CreateAccountForm";
@@ -28,11 +27,14 @@ jest.mock("@/app/providers/Onboarding/Provider/onboardingStorage", () => ({
 // CreateAccountForm calls useOnboarding() (via useCreateAccountSubmit), so
 // it needs OnboardingProvider in the tree same as it does in the real app —
 // not a mocked child component, just its real context ancestor.
-const wrapper = ({ children }: { children: ReactNode }) => (
-  <Provider>
-    <OnboardingProvider>{children}</OnboardingProvider>
-  </Provider>
-);
+const buildComponent = () =>
+  render(
+    <Provider>
+      <OnboardingProvider>
+        <CreateAccountForm />
+      </OnboardingProvider>
+    </Provider>,
+  );
 
 // `required` fields append a trailing "*" (Field's RequiredIndicator) to
 // the label's textContent, which getByLabelText matches against literally
@@ -67,7 +69,7 @@ describe("CreateAccountForm", () => {
   });
 
   it("renders the email, username, password, and confirm-password fields plus the continue-with composition", () => {
-    render(<CreateAccountForm />, { wrapper });
+    buildComponent();
 
     expect(
       screen.getByLabelText(labelStartingWith("Email")),
@@ -85,7 +87,7 @@ describe("CreateAccountForm", () => {
   });
 
   it("shows every schema validation error when submitted empty", async () => {
-    render(<CreateAccountForm />, { wrapper });
+    buildComponent();
 
     await submit();
 
@@ -102,7 +104,7 @@ describe("CreateAccountForm", () => {
   });
 
   it("flags a confirm-password that doesn't match the password", async () => {
-    render(<CreateAccountForm />, { wrapper });
+    buildComponent();
 
     fillValidForm();
     fillField("Confirm Password", "SomethingElse123");
@@ -112,7 +114,7 @@ describe("CreateAccountForm", () => {
   });
 
   it("submits without a schema error once every field satisfies the schema", async () => {
-    render(<CreateAccountForm />, { wrapper });
+    buildComponent();
 
     fillValidForm();
     await submit();
@@ -124,7 +126,7 @@ describe("CreateAccountForm", () => {
 
   it("clears the form once signUp returns a session (confirmation not required)", async () => {
     createAccount.mockResolvedValue({ access_token: "token" });
-    render(<CreateAccountForm />, { wrapper });
+    buildComponent();
 
     fillValidForm();
     await submit();
@@ -136,7 +138,7 @@ describe("CreateAccountForm", () => {
 
   it("shows a check-your-inbox notice instead of an error when signUp returns no session", async () => {
     createAccount.mockResolvedValue(null);
-    render(<CreateAccountForm />, { wrapper });
+    buildComponent();
 
     fillValidForm();
     await submit();
@@ -154,7 +156,7 @@ describe("CreateAccountForm", () => {
 
   it("shows the server error when signUp rejects", async () => {
     createAccount.mockRejectedValue(new Error("Email already registered"));
-    render(<CreateAccountForm />, { wrapper });
+    buildComponent();
 
     fillValidForm();
     await submit();

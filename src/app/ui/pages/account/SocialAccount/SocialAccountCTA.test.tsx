@@ -3,9 +3,16 @@ import { Provider } from "@/components/ui/provider";
 import SocialAccountCTA from "./SocialAccountCTA";
 import { SOCIAL_ACCOUNT_PROVIDERS } from "./socialAccount";
 
+const buildComponent = () =>
+  render(
+    <Provider>
+      <SocialAccountCTA />
+    </Provider>,
+  );
+
 describe("SocialAccountCTA", () => {
   it("renders one accessible button per social provider", () => {
-    render(<SocialAccountCTA />, { wrapper: Provider });
+    buildComponent();
 
     for (const provider of SOCIAL_ACCOUNT_PROVIDERS) {
       expect(
