@@ -30,7 +30,11 @@ jobs:
   web-deploy:
     name: Web Deployment (Vercel)
     runs-on: ubuntu-latest
-    needs: database # Wacht met de Aeryo webversie tot de database klaar is
+    needs: database # Wacht met Vercel tot de database klaar is
+    # Hier vertellen we de hele job wat de Vercel ID's zijn
+    env:
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
     steps:
       - uses: actions/checkout@v4
       - name: Setup Node.js
@@ -39,7 +43,6 @@ jobs:
           node-version: "20"
           cache: "npm"
       - name: Install dependencies
-        # npm ci draait automatisch je "postinstall": "npm run typegen" voor Chakra
         run: npm ci
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
@@ -69,7 +72,6 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Sync Capacitor Android
-        # Gebruikt nu netjes jouw eigen package.json script
         run: npm run android:sync
       - name: Build Android APK
         working-directory: ./android
@@ -93,7 +95,6 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Sync Capacitor iOS
-        # Gebruikt nu netjes jouw eigen package.json script
         run: npm run ios:sync
       - name: Cache CocoaPods
         uses: actions/cache@v4

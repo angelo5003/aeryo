@@ -59,6 +59,16 @@ ios/**/xcuserdata/
 ios/**/*.xcuserstate
 ios/App/App/public/
 
+# capacitor / android
+.gradle/
+local.properties
+android/app/build/
+android/build/
+android/.idea/
+android/captures/
+*.jks
+*.keystore
+
 # claude code session markers
 .claude/.headroom_wrap_marker.json
 
