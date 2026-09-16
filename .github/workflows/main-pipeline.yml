@@ -21,11 +21,11 @@ jobs:
         with:
           version: latest
       - name: Push Migrations
-        run: supabase db push
-        env:
-          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
-          SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
-          SUPABASE_PROJECT_ID: ${{ secrets.SUPABASE_PROJECT_ID }}
+        # GitHub Actions runners are IPv4-only; direct db.<ref>.supabase.co:5432
+        # is IPv6-only without the paid IPv4 add-on. Route through Session
+        # Pooler (port 5432, IPv4 on every tier) instead.
+        # per https://supabase.com/docs/guides/database/connecting-to-postgres
+        run: supabase db push --db-url "${{ secrets.SUPABASE_DB_POOLER_URL }}"
 
   web-deploy:
     name: Web Deployment (Vercel)
