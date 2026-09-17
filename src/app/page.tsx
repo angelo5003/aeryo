@@ -2,6 +2,7 @@
 
 import { Box } from "@chakra-ui/react";
 import { motion, useReducedMotion } from "framer-motion";
+import { useRouter } from "next/navigation";
 import * as React from "react";
 import { useAuth } from "@/app/providers/Auth/AuthProvider";
 import { OnboardingCarousel } from "@/app/providers/Onboarding/OnboardingCarousel/OnboardingCarousel";
@@ -20,6 +21,7 @@ const FADE_EASE = [0.4, 0, 0.2, 1] as const;
 // Phone always opens this page. Intro → slides or home are ifs here, not extra URLs.
 export default function Home() {
   const reduceMotion = useReducedMotion();
+  const router = useRouter();
   const { hideNativeSplash } = useSplashScreen();
   const { hasCompletedOnboarding, completeOnboarding } = useOnboarding();
   // session = logged-in user or null. isReady = Supabase has answered at least once.
@@ -35,6 +37,15 @@ export default function Home() {
   // Photo slides: intro done, loading done, not logged in, slides not finished.
   const showOnboarding =
     !showIntro && session === null && hasCompletedOnboarding !== true;
+  // Seen the slides (skipped or finished) but never made an account. Home has
+  // nothing to show this visitor — send them to the same /signup route
+  // OnboardingCarousel's own Skip/CTA already use, instead of "Hello world".
+  const needsAccount =
+    !showIntro && session === null && hasCompletedOnboarding === true;
+
+  React.useEffect(() => {
+    if (needsAccount) router.replace("/signup");
+  }, [needsAccount, router]);
 
   // Hide the native splash, then start the intro timer.
   const handleBackgroundLoad = React.useCallback(() => {
@@ -54,7 +65,7 @@ export default function Home() {
   }, [showIntro, reduceMotion]);
 
   // Stay on intro/slides until we are ready to pick guest vs member home.
-  if (showIntro || showOnboarding) {
+  if (showIntro || showOnboarding || needsAccount) {
     return (
       <>
         {introMounted && (

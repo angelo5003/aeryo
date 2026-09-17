@@ -11,7 +11,8 @@ import { Input } from "@/components/forms/Input/Input";
 import { InputGroup } from "@/components/forms/InputGroup/InputGroup";
 import { PasswordInput } from "@/components/forms/PasswordInput/PasswordInput";
 import { Stack } from "@/components/primitives/Stack/Stack";
-import ContinueWithBox from "../ContinueWithBox";
+import { Link } from "@/components/typography/Link/Link";
+import { Text } from "@/components/typography/Text/Text";
 import { useCreateAccountForm } from "../hooks/useCreateAccountForm";
 import { useCreateAccountSubmit } from "../hooks/useCreateAccountSubmit/useCreateAccountSubmit";
 
@@ -108,7 +109,20 @@ const CreateAccountForm: React.FC = () => {
         >
           Create Account
         </Button>
-        <ContinueWithBox />
+      </Stack>
+      <Stack
+        direction="row"
+        align="center"
+        justify="center"
+        gap="1"
+        flexWrap="wrap"
+      >
+        <Text color="fg.muted" fontSize="md">
+          Already have an account?
+        </Text>
+        <Link href="#" fontWeight="medium" color="rider.riding" fontSize="md">
+          Log in
+        </Link>
       </Stack>
     </Form>
   );

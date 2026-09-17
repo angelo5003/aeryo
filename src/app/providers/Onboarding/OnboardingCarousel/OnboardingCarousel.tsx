@@ -2,14 +2,12 @@
 
 import { Box } from "@chakra-ui/react";
 import { motion, useReducedMotion } from "framer-motion";
+import { useRouter } from "next/navigation";
 import * as React from "react";
 import { LuArrowRight } from "react-icons/lu";
-import AccountBottomSheet from "@/app/shared/AccountBottomSheet/AccountBottomSheet";
 import { Button } from "@/components/actions/Button";
 import { ProgressDots } from "@/components/data-display/ProgressDots";
 import { Stack } from "@/components/primitives/Stack";
-import { Link } from "@/components/typography/Link";
-import { Text } from "@/components/typography/Text";
 import {
   FIRST_ONBOARDING_SLIDE_ID,
   getNextOnboardingSlideId,
@@ -40,25 +38,41 @@ export interface OnboardingCarouselProps {
  * Gestures do not change slides. Tapping Next crossfades the next photo
  * over the current one. Selection is by slide `id`, never a stored index.
  * Mounted by `page.tsx` only when `useOnboarding().hasCompletedOnboarding`
- * is `false`.
+ * is `false`. Both `Skip` and the final `Create account` CTA call
+ * `onComplete` (marks onboarding seen) and then navigate to `/signup`.
  */
 export function OnboardingCarousel({ onComplete }: OnboardingCarouselProps) {
   const reduceMotion = useReducedMotion();
+  const router = useRouter();
   const [activeId, setActiveId] = React.useState(FIRST_ONBOARDING_SLIDE_ID);
-  const [isAccountBottomSheetOpen, setIsAccountBottomSheetOpen] =
-    React.useState(false);
 
   const isLastSlide = activeId === LAST_ONBOARDING_SLIDE_ID;
 
+  // `onComplete` flips `hasCompletedOnboarding` in a separate context
+  // (`OnboardingProvider`), outside the navigation Next wraps in its own
+  // transition. Left unwrapped, that context update commits on its own,
+  // normal-priority render — one frame where `page.tsx` is still on "/" but
+  // already sees onboarding as done, flashing its logged-out "Hello world"
+  // before the route actually changes. `startTransition` marks both updates
+  // low-priority together, so React holds the old screen until the "/signup"
+  // page is ready and swaps once, per
+  // https://react.dev/reference/react/startTransition.
+  const goToSignup = React.useCallback(() => {
+    React.startTransition(() => {
+      onComplete();
+      router.push("/signup");
+    });
+  }, [onComplete, router]);
+
   const handleOnboardingComplete = React.useCallback(() => {
     if (isLastSlide) {
-      setIsAccountBottomSheetOpen(true);
+      goToSignup();
       return;
     }
     setActiveId(
       (currentId) => getNextOnboardingSlideId(currentId) ?? currentId,
     );
-  }, [isLastSlide]);
+  }, [isLastSlide, goToSignup]);
 
   return (
     <Box
@@ -137,7 +151,7 @@ export function OnboardingCarousel({ onComplete }: OnboardingCarouselProps) {
             <Button
               variant="ghost"
               size="sm"
-              onClick={onComplete}
+              onClick={goToSignup}
               color="fg.photo"
               fontWeight="bold"
             >
@@ -160,35 +174,26 @@ export function OnboardingCarousel({ onComplete }: OnboardingCarouselProps) {
             <ProgressDots ids={ONBOARDING_SLIDE_IDS} activeId={activeId} />
           )}
 
-          {(!isLastSlide || !isAccountBottomSheetOpen) && (
-            <Button
-              intent="primary"
-              fullWidth
-              onClick={handleOnboardingComplete}
-              fontWeight="bold"
-              color="fg.photo"
-              iconRight={isLastSlide ? undefined : <LuArrowRight />}
-              justifyContent="center"
-              alignItems="center"
-              textTransform={isLastSlide ? undefined : "uppercase"}
-              transitionProperty="transform"
-              transitionDuration="fast"
-              transitionTimingFunction="easeOut"
-              _active={{ transform: "scale(0.96)" }}
-              p="5"
-              fontSize="md"
-            >
-              {isLastSlide ? "Create account" : "Next"}
-            </Button>
-          )}
-          {isLastSlide && !isAccountBottomSheetOpen && (
-            <Text variant="label.photo" color="fg.photo">
-              Already have an account?{" "}
-              <Link color="fg.photo.accent">Log in</Link>
-            </Text>
-          )}
+          <Button
+            intent="primary"
+            fullWidth
+            onClick={handleOnboardingComplete}
+            fontWeight="bold"
+            color="fg.photo"
+            iconRight={isLastSlide ? undefined : <LuArrowRight />}
+            justifyContent="center"
+            alignItems="center"
+            textTransform={isLastSlide ? undefined : "uppercase"}
+            transitionProperty="transform"
+            transitionDuration="fast"
+            transitionTimingFunction="easeOut"
+            _active={{ transform: "scale(0.96)" }}
+            p="5"
+            fontSize="md"
+          >
+            {isLastSlide ? "Create account" : "Next"}
+          </Button>
         </Stack>
-        <AccountBottomSheet open={isAccountBottomSheetOpen} />
       </Box>
     </Box>
   );

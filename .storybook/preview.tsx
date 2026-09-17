@@ -12,6 +12,14 @@ const preview: Preview = {
     ),
   ],
   parameters: {
+    // App Router only (AGENTS.md) — without this, @storybook/nextjs-vite's
+    // RouterDecorator mounts a Pages Router context instead, and any
+    // component calling next/navigation's useRouter() throws "invariant
+    // expected app router to be mounted".
+    // per node_modules/@storybook/nextjs-vite/dist/_browser-chunks/chunk-342N7CWU.js
+    nextjs: {
+      appDirectory: true,
+    },
     controls: {
       matchers: {
         color: /(background|color)$/i,
