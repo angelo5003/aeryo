@@ -1,7 +1,14 @@
-import { render, screen } from "@testing-library/react";
+import { act, render, screen } from "@testing-library/react";
+import { AuthProvider } from "@/app/providers/Auth/AuthProvider";
 import { OnboardingProvider } from "@/app/providers/Onboarding/Provider/OnboardingProvider";
 import { Provider } from "@/components/ui/provider";
 import SignupPage from "./page";
+
+const routerReplace = jest.fn();
+
+jest.mock("next/navigation", () => ({
+  useRouter: () => ({ replace: routerReplace, push: jest.fn() }),
+}));
 
 jest.mock(
   "@/app/ui/pages/account/utilities/accountActions/accountActions",
@@ -20,11 +27,32 @@ jest.mock("@/app/providers/Onboarding/Provider/onboardingStorage", () => ({
   markOnboardingSeen: () => Promise.resolve(undefined),
 }));
 
+// SignupPage now reads useAuth() to redirect once a session exists. Starts
+// at null (matches page.test.tsx's mock shape for the same module) but
+// exposes authCallback so a test can flip it truthy, like signUp() does.
+let authCallback: (session: unknown) => void = () => {};
+
+jest.mock("@/lib/supabase/client", () => ({
+  supabase: {
+    auth: {
+      onAuthStateChange: (
+        callback: (event: string, session: unknown) => void,
+      ) => {
+        authCallback = (session) => callback("SIGNED_IN", session);
+        callback("INITIAL_SESSION", null);
+        return { data: { subscription: { unsubscribe: jest.fn() } } };
+      },
+    },
+  },
+}));
+
 const buildComponent = () =>
   render(
     <Provider>
       <OnboardingProvider>
-        <SignupPage />
+        <AuthProvider>
+          <SignupPage />
+        </AuthProvider>
       </OnboardingProvider>
     </Provider>,
   );
@@ -35,6 +63,21 @@ const buildComponent = () =>
 const labelStartingWith = (label: string) => new RegExp(`^${label}`);
 
 describe("SignupPage", () => {
+  beforeEach(() => {
+    routerReplace.mockClear();
+    authCallback = () => {};
+  });
+
+  it("redirects to / once a session exists (e.g. right after signup)", async () => {
+    buildComponent();
+
+    await act(async () => {
+      authCallback({ user: { id: "1" } });
+    });
+
+    expect(routerReplace).toHaveBeenCalledWith("/");
+  });
+
   it("renders the AERYO heading above the create-account form", () => {
     buildComponent();
 

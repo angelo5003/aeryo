@@ -3,7 +3,9 @@
 import { Capacitor } from "@capacitor/core";
 import { Keyboard } from "@capacitor/keyboard";
 import { Box } from "@chakra-ui/react";
+import { useRouter } from "next/navigation";
 import * as React from "react";
+import { useAuth } from "@/app/providers/Auth/AuthProvider";
 import CreateAccountForm from "@/app/ui/pages/account/CreateAccountForm/CreateAccountForm";
 import { Stack } from "@/components/primitives/Stack";
 import { Heading } from "@/components/typography/Heading";
@@ -49,6 +51,22 @@ function useKeyboardInset(): number {
 // home screen's own `Box`, which reserves no extra space above its content.
 export default function SignupPage() {
   const keyboardInset = useKeyboardInset();
+  const router = useRouter();
+  const { session, isReady } = useAuth();
+
+  // signUp() resolves with a session immediately when email confirmation is
+  // off (accountActions.ts) — AuthProvider picks that up via
+  // onAuthStateChange and session flips truthy right here on /signup, with
+  // nothing that sent the user anywhere. Mirrors page.tsx's own
+  // needsAccount redirect, just pointed the opposite direction. Gated on
+  // isReady too — page.tsx's stillLoading holds off render the same way —
+  // so a fresh mount (session still null, answer not back yet) doesn't
+  // flash the form before AuthProvider resolves an already-logged-in user.
+  React.useEffect(() => {
+    if (isReady && session) router.replace("/");
+  }, [isReady, session, router]);
+
+  if (!isReady || session) return null;
 
   return (
     <Box

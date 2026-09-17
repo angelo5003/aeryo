@@ -1,5 +1,6 @@
 import { act, fireEvent, render, screen } from "@testing-library/react";
 import { Provider } from "@/components/ui/provider";
+import { __resetIntroBootFlag } from "@/app/introBootFlag";
 import { AuthProvider } from "@/app/providers/Auth/AuthProvider";
 import { OnboardingProvider } from "@/app/providers/Onboarding/Provider/OnboardingProvider";
 import { SplashProvider } from "@/app/providers/SplashScreen/Provider/SplashProvider";
@@ -65,6 +66,7 @@ describe("Home", () => {
     jest.useFakeTimers();
     routerReplace.mockClear();
     authCallback = () => {};
+    __resetIntroBootFlag();
   });
 
   afterEach(() => {
@@ -95,5 +97,28 @@ describe("Home", () => {
       screen.getByText("Hello member, you are in the logged in lobby of the app"),
     ).toBeInTheDocument();
     expect(routerReplace).not.toHaveBeenCalled();
+  });
+
+  it("skips the splash and dwell on a second mount in the same session", async () => {
+    const { unmount } = buildComponent();
+
+    await act(async () => {
+      authCallback({ user: { id: "1" } });
+    });
+    await finishIntro();
+    unmount();
+
+    // Simulates the router.replace("/") remount right after signup: session
+    // is already known, so this second Home mount should never show the
+    // splash image or wait out MIN_INTRO_MS.
+    buildComponent();
+    await act(async () => {
+      authCallback({ user: { id: "1" } });
+    });
+
+    expect(document.querySelector('img[src="/splash.png"]')).toBeNull();
+    expect(
+      screen.getByText("Hello member, you are in the logged in lobby of the app"),
+    ).toBeInTheDocument();
   });
 });
