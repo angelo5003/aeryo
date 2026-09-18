@@ -10,7 +10,9 @@ import { OnboardingCarousel } from "@/app/providers/Onboarding/OnboardingCarouse
 import { useOnboarding } from "@/app/providers/Onboarding/Provider/OnboardingProvider";
 import { IntroScreen } from "@/app/providers/SplashScreen/IntroScreen/IntroScreen";
 import { useSplashScreen } from "@/app/providers/SplashScreen/Provider/SplashProvider";
+import { Button } from "@/components/actions/Button/Button";
 import { Heading } from "@/components/typography/Heading";
+import { useSignOutAccount } from "./ui/pages/account/hooks/useSignOutAccount/useSignOutAccount";
 
 // Intro stays up at least this long after the photo loads, even on a fast phone.
 const MIN_INTRO_MS = 2500;
@@ -27,6 +29,7 @@ export default function Home() {
   const { hasCompletedOnboarding, completeOnboarding } = useOnboarding();
   // session = logged-in user or null. isReady = Supabase has answered at least once.
   const { session, isReady } = useAuth();
+  const { signOut } = useSignOutAccount();
   const [minDwellElapsed, setMinDwellElapsed] = React.useState(false);
   // Extra “app data loaded” switch. Hard-coded true until real loading exists.
   const [appReady] = React.useState(true);
@@ -40,7 +43,8 @@ export default function Home() {
   // Real cold boot: true until the timer and appReady are both done, or we
   // are still loading login/slides. Already-booted session: only the loading
   // wait applies — no splash graphic, no MIN_INTRO_MS dwell.
-  const showIntro = stillLoading || (!skipIntro && !(minDwellElapsed && appReady));
+  const showIntro =
+    stillLoading || (!skipIntro && !(minDwellElapsed && appReady));
   // Photo slides: intro done, loading done, not logged in, slides not finished.
   const showOnboarding =
     !showIntro && session === null && hasCompletedOnboarding !== true;
@@ -130,6 +134,7 @@ export default function Home() {
       <Heading as="h1">
         Hello member, you are in the logged in lobby of the app
       </Heading>
+      <Button onClick={() => signOut()}>Sign out</Button>
     </Box>
   );
 }

@@ -28,8 +28,18 @@ const createAccount = async (data: CreateAccountValues) => {
   return authData.session;
 };
 
+const signOutAccount = async () => {
+  const { error } = await supabase.auth.signOut({
+    scope: "local",
+  });
+  if (error) {
+    throw new Error(error.message);
+  }
+};
+
 export const accountActions = () => {
   return {
     createAccount: createAccount,
+    signOutAccount: signOutAccount,
   };
 };
