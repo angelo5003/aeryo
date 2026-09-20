@@ -18,6 +18,40 @@ const invalidCredentialsResponse = () =>
     },
   );
 
+// ponytail: per-isolate in-memory counter — resets on cold start, not
+// shared across regions/instances. Backs up GoTrue's own throttling on the
+// username-lookup half of this flow, which GoTrue never sees.
+// Upgrade path: a Postgres-backed attempts table or Upstash Redis if abuse
+// shows up in logs.
+const RATE_LIMIT_MAX_ATTEMPTS = 10;
+const RATE_LIMIT_WINDOW_MS = 60_000;
+const attemptsByKey = new Map<string, number[]>();
+
+const isRateLimited = (key: string): boolean => {
+  const now = Date.now();
+  const attempts = (attemptsByKey.get(key) ?? []).filter(
+    (t) => now - t < RATE_LIMIT_WINDOW_MS,
+  );
+  attempts.push(now);
+  attemptsByKey.set(key, attempts);
+  return attempts.length > RATE_LIMIT_MAX_ATTEMPTS;
+};
+
+const rateLimitedResponse = () =>
+  new Response(
+    JSON.stringify({ error: "Too many attempts. Try again in a minute." }),
+    {
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+      status: 429,
+    },
+  );
+
+// ponytail: fixed response-time floor, not true constant-time crypto — closes
+// the practical leak (username-exists path does 2 extra round-trips, incl. a
+// bcrypt compare, so it took measurably longer than username-not-found)
+// without rewriting every branch to be constant-time.
+const MIN_RESPONSE_MS = 400;
+
 // Extracted from Deno.serve's callback so index.test.ts can call it directly
 // with a fake admin client — no real network or Supabase project needed.
 export const handleLogin = async (
@@ -29,9 +63,39 @@ export const handleLogin = async (
     return new Response("ok", { headers: corsHeaders });
   }
 
-  const { identifier, password } = await req.json();
-  if (typeof identifier !== "string" || typeof password !== "string") {
-    return invalidCredentialsResponse();
+  const start = performance.now();
+  const respond = async (response: Response): Promise<Response> => {
+    const elapsed = performance.now() - start;
+    if (elapsed < MIN_RESPONSE_MS) {
+      await new Promise((resolve) =>
+        setTimeout(resolve, MIN_RESPONSE_MS - elapsed)
+      );
+    }
+    return response;
+  };
+
+  const key = req.headers.get("x-forwarded-for") ?? "unknown";
+  if (isRateLimited(key)) {
+    return respond(rateLimitedResponse());
+  }
+
+  let body: unknown;
+  try {
+    body = await req.json();
+  } catch {
+    return respond(invalidCredentialsResponse());
+  }
+
+  const { identifier, password } = body as Record<string, unknown>;
+  if (
+    typeof identifier !== "string" ||
+    typeof password !== "string" ||
+    identifier.length === 0 ||
+    identifier.length > 254 || // longest valid email, RFC 5321
+    password.length === 0 ||
+    password.length > 200
+  ) {
+    return respond(invalidCredentialsResponse());
   }
 
   let email = identifier;
@@ -44,14 +108,14 @@ export const handleLogin = async (
       .maybeSingle();
 
     if (profileError || !profile) {
-      return invalidCredentialsResponse();
+      return respond(invalidCredentialsResponse());
     }
 
     const { data: userData, error: userError } = await supabaseAdmin.auth.admin
       .getUserById(profile.id);
 
     if (userError || !userData.user?.email) {
-      return invalidCredentialsResponse();
+      return respond(invalidCredentialsResponse());
     }
 
     email = userData.user.email;
@@ -61,30 +125,50 @@ export const handleLogin = async (
     .signInWithPassword({ email, password });
 
   if (signInError || !signInData.session) {
-    return invalidCredentialsResponse();
+    return respond(invalidCredentialsResponse());
   }
 
-  return new Response(
-    JSON.stringify({
-      access_token: signInData.session.access_token,
-      refresh_token: signInData.session.refresh_token,
-    }),
-    {
-      headers: { ...corsHeaders, "Content-Type": "application/json" },
-      status: 200,
-    },
+  return respond(
+    new Response(
+      JSON.stringify({
+        access_token: signInData.session.access_token,
+        refresh_token: signInData.session.refresh_token,
+      }),
+      {
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+        status: 200,
+      },
+    ),
   );
 };
 
-Deno.serve((req: Request) => {
-  // Service-role client — bypasses RLS to resolve a username to its auth
-  // email and to sign in. Lives only here, never in client code.
-  // per .claude/rules/02-supabase-data-architecture.md
+// Service-role client — bypasses RLS to resolve a username to its auth
+// email and to sign in. Lives only here, never in client code.
+// per .claude/rules/02-supabase-data-architecture.md
+// Built once per isolate (module scope), not per request — and guarded so a
+// missing/malformed SUPABASE_SECRET_KEYS fails clean instead of a raw 500.
+let supabaseAdmin: SupabaseClient | null = null;
+let supabaseAdminInitError: unknown = null;
+try {
   const secretKeys = JSON.parse(Deno.env.get("SUPABASE_SECRET_KEYS")!);
-  const supabaseAdmin = createClient(
+  supabaseAdmin = createClient(
     Deno.env.get("SUPABASE_URL")!,
     secretKeys["default"],
   );
+} catch (err) {
+  supabaseAdminInitError = err;
+}
 
+Deno.serve((req: Request) => {
+  if (!supabaseAdmin) {
+    console.error("login: admin client init failed", supabaseAdminInitError);
+    return new Response(
+      JSON.stringify({ error: "Service temporarily unavailable." }),
+      {
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+        status: 500,
+      },
+    );
+  }
   return handleLogin(req, supabaseAdmin);
 });
