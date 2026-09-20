@@ -26,6 +26,13 @@ jobs:
         # Pooler (port 5432, IPv4 on every tier) instead.
         # per https://supabase.com/docs/guides/database/connecting-to-postgres
         run: supabase db push --db-url "${{ secrets.SUPABASE_DB_POOLER_URL }}"
+      - name: Deploy Edge Functions
+        # --no-verify-jwt: this function runs before a session exists (login
+        # itself), so it can't require a caller JWT. Matches the deployed
+        # function's current verify_jwt: false setting.
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+        run: supabase functions deploy login --project-ref "${{ secrets.SUPABASE_PROJECT_ID }}" --no-verify-jwt
 
   web-deploy:
     name: Web Deployment (Vercel)

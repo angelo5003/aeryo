@@ -94,3 +94,18 @@ jobs:
       - run: npm ci
       - run: npx playwright install --with-deps webkit chromium
       - run: npm run test:e2e
+
+  edge-functions:
+    name: Supabase Edge Functions (Deno)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+      - run: deno lint functions/
+        working-directory: ./supabase
+      - run: deno fmt --check functions/
+        working-directory: ./supabase
+      - run: deno task test
+        working-directory: ./supabase
