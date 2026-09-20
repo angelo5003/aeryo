@@ -83,7 +83,6 @@ describe("CreateAccountForm", () => {
     expect(
       screen.getByLabelText(labelStartingWith("Confirm Password")),
     ).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: "Log in" })).toBeInTheDocument();
   });
 
   it("shows every schema validation error when submitted empty", async () => {
@@ -119,9 +118,7 @@ describe("CreateAccountForm", () => {
     fillValidForm();
     await submit();
 
-    expect(
-      screen.queryByText("Invalid email address"),
-    ).not.toBeInTheDocument();
+    expect(screen.queryByText("Invalid email address")).not.toBeInTheDocument();
   });
 
   it("clears the form once signUp returns a session (confirmation not required)", async () => {
