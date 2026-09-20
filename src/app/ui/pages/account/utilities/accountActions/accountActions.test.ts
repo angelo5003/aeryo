@@ -1,12 +1,21 @@
 import type { Session } from "@supabase/supabase-js";
 import type { CreateAccountValues } from "@/server/validation/account/create-account.schema";
+import type { LoginValues } from "@/server/validation/account/login.schema";
 
 const signUp = jest.fn();
+const signOut = jest.fn();
+const setSession = jest.fn();
+const invoke = jest.fn();
 
 jest.mock("@/lib/supabase/client", () => ({
   supabase: {
     auth: {
       signUp: (...args: unknown[]) => signUp(...args),
+      signOut: (...args: unknown[]) => signOut(...args),
+      setSession: (...args: unknown[]) => setSession(...args),
+    },
+    functions: {
+      invoke: (...args: unknown[]) => invoke(...args),
     },
   },
 }));
@@ -68,6 +77,91 @@ describe("accountActions.createAccount", () => {
 
     await expect(accountActions().createAccount(formValues)).rejects.toThrow(
       "User already registered",
+    );
+  });
+});
+
+describe("accountActions.signOutAccount", () => {
+  beforeEach(() => {
+    signOut.mockReset();
+  });
+
+  it("signs out with local scope only, per the single-device sign-out decision", async () => {
+    signOut.mockResolvedValue({ error: null });
+
+    await accountActions().signOutAccount();
+
+    expect(signOut).toHaveBeenCalledWith({ scope: "local" });
+  });
+
+  it("throws Supabase's error message when sign-out fails", async () => {
+    signOut.mockResolvedValue({ error: { message: "Network error" } });
+
+    await expect(accountActions().signOutAccount()).rejects.toThrow(
+      "Network error",
+    );
+  });
+});
+
+describe("accountActions.loginAccount", () => {
+  const loginValues: LoginValues = {
+    identifier: "rider@example.com",
+    password: "supersecret1",
+  };
+
+  beforeEach(() => {
+    invoke.mockReset();
+    setSession.mockReset();
+  });
+
+  it("invokes the login Edge Function with the identifier and password", async () => {
+    invoke.mockResolvedValue({
+      data: { access_token: "at", refresh_token: "rt" },
+      error: null,
+    });
+    setSession.mockResolvedValue({ error: null });
+
+    await accountActions().loginAccount(loginValues);
+
+    expect(invoke).toHaveBeenCalledWith("login", { body: loginValues });
+  });
+
+  it("adopts the session from the Edge Function's tokens", async () => {
+    invoke.mockResolvedValue({
+      data: { access_token: "at", refresh_token: "rt" },
+      error: null,
+    });
+    setSession.mockResolvedValue({ error: null });
+
+    await accountActions().loginAccount(loginValues);
+
+    expect(setSession).toHaveBeenCalledWith({
+      access_token: "at",
+      refresh_token: "rt",
+    });
+  });
+
+  it("throws a generic message when the Edge Function rejects the credentials, without leaking which field was wrong", async () => {
+    invoke.mockResolvedValue({
+      data: null,
+      error: new Error("Edge Function returned a non-2xx status code"),
+    });
+
+    await expect(accountActions().loginAccount(loginValues)).rejects.toThrow(
+      "Invalid login credentials. Check your email/username and password and try again.",
+    );
+    expect(setSession).not.toHaveBeenCalled();
+  });
+
+  it("throws the same generic message when setSession fails after a valid login", async () => {
+    invoke.mockResolvedValue({
+      data: { access_token: "at", refresh_token: "rt" },
+      error: null,
+    });
+    setSession.mockResolvedValue({ error: { message: "bad token" } });
+
+    await expect(accountActions().loginAccount(loginValues)).rejects.toThrow(
+      "Invalid login credentials. Check your email/username and password and try again.",
     );
   });
 });

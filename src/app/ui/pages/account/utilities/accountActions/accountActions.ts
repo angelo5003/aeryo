@@ -1,6 +1,7 @@
 import { APP_URL_SCHEME } from "@/app/providers/AppUrl/pathFromAppUrl";
 import { supabase } from "@/lib/supabase/client";
 import type { CreateAccountValues } from "@/server/validation/account/create-account.schema";
+import type { LoginValues } from "@/server/validation/account/login.schema";
 
 const createAccount = async (data: CreateAccountValues) => {
   // Ask Supabase to register user; rename destructured `data` to `authData` — collides with input param `data` otherwise.
@@ -37,9 +38,36 @@ const signOutAccount = async () => {
   }
 };
 
+const loginAccount = async (data: LoginValues) => {
+  const { data: session, error } = await supabase.functions.invoke<{
+    access_token: string;
+    refresh_token: string;
+  }>("login", { body: data });
+
+  // Generic message regardless of cause (bad credentials vs. network/relay
+  // failure) — matches the zero-enumeration decision behind login.schema.ts.
+  // Includes a next step per /web-design-guidelines ("error messages
+  // include fix/next step, not just problem").
+  const invalidCredentialsMessage =
+    "Invalid login credentials. Check your email/username and password and try again.";
+
+  if (error || !session) {
+    throw new Error(invalidCredentialsMessage);
+  }
+
+  const { error: setSessionError } = await supabase.auth.setSession({
+    access_token: session.access_token,
+    refresh_token: session.refresh_token,
+  });
+  if (setSessionError) {
+    throw new Error(invalidCredentialsMessage);
+  }
+};
+
 export const accountActions = () => {
   return {
     createAccount: createAccount,
     signOutAccount: signOutAccount,
+    loginAccount: loginAccount,
   };
 };
