@@ -77,6 +77,9 @@ const eslintConfig = defineConfig([
     "coverage/**",
     "playwright-report/**",
     "test-results/**",
+    // Deno/Edge Function code — own runtime, own toolchain (deno lint/fmt/check
+    // via supabase/deno.json), not Node/ESLint's globals or module resolution.
+    "supabase/functions/**",
   ]),
   ...storybook.configs["flat/recommended"],
   {

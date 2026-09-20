@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "lib": ["deno.window"],
+    "strict": true
+  },
+  "lint": {
+    "rules": {
+      "tags": ["recommended"]
+    }
+  },
+  "fmt": {
+    "lineWidth": 80,
+    "indentWidth": 2,
+    "semiColons": true,
+    "singleQuote": false
+  },
+  "test": {
+    "include": ["functions/"]
+  },
+  "tasks": {
+    "test": "deno test --allow-env --allow-net functions/",
+    "lint": "deno lint functions/",
+    "fmt": "deno fmt functions/",
+    "check": "deno check functions/**/*.ts"
+  },
+  "imports": {
+    "@std/assert": "jsr:@std/assert@^1",
+    "@std/testing": "jsr:@std/testing@^1"
+  }
+}

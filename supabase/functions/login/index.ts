@@ -1,11 +1,8 @@
 // Follow this setup guide to integrate the Deno language server with your editor:
 // https://deno.land/manual/getting_started/setup_your_environment
-import "jsr:@supabase/functions-js/edge-runtime.d.ts";
+import "jsr:@supabase/functions-js@2/edge-runtime.d.ts";
 import { corsHeaders } from "jsr:@supabase/supabase-js@2/cors";
-import {
-  createClient,
-  type SupabaseClient,
-} from "npm:@supabase/supabase-js@2";
+import { createClient, type SupabaseClient } from "npm:@supabase/supabase-js@2";
 
 // Never reveals whether the identifier or the password was the wrong one —
 // per the login blueprint's "generic error" decision.
@@ -50,8 +47,8 @@ export const handleLogin = async (
       return invalidCredentialsResponse();
     }
 
-    const { data: userData, error: userError } =
-      await supabaseAdmin.auth.admin.getUserById(profile.id);
+    const { data: userData, error: userError } = await supabaseAdmin.auth.admin
+      .getUserById(profile.id);
 
     if (userError || !userData.user?.email) {
       return invalidCredentialsResponse();
@@ -60,8 +57,8 @@ export const handleLogin = async (
     email = userData.user.email;
   }
 
-  const { data: signInData, error: signInError } =
-    await supabaseAdmin.auth.signInWithPassword({ email, password });
+  const { data: signInData, error: signInError } = await supabaseAdmin.auth
+    .signInWithPassword({ email, password });
 
   if (signInError || !signInData.session) {
     return invalidCredentialsResponse();

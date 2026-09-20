@@ -1,7 +1,8 @@
 // Deno unit tests. Run with `deno test supabase/functions/login/index.test.ts`.
 // per https://supabase.com/docs/guides/functions/unit-test
-import { describe, it } from "jsr:@std/testing/bdd";
-import { assertEquals } from "jsr:@std/assert";
+
+import { assertEquals } from "@std/assert";
+import { describe, it } from "@std/testing/bdd";
 import type { SupabaseClient } from "npm:@supabase/supabase-js@2";
 import { handleLogin } from "./index.ts";
 
@@ -32,7 +33,9 @@ const fakeAdmin = (overrides: {
       admin: {
         getUserById: () =>
           Promise.resolve({
-            data: { user: overrides.userEmail ? { email: overrides.userEmail } : null },
+            data: {
+              user: overrides.userEmail ? { email: overrides.userEmail } : null,
+            },
             error: overrides.userError ?? null,
           }),
       },

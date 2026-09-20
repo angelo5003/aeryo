@@ -8,5 +8,8 @@
     "**/app/**/template.tsx": "${dirname(1)}/${dirname} · template",
     "**/app/**/default.tsx": "${dirname(1)}/${dirname} · default",
     "**/app/**/route.ts": "${dirname(1)}/${dirname} · route"
-  }
+  },
+  "deno.enable": false,
+  "deno.enablePaths": ["./supabase"],
+  "deno.config": "./supabase/deno.json"
 }
