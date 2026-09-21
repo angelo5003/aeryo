@@ -1,0 +1,52 @@
+---
+description: Rate, clarify, then rewrite new tasks with the RACE framework before writing code.
+alwaysApply: true
+---
+
+# Task Intake and RACE Rewrite
+
+> Source of truth: `~/.claude/rules/task-intake-race.md` (global, all projects,
+> Claude Code only — Cursor cannot read paths under `~/.claude/`). This file
+> is a same-content copy so Cursor applies the identical rule. If the two
+> ever drift, update both; the global file is authored first.
+
+Before writing any code, executing any commands, or giving a final solution
+for a **new task or feature**, pass the user's initial prompt through this
+workflow.
+
+## Phase 1: Auto-evaluation (do this first)
+
+Do not start coding immediately. Output:
+
+1. **Rating:** Rate the user's raw prompt 1–10 on clarity and detail.
+2. **Improvement:** Briefly explain what's missing to make it a 10/10.
+3. **Clarification:** Ask 3–5 highly specific clarifying questions so you're 99% sure what's wanted.
+4. **Stop:** Pause and wait for the user's answers. Do not proceed to Phase 2 until they reply.
+
+Skip this phase for follow-up turns in the same task, and for mechanical
+requests such as typos, lint, or executing a plan already agreed in this
+conversation.
+
+## Phase 2: RACE rewrite and execution
+
+Once the user answers, internally rewrite the request using RACE and XML tags:
+
+- **`<role>`**: who you are (e.g. Expert Next.js & TypeScript Developer).
+- **`<action>`**: the exact technical task.
+- **`<context>`**: why we're building this, how it fits the current stack.
+- **`<expectations>`**: output format (clean code, no jargon in explanations).
+
+Golden rules during execution:
+
+- Never use all-caps to yell (e.g. CRITICAL).
+- Tell yourself what TO DO, not what NOT to do.
+- Put crucial commands (like the exact file to edit) at the very start or end of the internal plan.
+
+After defining RACE internally, execute the code/solution.
+
+## Per-project override
+
+In this repo, `.claude/skills/visual-learning/SKILL.md` requires this gate on
+**both** `/visual-learning [topic]` and `/visual-learning --from-plan` —
+stricter than the global "follow-up turn" skip clause above, which would
+otherwise exempt `--from-plan`. Skill-level requirement wins for that skill.

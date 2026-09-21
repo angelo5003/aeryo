@@ -11,6 +11,14 @@ description: Use when the user runs /visual-learning to teach a topic with an ed
 - **`/visual-learning [topic]`**: Standard mode for teaching a concept.
 - **`/visual-learning --from-plan`**: Post-plan mode to visualize completed features built via `PLAN:` (see `reference/post-plan-storyboard.md`).
 
+## Task Intake Gate (mandatory, both modes)
+Before Step 1 of either mode, run Phase 1 of `~/.claude/rules/task-intake-race.md`:
+rate the raw `/visual-learning` prompt 1–10, state what's missing for a 10/10,
+ask 3–5 targeted clarifying questions, then stop and wait for the reply. This
+applies to **both** `/visual-learning [topic]` and `/visual-learning --from-plan`
+— the global rule's "follow-up turn" skip clause does not exempt `--from-plan`
+here; this skill always gates first regardless of trigger form.
+
 ## Core Principles
 1. **Understanding comes first:** Never introduce a technical term without a plain-language, physical-world analogy (e.g., a restaurant, warehouse, or post office).
 2. **Bilingual Execution:** Explanations and datasets are written in **Dutch ('Jip en Janneke' taal)**, appending standard English technical terms in parentheses where helpful (e.g., "Verdamping (evaporation)"). Generated image prompts for external tools must remain strictly in **English**.
