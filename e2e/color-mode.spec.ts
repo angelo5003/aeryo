@@ -1,5 +1,7 @@
 import { test, expect } from "@playwright/test";
 
+// Logged-out visitors with onboarding already seen land on `/signup`,
+// whose AuthLayout uses the same `bg` token the old home screen did.
 test.describe("color mode rendering", () => {
   test("renders the dark bg token under dark system preference", async ({
     page,
@@ -13,11 +15,9 @@ test.describe("color mode rendering", () => {
     await page.emulateMedia({ colorScheme: "dark" });
     await page.goto("/");
 
-    const heading = page.getByRole("heading", {
-      level: 1,
-      name: "Hello world",
+    await expect(page.getByRole("heading", { name: "AERYO" })).toBeVisible({
+      timeout: 5000,
     });
-    await expect(heading).toBeVisible({ timeout: 5000 });
 
     const bg = await page.evaluate(
       () => getComputedStyle(document.body).backgroundColor,
@@ -37,11 +37,9 @@ test.describe("color mode rendering", () => {
     await page.emulateMedia({ colorScheme: "light" });
     await page.goto("/");
 
-    const heading = page.getByRole("heading", {
-      level: 1,
-      name: "Hello world",
+    await expect(page.getByRole("heading", { name: "AERYO" })).toBeVisible({
+      timeout: 5000,
     });
-    await expect(heading).toBeVisible({ timeout: 5000 });
 
     const bg = await page.evaluate(
       () => getComputedStyle(document.body).backgroundColor,

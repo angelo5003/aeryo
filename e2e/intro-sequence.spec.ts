@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 
-test.describe("splash → intro → onboarding → home", () => {
-  test("first launch: intro transitions to onboarding, not home", async ({
+test.describe("splash → intro → onboarding → signup", () => {
+  test("first launch: intro transitions to onboarding, not signup", async ({
     page,
   }) => {
     await page.goto("/");
@@ -16,13 +16,14 @@ test.describe("splash → intro → onboarding → home", () => {
     ).toBeVisible({ timeout: 5000 });
   });
 
-  test("returning user (onboarding already seen) goes straight to home", async ({
+  test("returning user (onboarding already seen) goes straight to signup", async ({
     page,
   }) => {
     // Simulate a returning user: pre-seed the flag `onboardingStorage.ts`
     // checks, using the same key/value it writes on web
     // (`@capacitor/preferences` prefixes keys with `CapacitorStorage.` in
-    // localStorage).
+    // localStorage). Logged-out visitors with slides already seen are sent
+    // to `/signup` — there is no logged-out home screen.
     await page.addInitScript(() => {
       window.localStorage.setItem(
         "CapacitorStorage.aeryo:onboarding-seen",
@@ -31,29 +32,18 @@ test.describe("splash → intro → onboarding → home", () => {
     });
     await page.goto("/");
 
-    await expect(
-      page.getByRole("heading", { level: 1, name: "Hello world" }),
-    ).toBeVisible({ timeout: 5000 });
-  });
-
-  test("home page is never scrollable", async ({ page }) => {
-    await page.addInitScript(() => {
-      window.localStorage.setItem(
-        "CapacitorStorage.aeryo:onboarding-seen",
-        "true",
-      );
+    await expect(page).toHaveURL(/\/signup\/?$/, { timeout: 5000 });
+    await expect(page.getByRole("heading", { name: "AERYO" })).toBeVisible({
+      timeout: 5000,
     });
-    await page.goto("/");
-
     await expect(
-      page.getByRole("heading", { level: 1, name: "Hello world" }),
-    ).toBeVisible({ timeout: 5000 });
+      page.getByRole("button", { name: "Create Account" }),
+    ).toBeVisible();
 
-    const { scrollHeight, clientHeight } = await page.evaluate(() => ({
-      scrollHeight: document.documentElement.scrollHeight,
-      clientHeight: document.documentElement.clientHeight,
-    }));
-
-    expect(scrollHeight).toBeLessThanOrEqual(clientHeight);
+    await page.reload();
+    await expect(page).toHaveURL(/\/signup\/?$/);
+    await expect(page.getByRole("heading", { name: "AERYO" })).toBeVisible({
+      timeout: 5000,
+    });
   });
 });

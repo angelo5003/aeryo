@@ -12,20 +12,25 @@ test.describe("onboarding carousel", () => {
     ).toBeVisible({ timeout: 5000 });
   }
 
-  test("Skip goes straight to home and persists across a reload", async ({
+  test("Skip goes straight to signup and persists across a reload", async ({
     page,
   }) => {
     await getToOnboarding(page);
     await page.getByRole("button", { name: "Skip" }).click();
 
+    await expect(page).toHaveURL(/\/signup\/?$/, { timeout: 5000 });
+    await expect(page.getByRole("heading", { name: "AERYO" })).toBeVisible({
+      timeout: 5000,
+    });
     await expect(
-      page.getByRole("heading", { level: 1, name: "Hello world" }),
-    ).toBeVisible({ timeout: 5000 });
+      page.getByRole("button", { name: "Create Account" }),
+    ).toBeVisible();
 
     await page.reload();
-    await expect(
-      page.getByRole("heading", { level: 1, name: "Hello world" }),
-    ).toBeVisible({ timeout: 5000 });
+    await expect(page).toHaveURL(/\/signup\/?$/);
+    await expect(page.getByRole("heading", { name: "AERYO" })).toBeVisible({
+      timeout: 5000,
+    });
   });
 
   test("dragging does not change slides — only Next does", async ({ page }) => {
@@ -57,9 +62,7 @@ test.describe("onboarding carousel", () => {
     ).toBeVisible();
   });
 
-  // Create account opens the account sheet and does not complete onboarding yet.
-  // Switch back to `test(` when signup wires through to home.
-  test.skip("Next advances through all 6 slides, Create account completes and persists", async ({
+  test("Next advances through all 6 slides, Create account lands on signup and persists", async ({
     page,
   }) => {
     await getToOnboarding(page);
@@ -83,13 +86,15 @@ test.describe("onboarding carousel", () => {
     await expect(page.getByRole("group")).toHaveCount(0);
     await page.getByRole("button", { name: "Create account" }).click();
 
-    await expect(
-      page.getByRole("heading", { level: 1, name: "Hello world" }),
-    ).toBeVisible({ timeout: 5000 });
+    await expect(page).toHaveURL(/\/signup\/?$/, { timeout: 5000 });
+    await expect(page.getByRole("heading", { name: "AERYO" })).toBeVisible({
+      timeout: 5000,
+    });
 
     await page.reload();
-    await expect(
-      page.getByRole("heading", { level: 1, name: "Hello world" }),
-    ).toBeVisible({ timeout: 5000 });
+    await expect(page).toHaveURL(/\/signup\/?$/);
+    await expect(page.getByRole("heading", { name: "AERYO" })).toBeVisible({
+      timeout: 5000,
+    });
   });
 });

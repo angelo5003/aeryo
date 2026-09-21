@@ -10,9 +10,17 @@ export default defineConfig({
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
-  reporter: "list",
+  reporter: [
+    ["list"],
+    // per node_modules/playwright/types/test.d.ts HtmlReporterOptions
+    ["html", { open: process.env.CI ? "never" : "on-failure" }],
+  ],
   use: {
     baseURL: "http://localhost:4173",
+    // per node_modules/playwright/types/test.d.ts TestOptions.screenshot
+    screenshot: { mode: "only-on-failure", fullPage: true },
+    // per node_modules/playwright/types/test.d.ts TestOptions.trace
+    trace: "retain-on-failure",
   },
   webServer: {
     command: "npm run build && npx serve out -p 4173 -s",
