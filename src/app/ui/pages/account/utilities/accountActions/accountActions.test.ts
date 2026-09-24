@@ -165,3 +165,53 @@ describe("accountActions.loginAccount", () => {
     );
   });
 });
+
+describe("accountActions.deleteAccount", () => {
+  beforeEach(() => {
+    invoke.mockReset();
+    signOut.mockReset();
+  });
+
+  it("calls the delete-account function and signs out locally", async () => {
+    invoke.mockResolvedValue({
+      data: { ok: true },
+      error: null,
+    });
+    signOut.mockResolvedValue({ error: null });
+
+    await accountActions().deleteAccount();
+
+    expect(invoke).toHaveBeenCalledWith("delete-account");
+    expect(signOut).toHaveBeenCalledWith({ scope: "local" });
+  });
+
+  it("throws an error message and does NOT sign out when the function fails", async () => {
+    invoke.mockResolvedValue({
+      data: null,
+      error: { message: "Failed to delete account. Please try again." },
+    });
+    signOut.mockResolvedValue({ error: null });
+
+    await expect(accountActions().deleteAccount()).rejects.toThrow(
+      "Failed to delete account. Please try again.",
+    );
+    expect(signOut).not.toHaveBeenCalled();
+  });
+
+  it("throws the sign-out error when sign-out fails after a successful delete", async () => {
+    invoke.mockResolvedValue({
+      data: { ok: true },
+      error: null,
+    });
+    signOut.mockResolvedValue({
+      error: {
+        message: "Sign out failed. Please try again.",
+      },
+    });
+
+    await expect(accountActions().deleteAccount()).rejects.toThrow(
+      "Sign out failed. Please try again.",
+    );
+    expect(invoke).toHaveBeenCalledWith("delete-account");
+  });
+});
