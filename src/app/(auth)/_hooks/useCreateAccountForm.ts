@@ -5,7 +5,7 @@ import { type UseFormReturn, useForm } from "react-hook-form";
 import {
   type CreateAccountValues,
   createAccountSchema,
-} from "@/server/validation/account/create-account.schema";
+} from "@/lib/validation/account/create-account.schema";
 
 export const useCreateAccountForm = (): UseFormReturn<CreateAccountValues> => {
   return useForm<CreateAccountValues>({

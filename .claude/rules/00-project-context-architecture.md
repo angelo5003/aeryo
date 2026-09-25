@@ -75,8 +75,9 @@ middleware, runtime Server Component data fetching, ISR/`revalidate`,
 `node_modules/next/dist/docs/01-app/02-guides/static-exports.md`.
 
 `"use client"` for anything that touches plugins, auth, browser APIs, or
-forms. `src/server/` is **shared validation** (Zod) that runs in the client
-bundle. It is not a backend. Do not add Next server code there.
+forms. `src/lib/validation/` is **shared validation** (Zod) that runs in the
+client bundle (renamed from `src/server/`, whose name wrongly suggested a
+backend). Do not add Next server code anywhere in `src/` — there is no server.
 
 App Router only. No Pages Router.
 
@@ -97,7 +98,7 @@ next-themes helper). Do not treat those as a license to use v2 Chakra props.
 ### Zod 4
 
 Zod is v4 in this repo. Do not use Zod 3 APIs. Match
-`src/server/validation/account/create-account.schema.ts` and `node_modules/zod`
+`src/lib/validation/account/create-account.schema.ts` and `node_modules/zod`
 (e.g. `z.email()`, not `z.string().email()`).
 
 ### Not in the stack

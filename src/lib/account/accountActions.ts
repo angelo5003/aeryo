@@ -1,7 +1,7 @@
 import { APP_URL_SCHEME } from "@/app/_providers/AppUrl/pathFromAppUrl";
 import { supabase } from "@/lib/supabase/client";
-import type { CreateAccountValues } from "@/server/validation/account/create-account.schema";
-import type { LoginValues } from "@/server/validation/account/login.schema";
+import type { CreateAccountValues } from "@/lib/validation/account/create-account.schema";
+import type { LoginValues } from "@/lib/validation/account/login.schema";
 
 const createAccount = async (data: CreateAccountValues) => {
   // Ask Supabase to register user; rename destructured `data` to `authData` — collides with input param `data` otherwise.

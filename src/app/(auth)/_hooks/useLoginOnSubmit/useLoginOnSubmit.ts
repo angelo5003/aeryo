@@ -1,6 +1,6 @@
 import type { UseFormReturn } from "react-hook-form";
 import { accountActions } from "@/lib/account/accountActions";
-import type { LoginValues } from "@/server/validation/account/login.schema";
+import type { LoginValues } from "@/lib/validation/account/login.schema";
 
 export const useLoginOnSubmit = (methods: UseFormReturn<LoginValues>) => {
   const { loginAccount } = accountActions();

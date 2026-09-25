@@ -1,6 +1,6 @@
 import { act, renderHook } from "@testing-library/react";
 import { useForm } from "react-hook-form";
-import type { LoginValues } from "@/server/validation/account/login.schema";
+import type { LoginValues } from "@/lib/validation/account/login.schema";
 import { useLoginOnSubmit } from "./useLoginOnSubmit";
 
 const loginAccount = jest.fn();

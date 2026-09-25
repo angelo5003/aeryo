@@ -1,6 +1,6 @@
 import type { Session } from "@supabase/supabase-js";
-import type { CreateAccountValues } from "@/server/validation/account/create-account.schema";
-import type { LoginValues } from "@/server/validation/account/login.schema";
+import type { CreateAccountValues } from "@/lib/validation/account/create-account.schema";
+import type { LoginValues } from "@/lib/validation/account/login.schema";
 
 const signUp = jest.fn();
 const signOut = jest.fn();

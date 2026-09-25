@@ -2,7 +2,7 @@ import { useState } from "react";
 import type { UseFormReturn } from "react-hook-form";
 import { useOnboarding } from "@/app/_providers/Onboarding/Provider/OnboardingProvider";
 import { accountActions } from "@/lib/account/accountActions";
-import type { CreateAccountValues } from "@/server/validation/account/create-account.schema";
+import type { CreateAccountValues } from "@/lib/validation/account/create-account.schema";
 
 export const useCreateAccountSubmit = (
   methods: UseFormReturn<CreateAccountValues>,

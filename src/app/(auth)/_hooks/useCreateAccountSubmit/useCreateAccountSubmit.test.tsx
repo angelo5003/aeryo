@@ -2,7 +2,7 @@ import { act, renderHook } from "@testing-library/react";
 import type { ReactNode } from "react";
 import { useForm } from "react-hook-form";
 import { OnboardingProvider } from "@/app/_providers/Onboarding/Provider/OnboardingProvider";
-import type { CreateAccountValues } from "@/server/validation/account/create-account.schema";
+import type { CreateAccountValues } from "@/lib/validation/account/create-account.schema";
 import { useCreateAccountSubmit } from "./useCreateAccountSubmit";
 
 const createAccount = jest.fn();
