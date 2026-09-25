@@ -60,6 +60,22 @@ export const semanticTokens = {
         value: { _light: "{colors.paper.300}", _dark: "{colors.ink.700}" },
       },
       panel: { value: { _light: "white", _dark: "{colors.ink.900}" } },
+      // Frosted app chrome (top bar, floating bottom tab bar). Mostly
+      // opaque on purpose: label/icon contrast must hold even when
+      // backdrop blur is unsupported or a photo scrolls underneath.
+      // Alpha checked against both extremes behind the bar (pure white
+      // and pure black), since either can scroll under it:
+      //   light paper.50/98 — fg.muted 4.60:1 worst (black under),
+      //     accent.solid 5.71:1 worst. At /90 fg.muted drops to 3.83:1,
+      //     so light needs near-opaque; don't lower it for a stronger blur.
+      //   dark ink.950/88 — fg.muted 4.89:1 worst (white under),
+      //     accent.solid 5.10:1 worst.
+      chrome: {
+        value: {
+          _light: "{colors.paper.50/98}",
+          _dark: "{colors.ink.950/88}",
+        },
+      },
       // Full-bleed photographic canvas (intro, onboarding). Same value in
       // both modes on purpose: these screens always sit on a dark photo,
       // so they must not follow `bg` into off-white in light mode.
