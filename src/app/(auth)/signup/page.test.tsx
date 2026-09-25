@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { OnboardingProvider } from "@/app/providers/Onboarding/Provider/OnboardingProvider";
+import { OnboardingProvider } from "@/app/_providers/Onboarding/Provider/OnboardingProvider";
 import { Provider } from "@/components/ui/provider";
 import SignupPage from "./page";
 
@@ -9,7 +9,7 @@ import SignupPage from "./page";
 // covers what SignupPage itself still does: render CreateAccountForm.
 
 jest.mock(
-  "@/app/ui/pages/account/utilities/accountActions/accountActions",
+  "@/lib/account/accountActions",
   () => ({
     accountActions: () => ({
       createAccount: jest.fn().mockResolvedValue(null),
@@ -20,7 +20,7 @@ jest.mock(
 // OnboardingProvider reads this on mount — stub it so it settles
 // synchronously instead of leaving state stuck at loading (matches
 // CreateAccountForm.test.tsx, which needs the same real context ancestor).
-jest.mock("@/app/providers/Onboarding/Provider/onboardingStorage", () => ({
+jest.mock("@/app/_providers/Onboarding/Provider/onboardingStorage", () => ({
   hasSeenOnboarding: () => Promise.resolve(false),
   markOnboardingSeen: () => Promise.resolve(undefined),
 }));

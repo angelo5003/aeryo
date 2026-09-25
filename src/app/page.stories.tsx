@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 import { expect, fireEvent, waitFor, within } from "storybook/test";
-import { AuthProvider } from "@/app/providers/Auth/AuthProvider";
-import { OnboardingProvider } from "@/app/providers/Onboarding/Provider/OnboardingProvider";
-import { SplashProvider } from "@/app/providers/SplashScreen/Provider/SplashProvider";
+import { AuthProvider } from "@/app/_providers/Auth/AuthProvider";
+import { OnboardingProvider } from "@/app/_providers/Onboarding/Provider/OnboardingProvider";
+import { SplashProvider } from "@/app/_providers/SplashScreen/Provider/SplashProvider";
 import Home from "./page";
 
 // Home calls useSplashScreen, useOnboarding, and useAuth — without these wrappers it throws.

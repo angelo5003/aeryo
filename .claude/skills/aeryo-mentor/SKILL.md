@@ -95,8 +95,8 @@ Before explaining an API or proposing scaffolding:
    ```
    Every step has an exact destination path and ends with its own check.
    - **New file?** Name the directory it goes in and the existing file it
-     sits next to (e.g. "new, in `src/app/ui/pages/account/hooks/`, next to
-     `useSignOutAccount/`"), so its place is clear before it exists.
+     sits next to (e.g. "new, in `src/app/(auth)/_hooks/`, next to
+     `useLoginOnSubmit/`"), so its place is clear before it exists.
    - **Uses:** list each package the step relies on, checked against
      `package.json`. Installed → give the import line, no install command.
      Not installed → flag it for the user's approval and stop there; don't

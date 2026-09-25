@@ -1,9 +1,9 @@
 import { act, fireEvent, render, screen } from "@testing-library/react";
 import { Provider } from "@/components/ui/provider";
 import { __resetIntroBootFlag } from "@/app/introBootFlag";
-import { AuthProvider } from "@/app/providers/Auth/AuthProvider";
-import { OnboardingProvider } from "@/app/providers/Onboarding/Provider/OnboardingProvider";
-import { SplashProvider } from "@/app/providers/SplashScreen/Provider/SplashProvider";
+import { AuthProvider } from "@/app/_providers/Auth/AuthProvider";
+import { OnboardingProvider } from "@/app/_providers/Onboarding/Provider/OnboardingProvider";
+import { SplashProvider } from "@/app/_providers/SplashScreen/Provider/SplashProvider";
 import Home from "./page";
 
 const routerReplace = jest.fn();
@@ -29,7 +29,7 @@ jest.mock("@/lib/supabase/client", () => ({
 
 // Onboarding already seen (skipped/finished the slides) but no account yet
 // — the exact state this test exercises.
-jest.mock("@/app/providers/Onboarding/Provider/onboardingStorage", () => ({
+jest.mock("@/app/_providers/Onboarding/Provider/onboardingStorage", () => ({
   hasSeenOnboarding: () => Promise.resolve(true),
   markOnboardingSeen: () => Promise.resolve(undefined),
 }));

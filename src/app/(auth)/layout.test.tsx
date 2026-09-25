@@ -1,5 +1,5 @@
 import { act, render, screen } from "@testing-library/react";
-import { AuthProvider } from "@/app/providers/Auth/AuthProvider";
+import { AuthProvider } from "@/app/_providers/Auth/AuthProvider";
 import { Provider } from "@/components/ui/provider";
 import AuthLayout from "./layout";
 

@@ -6,7 +6,7 @@ import { Box } from "@chakra-ui/react";
 import { usePathname, useRouter } from "next/navigation";
 import type React from "react";
 import { useEffect, useState } from "react";
-import { useAuth } from "@/app/providers/Auth/AuthProvider";
+import { useAuth } from "@/app/_providers/Auth/AuthProvider";
 import { Stack } from "@/components/primitives/Stack";
 import { Heading } from "@/components/typography/Heading";
 import { Link } from "@/components/typography/Link";

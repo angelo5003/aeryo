@@ -4,10 +4,10 @@ import { Provider } from "@/components/ui/provider";
 import { SafeAreaProvider } from "@/components/ui/safe-area";
 import { THEME_INIT_SCRIPT } from "@/components/ui/theme-init-script";
 import "./globals.css";
-import { AppUrlAuthHandler } from "./providers/AppUrl/AppUrlAuthHandler";
-import { AuthProvider } from "./providers/Auth/AuthProvider";
-import { OnboardingProvider } from "./providers/Onboarding/Provider/OnboardingProvider";
-import { SplashProvider } from "./providers/SplashScreen/Provider/SplashProvider";
+import { AppUrlAuthHandler } from "./_providers/AppUrl/AppUrlAuthHandler";
+import { AuthProvider } from "./_providers/Auth/AuthProvider";
+import { OnboardingProvider } from "./_providers/Onboarding/Provider/OnboardingProvider";
+import { SplashProvider } from "./_providers/SplashScreen/Provider/SplashProvider";
 
 const sora = Sora({
   variable: "--font-sora",

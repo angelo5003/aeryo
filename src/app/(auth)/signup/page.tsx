@@ -1,5 +1,5 @@
 import type React from "react";
-import CreateAccountForm from "@/app/ui/pages/account/CreateAccountForm/CreateAccountForm";
+import CreateAccountForm from "@/app/(auth)/_components/CreateAccountForm/CreateAccountForm";
 
 const CreateAccountPage: React.FC = () => {
   return <CreateAccountForm />;

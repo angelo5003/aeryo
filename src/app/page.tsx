@@ -5,14 +5,14 @@ import { motion, useReducedMotion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import * as React from "react";
 import { hasAlreadyBootedIntro, markIntroBooted } from "@/app/introBootFlag";
-import { useAuth } from "@/app/providers/Auth/AuthProvider";
-import { OnboardingCarousel } from "@/app/providers/Onboarding/OnboardingCarousel/OnboardingCarousel";
-import { useOnboarding } from "@/app/providers/Onboarding/Provider/OnboardingProvider";
-import { IntroScreen } from "@/app/providers/SplashScreen/IntroScreen/IntroScreen";
-import { useSplashScreen } from "@/app/providers/SplashScreen/Provider/SplashProvider";
+import { useAuth } from "@/app/_providers/Auth/AuthProvider";
+import { OnboardingCarousel } from "@/app/_providers/Onboarding/OnboardingCarousel/OnboardingCarousel";
+import { useOnboarding } from "@/app/_providers/Onboarding/Provider/OnboardingProvider";
+import { IntroScreen } from "@/app/_providers/SplashScreen/IntroScreen/IntroScreen";
+import { useSplashScreen } from "@/app/_providers/SplashScreen/Provider/SplashProvider";
 import { Button } from "@/components/actions/Button/Button";
 import { Heading } from "@/components/typography/Heading";
-import { useSignOutAccount } from "./ui/pages/account/hooks/useSignOutAccount/useSignOutAccount";
+import { useSignOutAccount } from "@/app/_hooks/useSignOutAccount/useSignOutAccount";
 
 // Intro stays up at least this long after the photo loads, even on a fast phone.
 const MIN_INTRO_MS = 2500;

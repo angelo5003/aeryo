@@ -8,7 +8,7 @@ import LoginPage from "./page";
 // covers what LoginPage itself still does: render LoginForm.
 
 jest.mock(
-  "@/app/ui/pages/account/utilities/accountActions/accountActions",
+  "@/lib/account/accountActions",
   () => ({
     accountActions: () => ({
       loginAccount: jest.fn().mockResolvedValue(undefined),
