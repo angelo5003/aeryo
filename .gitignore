@@ -83,6 +83,7 @@ __pycache__/
 
 #graphify
 .graphify/
+graphify-out/
 
 #impeccable
 .impeccable/
