@@ -36,6 +36,19 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+**/.env*
+
+# Supabase local state and secrets
+.supabase/
+supabase/.branches
+supabase/.temp
+supabase/.env
+supabase/.env.*
+supabase/**/*.db
+supabase/**/*.db-shm
+supabase/**/*.db-wal
+supabase/functions/**/.env
+supabase/functions/**/.env.*
 
 # vercel
 .vercel
@@ -86,7 +99,6 @@ graphify-out/
 
 #impeccable
 .impeccable/
-
 
 
 
