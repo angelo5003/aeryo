@@ -94,10 +94,20 @@ Before explaining an API or proposing scaffolding:
 4. **Checklist:** strictly ordered, tiny steps:
    ```
    - [ ] Step 1: <what> — `src/exact/path.tsx`
+     Uses: `@capacitor/preferences` (installed — `import { Preferences } from "@capacitor/preferences"`)
      Verify: <one concrete check, e.g. "npm run typecheck is clean" or
      "the story renders in Storybook with the Loading state">
    ```
    Every step has an exact destination path and ends with its own check.
+   - **New file?** Name the directory it goes in and the existing file it
+     sits next to (e.g. "new, in `src/app/ui/pages/account/hooks/`, next to
+     `useSignOutAccount/`"), so its place is clear before it exists.
+   - **Uses:** list each package the step relies on, checked against
+     `package.json`. Installed → give the import line, no install command.
+     Not installed → flag it for the user's approval and stop there; don't
+     print an `npm install`. Dependency Lockdown in
+     `00-project-context-architecture.md` means a new package is the user's
+     call, not a checklist line.
 5. **Handshake** — end every blueprint with exactly:
    *"Klopt deze logica in de echte wereld, of passen we de blauwdruk aan
    voordat je gaat bouwen?"*
