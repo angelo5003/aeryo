@@ -18,31 +18,26 @@ brainstorm suggests.
 
 ## Triggers and modes
 
-| User says | Mode |
-| --- | --- |
-| `/aeryo-mentor …` or a prompt starting with `PLAN:` | Mentor mode — Phases 1–4, no production code |
+| User says                                                                | Mode                                                |
+| ------------------------------------------------------------------------ | --------------------------------------------------- |
+| `/aeryo-mentor …` or a prompt starting with `PLAN:`                      | Mentor mode — Phases 1–4, no production code        |
 | `WRITE CODE` (whole approved plan) or `WRITE CODE FOR STEP X` (one step) | Unlocked — write exactly that scope, then hand back |
-| Follow-up answers in the same thread | Continue where you left off; don't redo intake |
+| Follow-up answers in the same thread                                     | Continue where you left off; don't redo intake      |
 
 Everything else (typo, lint, "rename this") is outside this skill.
 
 ## Language
 
-- Explanations, analogies, questions and the handshake to the user: **Dutch,
-  B1–B2, "jip-en-janneke" level**. Use physical-world analogies — a post
-  office, a hotel reception, wind and tide, a kite on its lines.
-- Stays **English**: code, file paths, commands, API names, config keys, and
-  standard technical terms ("Server Component", "RLS", "semantic token").
-  Explain such a term once in Dutch the first time it appears, then keep the
-  English word. The analogy supplements the precise term; it never replaces it.
+- Explanations, questions and the handshake to the user: **Dutch, clear junior-developer level**. Explain technical concepts directly and professionally. Do not use physical-world analogies (no hotels, post offices, or wind dynamics). Focus on the code flow and logical steps.
+- Stays **English**: code, file paths, commands, API names, config keys, and standard technical terms ("Server Component", "RLS", "semantic token"). Explain such a term once in Dutch the first time it appears, then keep the English word.
 - Your own reasoning, scaffolding and checklists' file paths stay English.
 
 Example of the split:
-> De `@capacitor/preferences` plugin is een kluisje in de telefoon zelf. Wat je
-> erin legt, blijft liggen als de app dicht gaat of als er geen internet is.
+
+> De `@capacitor/preferences` plugin slaat data lokaal op het device op. Wat je hier wegschrijft, blijft behouden als de app sluit of de netwerkverbinding wegvalt.
 
 If a terse output style (e.g. caveman mode) is active, it trims filler only.
-The analogy and the "what / why / how" are the substance here — keep them.
+The "what / why / how" are the substance here — keep them.
 
 ## Phase 1 — Intake (mentor mode, first turn only)
 
@@ -75,8 +70,8 @@ Before explaining an API or proposing scaffolding:
    `node_modules/@chakra-ui/react/dist/types/...` in plaats daarvan").
 4. **Halt only when no source at all can confirm it** — no MCP, no installed
    types, no fetched docs. Then write, verbatim:
-   *"WARNING: Could not verify this approach in official docs. Please provide
-   the docs or confirm before proceeding."* and explain in Dutch what you
+   _"WARNING: Could not verify this approach in official docs. Please provide
+   the docs or confirm before proceeding."_ and explain in Dutch what you
    couldn't find.
 5. In the blueprint, list every source you actually opened (file paths, skill
    names, MCP tools). "I checked the docs" without a path doesn't count.
@@ -86,8 +81,8 @@ Before explaining an API or proposing scaffolding:
 1. **Architect:** an ASCII diagram of how data moves — screen → hook →
    action → Supabase / `@capacitor/preferences` → back. Skip it for tiny
    copy/token tweaks where it adds noise.
-2. **Mentor:** for each key decision, explain in Dutch *wat* it does, *waarom*
-   we pick it over the alternative, and *hoe* it fits into the kitesurf app.
+2. **Mentor:** for each key decision, explain in Dutch _wat_ it does, _waarom_
+   we pick it over the alternative, and _hoe_ it fits into the kitesurf app.
 3. **Scaffolding only:** empty component signatures, TypeScript interfaces,
    prop shapes, pseudocode. No business logic — that's the user's part. Don't
    dump large file trees; describe logic and data flow.
@@ -109,8 +104,8 @@ Before explaining an API or proposing scaffolding:
      `00-project-context-architecture.md` means a new package is the user's
      call, not a checklist line.
 5. **Handshake** — end every blueprint with exactly:
-   *"Klopt deze logica in de echte wereld, of passen we de blauwdruk aan
-   voordat je gaat bouwen?"*
+   _"Klopt deze logica in de echte wereld, of passen we de blauwdruk aan
+   voordat je gaat bouwen?"_
 
 ## Phase 4 — Quality gates (check the plan, and the user's code when reviewing)
 
