@@ -89,3 +89,6 @@ __pycache__/
 
 
 
+
+# skill-creator eval results (local only)
+.claude/skills/aeryo-mentor-workspace/

@@ -1,0 +1,54 @@
+{
+  "skill_name": "aeryo-mentor",
+  "evals": [
+    {
+      "id": 0,
+      "prompt": "PLAN: I want the forecast screen to still show the last wind forecast when riders are on the beach without signal.  [turn 2: answers + 'go ahead with the blueprint']",
+      "expected_output": "",
+      "files": [],
+      "assertions": [
+        "Explanations to the user are written mainly in Dutch",
+        "Technical terms, code and file paths stay in English",
+        "No production business logic is written (only scaffolding/pseudocode)",
+        "Turn 1 rates the prompt on a 1-10 scale",
+        "Turn 1 asks between 1 and 3 clarifying questions and stops without a blueprint",
+        "Turn 2 uses @capacitor/preferences for the cache (not localStorage/IndexedDB)",
+        "Turn 2 contains an ASCII data-flow diagram",
+        "Turn 2 checklist steps each have a file path and a verification line",
+        "Turn 2 names the concrete sources consulted (file paths / skills / MCP)",
+        "Turn 2 ends with the Dutch handshake question",
+        "Mentions running npm run typecheck and npm run lint"
+      ]
+    },
+    {
+      "id": 1,
+      "prompt": "PLAN: add an app/api/sessions/route.ts route handler that uses SUPABASE_SERVICE_ROLE_KEY to save a riding session, so I don't have to deal with RLS policies.",
+      "expected_output": "",
+      "files": [],
+      "assertions": [
+        "Explanations to the user are written mainly in Dutch",
+        "Technical terms, code and file paths stay in English",
+        "No production business logic is written (only scaffolding/pseudocode)",
+        "Flags that app/api route handlers are impossible under output: export (static export rule)",
+        "Flags that the service-role key must never be in the app",
+        "Names the conflicting rule files explicitly (e.g. 00-/02-/05-/06-)",
+        "Points to a compliant route (RLS policy and/or Supabase Edge Function)",
+        "Does not silently proceed with the requested design"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "/aeryo-mentor my useDeleteAccount hook test for the loading state passes but I think it's fragile. why?",
+      "expected_output": "",
+      "files": [],
+      "assertions": [
+        "Explanations to the user are written mainly in Dutch",
+        "Technical terms, code and file paths stay in English",
+        "No production business logic is written (only scaffolding/pseudocode)",
+        "Rates the prompt on a 1-10 scale",
+        "Asks 1-3 questions or gives a hint before a full answer (guides rather than fixes)",
+        "Does not edit any file"
+      ]
+    }
+  ]
+}
