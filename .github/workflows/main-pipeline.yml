@@ -19,7 +19,8 @@ jobs:
       - name: Setup Supabase CLI
         uses: supabase/setup-cli@v1
         with:
-          version: latest
+          # Pinned to the CLI version used locally, instead of `latest`.
+          version: 2.98.1
       - name: Push Migrations
         # GitHub Actions runners are IPv4-only; direct db.<ref>.supabase.co:5432
         # is IPv6-only without the paid IPv4 add-on. Route through Session
@@ -47,12 +48,13 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "22"
+          node-version: 24
           cache: "npm"
       - name: Install dependencies
         run: npm ci
       - name: Install Vercel CLI
-        run: npm install --global vercel@latest
+        # Pinned to the CLI version used locally, instead of `latest`.
+        run: npm install --global vercel@59.19.0
       - name: Pull Vercel Environment
         run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
       - name: Build Next.js App
@@ -68,7 +70,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "22"
+          node-version: 24
           cache: "npm"
       - name: Setup Java
         uses: actions/setup-java@v4
@@ -92,17 +94,21 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: aeryo-android-apk
-          path: android/app/build/outputs/apk/release/app-release.apk
+          # No signingConfig in android/app/build.gradle, so Gradle names the
+          # release APK `-unsigned`.
+          path: android/app/build/outputs/apk/release/app-release-unsigned.apk
+          if-no-files-found: error
 
   ios-build:
     name: iOS Native Build
-    runs-on: self-hosted
+    # xcodebuild only exists on macOS runners.
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "22"
+          node-version: 24
           cache: "npm"
       - name: Install dependencies
         run: npm ci
@@ -118,12 +124,16 @@ jobs:
       # packages itself; no separate install step is needed.
       - name: Build iOS App
         working-directory: ./ios/App
-        run: xcodebuild -project App.xcodeproj -scheme App -configuration Release -sdk iphoneos build CODE_SIGNING_ALLOWED=NO
+        # -derivedDataPath keeps build output inside the repo; without it
+        # xcodebuild writes to ~/Library/Developer/Xcode/DerivedData and the
+        # upload step below finds nothing.
+        run: xcodebuild -project App.xcodeproj -scheme App -configuration Release -sdk iphoneos -derivedDataPath build build CODE_SIGNING_ALLOWED=NO
       - name: Upload iOS Artifact
         uses: actions/upload-artifact@v4
         with:
           name: aeryo-ios-app
-          path: ios/App/build/Products/Release-iphoneos/App.app
+          path: ios/App/build/Build/Products/Release-iphoneos/App.app
+          if-no-files-found: error
 
   release:
     name: Create GitHub Release
@@ -143,7 +153,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "22"
+          node-version: 24
       - name: Semantic Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

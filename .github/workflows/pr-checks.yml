@@ -3,6 +3,13 @@ name: PR Checks
 on:
   pull_request:
     branches: [main]
+  # Manual run from the Actions tab, e.g. for a branch without an open PR.
+  workflow_dispatch:
+
+# Cancel the previous run when a new commit lands on the same branch.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 env:
   NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
@@ -43,7 +50,7 @@ jobs:
       - run: npm run test:coverage
 
   storybook-tests:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -84,7 +91,7 @@ jobs:
       - run: npx cap sync ios
 
   e2e:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
