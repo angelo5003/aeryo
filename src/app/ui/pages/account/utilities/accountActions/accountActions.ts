@@ -34,9 +34,15 @@ const signOutAccount = async () => {
   const { error: signOutError } = await supabase.auth.signOut({
     scope: "local",
   });
-  if (signOutError) {
+  if (!signOutError) return;
+  // Local scope clears the stored session even when the server call fails
+  // (e.g. no signal) — per node_modules/@supabase/auth-js/dist/module/GoTrueClient.js
+  // `_signOut`. Only report failure if this device is actually still signed in.
+  const { data, error: sessionError } = await supabase.auth.getSession();
+  if (sessionError || data.session) {
     throw new Error(signOutError.message);
   }
+  console.error(signOutError.message);
 };
 
 const deleteAccount = async () => {
@@ -53,8 +59,9 @@ const deleteAccount = async () => {
     scope: "local",
   });
   if (signOutError) {
-    // Local sign-out itself failed — let the caller know so it can retry/report.
-    throw new Error(signOutError.message);
+    // Not thrown: the account is already gone server-side, and local scope
+    // clears the stored session even when this call errors (see signOutAccount).
+    console.error(signOutError.message);
   }
 };
 

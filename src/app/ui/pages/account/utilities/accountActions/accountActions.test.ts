@@ -6,6 +6,7 @@ const signUp = jest.fn();
 const signOut = jest.fn();
 const setSession = jest.fn();
 const invoke = jest.fn();
+const getSession = jest.fn();
 
 jest.mock("@/lib/supabase/client", () => ({
   supabase: {
@@ -13,6 +14,7 @@ jest.mock("@/lib/supabase/client", () => ({
       signUp: (...args: unknown[]) => signUp(...args),
       signOut: (...args: unknown[]) => signOut(...args),
       setSession: (...args: unknown[]) => setSession(...args),
+      getSession: (...args: unknown[]) => getSession(...args),
     },
     functions: {
       invoke: (...args: unknown[]) => invoke(...args),
@@ -84,6 +86,7 @@ describe("accountActions.createAccount", () => {
 describe("accountActions.signOutAccount", () => {
   beforeEach(() => {
     signOut.mockReset();
+    getSession.mockReset();
   });
 
   it("signs out with local scope only, per the single-device sign-out decision", async () => {
@@ -92,10 +95,40 @@ describe("accountActions.signOutAccount", () => {
     await accountActions().signOutAccount();
 
     expect(signOut).toHaveBeenCalledWith({ scope: "local" });
+    expect(getSession).not.toHaveBeenCalled();
   });
 
-  it("throws Supabase's error message when sign-out fails", async () => {
+  it("resolves when sign-out errors but the local session is already cleared", async () => {
     signOut.mockResolvedValue({ error: { message: "Network error" } });
+    getSession.mockResolvedValue({ data: { session: null }, error: null });
+    const consoleError = jest
+      .spyOn(console, "error")
+      .mockImplementation(() => {});
+
+    await expect(accountActions().signOutAccount()).resolves.toBeUndefined();
+    expect(consoleError).toHaveBeenCalledWith("Network error");
+
+    consoleError.mockRestore();
+  });
+
+  it("throws Supabase's error message when sign-out fails and the session is still stored", async () => {
+    signOut.mockResolvedValue({ error: { message: "Network error" } });
+    getSession.mockResolvedValue({
+      data: { session: {} as Session },
+      error: null,
+    });
+
+    await expect(accountActions().signOutAccount()).rejects.toThrow(
+      "Network error",
+    );
+  });
+
+  it("throws when sign-out fails and the session can't be read", async () => {
+    signOut.mockResolvedValue({ error: { message: "Network error" } });
+    getSession.mockResolvedValue({
+      data: { session: null },
+      error: { message: "Storage unavailable" },
+    });
 
     await expect(accountActions().signOutAccount()).rejects.toThrow(
       "Network error",
@@ -173,10 +206,7 @@ describe("accountActions.deleteAccount", () => {
   });
 
   it("calls the delete-account function and signs out locally", async () => {
-    invoke.mockResolvedValue({
-      data: { ok: true },
-      error: null,
-    });
+    invoke.mockResolvedValue({ data: { ok: true }, error: null });
     signOut.mockResolvedValue({ error: null });
 
     await accountActions().deleteAccount();
@@ -185,12 +215,11 @@ describe("accountActions.deleteAccount", () => {
     expect(signOut).toHaveBeenCalledWith({ scope: "local" });
   });
 
-  it("throws an error message and does NOT sign out when the function fails", async () => {
+  it("throws an error message and does not sign out when the function fails", async () => {
     invoke.mockResolvedValue({
       data: null,
       error: { message: "Failed to delete account. Please try again." },
     });
-    signOut.mockResolvedValue({ error: null });
 
     await expect(accountActions().deleteAccount()).rejects.toThrow(
       "Failed to delete account. Please try again.",
@@ -198,20 +227,16 @@ describe("accountActions.deleteAccount", () => {
     expect(signOut).not.toHaveBeenCalled();
   });
 
-  it("throws the sign-out error when sign-out fails after a successful delete", async () => {
-    invoke.mockResolvedValue({
-      data: { ok: true },
-      error: null,
-    });
-    signOut.mockResolvedValue({
-      error: {
-        message: "Sign out failed. Please try again.",
-      },
-    });
+  it("resolves and logs when sign-out fails after a successful delete", async () => {
+    invoke.mockResolvedValue({ data: { ok: true }, error: null });
+    signOut.mockResolvedValue({ error: { message: "Network error" } });
+    const consoleError = jest
+      .spyOn(console, "error")
+      .mockImplementation(() => {});
 
-    await expect(accountActions().deleteAccount()).rejects.toThrow(
-      "Sign out failed. Please try again.",
-    );
-    expect(invoke).toHaveBeenCalledWith("delete-account");
+    await expect(accountActions().deleteAccount()).resolves.toBeUndefined();
+    expect(consoleError).toHaveBeenCalledWith("Network error");
+
+    consoleError.mockRestore();
   });
 });
