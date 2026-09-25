@@ -299,7 +299,7 @@ Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>"
 - Create: `e2e/intro-sequence.spec.ts`
 
 **Interfaces:**
-- Consumes: `playwright.config.ts`'s `webkit`/`chromium` projects (Task 4); the running app's DOM structure from `src/app/page.tsx` and `src/app/providers/SplashScreen/IntroScreen/IntroScreen.tsx` — specifically: an `<img alt="Aeryo">` (logo), the text "Where the Unseen Leads" (tagline), and eventually an `<h1>` containing "Hello world"
+- Consumes: `playwright.config.ts`'s `webkit`/`chromium` projects (Task 4); the running app's DOM structure from `src/app/page.tsx` and `src/app/_providers/SplashScreen/IntroScreen/IntroScreen.tsx` — specifically: an `<img alt="Aeryo">` (logo), the text "Where the Unseen Leads" (tagline), and eventually an `<h1>` containing "Hello world"
 - Produces: nothing further downstream — this is a leaf test
 
 - [ ] **Step 1: Write the test**

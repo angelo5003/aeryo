@@ -30,7 +30,7 @@
 - Create: `src/design-system/tokens/shadows.ts` (moved from `theme/shadows.ts`, byte-identical)
 - Delete: `src/design-system/theme/colors.ts`, `src/design-system/theme/radii.ts`, `src/design-system/theme/shadows.ts`
 - Modify: `src/design-system/theme/index.ts`
-- Test: `__tests__/design-system/theme/index.test.ts`
+- Test: `src/design-system/theme/index.test.ts`
 
 **Interfaces:**
 - Produces: `colors`, `radii`, `shadows` (same shape as before — `Record<string, { value: string }>` for each key/step) now importable from `@/design-system/tokens/colors`, `@/design-system/tokens/radii`, `@/design-system/tokens/shadows`.
@@ -39,7 +39,7 @@
 - [ ] **Step 1: Write the failing test**
 
 ```typescript
-// __tests__/design-system/theme/index.test.ts
+// src/design-system/theme/index.test.ts
 import { system } from "@/design-system/theme";
 
 describe("design system theme", () => {
@@ -54,7 +54,7 @@ describe("design system theme", () => {
 
 - [ ] **Step 2: Run test to verify it fails**
 
-Run: `npx jest __tests__/design-system/theme/index.test.ts`
+Run: `npx jest src/design-system/theme/index.test.ts`
 Expected: PASS already, since the current `theme/index.ts` already resolves these tokens from `theme/colors.ts` etc. — this step confirms the baseline passes *before* the move, so a later failure is attributable to the move, not a pre-existing bug.
 
 - [ ] **Step 3: Move the three files**
@@ -120,7 +120,7 @@ and change the `RawPalette` story's description text `src/design-system/theme/co
 
 - [ ] **Step 6: Run test to verify it still passes**
 
-Run: `npx jest __tests__/design-system/theme/index.test.ts`
+Run: `npx jest src/design-system/theme/index.test.ts`
 Expected: PASS
 
 - [ ] **Step 7: Run the full test suite and lint to catch any stale import**
@@ -143,7 +143,7 @@ git commit -m "Move colors/radii/shadows tokens into design-system/tokens/"
 - Create: `src/design-system/tokens/typography.ts` (replaces `theme/typography.ts` with an expanded version)
 - Delete: `src/design-system/theme/typography.ts`
 - Modify: `src/design-system/theme/index.ts`
-- Test: `__tests__/design-system/tokens/typography.test.ts`
+- Test: `src/design-system/tokens/typography.test.ts`
 
 **Interfaces:**
 - Produces: `fonts`, `fontSizes`, `fontWeights`, `lineHeights`, `letterSpacings`, `textStyles` from `@/design-system/tokens/typography`. `textStyles` values are `{ value: { fontFamily, fontSize, fontWeight, lineHeight, letterSpacing } }` objects keyed by `display` | `heading` | `title` | `body` | `caption` | `label`, each referencing the other token categories via Chakra's `"{category.key}"` reference syntax.
@@ -152,7 +152,7 @@ git commit -m "Move colors/radii/shadows tokens into design-system/tokens/"
 - [ ] **Step 1: Write the failing test**
 
 ```typescript
-// __tests__/design-system/tokens/typography.test.ts
+// src/design-system/tokens/typography.test.ts
 import {
   fonts,
   fontSizes,
@@ -208,7 +208,7 @@ describe("typography tokens", () => {
 
 - [ ] **Step 2: Run test to verify it fails**
 
-Run: `npx jest __tests__/design-system/tokens/typography.test.ts`
+Run: `npx jest src/design-system/tokens/typography.test.ts`
 Expected: FAIL — `Cannot find module '@/design-system/tokens/typography'`
 
 - [ ] **Step 3: Write the implementation**
@@ -378,12 +378,12 @@ export const system = createSystem(defaultConfig, config);
 
 - [ ] **Step 5: Run test to verify it passes**
 
-Run: `npx jest __tests__/design-system/tokens/typography.test.ts`
+Run: `npx jest src/design-system/tokens/typography.test.ts`
 Expected: PASS
 
 - [ ] **Step 6: Extend the theme test to cover the new categories and resolve a textStyle**
 
-Modify `__tests__/design-system/theme/index.test.ts`, adding to the existing test body:
+Modify `src/design-system/theme/index.test.ts`, adding to the existing test body:
 
 ```typescript
     expect(system.token("fontSizes.xl")).toBe("1.25rem");
@@ -409,7 +409,7 @@ git commit -m "Expand typography tokens: full type scale and named textStyles"
 **Files:**
 - Create: `src/design-system/tokens/spacing.ts`
 - Modify: `src/design-system/theme/index.ts`
-- Test: `__tests__/design-system/tokens/spacing.test.ts`
+- Test: `src/design-system/tokens/spacing.test.ts`
 
 **Interfaces:**
 - Produces: `spacing` — `Record<"0"|"1"|"2"|"3"|"4"|"5"|"6"|"8"|"10"|"12"|"16"|"20"|"24"|"32", { value: string }>` from `@/design-system/tokens/spacing`.
@@ -418,7 +418,7 @@ git commit -m "Expand typography tokens: full type scale and named textStyles"
 - [ ] **Step 1: Write the failing test**
 
 ```typescript
-// __tests__/design-system/tokens/spacing.test.ts
+// src/design-system/tokens/spacing.test.ts
 import { spacing } from "@/design-system/tokens/spacing";
 
 describe("spacing tokens", () => {
@@ -439,7 +439,7 @@ describe("spacing tokens", () => {
 
 - [ ] **Step 2: Run test to verify it fails**
 
-Run: `npx jest __tests__/design-system/tokens/spacing.test.ts`
+Run: `npx jest src/design-system/tokens/spacing.test.ts`
 Expected: FAIL — `Cannot find module '@/design-system/tokens/spacing'`
 
 - [ ] **Step 3: Write the implementation**
@@ -494,12 +494,12 @@ import { spacing } from "../tokens/spacing";
 
 - [ ] **Step 5: Run test to verify it passes**
 
-Run: `npx jest __tests__/design-system/tokens/spacing.test.ts`
+Run: `npx jest src/design-system/tokens/spacing.test.ts`
 Expected: PASS
 
 - [ ] **Step 6: Extend the theme test**
 
-Add to `__tests__/design-system/theme/index.test.ts`:
+Add to `src/design-system/theme/index.test.ts`:
 
 ```typescript
     expect(system.token("spacing.4")).toBe("1rem");
@@ -524,7 +524,7 @@ git commit -m "Add spacing tokens"
 **Files:**
 - Create: `src/design-system/tokens/breakpoints.ts`
 - Modify: `src/design-system/theme/index.ts`
-- Test: `__tests__/design-system/tokens/breakpoints.test.ts`
+- Test: `src/design-system/tokens/breakpoints.test.ts`
 
 **Interfaces:**
 - Produces: `breakpoints` — `Record<"sm"|"md"|"lg"|"xl"|"2xl", string>` (plain strings, **not** `{ value }`-wrapped — Chakra's `theme.breakpoints` is a distinct top-level config key from `theme.tokens`, not itself a token category with the `{value}` shape) from `@/design-system/tokens/breakpoints`.
@@ -533,7 +533,7 @@ git commit -m "Add spacing tokens"
 - [ ] **Step 1: Write the failing test**
 
 ```typescript
-// __tests__/design-system/tokens/breakpoints.test.ts
+// src/design-system/tokens/breakpoints.test.ts
 import { breakpoints } from "@/design-system/tokens/breakpoints";
 
 describe("breakpoint tokens", () => {
@@ -551,7 +551,7 @@ describe("breakpoint tokens", () => {
 
 - [ ] **Step 2: Run test to verify it fails**
 
-Run: `npx jest __tests__/design-system/tokens/breakpoints.test.ts`
+Run: `npx jest src/design-system/tokens/breakpoints.test.ts`
 Expected: FAIL — `Cannot find module '@/design-system/tokens/breakpoints'`
 
 - [ ] **Step 3: Write the implementation**
@@ -605,12 +605,12 @@ const config = defineConfig({
 
 - [ ] **Step 5: Run test to verify it passes**
 
-Run: `npx jest __tests__/design-system/tokens/breakpoints.test.ts`
+Run: `npx jest src/design-system/tokens/breakpoints.test.ts`
 Expected: PASS
 
 - [ ] **Step 6: Extend the theme test**
 
-Add to `__tests__/design-system/theme/index.test.ts`:
+Add to `src/design-system/theme/index.test.ts`:
 
 ```typescript
     expect(system.breakpoints.keys).toContain("md");
@@ -635,7 +635,7 @@ git commit -m "Add breakpoint tokens"
 **Files:**
 - Create: `src/design-system/tokens/motion.ts`
 - Modify: `src/design-system/theme/index.ts`
-- Test: `__tests__/design-system/tokens/motion.test.ts`
+- Test: `src/design-system/tokens/motion.test.ts`
 
 **Interfaces:**
 - Produces: `durations` (`Record<"fast"|"normal"|"slow", { value: string }>`), `easings` (`Record<"easeIn"|"easeOut"|"easeInOut", { value: string }>`), and `motion` (`{ durations, easings }`, a convenience grouping) from `@/design-system/tokens/motion`.
@@ -644,7 +644,7 @@ git commit -m "Add breakpoint tokens"
 - [ ] **Step 1: Write the failing test**
 
 ```typescript
-// __tests__/design-system/tokens/motion.test.ts
+// src/design-system/tokens/motion.test.ts
 import { durations, easings, motion } from "@/design-system/tokens/motion";
 
 describe("motion tokens", () => {
@@ -667,7 +667,7 @@ describe("motion tokens", () => {
 
 - [ ] **Step 2: Run test to verify it fails**
 
-Run: `npx jest __tests__/design-system/tokens/motion.test.ts`
+Run: `npx jest src/design-system/tokens/motion.test.ts`
 Expected: FAIL — `Cannot find module '@/design-system/tokens/motion'`
 
 - [ ] **Step 3: Write the implementation**
@@ -730,12 +730,12 @@ import { durations, easings } from "../tokens/motion";
 
 - [ ] **Step 5: Run test to verify it passes**
 
-Run: `npx jest __tests__/design-system/tokens/motion.test.ts`
+Run: `npx jest src/design-system/tokens/motion.test.ts`
 Expected: PASS
 
 - [ ] **Step 6: Extend the theme test**
 
-Add to `__tests__/design-system/theme/index.test.ts`:
+Add to `src/design-system/theme/index.test.ts`:
 
 ```typescript
     expect(system.token("durations.normal")).toBe("200ms");
@@ -760,7 +760,7 @@ git commit -m "Add motion tokens (durations, easings)"
 
 **Files:**
 - Create: `src/design-system/tokens/index.ts`
-- Test: `__tests__/design-system/tokens/index.test.ts`
+- Test: `src/design-system/tokens/index.test.ts`
 
 **Interfaces:**
 - Produces: a single barrel re-exporting every export from `colors.ts`, `radii.ts`, `shadows.ts`, `typography.ts`, `spacing.ts`, `breakpoints.ts`, `motion.ts` — `colors`, `radii`, `shadows`, `fonts`, `fontSizes`, `fontWeights`, `lineHeights`, `letterSpacings`, `textStyles`, `spacing`, `breakpoints`, `durations`, `easings`, `motion`.
@@ -769,7 +769,7 @@ git commit -m "Add motion tokens (durations, easings)"
 - [ ] **Step 1: Write the failing test**
 
 ```typescript
-// __tests__/design-system/tokens/index.test.ts
+// src/design-system/tokens/index.test.ts
 import * as tokens from "@/design-system/tokens";
 
 describe("tokens barrel", () => {
@@ -789,7 +789,7 @@ describe("tokens barrel", () => {
 
 - [ ] **Step 2: Run test to verify it fails**
 
-Run: `npx jest __tests__/design-system/tokens/index.test.ts`
+Run: `npx jest src/design-system/tokens/index.test.ts`
 Expected: FAIL — `Cannot find module '@/design-system/tokens'`
 
 - [ ] **Step 3: Write the implementation**
@@ -807,7 +807,7 @@ export * from "./typography";
 
 - [ ] **Step 4: Run test to verify it passes**
 
-Run: `npx jest __tests__/design-system/tokens/index.test.ts`
+Run: `npx jest src/design-system/tokens/index.test.ts`
 Expected: PASS
 
 - [ ] **Step 5: Run the full test suite and lint**

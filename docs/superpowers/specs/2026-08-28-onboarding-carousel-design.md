@@ -47,7 +47,7 @@ app, exactly like it does today.
 Mirrors the existing `SplashScreen` provider/screen split:
 
 ```
-src/app/providers/Onboarding/
+src/app/_providers/Onboarding/
   Provider/
     onboardingStorage.ts       — Preferences read/write, no React
     OnboardingProvider.tsx     — context + useOnboarding() hook

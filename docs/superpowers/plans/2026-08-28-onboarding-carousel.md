@@ -4,7 +4,7 @@
 
 **Goal:** Add a 5-slide, swipeable onboarding carousel that shows once, right after the intro screen, on a user's first launch — then never again.
 
-**Architecture:** Extends `page.tsx`'s existing local-state boot sequence (native splash → JS intro → app) with one more step (→ onboarding, first launch only). A new `OnboardingProvider` (mirrors the existing `SplashProvider`) persists "has this been seen" via `@capacitor/preferences`. The carousel itself is a self-contained component tree under `src/app/providers/Onboarding/`, plus one new reusable design-system primitive (`ProgressDots`).
+**Architecture:** Extends `page.tsx`'s existing local-state boot sequence (native splash → JS intro → app) with one more step (→ onboarding, first launch only). A new `OnboardingProvider` (mirrors the existing `SplashProvider`) persists "has this been seen" via `@capacitor/preferences`. The carousel itself is a self-contained component tree under `src/app/_providers/Onboarding/`, plus one new reusable design-system primitive (`ProgressDots`).
 
 **Tech Stack:** Next.js 16 (static export) / React 19 / TypeScript / Chakra UI v3 / framer-motion / Capacitor 8 (`@capacitor/preferences`, new dependency) / Jest + Testing Library / Storybook (`@storybook/addon-vitest` for interaction tests) / Playwright.
 
@@ -35,8 +35,8 @@
 ### Task 1: Persisted "has seen onboarding" flag
 
 **Files:**
-- Create: `src/app/providers/Onboarding/Provider/onboardingStorage.ts`
-- Test: `src/app/providers/Onboarding/Provider/onboardingStorage.test.ts`
+- Create: `src/app/_providers/Onboarding/Provider/onboardingStorage.ts`
+- Test: `src/app/_providers/Onboarding/Provider/onboardingStorage.test.ts`
 - Modify: `package.json` (add `@capacitor/preferences`)
 
 **Interfaces:**
@@ -56,7 +56,7 @@ npm install @capacitor/preferences@^8.0.1
 - [ ] **Step 2: Write the failing test**
 
 ```ts
-// src/app/providers/Onboarding/Provider/onboardingStorage.test.ts
+// src/app/_providers/Onboarding/Provider/onboardingStorage.test.ts
 const get = jest.fn();
 const set = jest.fn();
 
@@ -119,7 +119,7 @@ Expected: FAIL — `Cannot find module './onboardingStorage'`
 - [ ] **Step 4: Write the implementation**
 
 ```ts
-// src/app/providers/Onboarding/Provider/onboardingStorage.ts
+// src/app/_providers/Onboarding/Provider/onboardingStorage.ts
 import { Preferences } from "@capacitor/preferences";
 
 // Never read/write this key anywhere else — go through the two functions
@@ -170,7 +170,7 @@ Expected: PASS, 5 tests
 - [ ] **Step 6: Commit**
 
 ```bash
-git add package.json package-lock.json src/app/providers/Onboarding/Provider/onboardingStorage.ts src/app/providers/Onboarding/Provider/onboardingStorage.test.ts
+git add package.json package-lock.json src/app/_providers/Onboarding/Provider/onboardingStorage.ts src/app/_providers/Onboarding/Provider/onboardingStorage.test.ts
 git commit -m "feat: add onboarding-seen persistence via @capacitor/preferences"
 ```
 
@@ -179,8 +179,8 @@ git commit -m "feat: add onboarding-seen persistence via @capacitor/preferences"
 ### Task 2: OnboardingProvider
 
 **Files:**
-- Create: `src/app/providers/Onboarding/Provider/OnboardingProvider.tsx`
-- Test: `src/app/providers/Onboarding/Provider/OnboardingProvider.test.tsx`
+- Create: `src/app/_providers/Onboarding/Provider/OnboardingProvider.tsx`
+- Test: `src/app/_providers/Onboarding/Provider/OnboardingProvider.test.tsx`
 
 **Interfaces:**
 - Consumes: `hasSeenOnboarding()`, `markOnboardingSeen()` from Task 1.
@@ -189,7 +189,7 @@ git commit -m "feat: add onboarding-seen persistence via @capacitor/preferences"
 - [ ] **Step 1: Write the failing test**
 
 ```tsx
-// src/app/providers/Onboarding/Provider/OnboardingProvider.test.tsx
+// src/app/_providers/Onboarding/Provider/OnboardingProvider.test.tsx
 import { act, render, screen } from "@testing-library/react";
 
 const hasSeenOnboarding = jest.fn();
@@ -279,7 +279,7 @@ Expected: FAIL — `Cannot find module './OnboardingProvider'`
 - [ ] **Step 3: Write the implementation**
 
 ```tsx
-// src/app/providers/Onboarding/Provider/OnboardingProvider.tsx
+// src/app/_providers/Onboarding/Provider/OnboardingProvider.tsx
 "use client";
 
 import * as React from "react";
@@ -369,7 +369,7 @@ Expected: PASS, 4 tests
 - [ ] **Step 5: Commit**
 
 ```bash
-git add src/app/providers/Onboarding/Provider/OnboardingProvider.tsx src/app/providers/Onboarding/Provider/OnboardingProvider.test.tsx
+git add src/app/_providers/Onboarding/Provider/OnboardingProvider.tsx src/app/_providers/Onboarding/Provider/OnboardingProvider.test.tsx
 git commit -m "feat: add OnboardingProvider"
 ```
 
@@ -378,7 +378,7 @@ git commit -m "feat: add OnboardingProvider"
 ### Task 3: Slide content + ProgressDots
 
 **Files:**
-- Create: `src/app/providers/Onboarding/onboardingContent.ts`
+- Create: `src/app/_providers/Onboarding/onboardingContent.ts`
 - Create: `src/components/data-display/ProgressDots/ProgressDots.tsx`
 - Create: `src/components/data-display/ProgressDots/ProgressDots.types.ts`
 - Create: `src/components/data-display/ProgressDots/ProgressDots.stories.tsx`
@@ -390,7 +390,7 @@ git commit -m "feat: add OnboardingProvider"
 - [ ] **Step 1: Write the content data file**
 
 ```ts
-// src/app/providers/Onboarding/onboardingContent.ts
+// src/app/_providers/Onboarding/onboardingContent.ts
 export interface OnboardingSlideContent {
   /** Stable id — used as the React key. */
   id: string;
@@ -562,7 +562,7 @@ Expected: PASS
 - [ ] **Step 7: Commit**
 
 ```bash
-git add src/app/providers/Onboarding/onboardingContent.ts src/components/data-display/ProgressDots
+git add src/app/_providers/Onboarding/onboardingContent.ts src/components/data-display/ProgressDots
 git commit -m "feat: add onboarding slide content and ProgressDots component"
 ```
 
@@ -571,8 +571,8 @@ git commit -m "feat: add onboarding slide content and ProgressDots component"
 ### Task 4: OnboardingSlide
 
 **Files:**
-- Create: `src/app/providers/Onboarding/OnboardingCarousel/OnboardingSlide.tsx`
-- Create: `src/app/providers/Onboarding/OnboardingCarousel/OnboardingSlide.stories.tsx`
+- Create: `src/app/_providers/Onboarding/OnboardingCarousel/OnboardingSlide.tsx`
+- Create: `src/app/_providers/Onboarding/OnboardingCarousel/OnboardingSlide.stories.tsx`
 
 **Interfaces:**
 - Consumes: `OnboardingSlideContent` (Task 3).
@@ -581,7 +581,7 @@ git commit -m "feat: add onboarding slide content and ProgressDots component"
 - [ ] **Step 1: Write the component**
 
 ```tsx
-// src/app/providers/Onboarding/OnboardingCarousel/OnboardingSlide.tsx
+// src/app/_providers/Onboarding/OnboardingCarousel/OnboardingSlide.tsx
 "use client";
 
 import { Box } from "@chakra-ui/react";
@@ -658,7 +658,7 @@ export function OnboardingSlide({ slide }: OnboardingSlideProps) {
 - [ ] **Step 2: Write the story (with an interaction test for the accessible content)**
 
 ```tsx
-// src/app/providers/Onboarding/OnboardingCarousel/OnboardingSlide.stories.tsx
+// src/app/_providers/Onboarding/OnboardingCarousel/OnboardingSlide.stories.tsx
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 import { expect, within } from "storybook/test";
 import { Box } from "@chakra-ui/react";
@@ -716,7 +716,7 @@ Expected: PASS
 - [ ] **Step 4: Commit**
 
 ```bash
-git add src/app/providers/Onboarding/OnboardingCarousel/OnboardingSlide.tsx src/app/providers/Onboarding/OnboardingCarousel/OnboardingSlide.stories.tsx
+git add src/app/_providers/Onboarding/OnboardingCarousel/OnboardingSlide.tsx src/app/_providers/Onboarding/OnboardingCarousel/OnboardingSlide.stories.tsx
 git commit -m "feat: add OnboardingSlide"
 ```
 
@@ -725,8 +725,8 @@ git commit -m "feat: add OnboardingSlide"
 ### Task 5: OnboardingCarousel
 
 **Files:**
-- Create: `src/app/providers/Onboarding/OnboardingCarousel/OnboardingCarousel.tsx`
-- Create: `src/app/providers/Onboarding/OnboardingCarousel/OnboardingCarousel.stories.tsx`
+- Create: `src/app/_providers/Onboarding/OnboardingCarousel/OnboardingCarousel.tsx`
+- Create: `src/app/_providers/Onboarding/OnboardingCarousel/OnboardingCarousel.stories.tsx`
 
 **Interfaces:**
 - Consumes: `ONBOARDING_SLIDES` (Task 3), `OnboardingSlide` (Task 4), `ProgressDots` (Task 3), `Button` (`@/components/actions/Button`).
@@ -735,7 +735,7 @@ git commit -m "feat: add OnboardingSlide"
 - [ ] **Step 1: Write the component**
 
 ```tsx
-// src/app/providers/Onboarding/OnboardingCarousel/OnboardingCarousel.tsx
+// src/app/_providers/Onboarding/OnboardingCarousel/OnboardingCarousel.tsx
 "use client";
 
 import { Box } from "@chakra-ui/react";
@@ -879,7 +879,7 @@ export function OnboardingCarousel({ onComplete }: OnboardingCarouselProps) {
 - [ ] **Step 2: Write the story (with interaction tests for Skip, Next, and completing)**
 
 ```tsx
-// src/app/providers/Onboarding/OnboardingCarousel/OnboardingCarousel.stories.tsx
+// src/app/_providers/Onboarding/OnboardingCarousel/OnboardingCarousel.stories.tsx
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 import { expect, fn, userEvent, within } from "storybook/test";
 import { OnboardingCarousel } from "./OnboardingCarousel";
@@ -958,7 +958,7 @@ Expected: PASS, all 4 stories
 - [ ] **Step 4: Commit**
 
 ```bash
-git add src/app/providers/Onboarding/OnboardingCarousel/OnboardingCarousel.tsx src/app/providers/Onboarding/OnboardingCarousel/OnboardingCarousel.stories.tsx
+git add src/app/_providers/Onboarding/OnboardingCarousel/OnboardingCarousel.tsx src/app/_providers/Onboarding/OnboardingCarousel/OnboardingCarousel.stories.tsx
 git commit -m "feat: add OnboardingCarousel"
 ```
 
@@ -1003,10 +1003,10 @@ Replace the whole file with:
 
 import { Box } from "@chakra-ui/react";
 import * as React from "react";
-import { OnboardingCarousel } from "@/app/providers/Onboarding/OnboardingCarousel/OnboardingCarousel";
-import { useOnboarding } from "@/app/providers/Onboarding/Provider/OnboardingProvider";
-import { IntroScreen } from "@/app/providers/SplashScreen/IntroScreen/IntroScreen";
-import { useSplashScreen } from "@/app/providers/SplashScreen/Provider/SplashProvider";
+import { OnboardingCarousel } from "@/app/_providers/Onboarding/OnboardingCarousel/OnboardingCarousel";
+import { useOnboarding } from "@/app/_providers/Onboarding/Provider/OnboardingProvider";
+import { IntroScreen } from "@/app/_providers/SplashScreen/IntroScreen/IntroScreen";
+import { useSplashScreen } from "@/app/_providers/SplashScreen/Provider/SplashProvider";
 import { Heading } from "@/components/typography/Heading";
 
 // Minimum time the intro stays on screen after its background image has
@@ -1081,14 +1081,14 @@ export default function Home() {
 // src/app/page.stories.tsx
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 import { expect, fireEvent, waitFor, within } from "storybook/test";
-import { OnboardingProvider } from "@/app/providers/Onboarding/Provider/OnboardingProvider";
-import { SplashProvider } from "@/app/providers/SplashScreen/Provider/SplashProvider";
+import { OnboardingProvider } from "@/app/_providers/Onboarding/Provider/OnboardingProvider";
+import { SplashProvider } from "@/app/_providers/SplashScreen/Provider/SplashProvider";
 import Home from "./page";
 
 // `Home` reads `useSplashScreen()` (SplashProvider) and `useOnboarding()`
 // (OnboardingProvider) — outside either it throws, so every story needs
-// both decorators. See src/app/providers/SplashScreen/Provider/SplashProvider.tsx
-// and src/app/providers/Onboarding/Provider/OnboardingProvider.tsx.
+// both decorators. See src/app/_providers/SplashScreen/Provider/SplashProvider.tsx
+// and src/app/_providers/Onboarding/Provider/OnboardingProvider.tsx.
 const meta = {
   component: Home,
   tags: ["ai-generated"],

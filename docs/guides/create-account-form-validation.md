@@ -6,11 +6,11 @@ they need to be and points at the exact APIs, sourced from the versions
 actually installed in this repo.
 
 **Files you're filling in:**
-- `src/server/validation/account/create-account.schema.ts`
-- `src/app/ui/pages/account/hooks/useCreateAccountForm.ts`
+- `src/lib/validation/account/create-account.schema.ts`
+- `src/app/(auth)/_hooks/useCreateAccountForm.ts`
 
 **Already wired for you (don't need to touch):**
-- `src/app/ui/pages/account/CreateAccountForm/CreateAccountForm.tsx` — calls
+- `src/app/(auth)/_components/CreateAccountForm/CreateAccountForm.tsx` — calls
   `useCreateAccountForm()`, registers each input, wires `handleSubmit`.
 
 **Installed versions:** `zod@4.4.3`, `react-hook-form@7.86.0`,
@@ -21,7 +21,7 @@ installed, nothing to add).
 
 ## 1. Why the schema lives outside `src/app/`
 
-`src/server/validation/` is plain TypeScript + Zod — no React import, no
+`src/lib/validation/` is plain TypeScript + Zod — no React import, no
 `"use client"`. Not because a server exists yet (it doesn't; AERYO is a
 static export, see `AGENTS.md` — "Next.js is a static export"), but so the
 same schema can be dropped into a future Supabase Edge Function or API
@@ -105,7 +105,7 @@ export function useCreateAccountForm(): UseFormReturn<CreateAccountValues> {
 ```
 
 Import `createAccountSchema` and `CreateAccountValues` from
-`@/server/validation/account/create-account.schema` (already imported as a
+`@/lib/validation/account/create-account.schema` (already imported as a
 type in the stub — add the value import for `createAccountSchema` and
 `useForm`/`zodResolver`).
 
@@ -139,8 +139,8 @@ split mentioned in the resolvers README only matters if a field uses
 ## 5. Reuse for Login, later
 
 When you build `LoginForm`, add a **separate** `useLoginForm` hook next to
-this one (`src/app/ui/pages/account/hooks/useLoginForm.ts`) and a
-**separate** `login.schema.ts` under `src/server/validation/account/` — do
+this one (`src/app/(auth)/_hooks/useLoginForm/useLoginForm.ts`) and a
+**separate** `login.schema.ts` under `src/lib/validation/account/` — do
 not generalize `useCreateAccountForm` into a shared hook that both forms
 call. The reusable part is the *pattern* (`useForm` + `zodResolver` +
 returning `UseFormReturn` unchanged), not a runtime abstraction over it —
