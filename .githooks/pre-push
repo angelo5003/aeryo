@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 #
-# Lightweight local stand-in for branch protection on `main` (real branch
-# protection needs GitHub Pro on a private repo). Runs the fast subset of
+# Lightweight local stand-in for branch protection on `main` (GitHub
+# branch protection is free for this public repo, but not enabled while
+# there is a single pusher). Runs the fast subset of
 # the Tier 1 CI checks — lint, typecheck, Jest — before allowing a push
 # whose target branch is `main`. The slow jobs (Storybook, Playwright
 # E2E, native builds) still only run in GitHub Actions.

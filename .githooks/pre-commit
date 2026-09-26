@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+#
+# Scans staged changes for secrets with betterleaks before the commit is
+# created. The repo is public, so a secret that reaches GitHub is leaked
+# even if a later commit removes it — this runs before that can happen.
+# GitHub push protection is the second line of defense on the server.
+#
+#   medium/high confidence finding -> commit blocked
+#   low confidence finding         -> warning only (e.g. test-fixture passwords)
+#
+# To record an exception for a false positive, either append
+# `betterleaks:allow` in a comment on that line, or add the finding's
+# Fingerprint to `.betterleaksignore` in the repo root.
+# Bypass in an emergency with:  git commit --no-verify
+#
+# Enabled via `git config core.hooksPath .githooks` (also: npm run hooks:install).
+
+set -euo pipefail
+
+# Fail closed: no scanner means no commit, rather than a silent unscanned one.
+if ! command -v betterleaks >/dev/null 2>&1; then
+  echo "pre-commit: betterleaks is not installed — install it with 'brew install betterleaks'." >&2
+  echo "            (bypass with 'git commit --no-verify')" >&2
+  exit 1
+fi
+
+# per betterleaks/.pre-commit-hooks.yaml: git --pre-commit --redact --staged --verbose
+scan=(betterleaks git --pre-commit --staged --redact --verbose --no-banner)
+
+if ! "${scan[@]}" --confidence medium; then
+  echo "pre-commit: possible secret found — commit blocked (see finding above)." >&2
+  echo "            False positive? Add 'betterleaks:allow' on that line or its Fingerprint to .betterleaksignore." >&2
+  exit 1
+fi
+
+# Re-run with every confidence level and --exit-code 0 so low-confidence
+# findings are printed as a warning without blocking.
+"${scan[@]}" --confidence low --exit-code 0 --log-level warn
