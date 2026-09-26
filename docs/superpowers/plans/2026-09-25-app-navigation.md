@@ -18,6 +18,16 @@ verwijderen) zit onder Profile → tandwiel → `/settings`.
 - Frosted achtergrond via nieuw semantic token `bg.chrome`, light + dark.
 - Bottom-bar verbergt bij omlaag scrollen, toont bij omhoog scrollen.
 
+**Beslissingen (goedgekeurd 2026-09-26):**
+
+- Route groups heten naar wat ze uniek maakt: `(with-bottom-nav)` en
+  `(with-back-button)`. Eerder `(tabs)` / `(stack)`: te vaag.
+- Beide zitten in `(signed-in)/`. Die layout is de enige login-check: geen
+  sessie → `router.replace("/")`. `page.tsx` beslist daarna zelf of dat
+  onboarding of `/signup` wordt. De check staat niet in de root layout, want
+  die omvat ook `/signup` en `/login` (redirect-lus).
+- De login-check is UX, geen beveiliging. RLS in Supabase beschermt de data.
+
 **Stack (uit `package.json`):** `next` 16.3.1 (static export) · `@chakra-ui/react`
 ^3.36.1 · `framer-motion` ^13.1.1 · `react-icons` ^5.7.0. Geen nieuwe packages.
 
@@ -26,17 +36,20 @@ verwijderen) zit onder Profile → tandwiel → `/settings`.
 ```
 src/app/
 ├─ page.tsx                   boot-poort; ingelogd → router.replace("/home")
-├─ (auth)/                    bestaat al
-├─ (tabs)/                    NIEUW — top-bar + bottom-bar
-│  ├─ layout.tsx
-│  ├─ home/page.tsx
-│  ├─ explore/page.tsx
-│  ├─ sessions/page.tsx
-│  ├─ community/page.tsx
-│  └─ profile/page.tsx
-├─ (stack)/                   NIEUW — terug-knop, geen bottom-bar
-│  ├─ layout.tsx
-│  └─ settings/page.tsx
+├─ (auth)/                    bestaat al — alleen voor uitgelogd
+├─ (signed-in)/               NIEUW — alleen voor ingelogd
+│  ├─ layout.tsx              login-check: geen sessie → router.replace("/")
+│  ├─ layout.test.tsx
+│  ├─ (with-bottom-nav)/      top-bar + bottom-nav
+│  │  ├─ layout.tsx
+│  │  ├─ home/page.tsx
+│  │  ├─ explore/page.tsx
+│  │  ├─ sessions/page.tsx
+│  │  ├─ community/page.tsx
+│  │  └─ profile/page.tsx
+│  └─ (with-back-button)/     top-bar met terug-knop, geen bottom-nav
+│     ├─ layout.tsx
+│     └─ settings/page.tsx
 ├─ _components/               NIEUW — app-shell
 │  ├─ AppTopBar/
 │  │  ├─ AppTopBar.tsx
@@ -55,10 +68,14 @@ src/app/
 ## Dataflow
 
 ```
-Capacitor boot → app/page.tsx ──(geen sessie)──► /login
+Capacitor boot → app/page.tsx ──(geen sessie)──► onboarding of /signup
                      │ sessie
                      ▼ router.replace("/home")
-(tabs)/layout.tsx
+(signed-in)/layout.tsx
+  isReady false → render niets · geen sessie → router.replace("/") · sessie → children
+                     │
+                     ▼
+(with-bottom-nav)/layout.tsx
   AppTopBar variant="root"
   <main ref={scrollRef} overflow="auto">  ← enige element dat scrollt
      {children}                              (body is position: fixed)
@@ -67,7 +84,7 @@ Capacitor boot → app/page.tsx ──(geen sessie)──► /login
      usePathname() ──► welke tab actief (aria-current="page")
                      │ tandwiel op /profile
                      ▼
-(stack)/layout.tsx
+(with-back-button)/layout.tsx
   AppTopBar variant="back" → router.back() of fallbackHref
   settings/page.tsx → useSignOutAccount() / useDeleteAccount()  (bestaan al)
 ```
@@ -116,28 +133,97 @@ staan in de comment.
 
 ## Stap 2 — Route groups + lege pagina's
 
-**Bestanden:** nieuw `src/app/(tabs)/` en `src/app/(stack)/`, naast `(auth)/`.
+**Bestanden:** nieuw `src/app/(signed-in)/`, naast `(auth)/`. Daarin
+`(with-bottom-nav)/` en `(with-back-button)/`.
 
 **Wat:** een route group (`(naam)`) deelt één `layout.tsx` over zijn pagina's,
-zonder dat de naam in de URL komt. `(tabs)/home/page.tsx` wordt `/home`.
-Bron: `node_modules/next/dist/docs/01-app/01-getting-started/02-project-structure.md`
-(regel 383).
+zonder dat de naam in de URL komt. `(signed-in)/(with-bottom-nav)/home/page.tsx`
+wordt `/home`. Groups mogen genest worden: een layout omvat alles wat eronder
+zit, dus de `(signed-in)`-layout omvat beide andere groups.
+Bronnen: `node_modules/next/dist/docs/01-app/01-getting-started/02-project-structure.md`
+(regel 71 en 383) en
+`node_modules/next/dist/docs/01-app/03-api-reference/03-file-conventions/route-groups.md`
+(caveat: twee groups mogen niet dezelfde URL opleveren).
 
 **Doe:**
 
-1. Maak 5 pagina's in `(tabs)/` en `settings/page.tsx` in `(stack)/`. Elke pagina
-   toont voorlopig alleen een `Heading` met de naam.
-   - Gebruik `@/components/typography/Heading`.
+1. Maak 5 pagina's in `(with-bottom-nav)/` en `settings/page.tsx` in
+   `(with-back-button)/`. Elke pagina toont voorlopig alleen een `Heading` met
+   de naam.
+   - Gebruik `@/components/typography/Heading` (matches `src/app/page.tsx:14`).
    - Laat genoeg dummy-content op `home` staan om te kunnen scrollen; die heb je
      nodig bij stap 7.
-2. Maak voorlopig een simpele `layout.tsx` in beide groups die alleen
-   `{children}` teruggeeft. Stap 7 vult ze.
+2. Maak voorlopig een simpele `layout.tsx` in alle drie de groups die alleen
+   `{children}` teruggeeft. Stap 2b vult `(signed-in)`, stap 7 de andere twee.
+   Vorm: `React.FC<{ children: React.ReactNode }>`, net als
+   `src/app/(auth)/layout.tsx:45`.
 
 **Let op:** pagina's hebben geen `"use client"` nodig zolang ze geen hooks
 gebruiken.
 
 **Verify:** `npm run build`. Daarna bestaan `out/home.html` (of
 `out/home/index.html`) en `out/settings.html`. `npm run typecheck` schoon.
+
+---
+
+## Stap 2b — Login-check in `(signed-in)/layout.tsx`
+
+**Bestand:** `src/app/(signed-in)/layout.tsx` (+ `layout.test.tsx` ernaast).
+
+**Wat:** één poort voor alle ingelogde schermen. Elke pagina die je later in
+`(signed-in)/` zet, is automatisch afgeschermd. Je hoeft er per pagina niets
+voor te doen.
+
+**Logica (drie situaties):**
+
+| `isReady` | `session` | Wat de layout doet                                                           |
+| --------- | --------- | ---------------------------------------------------------------------------- |
+| `false`   | —         | `return null`: nog geen antwoord van Supabase, dus geen flits van de content |
+| `true`    | `null`    | `router.replace("/")`: `page.tsx` beslist onboarding of `/signup`            |
+| `true`    | aanwezig  | `children` renderen                                                          |
+
+**Scaffolding:**
+
+```tsx
+"use client"; // hooks: useAuth, useRouter
+
+import { useRouter } from "next/navigation";
+import type React from "react";
+import { useEffect } from "react";
+import { useAuth } from "@/app/_providers/Auth/AuthProvider";
+
+// Mirror of src/app/(auth)/layout.tsx:54-58 — that layout sends logged-in
+// users away, this one sends logged-out users away.
+const SignedInLayout: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
+  // jij vult: useAuth(), useRouter(), useEffect met de redirect, en de return
+};
+
+export default SignedInLayout;
+```
+
+**Waarom `replace("/")` en niet `replace("/signup")`:** `src/app/page.tsx`
+(regel 50–58) beslist al tussen onboarding en `/signup`. Stuur je hier direct
+naar `/signup`, dan staat die beslissing op twee plekken.
+
+**Waarom `replace` en niet `push`:** anders brengt de Android-terug-knop de
+gebruiker terug naar het afgeschermde scherm, dat hem meteen weer wegstuurt.
+
+**Test (`layout.test.tsx`):** kopieer de mock-opzet van
+`src/app/(auth)/layout.test.tsx` (echte `AuthProvider`, gestubde
+`supabase.auth.onAuthStateChange`, gemockte `next/navigation`). Drie tests:
+
+1. `should not render children when there is no session` en `routerReplace`
+   is aangeroepen met `"/"`.
+2. `should render children when a session exists`: zoek met
+   `screen.getByText(...)`.
+3. `should not redirect while auth is still loading`. Tip: laat de stub
+   `callback` nog niet aanroepen.
+
+**Verify:** `npm test -- "src/app/(signed-in)"` groen. `npm run typecheck` en
+`npm run lint` schoon. In de browser: uitgelogd `/home` openen → je komt op
+de onboarding of `/signup`, zonder flits van de home-content.
 
 ---
 
@@ -356,9 +442,10 @@ verplicht zijn. TypeScript weigert `variant="back"` zonder `title`.
 
 ## Stap 7 — Layouts samenvoegen
 
-**Bestanden:** `src/app/(tabs)/layout.tsx`, `src/app/(stack)/layout.tsx`.
+**Bestanden:** `src/app/(signed-in)/(with-bottom-nav)/layout.tsx`,
+`src/app/(signed-in)/(with-back-button)/layout.tsx`.
 
-**`(tabs)/layout.tsx` (`"use client"`, want er zit een hook in):**
+**`(with-bottom-nav)/layout.tsx` (`"use client"`, want er zit een hook in):**
 
 ```
 <Flex direction="column" h="full">
@@ -379,7 +466,7 @@ verplicht zijn. TypeScript weigert `variant="back"` zonder `title`.
   simpelste oplossing.
 - De `pb` op `<main>` voorkomt dat de laatste kaart achter de zwevende bar valt.
 
-**`(stack)/layout.tsx`:** alleen `<main>` met scroll, zonder bottom-bar. De top-bar
+**`(with-back-button)/layout.tsx`:** alleen `<main>` met scroll, zonder bottom-bar. De top-bar
 met titel zet je per pagina, omdat de titel per pagina verschilt.
 
 **Verify (browser):**
@@ -413,7 +500,7 @@ sign-out-knop verwachtte, want dat gedrag is bewust veranderd.
 
 ## Stap 9 — Settings-pagina
 
-**Bestand:** `src/app/(stack)/settings/page.tsx` (+ `.test.tsx`).
+**Bestand:** `src/app/(signed-in)/(with-back-button)/settings/page.tsx` (+ `.test.tsx`).
 
 **Opbouw:**
 
