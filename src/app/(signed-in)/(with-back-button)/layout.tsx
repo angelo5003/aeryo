@@ -1,16 +1,13 @@
 import type React from "react";
 
-interface LayoutProps {
+interface SignedInLayoutWithBackButtonProps {
   children: React.ReactNode;
 }
 
-const Layout = ({ children }: LayoutProps) => {
-  return (
-    <div>
-      <h1>Layout</h1>
-      {children}
-    </div>
-  );
+const SignedInLayoutWithBackButton = ({
+  children,
+}: SignedInLayoutWithBackButtonProps) => {
+  return <div>{children}</div>;
 };
 
-export default Layout;
+export default SignedInLayoutWithBackButton;
