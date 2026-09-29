@@ -275,7 +275,7 @@ bar weg moet.
 `<main>` scrollt.
 
 **Waarom `framer-motion`:** `useScroll` geeft een motion value. Die verandert
-zonder React re-render. Jij zet alleen `hidden` in state, en die wisselt
+zonder React re-render. Jij zet alleen `isBarHidden` in state, en die wisselt
 zelden.
 
 **API (geverifieerd in `node_modules/framer-motion/dist/index.d.ts`):**
@@ -290,34 +290,36 @@ zelden.
 "use client";
 
 import { useMotionValueEvent, useScroll } from "framer-motion";
+import type React from "react";
 import { useRef, useState } from "react";
 
-// Always show the bar within this many px of the top.
-const TOP_ZONE_PX = 8;
-// Ignore scroll steps smaller than this, so the bar doesn't flicker.
-const THRESHOLD_PX = 6;
+// Near the top of the page the bar always stays visible.
+const ALWAYS_SHOW_BAR_WITHIN_TOP_PIXELS = 8;
+// Scroll steps smaller than this are ignored, so the bar doesn't flicker.
+const MINIMUM_SCROLL_PIXELS_TO_TOGGLE_BAR = 6;
 
-export function useHideOnScroll(
-  containerRef: React.RefObject<HTMLElement | null>,
-): boolean {
-  // jij: useScroll met container
-  // jij: useRef voor vorige y (ref, geen state — hoeft geen render te triggeren)
-  // jij: useState voor hidden
-  // jij: useMotionValueEvent(scrollY, "change", (y) => { … })
-  //   y < TOP_ZONE_PX            → hidden false
-  //   |y - vorige| < THRESHOLD_PX → niets doen (vorige NIET bijwerken)
-  //   y > vorige                 → hidden true
-  //   y < vorige                 → hidden false
-  //   vorige = y
-}
+export const useHideOnScroll = (
+  scrollingElementRef: React.RefObject<HTMLElement | null>,
+): boolean => {
+  // jij: const { scrollY: scrollPositionFromTop } = useScroll({ container: scrollingElementRef })
+  // jij: lastCheckedScrollPosition = useRef(0)   (ref, geen state: hoeft geen render te triggeren)
+  // jij: [isBarHidden, setIsBarHidden] = useState(false)
+  // jij: useMotionValueEvent(scrollPositionFromTop, "change", (newScrollPosition) => { … })
+  //   newScrollPosition < ALWAYS_SHOW_BAR_WITHIN_TOP_PIXELS → setIsBarHidden(false)
+  //   verschil < MINIMUM_SCROLL_PIXELS_TO_TOGGLE_BAR        → niets doen (lastChecked NIET bijwerken)
+  //   omlaag (nieuw > lastChecked)                          → setIsBarHidden(true)
+  //   omhoog (nieuw < lastChecked)                          → setIsBarHidden(false)
+  //   lastCheckedScrollPosition.current = newScrollPosition
+  // jij: return isBarHidden
+};
 ```
 
-**Denkvraag:** waarom bijwerk je `vorige` níet als de stap kleiner is dan de
-drempel? Tip: wat gebeurt er bij heel langzaam scrollen, steeds 2px per event?
+**Denkvraag:** waarom werk je `lastCheckedScrollPosition` níet bij als de stap
+kleiner is dan `MINIMUM_SCROLL_PIXELS_TO_TOGGLE_BAR`? Tip: wat gebeurt er bij heel langzaam scrollen, steeds 2px per event?
 
 **Test (`fireEvent`, geen user-event):** render een test-component met een
 `<div ref={ref} style={{ overflow: "auto" }}>`. Zet `ref.current.scrollTop = 200`
-en daarna `fireEvent.scroll(ref.current)`. Verwacht `hidden === true`. Terug
+en daarna `fireEvent.scroll(ref.current)`. Verwacht `isBarHidden === true`. Terug
 naar 100 → `false`. Naar 4 → `false`.
 
 **Mogelijke hobbel:** jsdom rekent geen layout. Leest `useScroll` in jsdom
