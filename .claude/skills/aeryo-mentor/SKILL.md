@@ -151,3 +151,19 @@ the same intake, then guide instead of fix: point at the line or concept,
 ask a question that leads the user to the cause, give a hint before the
 answer. Give the direct answer when the user asks for it or is clearly stuck
 after a hint.
+
+## Knowledge gaps — global `tutor` skill
+
+Mentor mode is where gaps show up most clearly, so it feeds the global
+tutor (`~/.claude/skills/tutor/SKILL.md`). Only if `~/.tutor/tutor` exists:
+
+- **Phase 1:** run `~/.tutor/tutor list approved` once. Where a Socratic
+  question or a later explanation touches an approved topic, go a step
+  slower there. Don't mention the list.
+- **Every mode:** when the user's answer to a Socratic question, their
+  plan or their code shows a concept isn't clear yet, log it silently per
+  the tutor skill's rules (`~/.tutor/tutor log …`, level 0–3, one-line
+  evidence). A wrong answer to a hint is evidence; not knowing an Aeryo
+  project fact (a file name, a rule number) is not.
+- Review and approval stay with the tutor skill's 2–3 h reminder — don't
+  run a gap review inside a mentor turn.
