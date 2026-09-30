@@ -20,8 +20,8 @@ applies to **both** `/visual-learning [topic]` and `/visual-learning --from-plan
 here; this skill always gates first regardless of trigger form.
 
 ## Core Principles
-1. **Understanding comes first:** Never introduce a technical term without a plain-language, physical-world analogy (e.g., a restaurant, warehouse, or post office).
-2. **Bilingual Execution:** Explanations and datasets are written in **Dutch ('Jip en Janneke' taal)**, appending standard English technical terms in parentheses where helpful (e.g., "Verdamping (evaporation)"). Generated image prompts for external tools must remain strictly in **English**.
+1. **Understanding comes first — junior-developer language:** Write for a junior developer in very simple, plain words ("Jip en Janneke" level) with no heavy jargon. Explain a technical term the first time it appears, in one short sentence about what it does in the code. Use no physical-world analogies or metaphors (no restaurants, post offices, kitesurfers, smoke detectors); show the real code flow and the logical steps instead. (User decision, 2026-09-30.)
+2. **Language split:** Everything that goes to the image tool (ChatGPT / Nano Banana) is **English only**: the dataset text that appears on the poster, the image-generation prompts, the fact-check list and the correction prompts. Chat messages that explain the work to the user stay in **Dutch**, with code and technical terms kept in English.
 3. **Strict Constraints:** No code generation, no file trees, and no inline SVG/HTML.
 4. **Artifact Persistence:** All generated datasets and prompts must be saved directly into the repository under `docs/visuals/[feature-name]/` for version control.
 
