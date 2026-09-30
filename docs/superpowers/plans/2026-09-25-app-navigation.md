@@ -340,7 +340,7 @@ meld het. Dan kijken we samen, zonder mocks te stapelen.
 ```ts
 export interface BottomTabBarProps {
   /** From useHideOnScroll — slides the bar out of view when true. */
-  hidden: boolean;
+  isBottomBarHidden: boolean;
 }
 ```
 
@@ -353,8 +353,8 @@ export interface BottomTabBarProps {
    - Stijl: `bg="bg.chrome"`, `backdropBlur` + `backdropFilter` (Chakra-props,
      bevestigd in `system.gen.d.ts`), `borderWidth="1px"`,
      `borderColor="border"`, `rounded="full"`, `shadow="lg"`.
-3. `TABS.map((tab) => <Link key={tab.id} …>)` met `next/link`.
-   - Actief betekent `pathname === tab.href` of `pathname.startsWith(tab.href + "/")`.
+3. `navItems.map((navItem) => <Link key={navItem.id} …>)` met `next/link`.
+   - Actief betekent `pathname === navItem.href` of `pathname.startsWith(navItem.href + "/")`.
    - De actieve link krijgt `aria-current="page"`.
    - Icoon: `aria-hidden`, want het label is al zichtbaar.
    - Elke link is minimaal 44×44 groot en heeft een zichtbare
