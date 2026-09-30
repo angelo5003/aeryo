@@ -30,7 +30,7 @@ Everything else (typo, lint, "rename this") is outside this skill.
 ## Language
 
 - Explanations, questions and the handshake to the user: **Dutch, clear junior-developer level**. Explain technical concepts directly and professionally. Do not use physical-world analogies (no hotels, post offices, or wind dynamics). Focus on the code flow and logical steps.
-- Stays **English**: code, file paths, commands, API names, config keys, and standard technical terms ("Server Component", "RLS", "semantic token"). Explain such a term once in Dutch the first time it appears, then keep the English word.
+- Stays **English**: code, file paths, commands, API names, config keys, and standard technical terms ("Server Component", "RLS", "semantic token"). Never translate these into Dutch, not even in running prose: write "children", "props", "key", "ref", "state", "render", never "kind", "eigenschappen", "sleutel" (user decision, 2026-09-30). Explain what the term means in Dutch if needed, but keep the English word itself.
 - Your own reasoning, scaffolding and checklists' file paths stay English.
 
 Example of the split:
