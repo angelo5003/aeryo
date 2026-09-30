@@ -1,18 +1,14 @@
 "use client";
 
-import { Box } from "@chakra-ui/react";
 import { motion, useReducedMotion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import * as React from "react";
-import { hasAlreadyBootedIntro, markIntroBooted } from "@/app/introBootFlag";
 import { useAuth } from "@/app/_providers/Auth/AuthProvider";
 import { OnboardingCarousel } from "@/app/_providers/Onboarding/OnboardingCarousel/OnboardingCarousel";
 import { useOnboarding } from "@/app/_providers/Onboarding/Provider/OnboardingProvider";
 import { IntroScreen } from "@/app/_providers/SplashScreen/IntroScreen/IntroScreen";
 import { useSplashScreen } from "@/app/_providers/SplashScreen/Provider/SplashProvider";
-import { Button } from "@/components/actions/Button/Button";
-import { Heading } from "@/components/typography/Heading";
-import { useSignOutAccount } from "@/app/_hooks/useSignOutAccount/useSignOutAccount";
+import { hasAlreadyBootedIntro, markIntroBooted } from "@/app/introBootFlag";
 
 // Intro stays up at least this long after the photo loads, even on a fast phone.
 const MIN_INTRO_MS = 2500;
@@ -29,7 +25,6 @@ export default function Home() {
   const { hasCompletedOnboarding, completeOnboarding } = useOnboarding();
   // session = logged-in user or null. isReady = Supabase has answered at least once.
   const { session, isReady } = useAuth();
-  const { signOut } = useSignOutAccount();
   const [minDwellElapsed, setMinDwellElapsed] = React.useState(false);
   // Extra “app data loaded” switch. Hard-coded true until real loading exists.
   const [appReady] = React.useState(true);
@@ -48,11 +43,18 @@ export default function Home() {
   // Photo slides: intro done, loading done, not logged in, slides not finished.
   const showOnboarding =
     !showIntro && session === null && hasCompletedOnboarding !== true;
-  // Seen the slides (skipped or finished) but never made an account. Home has
-  // nothing to show this visitor — send them to the same /signup route
-  // OnboardingCarousel's own Skip/CTA already use, instead of "Hello world".
+  // Saw the slides but has no account yet.
+  // Send them to /signup, same place the slides' Skip button goes.
   const needsAccount =
     !showIntro && session === null && hasCompletedOnboarding === true;
+
+  // Logged in and the intro is done.
+  // Swap "/" for "/home" so the Home tab lights up and Back skips the intro.
+  const shouldRedirectToHome = !showIntro && session !== null;
+
+  React.useEffect(() => {
+    if (shouldRedirectToHome) router.replace("/home");
+  }, [shouldRedirectToHome, router]);
 
   React.useEffect(() => {
     if (needsAccount) router.replace("/signup");
@@ -77,7 +79,8 @@ export default function Home() {
     return () => clearTimeout(timeout);
   }, [showIntro, skipIntro, reduceMotion]);
 
-  // Stay on intro/slides until we are ready to pick guest vs member home.
+  // Show the intro or the slides while we wait or while the visitor has no account.
+  // Every other case is already on its way to /home or /signup.
   if (showIntro || showOnboarding || needsAccount) {
     return (
       <>
@@ -118,23 +121,7 @@ export default function Home() {
     );
   }
 
-  return (
-    <Box
-      bg="bg"
-      color="fg"
-      // Home sits in the padded body area. Do not use full viewport height or it will double-count the notch.
-      flex="1"
-      display="flex"
-      alignItems="center"
-      justifyContent="center"
-    >
-      {/* session is always truthy here: session===null falls into either
-          showOnboarding or needsAccount above (both already handled and
-          returned), so this final branch never sees a logged-out visitor. */}
-      <Heading as="h1">
-        Hello member, you are in the logged in lobby of the app
-      </Heading>
-      <Button onClick={() => signOut()}>Sign out</Button>
-    </Box>
-  );
+  // Nothing to show here: the effects above are already moving to /home.
+  // The next page appears as soon as that navigation finishes.
+  return null;
 }
