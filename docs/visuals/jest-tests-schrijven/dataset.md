@@ -108,7 +108,8 @@ cannot scroll. You scroll the element you made yourself.
 
 ```
 scrollingElement.scrollTop = 200;
-expect(result.current).toBe(true);
+fireEvent.scroll(scrollingElement);
+await waitFor(() => expect(result.current).toBe(true));
 ```
 
 Explanation: The element (`scrollingElement`) is what you control. The
@@ -223,9 +224,10 @@ Left code (monospace, 1 line):
 result.current.scrollTo(0, 200);
 Left explanation: "Here result.current is a boolean (true or false). A boolean cannot scroll. You scroll the element you made yourself."
 Right panel label: "After — Scroll the element, read the answer"
-Right code (monospace, 2 lines):
+Right code (monospace, 3 lines):
 scrollingElement.scrollTop = 200;
-expect(result.current).toBe(true);
+fireEvent.scroll(scrollingElement);
+await waitFor(() => expect(result.current).toBe(true));
 Right explanation: "The element (scrollingElement) is what you control. The answer (result.current) is what you check."
 Footer: "Read result.current again after every change. It updates when the hook gives a new answer."
 
