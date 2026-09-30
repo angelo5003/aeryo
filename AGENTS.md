@@ -89,6 +89,36 @@ Rules:
   `// matches src/components/actions/Button/Button.tsx`.
 - Before calling code done: `npm run typecheck` and `npm run lint` must pass.
 
+# Naming: plain, descriptive names
+
+Motto: keep it simple, easy and descriptive. Someone with no coding knowledge
+should be able to read a name and know what it holds or does. Applies to every
+new variable, constant, function, hook, component, prop, type, file and test.
+
+- **Full words, no abbreviations.** `scrollPosition`, not `y`/`pos`/`prev`;
+  `button`, not `btn`. Standard acronyms (`id`, `url`, `API`) are fine.
+- **Say what it is for, not just what it is.** `lastCheckedScrollPosition`, not
+  `previousY`; `ALWAYS_SHOW_BAR_WITHIN_TOP_PIXELS`, not `TOP_ZONE_PX`.
+- **Units in the name, spelled out:** `…_PIXELS`, `…_MILLISECONDS`, `…_SECONDS`.
+- **Booleans read as a yes/no question:** `isBarHidden`, `hasSession`,
+  `shouldRedirect`. Setter mirrors it: `setIsBarHidden`.
+- **Functions and hooks start with a verb:** `hideBarWhenScrollingDown`,
+  `useHideOnScroll`, `signOutAccount`. Event handlers: `handle…` / `on…`.
+- **Refs name the thing they point at + `Ref`:** `scrollingElementRef`, not `ref`.
+- **Callback parameters get real names too:** `(newScrollPosition) => …`, not
+  `(y) => …`. One-letter names only for trivial index loops.
+- **Library names stay as the library spells them** (`scrollY`, `useScroll`,
+  `onAuthStateChange`). Rename at the boundary with an alias when it helps:
+  `const { scrollY: scrollPositionFromTop } = useScroll(...)`.
+- **Long is fine, vague is not.** A longer name that needs no comment beats a
+  short one that does. If a name needs a comment to be understood, rename it.
+- **Functions, components and hooks are arrow functions:**
+  `export const useHideOnScroll = (...): boolean => { ... };`, never
+  `function useHideOnScroll()`.
+- Test names follow `TESTING.md` ("should do X when Y happens").
+
+Existing code isn't renamed wholesale; rename when you touch it.
+
 # Aeryo Engineering Constitution
 
 ## 1. Evidence First

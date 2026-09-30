@@ -2,6 +2,8 @@
 
 import type React from "react";
 import { LuLockKeyhole, LuMail, LuUser } from "react-icons/lu";
+import { useCreateAccountForm } from "@/app/(auth)/_hooks/useCreateAccountForm";
+import { useCreateAccountSubmit } from "@/app/(auth)/_hooks/useCreateAccountSubmit/useCreateAccountSubmit";
 import { Button } from "@/components/actions/Button/Button";
 import { Field } from "@/components/forms/Field/Field";
 import { Form } from "@/components/forms/Form/Form";
@@ -11,8 +13,6 @@ import { Input } from "@/components/forms/Input/Input";
 import { InputGroup } from "@/components/forms/InputGroup/InputGroup";
 import { PasswordInput } from "@/components/forms/PasswordInput/PasswordInput";
 import { Stack } from "@/components/primitives/Stack/Stack";
-import { useCreateAccountForm } from "@/app/(auth)/_hooks/useCreateAccountForm";
-import { useCreateAccountSubmit } from "@/app/(auth)/_hooks/useCreateAccountSubmit/useCreateAccountSubmit";
 
 const CreateAccountForm: React.FC = () => {
   const methods = useCreateAccountForm();

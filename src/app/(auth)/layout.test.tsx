@@ -55,9 +55,7 @@ describe("AuthLayout", () => {
   it("renders the AERYO heading once the auth state is ready", () => {
     buildComponent();
 
-    expect(
-      screen.getByRole("heading", { name: "AERYO" }),
-    ).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "AERYO" })).toBeInTheDocument();
   });
 
   it("renders the page content passed as children", () => {
@@ -66,23 +64,21 @@ describe("AuthLayout", () => {
     expect(screen.getByText("Form content")).toBeInTheDocument();
   });
 
-  it("redirects to / once a session exists", async () => {
+  it("redirects to /home once a session exists", async () => {
     buildComponent();
 
     await act(async () => {
       authCallback({ user: { id: "1" } });
     });
 
-    expect(routerReplace).toHaveBeenCalledWith("/");
+    expect(routerReplace).toHaveBeenCalledWith("/home");
   });
 
   it("shows the login switch-link on /signup", () => {
     mockPathname = "/signup";
     buildComponent();
 
-    expect(
-      screen.getByText("Already have an account?"),
-    ).toBeInTheDocument();
+    expect(screen.getByText("Already have an account?")).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Login" })).toHaveAttribute(
       "href",
       "/login",

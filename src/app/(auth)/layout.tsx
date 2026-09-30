@@ -48,11 +48,11 @@ const AuthLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { session, isReady } = useAuth();
   const pathname = usePathname();
 
-  // After signup (or if already logged in), send the user home.
+  // After signup (or if already logged in), send the user to the home page.
   // Wait for AuthProvider to finish checking first, so we don't
   // flash the form and then yank them away.
   useEffect(() => {
-    if (isReady && session) router.replace("/");
+    if (isReady && session) router.replace("/home");
   }, [isReady, session, router]);
 
   if (!isReady || session) return null;
