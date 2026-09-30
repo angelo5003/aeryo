@@ -340,6 +340,8 @@ export const semanticTokens = {
     // and needed a shade bumped a step darker/lighter than Chakra's
     // default formula to clear AA.
     teal: {
+      // Also the bottom tab bar's active tab. On `bg.chrome` worst case:
+      // 8.72:1 light (teal.800), 9.11:1 dark (teal.300 mint).
       fg: {
         value: { _light: "{colors.teal.800}", _dark: "{colors.teal.300}" },
       },
