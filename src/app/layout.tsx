@@ -4,7 +4,6 @@ import { Provider } from "@/components/ui/provider";
 import { SafeAreaProvider } from "@/components/ui/safe-area";
 import { THEME_INIT_SCRIPT } from "@/components/ui/theme-init-script";
 import "./globals.css";
-import { BottomBar } from "./_components/BottomTabBar";
 import { AppUrlAuthHandler } from "./_providers/AppUrl/AppUrlAuthHandler";
 import { AuthProvider } from "./_providers/Auth/AuthProvider";
 import { OnboardingProvider } from "./_providers/Onboarding/Provider/OnboardingProvider";
@@ -58,10 +57,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <OnboardingProvider>
             <AuthProvider>
               <SafeAreaProvider>
-                <Provider>
-                  {children}
-                  <BottomBar isBottomBarHidden={false} />
-                </Provider>
+                <Provider>{children}</Provider>
               </SafeAreaProvider>
             </AuthProvider>
           </OnboardingProvider>
