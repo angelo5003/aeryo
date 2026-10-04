@@ -77,6 +77,7 @@ body {
   padding-bottom: var(--safe-bottom);
   padding-left: var(--safe-left);
   padding-right: var(--safe-right);
+  -webkit-tap-highlight-color: transparent;
 }
 
 /*
