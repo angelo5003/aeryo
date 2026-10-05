@@ -1,9 +1,9 @@
 import { act, fireEvent, render, screen } from "@testing-library/react";
-import { Provider } from "@/components/ui/provider";
-import { __resetIntroBootFlag } from "@/app/introBootFlag";
 import { AuthProvider } from "@/app/_providers/Auth/AuthProvider";
 import { OnboardingProvider } from "@/app/_providers/Onboarding/Provider/OnboardingProvider";
 import { SplashProvider } from "@/app/_providers/SplashScreen/Provider/SplashProvider";
+import { __resetIntroBootFlag } from "@/app/introBootFlag";
+import { Provider } from "@/components/ui/provider";
 import Home from "./page";
 
 const routerReplace = jest.fn();
@@ -85,7 +85,7 @@ describe("Home", () => {
     expect(screen.queryByText("Hello world")).not.toBeInTheDocument();
   });
 
-  it("shows the logged-in lobby without redirecting once a session exists", async () => {
+  it("should redirect to /home when a session exists after the intro", async () => {
     buildComponent();
 
     await act(async () => {
@@ -93,13 +93,10 @@ describe("Home", () => {
     });
     await finishIntro();
 
-    expect(
-      screen.getByText("Hello member, you are in the logged in lobby of the app"),
-    ).toBeInTheDocument();
-    expect(routerReplace).not.toHaveBeenCalled();
+    expect(routerReplace).toHaveBeenCalledWith("/home");
   });
 
-  it("skips the splash and dwell on a second mount in the same session", async () => {
+  it("should redirect to /home without the splash when mounted again in the same session", async () => {
     const { unmount } = buildComponent();
 
     await act(async () => {
@@ -107,18 +104,16 @@ describe("Home", () => {
     });
     await finishIntro();
     unmount();
+    routerReplace.mockClear();
 
-    // Simulates the router.replace("/") remount right after signup: session
-    // is already known, so this second Home mount should never show the
-    // splash image or wait out MIN_INTRO_MS.
+    // Simulates landing on "/" again later in the same session: the session
+    // is already known, so there is no splash image and no MIN_INTRO_MS wait.
     buildComponent();
     await act(async () => {
       authCallback({ user: { id: "1" } });
     });
 
     expect(document.querySelector('img[src="/splash.png"]')).toBeNull();
-    expect(
-      screen.getByText("Hello member, you are in the logged in lobby of the app"),
-    ).toBeInTheDocument();
+    expect(routerReplace).toHaveBeenCalledWith("/home");
   });
 });

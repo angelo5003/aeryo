@@ -11,10 +11,14 @@
         "Technical terms, code and file paths stay in English",
         "No production business logic is written (only scaffolding/pseudocode)",
         "Turn 1 rates the prompt on a 1-10 scale",
+        "Turn 1 states a path classification (Vraag / Kleine wijziging / Feature) — Feature for this prompt",
+        "Turn 1 writes back the goal and success criteria, separating what the user said from assumptions",
         "Turn 1 asks between 1 and 3 clarifying questions and stops without a blueprint",
         "Turn 2 uses @capacitor/preferences for the cache (not localStorage/IndexedDB)",
         "Turn 2 contains an ASCII data-flow diagram",
         "Turn 2 checklist steps each have a file path and a verification line",
+        "Turn 2 checklist steps have Consumes and Produces lines, and every Consumes name matches an earlier Produces",
+        "Turn 2 checklist contains no placeholders such as TBD or 'handle errors' without specifics",
         "Turn 2 names the concrete sources consulted (file paths / skills / MCP)",
         "Turn 2 ends with the Dutch handshake question",
         "Mentions running npm run typecheck and npm run lint"
@@ -42,6 +46,7 @@
       "expected_output": "",
       "files": [],
       "assertions": [
+        "Classifies the request as Vraag and produces no blueprint or checklist",
         "Explanations to the user are written mainly in Dutch",
         "Technical terms, code and file paths stay in English",
         "No production business logic is written (only scaffolding/pseudocode)",

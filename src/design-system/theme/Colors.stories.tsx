@@ -193,6 +193,7 @@ export const SemanticTokens: Story = {
           tokens={[
             { token: "accent.solid", label: "accent.solid" },
             { token: "accent.contrast", label: "accent.contrast" },
+            { token: "teal.fg", label: "teal.fg (active tab)" },
           ]}
         />
         <SemanticGroup
