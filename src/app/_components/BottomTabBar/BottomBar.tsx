@@ -31,6 +31,7 @@ const BottomBar: React.FC<BottomBarProps> = ({ isBottomBarHidden }) => {
       // inert: hidden bar can't be tapped or tabbed to (matters for the
       // reduced-motion fade, where it stays on screen at opacity 0).
       inert={isBottomBarHidden}
+      data-testid="bottom-bar"
     >
       <motion.div
         animate={
