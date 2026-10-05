@@ -6,7 +6,7 @@ const nextConfig: NextConfig = {
   // load the initial HTML from the LAN IP in capacitor.config.ts's
   // server.url, but every JS chunk 403s, so no React code ever runs. See
   // node_modules/next/dist/docs/01-app/03-api-reference/05-config/01-next-config-js/allowedDevOrigins.md.
-  allowedDevOrigins: ["169.254.7.204"],
+  allowedDevOrigins: [process.env.NEXT_PUBLIC_ALLOWED_DEV_ORIGINS || ""],
 
   // Capacitor's webDir is "out" (capacitor.config.ts) — that folder only
   // gets created by `next build` when output is set to a static export.

@@ -15,4 +15,17 @@ if (typeof window !== "undefined" && !window.matchMedia) {
     removeEventListener: () => {},
     dispatchEvent: () => false,
   });
+
+  jest.mock("@/components/data-display/Toaster", () => ({
+    Toaster: () => null,
+    toaster: {
+      create: jest.fn(),
+      success: jest.fn(),
+      error: jest.fn(),
+      warning: jest.fn(),
+      info: jest.fn(),
+      loading: jest.fn(),
+      dismiss: jest.fn(),
+    },
+  }));
 }
