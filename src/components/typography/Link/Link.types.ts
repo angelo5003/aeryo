@@ -1,4 +1,5 @@
 import type { LinkProps as ChakraLinkProps } from "@chakra-ui/react";
+import type { Route } from "next";
 import type { LinkProps as NextLinkProps } from "next/link";
 
 /**
@@ -15,6 +16,9 @@ import type { LinkProps as NextLinkProps } from "next/link";
  * reason; leaving `href` unset renders a plain, inert anchor.
  */
 export type LinkProps = Omit<ChakraLinkProps, "colorPalette" | "href"> &
-  Pick<NextLinkProps, "prefetch" | "replace" | "scroll" | "onNavigate"> & {
-    href?: NextLinkProps["href"];
+  Pick<
+    NextLinkProps<Route>,
+    "prefetch" | "replace" | "scroll" | "onNavigate"
+  > & {
+    href?: NextLinkProps<Route>["href"];
   };

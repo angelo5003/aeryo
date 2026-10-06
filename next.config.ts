@@ -6,7 +6,9 @@ const nextConfig: NextConfig = {
   // load the initial HTML from the LAN IP in capacitor.config.ts's
   // server.url, but every JS chunk 403s, so no React code ever runs. See
   // node_modules/next/dist/docs/01-app/03-api-reference/05-config/01-next-config-js/allowedDevOrigins.md.
-  allowedDevOrigins: [process.env.NEXT_PUBLIC_ALLOWED_DEV_ORIGINS || ""],
+  allowedDevOrigins: process.env.ALLOWED_DEV_ORIGINS
+    ? [process.env.ALLOWED_DEV_ORIGINS]
+    : [],
 
   // Capacitor's webDir is "out" (capacitor.config.ts) — that folder only
   // gets created by `next build` when output is set to a static export.
@@ -14,6 +16,10 @@ const nextConfig: NextConfig = {
   // for `npx cap sync` to bundle into the native app at all. See
   // node_modules/next/dist/docs/01-app/02-guides/static-exports.md.
   output: "export",
+
+  // Typed routes are required for the native app to work. See
+  // node_modules/next/dist/docs/01-app/03-api-reference/05-config/01-next-config-js/typedRoutes.md.
+  typedRoutes: true,
 
   // The default next/image loader calls a Next.js server at runtime to
   // resize/optimize images — there is no server once this ships as a
