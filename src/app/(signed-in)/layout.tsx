@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import type React from "react";
 import { useEffect } from "react";
 import { useAuth } from "@/app/_providers/Auth/AuthProvider";
+import { routes } from "@/app/_routes/routes";
 
 interface SignedInLayoutProps {
   children: React.ReactNode;
@@ -17,7 +18,7 @@ const SignedInLayout = ({ children }: SignedInLayoutProps) => {
     if (!isReady) {
       return;
     }
-    if (isReady && !session) router.replace("/");
+    if (isReady && !session) router.replace(routes.start.href);
   }, [isReady, session, router]);
 
   if (!isReady || !session) {

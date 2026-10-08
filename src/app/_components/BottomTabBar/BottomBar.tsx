@@ -68,7 +68,7 @@ const BottomBar: React.FC<BottomBarProps> = ({ isBottomBarHidden }) => {
                 pathname === navItem.href ||
                 pathname.startsWith(navItem.href + "/");
               return (
-                <Box as="li" key={navItem.id} flex={1}>
+                <Box as="li" key={navItem.href} flex={1}>
                   <Link
                     href={navItem.href}
                     display="flex"
@@ -91,7 +91,7 @@ const BottomBar: React.FC<BottomBarProps> = ({ isBottomBarHidden }) => {
                     _hover={{ textDecoration: "none" }}
                     transition="transform {durations.fast} {easings.easeOut}"
                   >
-                    <Icon as={navItem.icon} size="md" aria-hidden />
+                    <Icon as={navItem.tabBarIcon} size="md" aria-hidden />
                     {navItem.label}
                     {isCurrentPage && (
                       // Dot under the active tab; absolute so the label never shifts.

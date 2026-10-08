@@ -1,5 +1,6 @@
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
+import { routes } from "@/app/_routes/routes";
 import { toaster } from "@/components/data-display/Toaster";
 import { accountActions } from "@/lib/account/accountActions";
 
@@ -30,7 +31,7 @@ export const useDeleteAccount = (): UseDeleteAccountResult => {
         description: "Your account and data have been removed.",
         type: "success",
       });
-      router.replace("/signup");
+      router.replace(routes.signup.href);
     } catch {
       toaster.create({
         title: "Something went wrong",

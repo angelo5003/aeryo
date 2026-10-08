@@ -1,44 +1,13 @@
 import type { IconType } from "react-icons";
-import { LuCompass, LuGauge, LuHouse, LuUser, LuUsers } from "react-icons/lu";
+import { type AppRoute, getRiderRoutes } from "@/app/_routes/routes";
 
-type NavItemId = "home" | "explore" | "sessions" | "community" | "profile";
+// A route that is sure to have a tab bar icon.
+type TabBarRoute = AppRoute & { tabBarIcon: IconType };
 
-interface NavItem {
-  id: NavItemId;
-  label: string;
-  icon: IconType;
-  href: `/${NavItemId}`;
-}
-
-export const navItems: readonly NavItem[] = [
-  {
-    id: "home",
-    label: "Home",
-    icon: LuHouse,
-    href: "/home",
-  },
-  {
-    id: "explore",
-    label: "Explore",
-    icon: LuCompass,
-    href: "/explore",
-  },
-  {
-    id: "sessions",
-    label: "Sessions",
-    icon: LuGauge,
-    href: "/sessions",
-  },
-  {
-    id: "community",
-    label: "Community",
-    icon: LuUsers,
-    href: "/community",
-  },
-  {
-    id: "profile",
-    label: "Profile",
-    icon: LuUser,
-    href: "/profile",
-  },
-];
+// The tabs in the bottom bar: every rider page that has a tab bar icon,
+// in the same order as in routes.ts. Pages without an icon (Start, Settings)
+// are left out. The "route is TabBarRoute" part tells TypeScript that every
+// route that passes this check has an icon, so BottomBar can use it directly.
+export const navItems: readonly TabBarRoute[] = getRiderRoutes().filter(
+  (route): route is TabBarRoute => route.tabBarIcon !== undefined,
+);

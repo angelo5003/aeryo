@@ -8,6 +8,7 @@ import { OnboardingCarousel } from "@/app/_providers/Onboarding/OnboardingCarous
 import { useOnboarding } from "@/app/_providers/Onboarding/Provider/OnboardingProvider";
 import { IntroScreen } from "@/app/_providers/SplashScreen/IntroScreen/IntroScreen";
 import { useSplashScreen } from "@/app/_providers/SplashScreen/Provider/SplashProvider";
+import { routes } from "@/app/_routes/routes";
 import { hasAlreadyBootedIntro, markIntroBooted } from "@/app/introBootFlag";
 
 // Intro stays up at least this long after the photo loads, even on a fast phone.
@@ -53,11 +54,11 @@ export default function Home() {
   const shouldRedirectToHome = !showIntro && session !== null;
 
   React.useEffect(() => {
-    if (shouldRedirectToHome) router.replace("/home");
+    if (shouldRedirectToHome) router.replace(routes.home.href);
   }, [shouldRedirectToHome, router]);
 
   React.useEffect(() => {
-    if (needsAccount) router.replace("/signup");
+    if (needsAccount) router.replace(routes.signup.href);
   }, [needsAccount, router]);
 
   // Hide the native splash, then start the intro timer.

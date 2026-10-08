@@ -1,5 +1,6 @@
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
+import { routes } from "@/app/_routes/routes";
 import { toaster } from "@/components/data-display/Toaster";
 import { accountActions } from "@/lib/account/accountActions";
 
@@ -27,7 +28,7 @@ export const useSignOutAccount = (): UseSignOutAccountResult => {
         description: "You have been signed out.",
         type: "success",
       });
-      router.replace("/login");
+      router.replace(routes.login.href);
     } catch {
       toaster.create({
         title: "Couldn't sign you out",

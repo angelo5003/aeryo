@@ -7,6 +7,7 @@ import { usePathname, useRouter } from "next/navigation";
 import type React from "react";
 import { useEffect, useState } from "react";
 import { useAuth } from "@/app/_providers/Auth/AuthProvider";
+import { routes } from "@/app/_routes/routes";
 import { Stack } from "@/components/primitives/Stack";
 import { Heading } from "@/components/typography/Heading";
 import { Link } from "@/components/typography/Link";
@@ -52,7 +53,7 @@ const AuthLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   // Wait for AuthProvider to finish checking first, so we don't
   // flash the form and then yank them away.
   useEffect(() => {
-    if (isReady && session) router.replace("/home");
+    if (isReady && session) router.replace(routes.home.href);
   }, [isReady, session, router]);
 
   if (!isReady || session) return null;
@@ -84,12 +85,12 @@ const AuthLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
         </Heading>
         {children}
         <footer>
-          {pathname === "/login" && (
+          {pathname === routes.login.href && (
             <Stack direction="row" flexWrap="wrap" justify="center">
               <Text color="fg.muted" fontSize="md">
                 New to AERYO?
                 <Link
-                  href="/signup"
+                  href={routes.signup.href}
                   color="rider.riding"
                   _visited={{ color: "rider.riding" }}
                   fontSize="md"
@@ -100,12 +101,12 @@ const AuthLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
               </Text>
             </Stack>
           )}
-          {pathname === "/signup" && (
+          {pathname === routes.signup.href && (
             <Stack direction="row" flexWrap="wrap" justify="center">
               <Text color="fg.muted" fontSize="md">
                 Already have an account?
                 <Link
-                  href="/login"
+                  href={routes.login.href}
                   color="rider.riding"
                   _visited={{ color: "rider.riding" }}
                   fontSize="md"
