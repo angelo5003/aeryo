@@ -154,15 +154,15 @@ export const getPublicRoutes = (): AppRoute[] => getRoutesForAccess("public");
   - Produces: `getRoutesForAccess(access: RouteAccess): AppRoute[]`, `getRiderRoutes(): AppRoute[]`, `getPublicRoutes(): AppRoute[]`
   - Verify: `npx jest src/app/_routes` is groen (2 passed, 2026-10-08).
 
-- [ ] **Step 5: `navItems` uit routes bouwen** (`src/app/_components/BottomTabBar/navItems.ts` en `BottomBar.tsx`)
+- [x] **Step 5: `navItems` uit routes bouwen** (`src/app/_components/BottomTabBar/navItems.ts` en `BottomBar.tsx`)
   - `navItems.ts`: vervang de hele lijst door `getRiderRoutes()`, gefilterd op `tabBarIcon`. Gebruik een type guard (`(route): route is AppRoute & { tabBarIcon: IconType } => …`), zodat `tabBarIcon` daarna niet meer optioneel is. `NavItemId` en `NavItem` gaan weg. `/` en `/settings` vallen vanzelf weg, want die hebben geen `tabBarIcon`.
   - `BottomBar.tsx`: vervang `navItem.icon` door `navItem.tabBarIcon` en `key={navItem.id}` door `key={navItem.href}`.
   - Uses: —
   - Consumes: `getRiderRoutes(): AppRoute[]`, `AppRoute` (step 4)
   - Produces: `navItems: readonly (AppRoute & { tabBarIcon: IconType })[]`
-  - Verify: `npx jest src/app/_components/BottomTabBar` is groen. De bestaande tests checken `/home` en `/profile`.
+  - Verify: `npx jest src/app/_components/BottomTabBar` is groen. Een extra test checkt de exacte lijst tab-hrefs in volgorde, zodat Start en Settings er niet in kunnen komen.
 
-- [ ] **Step 6: hardgecodeerde paden vervangen door `routes.x.href`**
+- [x] **Step 6: hardgecodeerde paden vervangen door `routes.x.href`**
   - `src/app/page.tsx` regels 56 en 60;
   - `src/app/(auth)/layout.tsx` regel 55 (`replace`), regels 87 en 103 (`pathname ===`) en regels 92 en 108 (`href`);
   - `src/app/(signed-in)/layout.tsx` regel 20;

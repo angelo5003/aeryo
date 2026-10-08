@@ -1,4 +1,5 @@
 import { LuCompass } from "react-icons/lu";
+import { routes } from "@/app/_routes/routes";
 import { EmptyState } from "@/components/data-display/EmptyState";
 import { Center } from "@/components/primitives/Center";
 import { Link } from "@/components/typography/Link";
@@ -17,7 +18,7 @@ export default function NotFound() {
         // py="3" keeps the tap target at least 44pt tall.
         action={
           <Link
-            href="/"
+            href={routes.start.href}
             color="rider.riding"
             _visited={{ color: "rider.riding" }}
             fontSize="md"

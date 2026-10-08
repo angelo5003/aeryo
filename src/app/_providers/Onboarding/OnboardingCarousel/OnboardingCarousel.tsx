@@ -5,6 +5,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import * as React from "react";
 import { LuArrowRight } from "react-icons/lu";
+import { routes } from "@/app/_routes/routes";
 import { Button } from "@/components/actions/Button";
 import { ProgressDots } from "@/components/data-display/ProgressDots";
 import { Stack } from "@/components/primitives/Stack";
@@ -60,7 +61,7 @@ export function OnboardingCarousel({ onComplete }: OnboardingCarouselProps) {
   const goToSignup = React.useCallback(() => {
     React.startTransition(() => {
       onComplete();
-      router.push("/signup");
+      router.push(routes.signup.href);
     });
   }, [onComplete, router]);
 

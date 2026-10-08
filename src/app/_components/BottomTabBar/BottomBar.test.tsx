@@ -58,6 +58,23 @@ describe("BottomBar", () => {
     );
   });
 
+  it("should only show the rider routes that have a tab bar icon, in tab order", () => {
+    buildComponent(false);
+
+    const tabHrefs = screen
+      .getAllByRole("link")
+      .map((link) => link.getAttribute("href"));
+
+    // Start ("/") and Settings are rider routes too, but have no tabBarIcon.
+    expect(tabHrefs).toStrictEqual([
+      "/home",
+      "/explore",
+      "/sessions",
+      "/community",
+      "/profile",
+    ]);
+  });
+
   it("should not render the bottom bar when it is hidden", () => {
     buildComponent(true);
 
