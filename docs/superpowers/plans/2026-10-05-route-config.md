@@ -177,14 +177,14 @@ export const getPublicRoutes = (): AppRoute[] => getRoutesForAccess("public");
     - `grep -rnE 'router\.(replace|push)\("/|href="/|pathname === "/' src --include='*.ts' --include='*.tsx' | grep -v test` vindt niets;
     - `npm test` is groen. Tests die `"/login"` enzovoort verwachten, kloppen nog, want de waarde blijft hetzelfde.
 
-- [ ] **Step 7: eindcontrole**
+- [x] **Step 7: eindcontrole**
   - Uses: —
   - Consumes: alles hierboven
   - Produces: —
   - Verify:
-    - `npm run typecheck`, `npm run lint` en `npm test` zijn groen;
-    - `npm run build` maakt `out/` aan, wat bewijst dat `typedRoutes` werkt met `output: "export"`;
-    - `npm run dev` op je telefoon: tik alle vijf tabs aan, log uit (je komt op `/login`) en log in (je komt op `/home`).
+    - `npm run typecheck`, `npm run lint` en `npm test` zijn groen (39 suites, 161 tests, 2026-10-09);
+    - `npm run build` maakt `out/` aan, wat bewijst dat `typedRoutes` werkt met `output: "export"` (10 routes, allemaal static, 2026-10-09);
+    - `npm run dev` op je telefoon: tik alle vijf tabs aan, log uit (je komt op `/login`) en log in (je komt op `/home`) (device ok, 2026-10-09).
 
 ## Kwaliteitspoorten
 
