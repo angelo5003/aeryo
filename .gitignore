@@ -104,3 +104,6 @@ graphify-out/
 
 # skill-creator eval results (local only)
 .claude/skills/aeryo-mentor-workspace/
+
+# Serena MCP server: local per-machine config, cache and memories
+.serena/
