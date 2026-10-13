@@ -56,6 +56,9 @@ supabase/functions/**/.env.*
 # superpowers scratch workspace (subagent-driven-development ledgers, briefs, reports)
 .superpowers/
 
+# Mentor blueprints (/aeryo-mentor, PLAN:) are local working docs, never committed
+docs/superpowers/plans/
+
 # typescript
 *.tsbuildinfo
 .tsbuildinfo*
