@@ -380,9 +380,11 @@ export const semanticTokens = {
       // The outline of outline-style `ink` buttons (secondary intent), a
       // control boundary, so it needs 3:1. Light verified 4.80:1/4.60:1/
       // 4.31:1/5.04:1 against bg/bg.subtle/bg.muted/bg.panel; the old
-      // paper.300 reached only 1.10:1 to 1.29:1.
+      // paper.300 reached only 1.10:1 to 1.29:1. Dark verified 6.05:1/
+      // 4.86:1/4.12:1/4.86:1 on the same grounds; the old ink.800 reached
+      // only 1.00:1 to 1.47:1. Same step as this palette's `focusRing`.
       border: {
-        value: { _light: "{colors.ink.500}", _dark: "{colors.ink.800}" },
+        value: { _light: "{colors.ink.500}", _dark: "{colors.ink.400}" },
       },
     },
     danger: {

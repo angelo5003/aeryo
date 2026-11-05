@@ -4,12 +4,17 @@ import { colors } from "@/design-system/tokens/colors";
 const TEXT_MINIMUM_CONTRAST = 4.5;
 const MARK_MINIMUM_CONTRAST = 3;
 
-type LightModeToken = { value: { _light: string } };
+type ColorModeKey = "_light" | "_dark";
+type TokenWithBothModes = { value: Record<ColorModeKey, string> };
 
-const readPrimitiveHex = (lightModeToken: LightModeToken): string => {
+const readPrimitiveHex = (
+  token: TokenWithBothModes,
+  colorModeKey: ColorModeKey,
+): string => {
+  const tokenValue = token.value[colorModeKey];
   // `bg.panel` is plain white in light mode, not a reference into the palette.
-  if (lightModeToken.value._light === "white") return "#FFFFFF";
-  const colorPath = lightModeToken.value._light.replace(/^\{colors\.|\}$/g, "");
+  if (tokenValue === "white") return "#FFFFFF";
+  const colorPath = tokenValue.replace(/^\{colors\.|\}$/g, "");
   const [family, step] = colorPath.split(".");
   const colorFamily = colors[family as keyof typeof colors] as Record<
     string,
@@ -37,7 +42,7 @@ const getContrastRatio = (firstHex: string, secondHex: string): number => {
   return (lighter + 0.05) / (darker + 0.05);
 };
 
-const { bg, fg, border, rider, session, wind } = semanticTokens.colors;
+const { bg, fg, border, rider, session, wind, ink } = semanticTokens.colors;
 
 describe("semantic tokens in light mode", () => {
   test.each([
@@ -48,7 +53,10 @@ describe("semantic tokens in light mode", () => {
     ["fg.muted on bg.muted", fg.muted, bg.muted],
   ])("should keep %s readable as text", (_pairName, foreground, ground) => {
     expect(
-      getContrastRatio(readPrimitiveHex(foreground), readPrimitiveHex(ground)),
+      getContrastRatio(
+        readPrimitiveHex(foreground, "_light"),
+        readPrimitiveHex(ground, "_light"),
+      ),
     ).toBeGreaterThanOrEqual(TEXT_MINIMUM_CONTRAST);
   });
 
@@ -61,24 +69,29 @@ describe("semantic tokens in light mode", () => {
     ["border.info", border.info],
   ])("should keep %s visible as a mark on bg", (_tokenName, mark) => {
     expect(
-      getContrastRatio(readPrimitiveHex(mark), readPrimitiveHex(bg.DEFAULT)),
+      getContrastRatio(
+        readPrimitiveHex(mark, "_light"),
+        readPrimitiveHex(bg.DEFAULT, "_light"),
+      ),
     ).toBeGreaterThanOrEqual(MARK_MINIMUM_CONTRAST);
   });
+});
 
+describe.each([
+  ["light", "_light"],
+  ["dark", "_dark"],
+] as const)("the ink button outline in %s mode", (_modeName, colorModeKey) => {
   test.each([
     ["bg", bg.DEFAULT],
     ["bg.subtle", bg.subtle],
     ["bg.muted", bg.muted],
     ["bg.panel", bg.panel],
-  ])(
-    "should keep the ink button outline visible on %s",
-    (_groundName, ground) => {
-      expect(
-        getContrastRatio(
-          readPrimitiveHex(semanticTokens.colors.ink.border),
-          readPrimitiveHex(ground),
-        ),
-      ).toBeGreaterThanOrEqual(MARK_MINIMUM_CONTRAST);
-    },
-  );
+  ])("should stay visible on %s", (_groundName, ground) => {
+    expect(
+      getContrastRatio(
+        readPrimitiveHex(ink.border, colorModeKey),
+        readPrimitiveHex(ground, colorModeKey),
+      ),
+    ).toBeGreaterThanOrEqual(MARK_MINIMUM_CONTRAST);
+  });
 });
