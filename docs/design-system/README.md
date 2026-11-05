@@ -93,6 +93,4 @@ Any data a screen reads needs a cached copy or an explicit unavailable message. 
 
 `success-border` reaches 1.78:1 on `bg` in light mode, under the 3:1 target. It outlines `success` badges, so always pair it with a word.
 
-`ink-border` is `ink-800` in dark mode, the outline of outline-style secondary buttons. It reaches 1.47:1 on `bg`, 1.18:1 on `bg-subtle` and `bg-panel`, and 1.00:1 on `bg-muted`, under the 3:1 target for a control boundary. Do not rely on the outline alone to show where a secondary button is in dark mode.
-
 **Not carried over as tokens:** the `safe.*` insets and the motion values, listed above instead, and the Chakra default steps the theme inherits but does not sanction. `Provider`, `ColorModeButton`, `Tooltip` and the other helpers in `src/components/ui` have no cards, because they are app wiring rather than design system components.
