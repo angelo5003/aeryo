@@ -8,7 +8,7 @@ import os from "node:os";
 import path from "node:path";
 import { build } from "esbuild";
 
-const SOURCE_COMMIT = process.argv[2] ?? "unknown";
+const SOURCE_REF = process.argv[2] ?? "unknown";
 
 const loadSourceModule = async (sourceFile) => {
   const temporaryFolder = await mkdtemp(
@@ -168,47 +168,16 @@ const PALETTE_ROLE_USAGE = {
   border: "Palette's outline.",
 };
 
+const TOKENS_WITH_KNOWN_GAPS = {
+  "success-border":
+    "Outline for success badges. Light mode reaches 1.78:1 on `bg`, under the 3:1 target, so pair it with a word.",
+};
+
 const PALETTE_NAMES = ["teal", "ink", "danger", "caution", "success"];
 
-const THEME_NOTES = {};
-const addThemeNote = (tokenName, note) => {
-  THEME_NOTES[tokenName] = note;
-};
-addThemeNote(
-  "fg-subtle",
-  "Quietest text on `bg` and `bg-subtle` only. Light mode reaches 2.99:1 and 2.86:1, under the 4.5:1 target.",
-);
-addThemeNote(
-  "fg-muted",
-  "Supporting text on `bg`, `bg-subtle` and `bg-muted`. Light mode on `bg-muted` reaches 4.31:1, under the 4.5:1 target.",
-);
-addThemeNote(
-  "rider-offline",
-  "Rider presence: offline. Light mode reaches 2.02:1 on `bg`, under the 3:1 target, so always pair it with the word.",
-);
-addThemeNote(
-  "session-completed",
-  "Session status: finished. Light mode reaches 2.99:1 on `bg`, just under the 3:1 target.",
-);
-addThemeNote(
-  "wind-calm",
-  "Wind scale, calm. Pair with a label and a number. Light mode reaches 2.99:1 on `bg`, just under the 3:1 target.",
-);
-addThemeNote(
-  "wind-strong",
-  "Wind scale, strong. The only role that uses lime. Light mode reaches 2.90:1 on `bg`, under the 3:1 target.",
-);
-addThemeNote(
-  "border-success",
-  "Success edge. Light mode reaches 1.78:1 on `bg`, under the 3:1 target, so pair it with a word or icon.",
-);
-addThemeNote(
-  "border-info",
-  "Info edge. Light mode reaches 2.58:1 on `bg`, under the 3:1 target, so pair it with a word or icon.",
-);
-
 const describeSemanticToken = (tokenName) => {
-  if (THEME_NOTES[tokenName]) return THEME_NOTES[tokenName];
+  if (TOKENS_WITH_KNOWN_GAPS[tokenName])
+    return TOKENS_WITH_KNOWN_GAPS[tokenName];
   if (SEMANTIC_USAGE[tokenName]) return SEMANTIC_USAGE[tokenName];
   const palette = PALETTE_NAMES.find((paletteName) =>
     tokenName.startsWith(`${paletteName}-`),
@@ -302,7 +271,7 @@ const tokens = {
   meta: {
     source: "github",
     repo: "angelo5003/aeryo",
-    ref: `main@${SOURCE_COMMIT}`,
+    ref: SOURCE_REF,
     paths: {
       tokens: ["src/design-system/tokens", "src/design-system/theme"],
       fonts: ["src/app/layout.tsx"],
@@ -564,6 +533,9 @@ const MARK_PAIRS = [
   ["border-warning", "bg"],
   ["border-success", "bg"],
   ["border-info", "bg"],
+  ["danger-border", "bg"],
+  ["caution-border", "bg"],
+  ["success-border", "bg"],
 ];
 
 const reportFailingPairs = (pairs, minimumRatio, label) => {

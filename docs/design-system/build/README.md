@@ -5,7 +5,7 @@ This folder regenerates `docs/design-system` from the real code in `src/`, so th
 Run these from the repository root, in this order:
 
 ```bash
-node docs/design-system/build/generate-tokens.mjs "$(git rev-parse --short HEAD)"
+node docs/design-system/build/generate-tokens.mjs "$(git branch --show-current)@$(git rev-parse --short HEAD)"
 node docs/design-system/build/generate-components.mjs
 node docs/design-system/build/build-bundle.mjs
 npx prettier --write docs/design-system

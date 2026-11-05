@@ -91,18 +91,6 @@ Any data a screen reads needs a cached copy or an explicit unavailable message. 
 
 ## Known gaps
 
-These pairs come straight from the code and miss the contrast targets in light mode, so check them before using them on a new surface:
-
-| Pair                        | Ratio  | Target |
-| --------------------------- | ------ | ------ |
-| `fg-subtle` on `bg`         | 2.99:1 | 4.5:1  |
-| `fg-subtle` on `bg-subtle`  | 2.86:1 | 4.5:1  |
-| `fg-muted` on `bg-muted`    | 4.31:1 | 4.5:1  |
-| `rider-offline` on `bg`     | 2.02:1 | 3:1    |
-| `session-completed` on `bg` | 2.99:1 | 3:1    |
-| `wind-calm` on `bg`         | 2.99:1 | 3:1    |
-| `wind-strong` on `bg`       | 2.90:1 | 3:1    |
-| `border-success` on `bg`    | 1.78:1 | 3:1    |
-| `border-info` on `bg`       | 2.58:1 | 3:1    |
+`success-border` reaches 1.78:1 on `bg` in light mode, under the 3:1 target. It outlines `success` badges, so always pair it with a word.
 
 **Not carried over as tokens:** the `safe.*` insets and the motion values, listed above instead, and the Chakra default steps the theme inherits but does not sanction. `Provider`, `ColorModeButton`, `Tooltip` and the other helpers in `src/components/ui` have no cards, because they are app wiring rather than design system components.
