@@ -38,6 +38,7 @@ const COMPONENTS = [
     h(Button, { intent: "danger" }, "Delete account")),
   h(Flex, { gap: "2", wrap: "wrap", align: "center" },
     h(Button, { variant: "outline" }, "Outline"),
+    h(Button, { intent: "secondary", variant: "outline" }, "Secondary outline"),
     h(Button, { variant: "subtle" }, "Subtle"),
     h(Button, { variant: "ghost" }, "Ghost"),
     h(Button, { size: "sm" }, "Small"),
