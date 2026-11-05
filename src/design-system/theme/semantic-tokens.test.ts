@@ -7,6 +7,8 @@ const MARK_MINIMUM_CONTRAST = 3;
 type LightModeToken = { value: { _light: string } };
 
 const readPrimitiveHex = (lightModeToken: LightModeToken): string => {
+  // `bg.panel` is plain white in light mode, not a reference into the palette.
+  if (lightModeToken.value._light === "white") return "#FFFFFF";
   const colorPath = lightModeToken.value._light.replace(/^\{colors\.|\}$/g, "");
   const [family, step] = colorPath.split(".");
   const colorFamily = colors[family as keyof typeof colors] as Record<
@@ -62,4 +64,21 @@ describe("semantic tokens in light mode", () => {
       getContrastRatio(readPrimitiveHex(mark), readPrimitiveHex(bg.DEFAULT)),
     ).toBeGreaterThanOrEqual(MARK_MINIMUM_CONTRAST);
   });
+
+  test.each([
+    ["bg", bg.DEFAULT],
+    ["bg.subtle", bg.subtle],
+    ["bg.muted", bg.muted],
+    ["bg.panel", bg.panel],
+  ])(
+    "should keep the ink button outline visible on %s",
+    (_groundName, ground) => {
+      expect(
+        getContrastRatio(
+          readPrimitiveHex(semanticTokens.colors.ink.border),
+          readPrimitiveHex(ground),
+        ),
+      ).toBeGreaterThanOrEqual(MARK_MINIMUM_CONTRAST);
+    },
+  );
 });
