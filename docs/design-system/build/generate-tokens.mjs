@@ -128,9 +128,12 @@ const SEMANTIC_USAGE = {
   "fg-subtle": "Quietest text on `bg` and `bg-subtle` only.",
   "fg-emphasized":
     "Field labels and list titles on `bg`, `bg-subtle` and `bg-muted`.",
-  "fg-photo": "Type on a photo scrim. Does not change with color mode.",
-  "fg-photo-muted": "Inactive marks on a photo, such as resting progress dots.",
-  "fg-photo-accent": "Teal link text on a photo scrim.",
+  "fg-photo":
+    "Type on `bg-photo` only, 17.49:1. Does not change with color mode, so never place it on `bg`, `bg-subtle` or `bg-panel`.",
+  "fg-photo-muted":
+    "Inactive marks on `bg-photo` only, such as resting progress dots, 3.61:1. A decorative mark, not text, and it does not change with color mode.",
+  "fg-photo-accent":
+    "Teal link text on `bg-photo` only, 7.01:1. Does not change with color mode, so never place it on `bg` or `bg-panel`.",
   "fg-error": "Error text on `bg`, `bg-subtle` and `bg-error`.",
   "fg-warning": "Warning text on `bg`, `bg-subtle` and `bg-warning`.",
   "fg-success": "Success text on `bg`, `bg-subtle` and `bg-success`.",
@@ -533,6 +536,7 @@ const MARK_PAIRS = [
   ["border-warning", "bg"],
   ["border-success", "bg"],
   ["border-info", "bg"],
+  ["fg-photo-muted", "bg-photo"],
   ["danger-border", "bg"],
   ["caution-border", "bg"],
   ["success-border", "bg"],

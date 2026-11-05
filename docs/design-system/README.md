@@ -36,7 +36,7 @@ Follow these named rules:
 
 Use photos on the intro and onboarding screens, and keep product lists on ink panels. Photos come from `assets/Photos`.
 
-On a photo, use only `bg-photo`, `fg-photo`, `fg-photo-muted` and `fg-photo-accent`. These stay the same in both color modes, because the screen always sits on a dark image. The scrim runs from `bg-photo` at 90% at the bottom, through 35% at the 45% mark, to transparent at 75%. Slow-zoom the photo from scale 1 to 1.06 over 6 seconds, and skip that zoom when the rider has asked for reduced motion.
+On a photo, use only `bg-photo`, `fg-photo`, `fg-photo-muted` and `fg-photo-accent`. These stay the same in both color modes, because the screen always sits on a dark image. Never place them on `bg`, `bg-subtle`, `bg-muted` or `bg-panel`: they are made for the dark photo ground, and fail contrast on the light ones. The scrim runs from `bg-photo` at 90% at the bottom, through 35% at the 45% mark, to transparent at 75%. Slow-zoom the photo from scale 1 to 1.06 over 6 seconds, and skip that zoom when the rider has asked for reduced motion.
 
 ## Typography
 
