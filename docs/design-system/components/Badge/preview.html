@@ -1,0 +1,28 @@
+<!-- @dsCard group="Typography" height=110 -->
+<div id="preview-root" style="padding: 16px"></div>
+<script>
+  const { React, mountPreview, Badge, Flex, Stack } = window.Aeryo;
+  const h = React.createElement;
+
+  mountPreview(
+    document.getElementById("preview-root"),
+    h(
+      Stack,
+      { gap: "2" },
+      h(
+        Flex,
+        { gap: "2", wrap: "wrap" },
+        ["neutral", "success", "warning", "error", "info"].map((intent) =>
+          h(Badge, { key: intent, intent }, intent),
+        ),
+      ),
+      h(
+        Flex,
+        { gap: "2", wrap: "wrap" },
+        ["neutral", "success", "warning", "error", "info"].map((intent) =>
+          h(Badge, { key: intent, intent, variant: "solid" }, intent),
+        ),
+      ),
+    ),
+  );
+</script>

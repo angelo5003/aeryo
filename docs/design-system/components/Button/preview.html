@@ -1,0 +1,34 @@
+<!-- @dsCard group="Actions" height=150 -->
+<div id="preview-root" style="padding: 16px"></div>
+<script>
+  const { React, mountPreview, Button, Stack, Flex } = window.Aeryo;
+  const h = React.createElement;
+
+  mountPreview(
+    document.getElementById("preview-root"),
+    h(
+      Stack,
+      { gap: "3" },
+      h(
+        Flex,
+        { gap: "2", wrap: "wrap" },
+        h(Button, null, "Join session"),
+        h(Button, { intent: "secondary" }, "Secondary"),
+        h(Button, { intent: "success" }, "Success"),
+        h(Button, { intent: "warning" }, "Warning"),
+        h(Button, { intent: "danger" }, "Delete account"),
+      ),
+      h(
+        Flex,
+        { gap: "2", wrap: "wrap", align: "center" },
+        h(Button, { variant: "outline" }, "Outline"),
+        h(Button, { variant: "subtle" }, "Subtle"),
+        h(Button, { variant: "ghost" }, "Ghost"),
+        h(Button, { size: "sm" }, "Small"),
+        h(Button, { size: "lg" }, "Large"),
+        h(Button, { disabled: true }, "Disabled"),
+        h(Button, { loading: true }, "Loading"),
+      ),
+    ),
+  );
+</script>

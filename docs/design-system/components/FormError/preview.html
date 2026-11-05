@@ -1,0 +1,15 @@
+<!-- @dsCard group="Forms" height=88 -->
+<div id="preview-root" style="padding: 16px"></div>
+<script>
+  const { React, mountPreview, FormError } = window.Aeryo;
+  const h = React.createElement;
+
+  mountPreview(
+    document.getElementById("preview-root"),
+    h(
+      FormError,
+      null,
+      "We could not save your session. Try again when you have signal.",
+    ),
+  );
+</script>

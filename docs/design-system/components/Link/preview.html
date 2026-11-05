@@ -1,0 +1,11 @@
+<!-- @dsCard group="Typography" height=72 -->
+<div id="preview-root" style="padding: 16px"></div>
+<script>
+  const { React, mountPreview, Link } = window.Aeryo;
+  const h = React.createElement;
+
+  mountPreview(
+    document.getElementById("preview-root"),
+    h(Link, { href: "#spots" }, "See all spots"),
+  );
+</script>

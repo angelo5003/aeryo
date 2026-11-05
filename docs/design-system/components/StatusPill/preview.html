@@ -1,0 +1,19 @@
+<!-- @dsCard group="Data Display" height=72 -->
+<div id="preview-root" style="padding: 16px"></div>
+<script>
+  const { React, mountPreview, StatusPill, Flex } = window.Aeryo;
+  const h = React.createElement;
+
+  mountPreview(
+    document.getElementById("preview-root"),
+    h(
+      Flex,
+      { gap: "2", wrap: "wrap" },
+      h(StatusPill, null, "Neutral"),
+      h(StatusPill, { variant: "primary" }, "Riding"),
+      h(StatusPill, { variant: "success" }, "Confirmed"),
+      h(StatusPill, { variant: "warning" }, "Gusty"),
+      h(StatusPill, { variant: "danger" }, "Cancelled"),
+    ),
+  );
+</script>

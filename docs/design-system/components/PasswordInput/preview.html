@@ -1,0 +1,19 @@
+<!-- @dsCard group="Forms" height=88 -->
+<div id="preview-root" style="padding: 16px"></div>
+<script>
+  const { React, mountPreview, PasswordInput, Box } = window.Aeryo;
+  const h = React.createElement;
+
+  mountPreview(
+    document.getElementById("preview-root"),
+    h(
+      Box,
+      { maxW: "sm" },
+      h(PasswordInput, {
+        placeholder: "Your password",
+        "aria-label": "Password",
+        visibilityToggleLabel: "Show password",
+      }),
+    ),
+  );
+</script>

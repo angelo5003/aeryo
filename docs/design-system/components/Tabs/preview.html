@@ -1,0 +1,40 @@
+<!-- @dsCard group="Data Display" height=140 -->
+<div id="preview-root" style="padding: 16px"></div>
+<script>
+  const {
+    React,
+    mountPreview,
+    Tabs,
+    TabsList,
+    TabsTrigger,
+    TabsContent,
+    Text,
+  } = window.Aeryo;
+  const h = React.createElement;
+
+  mountPreview(
+    document.getElementById("preview-root"),
+    h(
+      Tabs,
+      { defaultValue: "today" },
+      h(
+        TabsList,
+        null,
+        h(TabsTrigger, { value: "today" }, "Today"),
+        h(TabsTrigger, { value: "week" }, "This week"),
+        h(TabsTrigger, { value: "riders" }, "Riders"),
+      ),
+      h(
+        TabsContent,
+        { value: "today" },
+        h(Text, null, "18 kn from the north-west."),
+      ),
+      h(TabsContent, { value: "week" }, h(Text, null, "Saturday looks best.")),
+      h(
+        TabsContent,
+        { value: "riders" },
+        h(Text, null, "14 riders at this spot."),
+      ),
+    ),
+  );
+</script>

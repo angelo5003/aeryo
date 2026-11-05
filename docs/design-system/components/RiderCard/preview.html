@@ -1,0 +1,16 @@
+<!-- @dsCard group="Surfaces" height=96 -->
+<div id="preview-root" style="padding: 16px"></div>
+<script>
+  const { React, mountPreview, RiderCard } = window.Aeryo;
+  const h = React.createElement;
+
+  mountPreview(
+    document.getElementById("preview-root"),
+    h(RiderCard, {
+      name: "Mara Jansen",
+      discipline: "Freestyle",
+      skillLevel: "Intermediate",
+      presence: { status: "planning", time: "16:00" },
+    }),
+  );
+</script>

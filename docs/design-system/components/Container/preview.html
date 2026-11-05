@@ -1,0 +1,15 @@
+<!-- @dsCard group="Primitives" height=90 -->
+<div id="preview-root" style="padding: 16px"></div>
+<script>
+  const { React, mountPreview, Container, Text } = window.Aeryo;
+  const h = React.createElement;
+
+  mountPreview(
+    document.getElementById("preview-root"),
+    h(
+      Container,
+      { maxW: "md", bg: "bg.muted", py: "3", borderRadius: "md" },
+      h(Text, null, "Width capped at md"),
+    ),
+  );
+</script>

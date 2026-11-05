@@ -1,0 +1,17 @@
+<!-- @dsCard group="Data Display" height=72 -->
+<div id="preview-root" style="padding: 16px"></div>
+<script>
+  const { React, mountPreview, RiderPresence, Flex } = window.Aeryo;
+  const h = React.createElement;
+
+  mountPreview(
+    document.getElementById("preview-root"),
+    h(
+      Flex,
+      { gap: "2", wrap: "wrap" },
+      h(RiderPresence, { status: "riding" }),
+      h(RiderPresence, { status: "planning", time: "16:00" }),
+      h(RiderPresence, { status: "offline" }),
+    ),
+  );
+</script>

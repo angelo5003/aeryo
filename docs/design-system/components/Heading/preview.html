@@ -1,0 +1,17 @@
+<!-- @dsCard group="Typography" height=190 -->
+<div id="preview-root" style="padding: 16px"></div>
+<script>
+  const { React, mountPreview, Heading, Stack } = window.Aeryo;
+  const h = React.createElement;
+
+  mountPreview(
+    document.getElementById("preview-root"),
+    h(
+      Stack,
+      { gap: "2" },
+      h(Heading, { variant: "display" }, "Intelligent wind"),
+      h(Heading, { variant: "heading" }, "Wijk aan Zee"),
+      h(Heading, { variant: "title" }, "Saturday Session"),
+    ),
+  );
+</script>

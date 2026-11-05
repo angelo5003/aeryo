@@ -1,0 +1,95 @@
+{
+  "v": 3,
+  "layout": "files",
+  "createdOnFiles": {
+    "v": 1,
+    "at": "2026-11-05T13:30:00Z"
+  },
+  "title": "Aeryo Design System",
+  "namespace": "Aeryo",
+  "libraries": [],
+  "sections": {},
+  "groups": ["Logos", "Photos"],
+  "assetGroups": {
+    "Logos": {
+      "name": "Logos",
+      "tile": "m",
+      "order": ["logo-mark.svg", "logo.svg"],
+      "files": {
+        "logo-mark.svg": {
+          "name": "logo-mark.svg",
+          "blob": "e2e337e96b169ce70a32fb3183c9ad7d",
+          "size": 3633,
+          "type": "image/svg+xml"
+        },
+        "logo.svg": {
+          "name": "logo.svg",
+          "blob": "76e4933338fe99996f9f4e9b2cba7fb6",
+          "size": 8085,
+          "type": "image/svg+xml"
+        }
+      }
+    },
+    "Photos": {
+      "name": "Photos",
+      "tile": "l",
+      "order": [
+        "adventure-awaits-splash-screen.webp",
+        "discover-the-elements-screen.webp",
+        "master-the-conditions-screen.webp",
+        "find-your-community-screen.webp",
+        "track-your-progress-screen.webp",
+        "end-of-onboarding-flow-screen.webp"
+      ],
+      "files": {
+        "adventure-awaits-splash-screen.webp": {
+          "name": "adventure-awaits-splash-screen.webp",
+          "blob": "50272c0c46744e570ada1e86b4e4e884",
+          "size": 178084,
+          "type": "image/webp"
+        },
+        "discover-the-elements-screen.webp": {
+          "name": "discover-the-elements-screen.webp",
+          "blob": "5c976dc2f1a4fba7d2021176e6188c03",
+          "size": 112894,
+          "type": "image/webp"
+        },
+        "master-the-conditions-screen.webp": {
+          "name": "master-the-conditions-screen.webp",
+          "blob": "2ef21b214ee042fdf2bbcac5095af62e",
+          "size": 137342,
+          "type": "image/webp"
+        },
+        "find-your-community-screen.webp": {
+          "name": "find-your-community-screen.webp",
+          "blob": "c3b93c1778f1550e142cd7634b55c31d",
+          "size": 108840,
+          "type": "image/webp"
+        },
+        "track-your-progress-screen.webp": {
+          "name": "track-your-progress-screen.webp",
+          "blob": "05f2fe717d1a1ca88201670400a19dfa",
+          "size": 95084,
+          "type": "image/webp"
+        },
+        "end-of-onboarding-flow-screen.webp": {
+          "name": "end-of-onboarding-flow-screen.webp",
+          "blob": "aa25d94a01cbaf2e8c178b8bfde53907",
+          "size": 143678,
+          "type": "image/webp"
+        }
+      }
+    }
+  },
+  "blobs": {},
+  "docs": {
+    "readme": "project/README.md",
+    "sections": []
+  },
+  "lastChange": {
+    "by": "Tony",
+    "at": "2026-11-05T13:30:00Z",
+    "via": "GitHub · angelo5003/aeryo@29432c0",
+    "note": "First extraction from the codebase: tokens, fonts, logos, photos and 47 components."
+  }
+}

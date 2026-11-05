@@ -1,0 +1,11 @@
+<!-- @dsCard group="Forms" height=88 -->
+<div id="preview-root" style="padding: 16px"></div>
+<script>
+  const { React, mountPreview, FormSuccess } = window.Aeryo;
+  const h = React.createElement;
+
+  mountPreview(
+    document.getElementById("preview-root"),
+    h(FormSuccess, null, "Check your inbox to confirm your account."),
+  );
+</script>

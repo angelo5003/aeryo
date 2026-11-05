@@ -1,0 +1,17 @@
+<!-- @dsCard group="Primitives" height=115 -->
+<div id="preview-root" style="padding: 16px"></div>
+<script>
+  const { React, mountPreview, Stack, Separator, Text } = window.Aeryo;
+  const h = React.createElement;
+
+  mountPreview(
+    document.getElementById("preview-root"),
+    h(
+      Stack,
+      { gap: "3" },
+      h(Text, null, "Today"),
+      h(Separator),
+      h(Text, null, "Tomorrow"),
+    ),
+  );
+</script>

@@ -1,0 +1,18 @@
+<!-- @dsCard group="Forms" height=130 -->
+<div id="preview-root" style="padding: 16px"></div>
+<script>
+  const { React, mountPreview, Textarea, Box } = window.Aeryo;
+  const h = React.createElement;
+
+  mountPreview(
+    document.getElementById("preview-root"),
+    h(
+      Box,
+      { maxW: "sm" },
+      h(Textarea, {
+        placeholder: "How was the session?",
+        "aria-label": "Session notes",
+      }),
+    ),
+  );
+</script>

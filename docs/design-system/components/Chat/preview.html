@@ -1,0 +1,30 @@
+<!-- @dsCard group="Data Display" height=300 -->
+<div id="preview-root" style="padding: 16px"></div>
+<script>
+  const { React, mountPreview, Chat, ChatHeader, ChatMessages, ChatMessage } =
+    window.Aeryo;
+  const h = React.createElement;
+
+  mountPreview(
+    document.getElementById("preview-root"),
+    h(
+      Chat,
+      { maxW: "md" },
+      h(ChatHeader, { title: "# IJmuiden" }),
+      h(
+        ChatMessages,
+        null,
+        h(
+          ChatMessage,
+          { author: "Mara Jansen" },
+          "Wind picks up after three. Anyone going?",
+        ),
+        h(
+          ChatMessage,
+          { author: "Tom Visser" },
+          "On my way, there by half past.",
+        ),
+      ),
+    ),
+  );
+</script>

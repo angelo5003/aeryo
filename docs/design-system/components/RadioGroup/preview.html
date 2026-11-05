@@ -1,0 +1,21 @@
+<!-- @dsCard group="Forms" height=120 -->
+<div id="preview-root" style="padding: 16px"></div>
+<script>
+  const { React, mountPreview, RadioGroup, Radio, Stack } = window.Aeryo;
+  const h = React.createElement;
+
+  mountPreview(
+    document.getElementById("preview-root"),
+    h(
+      RadioGroup,
+      { defaultValue: "intermediate" },
+      h(
+        Stack,
+        { gap: "2" },
+        h(Radio, { value: "beginner" }, "Beginner"),
+        h(Radio, { value: "intermediate" }, "Intermediate"),
+        h(Radio, { value: "advanced" }, "Advanced"),
+      ),
+    ),
+  );
+</script>

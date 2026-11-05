@@ -1,0 +1,11 @@
+<!-- @dsCard group="Data Display" height=80 -->
+<div id="preview-root" style="padding: 16px"></div>
+<script>
+  const { React, mountPreview, SpotRiderCount } = window.Aeryo;
+  const h = React.createElement;
+
+  mountPreview(
+    document.getElementById("preview-root"),
+    h(SpotRiderCount, { riding: 14, planning: 3 }),
+  );
+</script>

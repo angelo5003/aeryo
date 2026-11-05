@@ -1,0 +1,15 @@
+<!-- @dsCard group="Primitives" height=110 -->
+<div id="preview-root" style="padding: 16px"></div>
+<script>
+  const { React, mountPreview, Center, Text } = window.Aeryo;
+  const h = React.createElement;
+
+  mountPreview(
+    document.getElementById("preview-root"),
+    h(
+      Center,
+      { h: "20", bg: "bg.muted", borderRadius: "md" },
+      h(Text, null, "Centered"),
+    ),
+  );
+</script>

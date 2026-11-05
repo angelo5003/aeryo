@@ -1,0 +1,36 @@
+<!-- @dsCard group="Data Display" height=320 -->
+<div id="preview-root" style="padding: 16px"></div>
+<script>
+  const {
+    React,
+    mountPreview,
+    Drawer,
+    DrawerTrigger,
+    DrawerContent,
+    DrawerHeader,
+    DrawerTitle,
+    DrawerBody,
+    Button,
+    Text,
+  } = window.Aeryo;
+  const h = React.createElement;
+
+  mountPreview(
+    document.getElementById("preview-root"),
+    h(
+      Drawer,
+      { defaultOpen: true, placement: "bottom" },
+      h(DrawerTrigger, { asChild: true }, h(Button, null, "Open filters")),
+      h(
+        DrawerContent,
+        null,
+        h(DrawerHeader, null, h(DrawerTitle, null, "Filter spots")),
+        h(
+          DrawerBody,
+          null,
+          h(Text, null, "Show spots with at least 15 knots today."),
+        ),
+      ),
+    ),
+  );
+</script>
