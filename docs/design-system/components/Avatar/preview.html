@@ -1,0 +1,19 @@
+<!-- @dsCard group="Data Display" height=96 -->
+<div id="preview-root" style="padding: 16px"></div>
+<script>
+  const { React, mountPreview, Avatar, Flex } = window.Aeryo;
+  const h = React.createElement;
+
+  mountPreview(
+    document.getElementById("preview-root"),
+    h(
+      Flex,
+      { gap: "3", align: "center" },
+      h(Avatar, { name: "Mara Jansen", size: "xs" }),
+      h(Avatar, { name: "Mara Jansen", size: "sm" }),
+      h(Avatar, { name: "Mara Jansen" }),
+      h(Avatar, { name: "Tom Visser", size: "lg", status: "online" }),
+      h(Avatar, { name: "Noor Bakker", size: "xl", verified: true }),
+    ),
+  );
+</script>

@@ -1,0 +1,43 @@
+<!-- @dsCard group="Data Display" height=320 -->
+<div id="preview-root" style="padding: 16px"></div>
+<script>
+  const {
+    React,
+    mountPreview,
+    Dialog,
+    DialogTrigger,
+    DialogContent,
+    DialogHeader,
+    DialogTitle,
+    DialogBody,
+    DialogFooter,
+    Button,
+    Text,
+  } = window.Aeryo;
+  const h = React.createElement;
+
+  mountPreview(
+    document.getElementById("preview-root"),
+    h(
+      Dialog,
+      { defaultOpen: true },
+      h(DialogTrigger, { asChild: true }, h(Button, null, "Leave session")),
+      h(
+        DialogContent,
+        null,
+        h(DialogHeader, null, h(DialogTitle, null, "Leave this session?")),
+        h(
+          DialogBody,
+          null,
+          h(Text, null, "Other riders will see that you are no longer going."),
+        ),
+        h(
+          DialogFooter,
+          null,
+          h(Button, { variant: "ghost", intent: "secondary" }, "Stay"),
+          h(Button, { intent: "danger" }, "Leave"),
+        ),
+      ),
+    ),
+  );
+</script>

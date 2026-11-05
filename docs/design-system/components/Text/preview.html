@@ -1,0 +1,21 @@
+<!-- @dsCard group="Typography" height=130 -->
+<div id="preview-root" style="padding: 16px"></div>
+<script>
+  const { React, mountPreview, Text, Stack } = window.Aeryo;
+  const h = React.createElement;
+
+  mountPreview(
+    document.getElementById("preview-root"),
+    h(
+      Stack,
+      { gap: "2" },
+      h(
+        Text,
+        { variant: "body" },
+        "Know before you go. See what's building, and when it's worth the drive.",
+      ),
+      h(Text, { variant: "caption" }, "3 riders planning from 16:00"),
+      h(Text, { variant: "label" }, "18 kn NW"),
+    ),
+  );
+</script>

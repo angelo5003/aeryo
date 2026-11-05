@@ -1,0 +1,16 @@
+<!-- @dsCard group="Surfaces" height=235 -->
+<div id="preview-root" style="padding: 16px"></div>
+<script>
+  const { React, mountPreview, ForecastCard } = window.Aeryo;
+  const h = React.createElement;
+
+  mountPreview(
+    document.getElementById("preview-root"),
+    h(ForecastCard, {
+      date: "Sat 14:00",
+      direction: "NW",
+      windSpeed: "18 kn",
+      temperature: "16°C",
+    }),
+  );
+</script>

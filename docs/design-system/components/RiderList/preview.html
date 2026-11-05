@@ -1,0 +1,33 @@
+<!-- @dsCard group="Data Display" height=230 -->
+<div id="preview-root" style="padding: 16px"></div>
+<script>
+  const { React, mountPreview, RiderList } = window.Aeryo;
+  const h = React.createElement;
+
+  mountPreview(
+    document.getElementById("preview-root"),
+    h(RiderList, {
+      heading: "3 riders",
+      riders: [
+        {
+          id: "rider-1",
+          name: "Mara Jansen",
+          discipline: "Freestyle",
+          presence: { status: "riding" },
+        },
+        {
+          id: "rider-2",
+          name: "Tom Visser",
+          discipline: "Wave",
+          presence: { status: "planning", time: "16:00" },
+        },
+        {
+          id: "rider-3",
+          name: "Noor Bakker",
+          discipline: "Foil",
+          presence: { status: "offline" },
+        },
+      ],
+    }),
+  );
+</script>

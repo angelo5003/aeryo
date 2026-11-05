@@ -1,0 +1,20 @@
+<!-- @dsCard group="Forms" height=200 -->
+<div id="preview-root" style="padding: 16px"></div>
+<script>
+  const { React, mountPreview, Form, Field, Input, Button } = window.Aeryo;
+  const h = React.createElement;
+
+  mountPreview(
+    document.getElementById("preview-root"),
+    h(
+      Form,
+      { maxW: "sm", onSubmit: (event) => event.preventDefault() },
+      h(
+        Field,
+        { label: "Spot name" },
+        h(Input, { placeholder: "Wijk aan Zee" }),
+      ),
+      h(Button, { type: "submit", mt: "4" }, "Save spot"),
+    ),
+  );
+</script>

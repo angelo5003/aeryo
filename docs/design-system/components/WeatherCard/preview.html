@@ -1,0 +1,19 @@
+<!-- @dsCard group="Surfaces" height=280 -->
+<div id="preview-root" style="padding: 16px"></div>
+<script>
+  const { React, mountPreview, WeatherCard } = window.Aeryo;
+  const h = React.createElement;
+
+  mountPreview(
+    document.getElementById("preview-root"),
+    h(WeatherCard, {
+      maxW: "sm",
+      overline: "Now at IJmuiden",
+      temperature: "16°C",
+      windSpeed: "18 kn",
+      feelsLike: "13°C",
+      condition: "Good",
+      conditionIntent: "success",
+    }),
+  );
+</script>

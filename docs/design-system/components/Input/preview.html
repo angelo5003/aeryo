@@ -1,0 +1,25 @@
+<!-- @dsCard group="Forms" height=170 -->
+<div id="preview-root" style="padding: 16px"></div>
+<script>
+  const { React, mountPreview, Input, Stack } = window.Aeryo;
+  const h = React.createElement;
+
+  mountPreview(
+    document.getElementById("preview-root"),
+    h(
+      Stack,
+      { gap: "3", maxW: "sm" },
+      h(Input, { placeholder: "Search spots", "aria-label": "Search spots" }),
+      h(Input, {
+        variant: "subtle",
+        placeholder: "Subtle",
+        "aria-label": "Subtle",
+      }),
+      h(Input, {
+        disabled: true,
+        placeholder: "Disabled",
+        "aria-label": "Disabled",
+      }),
+    ),
+  );
+</script>

@@ -1,0 +1,21 @@
+<!-- @dsCard group="Primitives" height=130 -->
+<div id="preview-root" style="padding: 16px"></div>
+<script>
+  const { React, mountPreview, Grid, Box, Text } = window.Aeryo;
+  const h = React.createElement;
+
+  mountPreview(
+    document.getElementById("preview-root"),
+    h(
+      Grid,
+      { templateColumns: "repeat(3, 1fr)", gap: "2" },
+      ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((label) =>
+        h(
+          Box,
+          { key: label, p: "2", bg: "bg.muted", borderRadius: "md" },
+          h(Text, null, label),
+        ),
+      ),
+    ),
+  );
+</script>

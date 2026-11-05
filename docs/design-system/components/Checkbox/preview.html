@@ -1,0 +1,16 @@
+<!-- @dsCard group="Forms" height=88 -->
+<div id="preview-root" style="padding: 16px"></div>
+<script>
+  const { React, mountPreview, Checkbox, Stack } = window.Aeryo;
+  const h = React.createElement;
+
+  mountPreview(
+    document.getElementById("preview-root"),
+    h(
+      Stack,
+      { gap: "2" },
+      h(Checkbox, { defaultChecked: true }, "Tell me when the wind picks up"),
+      h(Checkbox, null, "Show me on the rider list"),
+    ),
+  );
+</script>

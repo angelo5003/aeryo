@@ -1,0 +1,14 @@
+<!-- @dsCard group="Data Display" height=72 -->
+<div id="preview-root" style="padding: 16px; background: var(--bg-photo)"></div>
+<script>
+  const { React, mountPreview, ProgressDots } = window.Aeryo;
+  const h = React.createElement;
+
+  mountPreview(
+    document.getElementById("preview-root"),
+    h(ProgressDots, {
+      ids: ["wind", "community", "progress", "start"],
+      activeId: "community",
+    }),
+  );
+</script>

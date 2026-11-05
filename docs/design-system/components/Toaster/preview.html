@@ -1,0 +1,37 @@
+<!-- @dsCard group="Data Display" height=170 -->
+<div id="preview-root" style="padding: 16px"></div>
+<script>
+  const { React, mountPreview, Toaster, toaster, Button } = window.Aeryo;
+  const h = React.createElement;
+
+  mountPreview(
+    document.getElementById("preview-root"),
+    h(
+      React.Fragment,
+      null,
+      h(Toaster),
+      h(
+        Button,
+        {
+          onClick: () =>
+            toaster.create({
+              title: "Session saved",
+              description: "Riders can now join.",
+              type: "success",
+            }),
+        },
+        "Show a toast",
+      ),
+    ),
+  );
+  setTimeout(
+    () =>
+      toaster.create({
+        title: "Session saved",
+        description: "Riders can now join.",
+        type: "success",
+        duration: 600000,
+      }),
+    200,
+  );
+</script>

@@ -1,0 +1,21 @@
+<!-- @dsCard group="Primitives" height=180 -->
+<div id="preview-root" style="padding: 16px"></div>
+<script>
+  const { React, mountPreview, Stack, Box, Text } = window.Aeryo;
+  const h = React.createElement;
+
+  mountPreview(
+    document.getElementById("preview-root"),
+    h(
+      Stack,
+      { gap: "2" },
+      ["First", "Second", "Third"].map((label) =>
+        h(
+          Box,
+          { key: label, p: "2", bg: "bg.muted", borderRadius: "md" },
+          h(Text, null, label),
+        ),
+      ),
+    ),
+  );
+</script>

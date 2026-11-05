@@ -1,0 +1,20 @@
+<!-- @dsCard group="Surfaces" height=520 -->
+<div id="preview-root" style="padding: 16px"></div>
+<script>
+  const { React, mountPreview, SpotCard, Badge } = window.Aeryo;
+  const h = React.createElement;
+
+  mountPreview(
+    document.getElementById("preview-root"),
+    h(SpotCard, {
+      name: "Wijk aan Zee",
+      region: "North Holland",
+      description: "Wide beach, steady sea breeze.",
+      imageSrc: "/_blob/2ef21b214ee042fdf2bbcac5095af62e",
+      imageAlt: "A kitesurfer on the water",
+      windSpeed: "18 kn",
+      rating: "4.8",
+      badges: h(Badge, { intent: "info", variant: "solid" }, "Best wind"),
+    }),
+  );
+</script>

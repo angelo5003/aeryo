@@ -1,0 +1,19 @@
+<!-- @dsCard group="Surfaces" height=255 -->
+<div id="preview-root" style="padding: 16px"></div>
+<script>
+  const { React, mountPreview, SessionCard, Button } = window.Aeryo;
+  const h = React.createElement;
+
+  mountPreview(
+    document.getElementById("preview-root"),
+    h(SessionCard, {
+      maxW: "sm",
+      title: "Saturday Session",
+      spot: "IJmuiden",
+      startTime: "15:00",
+      participants: 6,
+      maxParticipants: 10,
+      action: h(Button, { size: "sm" }, "Join"),
+    }),
+  );
+</script>

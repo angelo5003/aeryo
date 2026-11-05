@@ -1,0 +1,28 @@
+<!-- @dsCard group="Forms" height=235 -->
+<div id="preview-root" style="padding: 16px"></div>
+<script>
+  const { React, mountPreview, Field, Input, Stack } = window.Aeryo;
+  const h = React.createElement;
+
+  mountPreview(
+    document.getElementById("preview-root"),
+    h(
+      Stack,
+      { gap: "4", maxW: "sm" },
+      h(
+        Field,
+        { label: "Email", helperText: "Used only to sign in." },
+        h(Input, { placeholder: "rider@example.com" }),
+      ),
+      h(
+        Field,
+        {
+          label: "Email",
+          invalid: true,
+          errorText: "Enter a valid email address.",
+        },
+        h(Input, { defaultValue: "rider@" }),
+      ),
+    ),
+  );
+</script>

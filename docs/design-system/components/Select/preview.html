@@ -1,0 +1,37 @@
+<!-- @dsCard group="Forms" height=110 -->
+<div id="preview-root" style="padding: 16px"></div>
+<script>
+  const { React, mountPreview, Select, createListCollection } = window.Aeryo;
+  const h = React.createElement;
+  const disciplines = createListCollection({
+    items: [
+      { label: "Freestyle", value: "freestyle" },
+      { label: "Wave", value: "wave" },
+      { label: "Foil", value: "foil" },
+    ],
+  });
+  mountPreview(
+    document.getElementById("preview-root"),
+    h(
+      Select.Root,
+      { collection: disciplines, width: "14rem", defaultValue: ["wave"] },
+      h(Select.Label, null, "Discipline"),
+      h(
+        Select.Trigger,
+        null,
+        h(Select.ValueText, { placeholder: "Select a discipline" }),
+      ),
+      h(
+        Select.Content,
+        null,
+        disciplines.items.map((discipline) =>
+          h(
+            Select.Item,
+            { key: discipline.value, item: discipline },
+            h(Select.ItemText, null, discipline.label),
+          ),
+        ),
+      ),
+    ),
+  );
+</script>
