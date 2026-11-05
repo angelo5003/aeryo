@@ -132,7 +132,10 @@ export const RawPalette: Story = {
             colorPalette.
           </Text>
         </Stack>
-        <Scale family="ink" steps={SCALE_STEPS} />
+        <Scale
+          family="ink"
+          steps={[50, 100, 200, 300, 400, 500, 550, 600, 700, 800, 900, 950]}
+        />
         <Scale family="paper" steps={[50, 100, 200, 300]} />
         <Scale family="teal" steps={SCALE_STEPS} />
         <Scale family="lime" steps={SCALE_STEPS} />

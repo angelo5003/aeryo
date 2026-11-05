@@ -45,6 +45,9 @@ export const colors = {
     300: { value: "#96B8BE" },
     400: { value: "#6B99A2" },
     500: { value: "#3D7784" },
+    // Light-mode `fg.muted` only: ink.500 reaches 4.31:1 on `bg.muted`, and
+    // ink.600 is already `fg.emphasized`, so this keeps the two apart.
+    550: { value: "#37707C" },
     600: { value: "#285C68" },
     700: { value: "#1B4650" },
     800: { value: "#123640" },

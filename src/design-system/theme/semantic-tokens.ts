@@ -65,8 +65,8 @@ export const semanticTokens = {
       // backdrop blur is unsupported or a photo scrolls underneath.
       // Alpha checked against both extremes behind the bar (pure white
       // and pure black), since either can scroll under it:
-      //   light paper.50/98 — fg.muted 4.60:1 worst (black under),
-      //     accent.solid 5.71:1 worst. At /90 fg.muted drops to 3.83:1,
+      //   light paper.50/98 — fg.muted 5.08:1 worst (black under),
+      //     accent.solid 5.71:1 worst. At /90 fg.muted drops to 4.24:1,
       //     so light needs near-opaque; don't lower it for a stronger blur.
       //   dark ink.950/88 — fg.muted 4.89:1 worst (white under),
       //     accent.solid 5.10:1 worst.
@@ -116,16 +116,18 @@ export const semanticTokens = {
       // Dark value is NOT ink.400 — that only clears 4.12:1 against
       // bg.muted (fails 4.5:1 AA). #76A1A9 is ink.400 nudged toward
       // ink.300, verified 4.57:1/6.72:1/5.40:1 against bg.muted/bg/bg.subtle.
+      // Light value verified 4.77:1/5.31:1/5.08:1 against the same grounds.
       muted: {
-        value: { _light: "{colors.ink.500}", _dark: "#76A1A9" },
+        value: { _light: "{colors.ink.550}", _dark: "#76A1A9" },
       },
       // Dark value is NOT ink.500 (#3D7784) — that's only 3.77:1 against
       // bg and 3.02:1 against bg.subtle, both AA fails. #66969F is
       // verified 5.80:1/4.66:1 against bg/bg.subtle. Scope: verified for
       // bg/bg.subtle only — don't place fg.subtle on bg.muted or
-      // bg.emphasized (use fg.muted on muted, `fg` on emphasized).
+      // bg.emphasized (use fg.muted on muted, `fg` on emphasized). Light
+      // value verified 4.80:1/4.60:1 against bg/bg.subtle, same scope.
       subtle: {
-        value: { _light: "{colors.ink.400}", _dark: "#66969F" },
+        value: { _light: "{colors.ink.500}", _dark: "#66969F" },
       },
       // One step stronger than `muted` (field labels, list-item titles) —
       // added from the Figma designs' recurring #BCC9CA label color, which
@@ -213,7 +215,8 @@ export const semanticTokens = {
       // Input's `_invalid` state reads `border.error` directly (see
       // input.js's `--error-color: colors.border.error`) — a UI-component
       // boundary, so only needs 3:1, not 4.5:1. Same shade steps as the
-      // colorPalette `.border` values below.
+      // colorPalette `.border` values below, except light `success` and
+      // `info`, which are darker here to reach 3:1 on `bg`: 3.52:1 and 3.95:1.
       error: {
         value: {
           _light: "{colors.danger.500}",
@@ -228,12 +231,12 @@ export const semanticTokens = {
       },
       success: {
         value: {
-          _light: "{colors.success.500}",
+          _light: "{colors.success.700}",
           _dark: "{colors.success.400}",
         },
       },
       info: {
-        value: { _light: "{colors.teal.500}", _dark: "{colors.teal.400}" },
+        value: { _light: "{colors.teal.600}", _dark: "{colors.teal.400}" },
       },
     },
 
@@ -264,7 +267,7 @@ export const semanticTokens = {
         value: { _light: "{colors.teal.700}", _dark: "{colors.teal.600}" },
       },
       offline: {
-        value: { _light: "{colors.ink.300}", _dark: "{colors.ink.400}" },
+        value: { _light: "{colors.ink.500}", _dark: "{colors.ink.400}" },
       },
     },
 
@@ -281,7 +284,7 @@ export const semanticTokens = {
         value: { _light: "{colors.teal.600}", _dark: "{colors.teal.300}" },
       },
       completed: {
-        value: { _light: "{colors.ink.400}", _dark: "{colors.ink.400}" },
+        value: { _light: "{colors.ink.500}", _dark: "{colors.ink.400}" },
       },
       cancelled: {
         value: { _light: "{colors.danger.600}", _dark: "{colors.danger.400}" },
@@ -297,7 +300,7 @@ export const semanticTokens = {
       // Dark value is NOT ink.500 — same failure as fg.subtle above
       // (3.77:1 against bg). Reuses the same verified #66969F.
       calm: {
-        value: { _light: "{colors.ink.400}", _dark: "#66969F" },
+        value: { _light: "{colors.ink.500}", _dark: "#66969F" },
       },
       light: {
         value: { _light: "{colors.teal.700}", _dark: "{colors.teal.600}" },
@@ -306,7 +309,7 @@ export const semanticTokens = {
         value: { _light: "{colors.teal.600}", _dark: "{colors.teal.300}" },
       },
       strong: {
-        value: { _light: "{colors.lime.600}", _dark: "{colors.lime.400}" },
+        value: { _light: "{colors.lime.700}", _dark: "{colors.lime.400}" },
       },
       extreme: {
         value: {
