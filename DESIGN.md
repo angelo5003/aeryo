@@ -165,7 +165,7 @@ Omitted as a UI accent. **Wind Lime** (`#D7FF3F`, `lime.300`) exists only on the
 - **Off-White** (`#EDF8F6`, `ink.50`): default light background and dark-mode foreground (`fg`). Type on photography is `fg.photo` (always this value). Inactive marks on photography are `fg.photo.muted` (this value at 40%).
 - **Hairline (dark)** (`rgba(99, 230, 213, 0.16)`): default dark `border`. Decorative only.
 
-Foreground roles: `fg` (ink.950 / ink.50), `fg.muted` (ink.500 / `#76A1A9`), `fg.subtle` (ink.400 / `#66969F`, not on `bg.muted`).
+Foreground roles: `fg` (ink.950 / ink.50), `fg.muted` (ink.550 / `#76A1A9`), `fg.subtle` (ink.500 / `#66969F`, not on `bg.muted`).
 
 ### Named Rules
 
