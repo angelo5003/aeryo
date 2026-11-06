@@ -12,6 +12,7 @@ export interface AppRoute {
   label: string;
   roles: readonly [RouteAccess, ...RouteAccess[]];
   tabBarIcon?: IconType;
+  parentHref?: Route; // if the route is a child of another route, this is the parent href. Tabs or pages like home don't need a parent href. that is why it is optional.
 }
 
 // satisfies checks if every route has the shape of the AppRoute. Each href must be a real path.
@@ -67,11 +68,16 @@ export const routes = {
     href: "/settings",
     label: "Settings",
     roles: ["rider"],
+    parentHref: "/profile",
   },
 } as const satisfies Record<string, AppRoute>;
 
 // by adding a type to the allRoutes variable, TS sees every item as a AppRoute object.
 const allRoutes: readonly AppRoute[] = Object.values(routes);
+
+export const getRouteByHref = (href: string): AppRoute | undefined => {
+  return allRoutes.find((route) => route.href === href);
+};
 
 export const getRoutesForAccess = (access: RouteAccess): AppRoute[] => {
   return allRoutes.filter((route) => route.roles.includes(access));
