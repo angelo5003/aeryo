@@ -1,7 +1,7 @@
 import type { FC } from "react";
 
 const ExplorePage: FC = () => {
-  return <div>ExplorePage</div>;
+  return <></>;
 };
 
 export default ExplorePage;

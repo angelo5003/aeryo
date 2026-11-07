@@ -141,7 +141,8 @@ Before explaining an API or proposing scaffolding:
    `2026-09-25-app-navigation.md`: Dutch prose, goal, approved decisions
    with their date, stack from `package.json`, sources opened, then the
    checklist. Later changes to the blueprint go into this file, with a new
-   dated decisions block. Don't commit it unless the user asks.
+   dated decisions block. `docs/superpowers/plans/` is gitignored: plan
+   files stay local and are never committed (user decision, 2026-10-10).
 
 ## Phase 4 — Quality gates (check the plan, and the user's code when reviewing)
 

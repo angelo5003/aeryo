@@ -1,7 +1,7 @@
 import type { FC } from "react";
 
 const CommunityPage: FC = () => {
-  return <div>CommunityPage</div>;
+  return <></>;
 };
 
 export default CommunityPage;

@@ -1,7 +1,7 @@
 import type { FC } from "react";
 
 const SessionsPage: FC = () => {
-  return <div>SessionsPage</div>;
+  return <></>;
 };
 
 export default SessionsPage;
