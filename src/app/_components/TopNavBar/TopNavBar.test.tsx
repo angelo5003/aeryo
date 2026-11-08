@@ -29,10 +29,9 @@ describe("TopNavBar", () => {
     mockedPathname = "/settings";
     buildComponent("Settings");
 
-    expect(screen.getByRole("link", { name: "Back" })).toHaveAttribute(
-      "href",
-      "/profile",
-    );
+    expect(
+      screen.getByRole("link", { name: "Back to Profile" }),
+    ).toHaveAttribute("href", "/profile");
     expect(screen.queryByText("Settings")).not.toBeInTheDocument();
     expect(
       screen.queryByRole("link", { name: "Settings" }),
@@ -49,7 +48,7 @@ describe("TopNavBar", () => {
     );
     expect(screen.getByText("Profile")).toBeInTheDocument();
     expect(
-      screen.queryByRole("link", { name: "Back" }),
+      screen.queryByRole("link", { name: "Back to Profile" }),
     ).not.toBeInTheDocument();
   });
 });
