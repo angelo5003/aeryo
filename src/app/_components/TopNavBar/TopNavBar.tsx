@@ -2,6 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import type { FC } from "react";
+import { useBackLinkProperties } from "@/app/_hooks/useBackLinkProperties/useBackLinkProperties";
 import { routes } from "@/app/_routes/routes";
 import { Box } from "@/components/primitives/Box";
 import { Stack } from "@/components/primitives/Stack/Stack";
@@ -15,14 +16,16 @@ import type { TopNavBarProps } from "./TopNavBar.types";
 const TopNavBar: FC<TopNavBarProps> = ({ pageTitle, isTitleCollapsed }) => {
   const pathName = usePathname();
   const showSettings = pathName === routes.profile.href;
-  const showBackLink = pathName === routes.settings.href;
+  const backLinkProperties = useBackLinkProperties();
 
-  // Settings design: only the back button, no bar background, title text or
-  // debug text. The large title is rendered by SignedInPageWithTopNavBar.
-  if (showBackLink) {
+  // Pages with a parent page show only the back arrow, without a background or title.
+  if (backLinkProperties) {
     return (
       <Box as="header" p="4">
-        <BackLink href={routes.profile.href} />
+        <BackLink
+          href={backLinkProperties.href}
+          label={backLinkProperties.label}
+        />
       </Box>
     );
   }

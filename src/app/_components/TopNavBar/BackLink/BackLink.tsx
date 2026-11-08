@@ -1,20 +1,16 @@
-import type { Route } from "next";
 import Link from "next/link";
 import type { FC } from "react";
 import { LuArrowLeft } from "react-icons/lu";
 import { IconButton } from "@/components/actions/IconButton";
+import type { BackLinkProps } from "./BackLink.types";
 
-type BackLinkProps = {
-  href: Route;
-};
-
-const BackLink: FC<BackLinkProps> = ({ href }) => {
+const BackLink: FC<BackLinkProps> = ({ href, label }) => {
   return (
     <IconButton
       asChild
       variant="ghost"
       size="md"
-      aria-label="Back"
+      aria-label={`Back to ${label}`}
       intent="secondary"
     >
       <Link href={href}>
