@@ -44,6 +44,8 @@ describe("typography tokens", () => {
   it("defines the named textStyles bundles", () => {
     expect(Object.keys(textStyles)).toEqual([
       "display",
+      "largeTitle",
+      "metric",
       "heading",
       "title",
       "body",
