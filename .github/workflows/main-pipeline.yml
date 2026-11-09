@@ -53,8 +53,8 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Install Vercel CLI
-        # Pinned to the CLI version used locally, instead of `latest`.
-        run: npm install --global vercel@59.19.0
+        # Pinned to an exact version (65.12.1), instead of `latest`.
+        run: npm install --global vercel@65.12.1
       - name: Pull Vercel Environment
         run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
       - name: Build Next.js App
