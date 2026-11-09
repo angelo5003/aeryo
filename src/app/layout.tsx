@@ -51,7 +51,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             Component <script> hydrates against Emotion's SSR <style>. */}
         <script id="aeryo-theme-init">{THEME_INIT_SCRIPT}</script>
       </head>
-      <body>
+      <body suppressHydrationWarning>
         <SplashProvider>
           <AppUrlAuthHandler />
           <OnboardingProvider>
