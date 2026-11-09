@@ -26,8 +26,9 @@ convenient:
    `01-learning-mode-output-style.md`, `02-supabase-data-architecture.md`,
    `03-capacitor-mobile-offline-first.md`,
    `04-frontend-architecture-performance.md`,
-   `05-app-store-compliance-auth-security.md`, this file, and
-   `07-planning-mode.md`. All equal tier; none of them outranks another.
+   `05-app-store-compliance-auth-security.md`, this file,
+   `07-planning-mode.md`, and `08-dependency-updates.md`. All equal tier;
+   none of them outranks another.
 3. `AGENTS.md` — grounding (source order, static export constraints,
    Chakra denylist).
 4. `TESTING.md`.
