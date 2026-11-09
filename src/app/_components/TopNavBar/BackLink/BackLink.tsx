@@ -9,7 +9,7 @@ const BackLink: FC<BackLinkProps> = ({ href, label }) => {
     <IconButton
       asChild
       variant="ghost"
-      size="md"
+      size="lg"
       aria-label={`Back to ${label}`}
       intent="secondary"
     >
