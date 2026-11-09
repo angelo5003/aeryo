@@ -40,7 +40,6 @@
 export const colors = {
   ink: {
     50: { value: "#EDF8F6" },
-    100: { value: "#DDEBEC" },
     200: { value: "#C0D6D9" },
     300: { value: "#96B8BE" },
     400: { value: "#6B99A2" },
@@ -66,29 +65,17 @@ export const colors = {
   },
   teal: {
     50: { value: "#E9FBF8" },
-    100: { value: "#C7F3EA" },
-    200: { value: "#98E7D9" },
     300: { value: "#63E6D5" },
     400: { value: "#2FC3B8" },
     500: { value: "#19AEB5" },
     600: { value: "#148A90" },
     700: { value: "#106B70" },
     800: { value: "#0B4D52" },
-    900: { value: "#073638" },
     950: { value: "#042224" },
   },
   lime: {
-    50: { value: "#FBFFE9" },
-    100: { value: "#F2FFC0" },
-    200: { value: "#E7FF92" },
-    300: { value: "#D7FF3F" },
     400: { value: "#BEE82A" },
-    500: { value: "#9FC71E" },
-    600: { value: "#7DA017" },
     700: { value: "#5F7A12" },
-    800: { value: "#44580D" },
-    900: { value: "#2D3B09" },
-    950: { value: "#1B2405" },
   },
   danger: {
     50: { value: "#FBEEEC" },
