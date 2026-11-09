@@ -74,16 +74,24 @@ Corner radii: xs 4, sm 6, md 8, lg 10, xl 14, 2xl 18, 3xl 22px, full.
 
 Background, card background, filled surface, frosted bar, main text, secondary text (dark), label text, teal text, accent and the light-mode borders are the same values as the tokens above.
 
-## 5. Decisions needed (design and app disagree)
+## 5. Decisions taken (design and app disagreed)
 
-1. **Primary button in dark mode.** Design: fill `teal.300` #63E6D5 with text #042224. App: `accent.solid` #19AEB5 with text #071216. Light mode already matches.
-2. **Card border in dark mode.** Design: solid #123640. App: `border.muted`, a faint teal line (10% alpha).
-3. **Destructive button.** Design fill #B84740. App `danger.solid` is #963731.
-4. **Text sizes.** The design uses 25 different font sizes (10 to 104px). The app has 6 plus 2 photo styles. The 34px large title, 36 to 40px numbers and the 15px secondary text have no style.
-5. **Button heights.** Design uses 40, 44, 48, 52 and 56px. App has 36, 40 and 44px.
-6. **Secondary text (light).** Design #3D7784, app `fg.muted` #37707C. Tiny difference, app wins.
-7. **Sunlight mode.** Designed higher-contrast text and borders. The app has no such mode.
-8. **Design-only effects.** Teal gradient numerals, glass buttons and glow shadows are not tokens.
-9. **Wind colors.** App rule says lime for wind data, designs use teal. Lime is only referenced by the `wind.*` colors, which no component uses.
+Rule used: the app tokens win. The designs were changed to match, except where noted. No app code changed for these.
 
-Until a decision is made, build with the app token and note the difference.
+| #   | Topic                     | Decision                                                                                                                                                                                                                               | Done in           |
+| --- | ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------- |
+| 1   | Primary button, dark mode | Use `accent.solid` (#19AEB5, text #071216). It already clears 7:1 contrast.                                                                                                                                                            | Designs           |
+| 2   | Card border, dark mode    | Use `border.muted` (faint teal line, 10% alpha).                                                                                                                                                                                       | Designs           |
+| 3   | Destructive button        | Use `danger.solid` (#963731).                                                                                                                                                                                                          | Designs           |
+| 4   | Text sizes                | Use the 6 app styles. Screen titles on list screens are now `heading` (30px). Still design-only: hero titles (36px), big wind numbers, 15px secondary text. Build those with the nearest style, or add a style once a screen needs it. | Partly in designs |
+| 5   | Button heights            | Use app sizes only. Main buttons are `lg` (44px), compact buttons are `md` (40px).                                                                                                                                                     | Designs           |
+| 6   | Secondary text, light     | Use `fg.muted` (#37707C).                                                                                                                                                                                                              | Designs           |
+| 7   | Sunlight mode             | Stays a design-only idea. The app has no tokens for it. The inspector flags it.                                                                                                                                                        | Not built         |
+| 8   | Design-only effects       | Teal gradient numerals, glass buttons and glow shadows are not tokens. Build them as one-offs when needed.                                                                                                                             | Not built         |
+| 9   | Wind colors               | Keep lime. `wind.strong` uses `lime.400` and `lime.700`, the brand guide and tests depend on it. Only those two lime steps remain.                                                                                                     | Kept              |
+
+Outline buttons and the round back button now use `ink.border` for their edge (dark #6B99A2, light #3D7784) and `ink.fg` for outline button text, as the app's Button does.
+
+## 6. Components the app does not have yet
+
+Notification row and bell badge, filter chips, bottom sheet, bottom tab bar, large-title scroll header, wind range slider, day picker, settings list row. Use the closest existing component (Tabs, Drawer, AeryoCard) until each one is built.
