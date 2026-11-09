@@ -90,7 +90,13 @@ export const WindRangeSlider = React.forwardRef<
         </VisuallyHidden>
       ))}
       <Slider.Control>
-        <Slider.Track>
+        <Slider.Track
+          // The empty part of the track is only 1.2-1.5:1 against the page,
+          // below the 3:1 WCAG asks for UI parts. A 1px `fg.subtle` outline
+          // measures 4.7-5.8:1 on `bg` and `bg.panel`, light and dark.
+          borderWidth="1px"
+          borderColor="fg.subtle"
+        >
           <Slider.Range />
         </Slider.Track>
         {[0, 1].map((handleIndex) => (
