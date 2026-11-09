@@ -93,6 +93,8 @@ export const semanticTokens = {
       error: {
         value: { _light: "{colors.danger.50}", _dark: "{colors.danger.950}" },
       },
+      // Reserved: no component uses `bg.warning` yet, but it is part of the
+      // documented design system (docs/design-system/). Keep it.
       warning: {
         value: {
           _light: "{colors.caution.50}",
@@ -105,6 +107,8 @@ export const semanticTokens = {
           _dark: "{colors.success.950}",
         },
       },
+      // Reserved: no component uses `bg.info` yet, but it is part of the
+      // documented design system (docs/design-system/). Keep it.
       info: {
         value: { _light: "{colors.teal.50}", _dark: "{colors.teal.950}" },
       },
@@ -162,6 +166,8 @@ export const semanticTokens = {
         // normal text). Same fix as `fg.photo` above: `bg.photo` never
         // switches with app mode, so this shouldn't either — fixed at
         // teal.500, verified ~7:1 against `bg.photo`/ink.950.
+        // Reserved: no component uses `fg.photo.accent` yet, but it is part of the
+        // documented design system (docs/design-system/). Keep it.
         accent: {
           value: { _light: "{colors.teal.500}", _dark: "{colors.teal.500}" },
         },
@@ -179,6 +185,8 @@ export const semanticTokens = {
           _dark: "{colors.danger.200}",
         },
       },
+      // Reserved: no component uses `fg.warning` yet, but it is part of the
+      // documented design system (docs/design-system/). Keep it.
       warning: {
         value: {
           _light: "{colors.caution.800}",
@@ -191,6 +199,8 @@ export const semanticTokens = {
           _dark: "{colors.success.200}",
         },
       },
+      // Reserved: no component uses `fg.info` yet, but it is part of the
+      // documented design system (docs/design-system/). Keep it.
       info: {
         value: { _light: "{colors.teal.800}", _dark: "{colors.teal.300}" },
       },
@@ -223,6 +233,8 @@ export const semanticTokens = {
           _dark: "{colors.danger.400}",
         },
       },
+      // Reserved: no component uses `border.warning` yet, but it is part of the
+      // documented design system (docs/design-system/). Keep it.
       warning: {
         value: {
           _light: "{colors.caution.500}",
