@@ -13,6 +13,30 @@ import type {
   DrawerTriggerProps,
 } from "./Drawer.types";
 
+const DrawerPlacementContext = React.createContext<DrawerPlacement>("right");
+
+/**
+ * Bottom-sheet look, applied only when `placement="bottom"`: rounded top
+ * corners (`radii.3xl`, the design's sheet radius), a grab handle drawn
+ * with `::before`, and bottom padding that clears the iOS home indicator
+ * via `--safe-area-inset-bottom` (set in src/app/globals.css).
+ */
+const BOTTOM_SHEET_STYLES = {
+  borderTopLeftRadius: "3xl",
+  borderTopRightRadius: "3xl",
+  paddingBottom: "var(--safe-area-inset-bottom, 0px)",
+  _before: {
+    content: '""',
+    alignSelf: "center",
+    flexShrink: 0,
+    width: "9",
+    height: "1",
+    marginTop: "2",
+    borderRadius: "full",
+    bg: "border.emphasized",
+  },
+} as const;
+
 const CHAKRA_PLACEMENT: Record<DrawerPlacement, "start" | "end" | "bottom"> = {
   left: "start",
   right: "end",
@@ -33,9 +57,11 @@ export function Drawer(props: DrawerProps) {
   const { placement = "right", children = null, ...rest } = props;
 
   return (
-    <ChakraDrawer.Root placement={CHAKRA_PLACEMENT[placement]} {...rest}>
-      {children}
-    </ChakraDrawer.Root>
+    <DrawerPlacementContext.Provider value={placement}>
+      <ChakraDrawer.Root placement={CHAKRA_PLACEMENT[placement]} {...rest}>
+        {children}
+      </ChakraDrawer.Root>
+    </DrawerPlacementContext.Provider>
   );
 }
 
@@ -59,12 +85,17 @@ export const DrawerContent = React.forwardRef<
   DrawerContentProps
 >(function DrawerContent(props, ref) {
   const { portalled = true, portalRef, ...rest } = props;
+  const placement = React.useContext(DrawerPlacementContext);
 
   return (
     <Portal disabled={!portalled} container={portalRef}>
       <ChakraDrawer.Backdrop />
       <ChakraDrawer.Positioner>
-        <ChakraDrawer.Content ref={ref} {...rest} />
+        <ChakraDrawer.Content
+          ref={ref}
+          {...(placement === "bottom" ? BOTTOM_SHEET_STYLES : {})}
+          {...rest}
+        />
       </ChakraDrawer.Positioner>
     </Portal>
   );

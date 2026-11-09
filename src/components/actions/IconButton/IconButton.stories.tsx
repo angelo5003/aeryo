@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 import { Wrap } from "@chakra-ui/react";
 import { expect, fn, userEvent, within } from "storybook/test";
-import { LuHeart, LuTrash2 } from "react-icons/lu";
+import { LuBell, LuHeart, LuTrash2 } from "react-icons/lu";
 import { DarkMode, LightMode } from "@/components/ui/color-mode";
 import { IconButton } from "./IconButton";
 import type {
@@ -264,4 +264,35 @@ export const Disabled: Story = {
 
 export const WithHeartIcon: Story = {
   args: { "aria-label": "Add to favorites", children: <LuHeart /> },
+};
+
+// ---------------------------------------------------------------------------
+// As a link
+// ---------------------------------------------------------------------------
+
+/**
+ * There is no `href` prop. To make an icon button navigate, use Chakra's
+ * `asChild` and put the link inside — the same pattern as
+ * `src/app/_components/TopNavBar/BackLink/BackLink.tsx` (which uses
+ * `next/link`). The link element gets the button styling.
+ */
+export const AsLink: Story = {
+  args: {
+    "aria-label": "Notifications",
+    intent: "secondary",
+    variant: "ghost",
+  },
+  render: (args) => (
+    <IconButton {...args} asChild>
+      <a href="#notifications">
+        <LuBell />
+      </a>
+    </IconButton>
+  ),
+  play: async ({ canvasElement }) => {
+    const link = within(canvasElement).getByRole("link", {
+      name: "Notifications",
+    });
+    await expect(link).toHaveAttribute("href", "#notifications");
+  },
 };

@@ -84,6 +84,26 @@ export const textStyles = {
       letterSpacing: "{letterSpacings.tight}",
     },
   },
+  /** iOS-style large title at the top of a scrolling screen. */
+  largeTitle: {
+    value: {
+      fontFamily: "{fonts.heading}",
+      fontSize: "{fontSizes.4xl}",
+      fontWeight: "{fontWeights.bold}",
+      lineHeight: "{lineHeights.tight}",
+      letterSpacing: "{letterSpacings.tight}",
+    },
+  },
+  /** Big numbers (wind speed, session counts) in the stat tiles. */
+  metric: {
+    value: {
+      fontFamily: "{fonts.heading}",
+      fontSize: "{fontSizes.4xl}",
+      fontWeight: "{fontWeights.extrabold}",
+      lineHeight: "{lineHeights.tight}",
+      letterSpacing: "{letterSpacings.tight}",
+    },
+  },
   heading: {
     value: {
       fontFamily: "{fonts.heading}",

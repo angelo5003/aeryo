@@ -150,6 +150,8 @@ export const Typography: Story = {
           </AeryoText>
           {[
             "display",
+            "largeTitle",
+            "metric",
             "heading",
             "title",
             "body",
