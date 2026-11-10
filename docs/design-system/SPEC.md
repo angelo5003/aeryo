@@ -120,7 +120,7 @@ Built and merged (Storybook has a story for each):
 Still missing:
 
 - Bell badge: no component needed. It is an icon inside a button, used only in the top navigation bar.
-- Large-title header that collapses while scrolling (the 36px style exists, the behaviour does not).
+- Large-title header that collapses while scrolling. The detection already exists in the app layer (`SignedInPageWithTopNavBar` uses `useInView` and passes `isTitleCollapsed`). Still to build: the real frosted top bar (`bg.chrome`) that replaces the placeholder `TopNavBar`, with the title crossfade. This is page code in `src/app`, not a design-system component.
 - Settings rows themselves.
 
 ## 7. Open items
