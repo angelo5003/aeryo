@@ -33,7 +33,9 @@ const BOTTOM_SHEET_STYLES = {
     height: "1",
     marginTop: "2",
     borderRadius: "full",
-    bg: "border.emphasized",
+    // fg.subtle is an Aeryo token (4.7-5.0:1 on the sheet background). Chakra's stock
+    // border.emphasized was a gray (#3F3F46) outside the palette.
+    bg: "fg.subtle",
   },
 } as const;
 
