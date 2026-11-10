@@ -337,6 +337,21 @@ export const SemanticTokens: Story = {
               usedFor: "Text on accent.solid",
             },
             {
+              token: "photo.solid",
+              label: "photo.solid",
+              usedFor: "Light button on a photo",
+            },
+            {
+              token: "photo.accent",
+              label: "photo.accent",
+              usedFor: "Teal button or badge on a photo",
+            },
+            {
+              token: "photo.contrast",
+              label: "photo.contrast",
+              usedFor: "Text on photo.solid and photo.accent",
+            },
+            {
               token: "teal.fg",
               label: "teal.fg",
               usedFor: "Active tab, links, teal text",

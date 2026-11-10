@@ -42,7 +42,8 @@ const getContrastRatio = (firstHex: string, secondHex: string): number => {
   return (lighter + 0.05) / (darker + 0.05);
 };
 
-const { bg, fg, border, rider, session, wind, ink } = semanticTokens.colors;
+const { bg, fg, border, rider, session, wind, ink, photo } =
+  semanticTokens.colors;
 const LARGE_TEXT_MINIMUM_CONTRAST = 3;
 
 describe("semantic tokens in light mode", () => {
@@ -137,3 +138,22 @@ describe("semantic-tokens.ts source", () => {
     expect(sourceWithoutComments).not.toMatch(rawColorPattern);
   });
 });
+
+test.each([
+  ["photo.solid", photo.solid],
+  ["photo.accent", photo.accent],
+])("should keep photo.contrast readable as text on %s", (_tokenName, fill) => {
+  expect(
+    getContrastRatio(
+      readPrimitiveHex(photo.contrast, "_dark"),
+      readPrimitiveHex(fill, "_dark"),
+    ),
+  ).toBeGreaterThanOrEqual(TEXT_MINIMUM_CONTRAST);
+});
+
+test.each(["solid", "accent", "contrast"] as const)(
+  "should keep photo.%s the same in light and dark mode",
+  (tokenName) => {
+    expect(photo[tokenName].value._light).toBe(photo[tokenName].value._dark);
+  },
+);

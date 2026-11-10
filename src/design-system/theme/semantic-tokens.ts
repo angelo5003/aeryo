@@ -319,6 +319,22 @@ export const semanticTokens = {
       },
     },
 
+    // Solid fills for buttons and badges that sit on a photo (home hero,
+    // welcome). Same value in both modes on purpose: photos are always dark,
+    // same reason as `bg.photo`. `accent.solid` is teal.500 in dark mode and
+    // reads dim on a photo; these are the brighter versions.
+    // `solid` = light button, `accent` = teal button, `contrast` = the text
+    // on either (ink.950: 17.5:1 on solid, 12.5:1 on accent).
+    photo: {
+      solid: { value: { _light: "{colors.ink.50}", _dark: "{colors.ink.50}" } },
+      accent: {
+        value: { _light: "{colors.teal.300}", _dark: "{colors.teal.300}" },
+      },
+      contrast: {
+        value: { _light: "{colors.ink.950}", _dark: "{colors.ink.950}" },
+      },
+    },
+
     // Rider presence — differentiated by *shade of the one primary*, not
     // by adding more brand colors (guide §32 "Rider" states).
     rider: {
