@@ -39,6 +39,7 @@ export const ChipGroup = React.forwardRef<HTMLDivElement, ChipGroupProps>(
     const {
       items,
       layout = "wrap",
+      size = "pill",
       type = "single",
       value,
       defaultValue,
@@ -75,6 +76,7 @@ export const ChipGroup = React.forwardRef<HTMLDivElement, ChipGroupProps>(
     };
 
     const isScrollLayout = layout === "scroll";
+    const isDaySize = size === "day";
 
     return (
       <Flex
@@ -101,9 +103,17 @@ export const ChipGroup = React.forwardRef<HTMLDivElement, ChipGroupProps>(
             onClick={() => handleChipPress(option.value)}
             flexShrink="0"
             scrollSnapAlign="start"
-            minHeight="11" // 2.75rem (44px), same as Button size="lg"
-            paddingX="4"
-            borderRadius="full"
+            // pill: 2.75rem (44px), same as Button size="lg"; day: 4.25rem (68px)
+            minHeight={isDaySize ? "4.25rem" : "11"}
+            width={isDaySize ? "8.25rem" : undefined} // 132px day card
+            paddingX={isDaySize ? "3.5" : "4"}
+            display={isDaySize ? "flex" : undefined}
+            flexDirection={isDaySize ? "column" : undefined}
+            alignItems={isDaySize ? "flex-start" : undefined}
+            justifyContent={isDaySize ? "center" : undefined}
+            textAlign={isDaySize ? "start" : undefined}
+            gap={isDaySize ? "1" : undefined}
+            borderRadius={isDaySize ? "xl" : "full"}
             borderWidth="1px"
             borderColor="ink.border"
             bg="bg.panel"
@@ -124,6 +134,11 @@ export const ChipGroup = React.forwardRef<HTMLDivElement, ChipGroupProps>(
             _disabled={{ opacity: 0.5, cursor: "not-allowed" }}
           >
             {option.label}
+            {isDaySize && option.detail && (
+              <chakra.span textStyle="caption" fontWeight="normal">
+                {option.detail}
+              </chakra.span>
+            )}
           </chakra.button>
         ))}
       </Flex>

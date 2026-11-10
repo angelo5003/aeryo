@@ -117,4 +117,40 @@ describe("ChipGroup", () => {
     expect(screen.getByRole("button", { name: "Wind" })).toBeDisabled();
     expect(handleValueChange).not.toHaveBeenCalled();
   });
+
+  test("should show the detail line inside the chip when size is day", () => {
+    buildComponent({
+      size: "day",
+      items: [{ value: "sat", label: "Sat", detail: "8 Nov · 18 kt" }],
+    });
+
+    expect(
+      screen.getByRole("button", { name: "Sat 8 Nov · 18 kt" }),
+    ).toBeInTheDocument();
+  });
+
+  test("should hide the detail line when size is pill", () => {
+    buildComponent({
+      items: [{ value: "sat", label: "Sat", detail: "8 Nov · 18 kt" }],
+    });
+
+    expect(screen.queryByText("8 Nov · 18 kt")).not.toBeInTheDocument();
+  });
+
+  test("should pick the pressed day when size is day", () => {
+    const handleValueChange = jest.fn();
+    buildComponent({
+      size: "day",
+      items: [
+        { value: "sat", label: "Sat", detail: "18 kt" },
+        { value: "sun", label: "Sun", detail: "12 kt" },
+      ],
+      defaultValue: "sat",
+      onValueChange: handleValueChange,
+    });
+
+    fireEvent.click(screen.getByRole("button", { name: "Sun 12 kt" }));
+
+    expect(handleValueChange).toHaveBeenCalledWith("sun");
+  });
 });
