@@ -91,7 +91,7 @@ Not in the table on purpose: every `*.solid`, `*.fg`, `*.subtle`, `*.muted`, `*.
 | On/off row                           | `Switch` inside a settings row                                      | n/a                                                                                          |
 | Text field                           | `Field` + `Input`                                                   | n/a                                                                                          |
 
-Spacing steps: 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 24, 32, 40, 48, 64, 80, 96, 128px (`spacing.0.5` to `spacing.32`). The half steps (`0.5`, `1.5`, `2.5`, `3.5`, `4.5`) cover the 2, 6, 10, 14 and 18px the designs use. Any other value snaps to the nearest step.
+Spacing steps: 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 24, 32, 40, 48, 64, 80, 96, 128px (`spacing.0.5` to `spacing.32`). The half steps (`0.5`, `1.5`, `2.5`, `3.5`, `4.5`) cover the 2, 6, 10, 14 and 18px the designs use. Any other value snaps to the nearest step. `spacing-usage.test.ts` fails when `src/` uses a raw px or rem value, or a step outside the scale, for padding, margin or gap.
 Corner radii: xs 4, sm 6, md 8, lg 10, xl 14, 2xl 18, 3xl 22px, full.
 
 ## 4. Where the designs already match the app
