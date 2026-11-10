@@ -114,7 +114,7 @@ Built and merged (Storybook has a story for each):
 | `SettingsListCard`        | Surfaces/SettingsListCard | The card and dividers only. Rows are written where it is used |
 | `NotificationRow`         | Surfaces/NotificationRow  | Time and unread dot sit in the title row                      |
 | `WindRangeSlider`         | Forms/WindRangeSlider     | Track has a 1px `fg.subtle` outline to reach 3:1 contrast     |
-| Bottom sheet styling      | Data Display/Drawer       | `placement="bottom"`                                          |
+| Bottom sheet styling      | Data Display/Drawer       | `placement="bottom"`, grab handle uses `fg.subtle`            |
 | `largeTitle` and `metric` | Foundations/Typography    | Text styles                                                   |
 
 Still missing:
@@ -126,7 +126,6 @@ Still missing:
 
 ## 7. Open items
 
-- **Grab handle color.** The bottom drawer handle uses Chakra's stock `border.emphasized` (dark #3F3F46, not in the palette). The prototype uses a muted teal-gray. Pick a token from the Aeryo palette and use it in both.
 - **Divider token.** The prototype uses `border.muted` for dividers and card edges. `SettingsListCard` uses `border` for dividers (dark 16% teal, light #DDE4E7). Choose one.
 - **Error surfaces.** The prototype mixes `bg.error`, `danger.muted` and `border.error` in banners. Name the intended tokens.
 - **Hardcoded colors in the prototype.** 19 distinct hex values sit outside the theme variables (mostly photo screens and gradient numerals). Turn them into tokens or mark them design-only.
