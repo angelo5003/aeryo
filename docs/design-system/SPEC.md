@@ -61,7 +61,7 @@ Sora never goes below `title` (20px). Numbers that must not jitter (wind speed) 
 
 Outline buttons draw their edge with `<palette>.border` and their text with `<palette>.fg` (per Chakra's button recipe). With `intent="secondary"` that is `ink.border` and `ink.fg`, with `intent="primary"` it is `teal.border` and `teal.fg`.
 
-Shadows follow the same rule: `shadows.xs` to `2xl`, `inner`, `inset` and `onPhoto` (text on photos). A teal glow is not a token yet, because the theme test says every shadow tints `ink`.
+Shadows follow the same rule: `shadows.xs` to `2xl`, `inner`, `inset` and `onPhoto` (text on photos). There is no teal glow token, because the theme test says every shadow tints `ink`. Use a `border.accent` outline for selected chips and pills instead.
 
 The prototype uses these token names as CSS variables (`--tk-bg-panel`, `--tk-fg-photo`, …), with the primitives in one `--prim-*` block. Elements that always sit on a photo use the `--tk-dark-*` variables, which hold the dark value in both modes (like `<DarkMode>`). Sunlight mode reuses existing tokens (`ink.border`, `fg.emphasized`) until it is built in the app. The full audit is in `color-audit.md`.
 
