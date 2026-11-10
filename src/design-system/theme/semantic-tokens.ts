@@ -62,6 +62,11 @@ export const semanticTokens = {
       panel: {
         value: { _light: "{colors.paper.0}", _dark: "{colors.ink.900}" },
       },
+      // Flipped surface: dark in light mode, light in dark mode (toast, snackbar,
+      // the Apple sign-in button). Text on it is `fg.inverted`.
+      inverted: {
+        value: { _light: "{colors.ink.950}", _dark: "{colors.ink.50}" },
+      },
       // Frosted app chrome (top bar, floating bottom tab bar). Mostly
       // opaque on purpose: label/icon contrast must hold even when
       // backdrop blur is unsupported or a photo scrolls underneath.
@@ -174,6 +179,11 @@ export const semanticTokens = {
       // does not — use `fg` on emphasized in dark mode.
       emphasized: {
         value: { _light: "{colors.ink.600}", _dark: "{colors.ink.200}" },
+      },
+      // Text on `bg.inverted`. Light mode is paper.50 (the page background),
+      // dark mode is ink.950.
+      inverted: {
+        value: { _light: "{colors.paper.50}", _dark: "{colors.ink.950}" },
       },
       // Type and chrome on a photographic scrim. Same value in both modes
       // — `fg` would flip to dark ink in light mode and disappear on the
@@ -316,6 +326,30 @@ export const semanticTokens = {
       // ink.950/teal.500 = 7.01:1 (dark).
       contrast: {
         value: { _light: "{colors.ink.50}", _dark: "{colors.ink.950}" },
+      },
+    },
+
+    // Small filled marks: progress bars and steps, the active-tab dot, chart
+    // bars, switch thumbs, drag handles, pins. They are fills, not text, so
+    // they have their own tokens instead of borrowing `fg.*`. Values equal
+    // the `fg` token each one used to borrow, so nothing changes visually.
+    // Each clears 3:1 (the UI-mark minimum) on bg and bg.panel; tests check it.
+    mark: {
+      // Filled progress, current step, active-tab dot, "best" chart bar.
+      accent: {
+        value: { _light: "{colors.teal.800}", _dark: "{colors.teal.300}" },
+      },
+      // Inactive mark at rest: chart bars, switch thumb when off.
+      muted: {
+        value: { _light: "{colors.ink.550}", _dark: "{colors.ink.350}" },
+      },
+      // Quiet mark: sheet drag handle.
+      subtle: {
+        value: { _light: "{colors.ink.500}", _dark: "{colors.ink.450}" },
+      },
+      // Strong mark: pins, the "now" line, the home indicator.
+      strong: {
+        value: { _light: "{colors.ink.950}", _dark: "{colors.ink.50}" },
       },
     },
 

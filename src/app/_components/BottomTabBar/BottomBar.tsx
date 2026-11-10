@@ -104,7 +104,7 @@ const BottomBar: React.FC<BottomBarProps> = ({ isBottomBarHidden }) => {
                         mx="auto"
                         boxSize="1"
                         rounded="full"
-                        bg="teal.fg"
+                        bg="mark.accent"
                       />
                     )}
                   </Link>

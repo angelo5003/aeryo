@@ -27,40 +27,46 @@ Sora never goes below `title` (20px). Numbers that must not jitter (wind speed) 
 
 ## 2. Colors (semantic tokens)
 
-| Token               | Light        | Dark                     | Use it for                                           |
-| ------------------- | ------------ | ------------------------ | ---------------------------------------------------- |
-| `bg`                | #F7FAFB      | #071216                  | Page background                                      |
-| `bg.subtle`         | #F2F5F6      | #0D2931                  | Quiet section background                             |
-| `bg.muted`          | #EAEEF0      | #123640                  | Filled surfaces, pressed rows                        |
-| `bg.panel`          | #FFFFFF      | #0D2931                  | Card background                                      |
-| `bg.chrome`         | #F7FAFB @98% | #071216 @88%             | Top bar and bottom tab bar (frosted)                 |
-| `bg.error`          | #FBEEEC      | #2E110E                  | Danger zone / error surface                          |
-| `bg.scrim`          | #071216 @40% | #071216 @60%             | Backdrop behind sheets and dialogs                   |
-| `bg.overlay.soft`   | #071216 @25% | #071216 @25%             | Light dimming on photos                              |
-| `bg.overlay.medium` | #071216 @55% | #071216 @55%             | Glass labels on photos                               |
-| `bg.overlay.strong` | #071216 @90% | #071216 @90%             | Near-solid bars and gradient ends                    |
-| `fg`                | #071216      | #EDF8F6                  | Main text and icons                                  |
-| `fg.muted`          | #37707C      | #76A1A9                  | Secondary text                                       |
-| `fg.emphasized`     | #285C68      | #C0D6D9                  | Labels and list titles                               |
-| `fg.error`          | #6E2823      | #EBAFA7                  | Danger text                                          |
-| `fg.photo`          | #EDF8F6      | #EDF8F6                  | Text on a photo                                      |
-| `fg.metric.top`     | #148A90      | #E9FBF8                  | Top of the big wind numbers                          |
-| `fg.metric.bottom`  | #0B4D52      | #2FC3B8                  | Bottom of the big wind numbers                       |
-| `border`            | #DDE4E7      | rgba(99, 230, 213, 0.16) | Hairline under rows, hover border                    |
-| `border.muted`      | #EAEEF0      | rgba(99, 230, 213, 0.10) | Card border                                          |
-| `border.photo`      | #EDF8F6 @30% | #EDF8F6 @30%             | Hairline on photos and glass                         |
-| `photo.solid`       | #EDF8F6      | #EDF8F6                  | Light button on a photo (Use photo)                  |
-| `photo.accent`      | #63E6D5      | #63E6D5                  | Teal button or badge on a photo (home hero, welcome) |
-| `photo.contrast`    | #071216      | #071216                  | Text on `photo.solid` and `photo.accent`             |
-| `border.accent`     | #148A90      | #63E6D5 @45%             | Selected or active outline                           |
-| `border.error`      | #D45B52      | #D96F62                  | Danger border                                        |
-| `accent.solid`      | #106B70      | #19AEB5                  | Primary button fill, active tab                      |
-| `accent.contrast`   | #EDF8F6      | #071216                  | Text on the primary button                           |
-| `teal.fg`           | #0B4D52      | #63E6D5                  | Teal text and links                                  |
-| `danger.solid`      | #963731      | #963731                  | Destructive button fill                              |
-| `danger.contrast`   | #FFFFFF      | #FFFFFF                  | Text on destructive button                           |
-| `ink.border`        | #3D7784      | #6B99A2                  | Outline button border (secondary)                    |
-| `ink.fg`            | #123640      | #C0D6D9                  | Outline button text (secondary)                      |
+| Token               | Light        | Dark                     | Use it for                                                  |
+| ------------------- | ------------ | ------------------------ | ----------------------------------------------------------- |
+| `bg`                | #F7FAFB      | #071216                  | Page background                                             |
+| `bg.subtle`         | #F2F5F6      | #0D2931                  | Quiet section background                                    |
+| `bg.muted`          | #EAEEF0      | #123640                  | Filled surfaces, pressed rows                               |
+| `bg.panel`          | #FFFFFF      | #0D2931                  | Card background                                             |
+| `bg.chrome`         | #F7FAFB @98% | #071216 @88%             | Top bar and bottom tab bar (frosted)                        |
+| `bg.error`          | #FBEEEC      | #2E110E                  | Danger zone / error surface                                 |
+| `bg.scrim`          | #071216 @40% | #071216 @60%             | Backdrop behind sheets and dialogs                          |
+| `bg.overlay.soft`   | #071216 @25% | #071216 @25%             | Light dimming on photos                                     |
+| `bg.overlay.medium` | #071216 @55% | #071216 @55%             | Glass labels on photos                                      |
+| `bg.overlay.strong` | #071216 @90% | #071216 @90%             | Near-solid bars and gradient ends                           |
+| `fg`                | #071216      | #EDF8F6                  | Main text and icons                                         |
+| `fg.muted`          | #37707C      | #76A1A9                  | Secondary text                                              |
+| `fg.emphasized`     | #285C68      | #C0D6D9                  | Labels and list titles                                      |
+| `fg.error`          | #6E2823      | #EBAFA7                  | Danger text                                                 |
+| `fg.photo`          | #EDF8F6      | #EDF8F6                  | Text on a photo                                             |
+| `fg.metric.top`     | #148A90      | #E9FBF8                  | Top of the big wind numbers                                 |
+| `fg.metric.bottom`  | #0B4D52      | #2FC3B8                  | Bottom of the big wind numbers                              |
+| `border`            | #DDE4E7      | rgba(99, 230, 213, 0.16) | Hairline under rows, hover border                           |
+| `border.muted`      | #EAEEF0      | rgba(99, 230, 213, 0.10) | Card border                                                 |
+| `border.photo`      | #EDF8F6 @30% | #EDF8F6 @30%             | Hairline on photos and glass                                |
+| `photo.solid`       | #EDF8F6      | #EDF8F6                  | Light button on a photo (Use photo)                         |
+| `photo.accent`      | #63E6D5      | #63E6D5                  | Teal button or badge on a photo (home hero, welcome)        |
+| `photo.contrast`    | #071216      | #071216                  | Text on `photo.solid` and `photo.accent`                    |
+| `mark.accent`       | #0B4D52      | #63E6D5                  | Progress fill, current step, active-tab dot, best chart bar |
+| `mark.muted`        | #37707C      | #76A1A9                  | Inactive chart bar, switch thumb when off                   |
+| `mark.subtle`       | #3D7784      | #66969F                  | Sheet drag handle                                           |
+| `mark.strong`       | #071216      | #EDF8F6                  | Pin, now line, home indicator                               |
+| `bg.inverted`       | #071216      | #EDF8F6                  | Toast, snackbar, Apple sign-in button                       |
+| `fg.inverted`       | #F7FAFB      | #071216                  | Text on bg.inverted                                         |
+| `border.accent`     | #148A90      | #63E6D5 @45%             | Selected or active outline                                  |
+| `border.error`      | #D45B52      | #D96F62                  | Danger border                                               |
+| `accent.solid`      | #106B70      | #19AEB5                  | Primary button fill, active tab                             |
+| `accent.contrast`   | #EDF8F6      | #071216                  | Text on the primary button                                  |
+| `teal.fg`           | #0B4D52      | #63E6D5                  | Teal text and links                                         |
+| `danger.solid`      | #963731      | #963731                  | Destructive button fill                                     |
+| `danger.contrast`   | #FFFFFF      | #FFFFFF                  | Text on destructive button                                  |
+| `ink.border`        | #3D7784      | #6B99A2                  | Outline button border (secondary)                           |
+| `ink.fg`            | #123640      | #C0D6D9                  | Outline button text (secondary)                             |
 
 Outline buttons draw their edge with `<palette>.border` and their text with `<palette>.fg` (per Chakra's button recipe). With `intent="secondary"` that is `ink.border` and `ink.fg`, with `intent="primary"` it is `teal.border` and `teal.fg`.
 
