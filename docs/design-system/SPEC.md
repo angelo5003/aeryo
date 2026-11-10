@@ -123,6 +123,17 @@ Still missing:
 - Large-title header that collapses while scrolling. The detection already exists in the app layer (`SignedInPageWithTopNavBar` uses `useInView` and passes `isTitleCollapsed`). Still to build: the real frosted top bar (`bg.chrome`) that replaces the placeholder `TopNavBar`, with the title crossfade. This is page code in `src/app`, not a design-system component.
 - Settings rows themselves.
 
+Flow designed, not built yet: **Switch spot** (the spot pill at the top left of Home). Prototype route "Switch spot" in the app flow artifact. The rules:
+
+- The pill shows a pin, the spot name and a small chevron. It opens a bottom sheet titled "Choose a spot" (`Drawer placement="bottom"`).
+- The sheet lists at most 5 spots: the spot Home is on (checked) first, then saved spots, then the best matches for the rider. Each row has a thumbnail, the name, the wind and the walk from parking, and the "Matches you" tag.
+- Picking a spot closes the sheet and changes this view only. The default spot stays.
+- When the picked spot differs from the default, the first button is "Set [spot] as my default". The subtitle says "Showing [spot]. Home still opens on [default]."
+- Buttons stack in one column with equal width and an 8px gap: set as default (primary, only when different), "Search all spots" (outline, opens the full search), Cancel (plain text).
+- Offline: a banner says the wind is from the last update, and each row shows the wind with its time ("22 kt at 14:10") instead of "now".
+- No "nearby" sort. It would need a location permission, and the app never shows exact coordinates.
+- To decide when building: the spot row (thumbnail, text, radio) has no component yet. Build it from existing parts first, and add a component only if another screen needs the same row.
+
 ## 7. Open items
 
 - **Divider token (resolved).** Card edges use `border.muted`. Dividers between rows use `border` (dark 16% teal, light #DDE4E7), one step stronger, as in `SettingsListCard`. The prototype now has a separate divider color for row separators.
