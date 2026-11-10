@@ -53,7 +53,7 @@ const SignedInPageWithTopNavBar: FC<SignedInPageWithTopNavBarProps> = ({
         overflowY="auto"
         pb={shouldShowBottomBar ? "20" : undefined}
       >
-        <Heading as="h2" variant="display" ref={largeTitleRef} px="4">
+        <Heading as="h2" variant="heading" ref={largeTitleRef} px="4">
           {pageTitle}
         </Heading>
         {children}
