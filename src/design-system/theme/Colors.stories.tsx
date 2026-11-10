@@ -352,6 +352,37 @@ export const SemanticTokens: Story = {
               usedFor: "Text on photo.solid and photo.accent",
             },
             {
+              token: "mark.accent",
+              label: "mark.accent",
+              usedFor:
+                "Progress fill, current step, active-tab dot, best chart bar",
+            },
+            {
+              token: "mark.muted",
+              label: "mark.muted",
+              usedFor: "Inactive chart bar, switch thumb when off",
+            },
+            {
+              token: "mark.subtle",
+              label: "mark.subtle",
+              usedFor: "Sheet drag handle",
+            },
+            {
+              token: "mark.strong",
+              label: "mark.strong",
+              usedFor: "Pin, now line, home indicator",
+            },
+            {
+              token: "bg.inverted",
+              label: "bg.inverted",
+              usedFor: "Toast, snackbar, Apple sign-in button",
+            },
+            {
+              token: "fg.inverted",
+              label: "fg.inverted",
+              usedFor: "Text on bg.inverted",
+            },
+            {
               token: "teal.fg",
               label: "teal.fg",
               usedFor: "Active tab, links, teal text",

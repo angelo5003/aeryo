@@ -42,7 +42,7 @@ const getContrastRatio = (firstHex: string, secondHex: string): number => {
   return (lighter + 0.05) / (darker + 0.05);
 };
 
-const { bg, fg, border, rider, session, wind, ink, photo } =
+const { bg, fg, border, rider, session, wind, ink, photo, mark } =
   semanticTokens.colors;
 const LARGE_TEXT_MINIMUM_CONTRAST = 3;
 
@@ -157,3 +157,33 @@ test.each(["solid", "accent", "contrast"] as const)(
     expect(photo[tokenName].value._light).toBe(photo[tokenName].value._dark);
   },
 );
+
+describe.each([
+  ["light", "_light"],
+  ["dark", "_dark"],
+] as const)("the mark tokens in %s mode", (_modeName, colorModeKey) => {
+  test.each([
+    ["mark.accent", mark.accent],
+    ["mark.muted", mark.muted],
+    ["mark.subtle", mark.subtle],
+    ["mark.strong", mark.strong],
+  ])("should keep %s visible on bg and bg.panel", (_tokenName, markToken) => {
+    for (const ground of [bg.DEFAULT, bg.panel]) {
+      expect(
+        getContrastRatio(
+          readPrimitiveHex(markToken, colorModeKey),
+          readPrimitiveHex(ground, colorModeKey),
+        ),
+      ).toBeGreaterThanOrEqual(MARK_MINIMUM_CONTRAST);
+    }
+  });
+
+  test("should keep fg.inverted readable as text on bg.inverted", () => {
+    expect(
+      getContrastRatio(
+        readPrimitiveHex(fg.inverted, colorModeKey),
+        readPrimitiveHex(bg.inverted, colorModeKey),
+      ),
+    ).toBeGreaterThanOrEqual(TEXT_MINIMUM_CONTRAST);
+  });
+});
