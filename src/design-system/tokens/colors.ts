@@ -42,7 +42,13 @@ export const colors = {
     50: { value: "#EDF8F6" },
     200: { value: "#C0D6D9" },
     300: { value: "#96B8BE" },
+    // Dark-mode `fg.muted` only: ink.400 reaches 4.12:1 on `bg.muted`, so
+    // this sits between ink.300 and ink.400 to clear 4.5:1.
+    350: { value: "#76A1A9" },
     400: { value: "#6B99A2" },
+    // Dark-mode `fg.subtle` and `wind.calm` only: ink.500 is only 3.77:1
+    // on `bg`, so this sits between ink.400 and ink.500.
+    450: { value: "#66969F" },
     500: { value: "#3D7784" },
     // Light-mode `fg.muted` only: ink.500 reaches 4.31:1 on `bg.muted`, and
     // ink.600 is already `fg.emphasized`, so this keeps the two apart.
@@ -58,6 +64,9 @@ export const colors = {
   // without the mint wash of `ink.50`. Semantic `_light` bg/border/ink
   // wells point here; keep in sync with `--background` in globals.css.
   paper: {
+    // Pure white. Only `bg.panel` (light) and `*.contrast` text use it, so
+    // the semantic tokens never hold a literal "white".
+    0: { value: "#FFFFFF" },
     50: { value: "#F7FAFB" },
     100: { value: "#F2F5F6" },
     200: { value: "#EAEEF0" },

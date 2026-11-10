@@ -59,7 +59,9 @@ export const semanticTokens = {
       emphasized: {
         value: { _light: "{colors.paper.300}", _dark: "{colors.ink.700}" },
       },
-      panel: { value: { _light: "white", _dark: "{colors.ink.900}" } },
+      panel: {
+        value: { _light: "{colors.paper.0}", _dark: "{colors.ink.900}" },
+      },
       // Frosted app chrome (top bar, floating bottom tab bar). Mostly
       // opaque on purpose: label/icon contrast must hold even when
       // backdrop blur is unsupported or a photo scrolls underneath.
@@ -81,6 +83,34 @@ export const semanticTokens = {
       // so they must not follow `bg` into off-white in light mode.
       photo: {
         value: { _light: "{colors.ink.950}", _dark: "{colors.ink.950}" },
+      },
+      // Backdrop behind sheets and dialogs. Dark needs the heavier dim so the
+      // sheet still separates from an already dark page.
+      scrim: {
+        value: { _light: "{colors.ink.950/40}", _dark: "{colors.ink.950/60}" },
+      },
+      // Dimming layers on top of photos (gradients, glass labels, sheets over
+      // a photo). Same value in both modes on purpose: photos are always
+      // dark, same reason as `bg.photo`.
+      overlay: {
+        soft: {
+          value: {
+            _light: "{colors.ink.950/25}",
+            _dark: "{colors.ink.950/25}",
+          },
+        },
+        medium: {
+          value: {
+            _light: "{colors.ink.950/55}",
+            _dark: "{colors.ink.950/55}",
+          },
+        },
+        strong: {
+          value: {
+            _light: "{colors.ink.950/90}",
+            _dark: "{colors.ink.950/90}",
+          },
+        },
       },
       // Chakra's Field/Input/Alert recipes read `bg.error` etc directly
       // (not via `colorPalette` — that's a separate mechanism, see the
@@ -118,20 +148,20 @@ export const semanticTokens = {
         value: { _light: "{colors.ink.950}", _dark: "{colors.ink.50}" },
       },
       // Dark value is NOT ink.400 — that only clears 4.12:1 against
-      // bg.muted (fails 4.5:1 AA). #76A1A9 is ink.400 nudged toward
+      // bg.muted (fails 4.5:1 AA). ink.350 is ink.400 nudged toward
       // ink.300, verified 4.57:1/6.72:1/5.40:1 against bg.muted/bg/bg.subtle.
       // Light value verified 4.77:1/5.31:1/5.08:1 against the same grounds.
       muted: {
-        value: { _light: "{colors.ink.550}", _dark: "#76A1A9" },
+        value: { _light: "{colors.ink.550}", _dark: "{colors.ink.350}" },
       },
       // Dark value is NOT ink.500 (#3D7784) — that's only 3.77:1 against
-      // bg and 3.02:1 against bg.subtle, both AA fails. #66969F is
+      // bg and 3.02:1 against bg.subtle, both AA fails. ink.450 is
       // verified 5.80:1/4.66:1 against bg/bg.subtle. Scope: verified for
       // bg/bg.subtle only — don't place fg.subtle on bg.muted or
       // bg.emphasized (use fg.muted on muted, `fg` on emphasized). Light
       // value verified 4.80:1/4.60:1 against bg/bg.subtle, same scope.
       subtle: {
-        value: { _light: "{colors.ink.500}", _dark: "#66969F" },
+        value: { _light: "{colors.ink.500}", _dark: "{colors.ink.450}" },
       },
       // One step stronger than `muted` (field labels, list-item titles) —
       // added from the Figma designs' recurring #BCC9CA label color, which
@@ -170,6 +200,16 @@ export const semanticTokens = {
         // documented design system (docs/design-system/). Keep it.
         accent: {
           value: { _light: "{colors.teal.500}", _dark: "{colors.teal.500}" },
+        },
+      },
+      // Top and bottom colors of the big gradient wind numerals. Large text
+      // (3:1): light 3.95:1 / 9.11:1 on bg, dark 17.7:1 / 8.69:1 on bg.
+      metric: {
+        top: {
+          value: { _light: "{colors.teal.600}", _dark: "{colors.teal.50}" },
+        },
+        bottom: {
+          value: { _light: "{colors.teal.800}", _dark: "{colors.teal.400}" },
         },
       },
       // Reuses the same shade steps as the danger/caution/success/teal
@@ -213,14 +253,24 @@ export const semanticTokens = {
       DEFAULT: {
         value: {
           _light: "{colors.paper.300}",
-          _dark: "rgba(99, 230, 213, 0.16)",
+          _dark: "{colors.teal.300/16}",
         },
       },
       muted: {
         value: {
           _light: "{colors.paper.200}",
-          _dark: "rgba(99, 230, 213, 0.10)",
+          _dark: "{colors.teal.300/10}",
         },
+      },
+      // Hairline on photos and glass. Same value in both modes, like
+      // `bg.photo`. Decorative (2.54:1), like `border` itself.
+      photo: {
+        value: { _light: "{colors.ink.50/30}", _dark: "{colors.ink.50/30}" },
+      },
+      // Selected or active outline (selected spot card, active chip). A
+      // component boundary, so 3:1: light 3.95:1 on bg, dark 3.35:1 on bg.
+      accent: {
+        value: { _light: "{colors.teal.600}", _dark: "{colors.teal.300/45}" },
       },
       // Input's `_invalid` state reads `border.error` directly (see
       // input.js's `--error-color: colors.border.error`) — a UI-component
@@ -310,9 +360,9 @@ export const semanticTokens = {
     // (guide §25), and "extreme" is a safety state, not just "more wind".
     wind: {
       // Dark value is NOT ink.500 — same failure as fg.subtle above
-      // (3.77:1 against bg). Reuses the same verified #66969F.
+      // (3.77:1 against bg). Reuses the same verified ink.450.
       calm: {
-        value: { _light: "{colors.ink.500}", _dark: "#66969F" },
+        value: { _light: "{colors.ink.500}", _dark: "{colors.ink.450}" },
       },
       light: {
         value: { _light: "{colors.teal.700}", _dark: "{colors.teal.600}" },
@@ -400,7 +450,9 @@ export const semanticTokens = {
       },
     },
     danger: {
-      contrast: { value: { _light: "white", _dark: "white" } },
+      contrast: {
+        value: { _light: "{colors.paper.0}", _dark: "{colors.paper.0}" },
+      },
       fg: {
         value: {
           _light: "{colors.danger.800}",
@@ -448,7 +500,9 @@ export const semanticTokens = {
       },
     },
     caution: {
-      contrast: { value: { _light: "white", _dark: "white" } },
+      contrast: {
+        value: { _light: "{colors.paper.0}", _dark: "{colors.paper.0}" },
+      },
       fg: {
         value: {
           _light: "{colors.caution.800}",
@@ -599,6 +653,13 @@ export const semanticTokens = {
       value: {
         _light: "inset 0 2px 4px 0 {colors.ink.950/4}",
         _dark: "inset 0 2px 4px 0 {colors.ink.950/40}",
+      },
+    },
+    // Keeps text readable on a bright part of a photo.
+    onPhoto: {
+      value: {
+        _light: "0 1px 2px {colors.ink.950/40}",
+        _dark: "0 1px 2px {colors.ink.950/40}",
       },
     },
     inset: {

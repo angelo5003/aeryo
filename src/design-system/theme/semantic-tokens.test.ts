@@ -1,3 +1,5 @@
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 import { semanticTokens } from "@/design-system/theme/semantic-tokens";
 import { colors } from "@/design-system/tokens/colors";
 
@@ -12,8 +14,6 @@ const readPrimitiveHex = (
   colorModeKey: ColorModeKey,
 ): string => {
   const tokenValue = token.value[colorModeKey];
-  // `bg.panel` is plain white in light mode, not a reference into the palette.
-  if (tokenValue === "white") return "#FFFFFF";
   const colorPath = tokenValue.replace(/^\{colors\.|\}$/g, "");
   const [family, step] = colorPath.split(".");
   const colorFamily = colors[family as keyof typeof colors] as Record<
@@ -43,6 +43,7 @@ const getContrastRatio = (firstHex: string, secondHex: string): number => {
 };
 
 const { bg, fg, border, rider, session, wind, ink } = semanticTokens.colors;
+const LARGE_TEXT_MINIMUM_CONTRAST = 3;
 
 describe("semantic tokens in light mode", () => {
   test.each([
@@ -93,5 +94,46 @@ describe.each([
         readPrimitiveHex(ground, colorModeKey),
       ),
     ).toBeGreaterThanOrEqual(MARK_MINIMUM_CONTRAST);
+  });
+});
+
+describe.each([
+  ["light", "_light"],
+  ["dark", "_dark"],
+] as const)("the wind numeral colors in %s mode", (_modeName, colorModeKey) => {
+  test.each([
+    ["fg.metric.top", fg.metric.top],
+    ["fg.metric.bottom", fg.metric.bottom],
+  ])("should keep %s readable as large text on bg", (_tokenName, numeral) => {
+    expect(
+      getContrastRatio(
+        readPrimitiveHex(numeral, colorModeKey),
+        readPrimitiveHex(bg.DEFAULT, colorModeKey),
+      ),
+    ).toBeGreaterThanOrEqual(LARGE_TEXT_MINIMUM_CONTRAST);
+  });
+});
+
+test("should keep border.accent visible as a boundary on bg in light mode", () => {
+  expect(
+    getContrastRatio(
+      readPrimitiveHex(border.accent, "_light"),
+      readPrimitiveHex(bg.DEFAULT, "_light"),
+    ),
+  ).toBeGreaterThanOrEqual(MARK_MINIMUM_CONTRAST);
+});
+
+describe("semantic-tokens.ts source", () => {
+  const sourceWithoutComments = readFileSync(
+    join(__dirname, "semantic-tokens.ts"),
+    "utf8",
+  )
+    .replace(/\/\*[\s\S]*?\*\//g, "")
+    .replace(/\/\/.*$/gm, "");
+
+  test("should reference the palette instead of holding raw colors", () => {
+    const rawColorPattern =
+      /#[0-9a-fA-F]{3,8}\b|rgba?\(|hsla?\(|"white"|"black"/;
+    expect(sourceWithoutComments).not.toMatch(rawColorPattern);
   });
 });
