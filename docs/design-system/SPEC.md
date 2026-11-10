@@ -134,7 +134,23 @@ Flow designed, not built yet: **Switch spot** (the spot pill at the top left of 
 - No "nearby" sort. It would need a location permission, and the app never shows exact coordinates.
 - To decide when building: the spot row (thumbnail, text, radio) has no component yet. Build it from existing parts first, and add a component only if another screen needs the same row.
 
-## 7. Open items
+## 7. Copy rules
+
+Rules from the copy review of the app flow. The prototype follows them.
+
+- **One name per thing.** The rider's wind setting is **wind range** ("Your wind range"). Gear fit keeps "Too light for N kt" and "Too strong for N kt".
+- **One verb phrase per action.** "Plan a session" everywhere, never "Plan session".
+- **Second person for headings.** "Your gear", "Your riding", "Your wind range". First person ("me") only inside toggle and checkbox labels, for example "Warn me about offshore wind".
+- **Name.** "Aeryo" in sentences. "AERYO" only as the logo and as the app name on an alert.
+- **Voice.** "We" for the product. The app name appears only where an iPhone permission text needs it ("Allow Aeryo in iPhone Settings first").
+- **Parking.** Say "parking", never "car park". Use the real parking name when one is known ("Be at the parking name by 09:15" on plan review and plan done).
+- **Destructive dialogs.** Title says what goes ("Delete your account?"). Body says it cannot be undone and what is lost. Buttons are the two actions ("Delete my account" and "Keep my account"), never "Yes" and "Cancel".
+- **Offline notes.** Start with "Offline." then one short fact: "Offline. Showing wind from 14:10." or "Offline. Changes save on this phone."
+- **No alarm words.** "Danger zone" became "Delete your account".
+- **No contractions.** "You are", "do not", "will not". Keep it consistent.
+- **Capital labels.** Write labels like "NEXT UP" in normal case in the source and capitalize them with the style, so translators and screen readers get normal words (not yet done in the prototype).
+
+## 8. Open items
 
 - **Divider token (resolved).** Card edges use `border.muted`. Dividers between rows use `border` (dark 16% teal, light #DDE4E7), one step stronger, as in `SettingsListCard`. The prototype now has a separate divider color for row separators.
 - **Error surfaces (resolved).** Error banners and the danger card use `bg.error` (surface), `border.error` (outline) and `fg.error` (text). The prototype never used `danger.muted`. Its dark border was `#6E2823` (1.66:1 on `bg.error`) and now matches the app's `#D96F62` (5.32:1).
