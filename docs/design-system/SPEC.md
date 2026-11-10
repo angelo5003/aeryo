@@ -11,6 +11,8 @@ Use `Heading variant="..."` for the Sora styles and `Text variant="..."` for the
 | Style         | Component                    | Font    | Size            | Weight | Line height | Letter spacing |
 | ------------- | ---------------------------- | ------- | --------------- | ------ | ----------- | -------------- |
 | `display`     | `Heading variant="display"`  | Sora    | 3rem (48px)     | 800    | 1.2         | -0.02em        |
+| `largeTitle`  | `textStyle="largeTitle"`     | Sora    | 2.25rem (36px)  | 700    | 1.2         | -0.02em        |
+| `metric`      | `textStyle="metric"`         | Sora    | 2.25rem (36px)  | 800    | 1.2         | -0.02em        |
 | `heading`     | `Heading variant="heading"`  | Sora    | 1.875rem (30px) | 700    | 1.2         | 0              |
 | `title`       | `Heading variant="title"`    | Sora    | 1.25rem (20px)  | 600    | 1.5         | 0              |
 | `body`        | `Text variant="body"`        | Manrope | 1rem (16px)     | 400    | 1.5         | 0              |
@@ -18,6 +20,8 @@ Use `Heading variant="..."` for the Sora styles and `Text variant="..."` for the
 | `label`       | `Text variant="label"`       | Manrope | 0.75rem (12px)  | 500    | 1.5         | 0.04em         |
 | `body.photo`  | `Text variant="body.photo"`  | Manrope | 1rem (16px)     | 500    | 1.65        | 0              |
 | `label.photo` | `Text variant="label.photo"` | Manrope | 0.75rem (12px)  | 600    | 1.65        | 0.08em         |
+
+`largeTitle` is for the title at the top of a scrolling screen, `metric` for big numbers in stat tiles. Neither has a `Heading` or `Text` variant yet: set them with `textStyle`.
 
 Sora never goes below `title` (20px). Numbers that must not jitter (wind speed) use `fontVariantNumeric: "tabular-nums"`.
 
@@ -49,23 +53,31 @@ Sora never goes below `title` (20px). Numbers that must not jitter (wind speed) 
 
 Outline buttons draw their edge with `<palette>.border` and their text with `<palette>.fg` (per Chakra's button recipe). With `intent="secondary"` that is `ink.border` and `ink.fg`, with `intent="primary"` it is `teal.border` and `teal.fg`.
 
+Reserved (defined, no component uses them yet, kept on purpose because the design docs list them): `bg.warning`, `bg.info`, `fg.warning`, `fg.info`, `border.warning`, `fg.photo.accent`.
+
 Not in the table on purpose: every `*.solid`, `*.fg`, `*.subtle`, `*.muted`, `*.border`, `*.contrast` of `teal`, `ink`, `danger`, `caution` and `success` is reached through `Button intent` and `StatusPill variant`, not by name.
 
 ## 3. Components and sizes
 
-| What you see in the design           | Use                                                 | Size / props                                                                  |
-| ------------------------------------ | --------------------------------------------------- | ----------------------------------------------------------------------------- |
-| Page title (Settings, Notifications) | `Heading variant="heading"` or `"display"`          | 30px or 48px, see section 5 decision 4                                        |
-| Primary button                       | `Button intent="primary" variant="solid" size="lg"` | height 2.75rem (44px)                                                         |
-| Secondary / outline button           | `Button intent="secondary" variant="outline"`       | `sm` 36px, `md` 40px, `lg` 44px                                               |
-| Destructive button                   | `Button intent="danger"`                            | same sizes                                                                    |
-| Round back button                    | `IconButton variant="outline" size="lg"`            | 44 x 44px                                                                     |
-| Card                                 | `AeryoCard` (`variant="default"`)                   | `bg.panel`, 1px `border.muted`, radius `xl` (14px), shadow `sm` in light only |
-| Pressable card                       | `AeryoCard variant="interactive"`                   | same, with hover border `border`                                              |
-| Status pill                          | `StatusPill variant="neutral                        | primary                                                                       | success | warning | danger"` | sizes `sm`, `md`, `lg` |
-| Tabs / filter chips                  | `Tabs` (or `SegmentedControl` for 2 to 4 options)   | check in Storybook                                                            |
-| On/off row                           | `Switch` inside a settings row                      | n/a                                                                           |
-| Text field                           | `Field` + `Input`                                   | n/a                                                                           |
+| What you see in the design           | Use                                                                 | Size / props                                                                  |
+| ------------------------------------ | ------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| Page title (Settings, Notifications) | `Heading variant="heading"` or `"display"`                          | 30px or 48px, see section 5 decision 4                                        |
+| Primary button                       | `Button intent="primary" variant="solid" size="lg"`                 | height 2.75rem (44px)                                                         |
+| Secondary / outline button           | `Button intent="secondary" variant="outline"`                       | `sm` 36px, `md` 40px, `lg` 44px                                               |
+| Destructive button                   | `Button intent="danger"`                                            | same sizes                                                                    |
+| Round back button                    | `IconButton variant="outline" size="lg"`                            | 44 x 44px                                                                     |
+| Card                                 | `AeryoCard` (`variant="default"`)                                   | `bg.panel`, 1px `border.muted`, radius `xl` (14px), shadow `sm` in light only |
+| Pressable card                       | `AeryoCard variant="interactive"`                                   | same, with hover border `border`                                              |
+| Status pill                          | `StatusPill` (`neutral`, `primary`, `success`, `warning`, `danger`) | sizes `sm`, `md`, `lg`                                                        |
+| Tabs                                 | `Tabs` (or `SegmentedControl` for 2 to 4 options)                   | check in Storybook                                                            |
+| Filter chips, day picker row         | `ChipGroup`                                                         | 44px pills. `type="single"` or `"multiple"`, `layout="wrap"` or `"scroll"`    |
+| Stack of settings rows               | `SettingsListCard`                                                  | optional `label`. Rows are yours, at least 3.5rem (56px) high                 |
+| Notification row                     | `NotificationRow`                                                   | `icon`, `title`, `message`, `time`, `unread`, `href` or `onClick`, `actions`  |
+| Wind range (min and max)             | `WindRangeSlider`                                                   | two handles, 44px touch area, `unit="kt"`, `min`, `max`, `step`               |
+| Bottom sheet                         | `Drawer placement="bottom"`                                         | 22px top corners, grab handle, safe-area padding                              |
+| Round bell button with link          | `IconButton asChild` with a link inside                             | no `href` prop, same pattern as `BackLink`                                    |
+| On/off row                           | `Switch` inside a settings row                                      | n/a                                                                           |
+| Text field                           | `Field` + `Input`                                                   | n/a                                                                           |
 
 Spacing steps: 4, 8, 12, 16, 20, 24, 32, 40, 48, 64px (`spacing.1` to `spacing.16`).
 Corner radii: xs 4, sm 6, md 8, lg 10, xl 14, 2xl 18, 3xl 22px, full.
@@ -78,20 +90,45 @@ Background, card background, filled surface, frosted bar, main text, secondary t
 
 Rule used: the app tokens win. The designs were changed to match, except where noted. No app code changed for these.
 
-| #   | Topic                     | Decision                                                                                                                                                                                                                               | Done in           |
-| --- | ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------- |
-| 1   | Primary button, dark mode | Use `accent.solid` (#19AEB5, text #071216). It already clears 7:1 contrast.                                                                                                                                                            | Designs           |
-| 2   | Card border, dark mode    | Use `border.muted` (faint teal line, 10% alpha).                                                                                                                                                                                       | Designs           |
-| 3   | Destructive button        | Use `danger.solid` (#963731).                                                                                                                                                                                                          | Designs           |
-| 4   | Text sizes                | Use the 6 app styles. Screen titles on list screens are now `heading` (30px). Still design-only: hero titles (36px), big wind numbers, 15px secondary text. Build those with the nearest style, or add a style once a screen needs it. | Partly in designs |
-| 5   | Button heights            | Use app sizes only. Main buttons are `lg` (44px), compact buttons are `md` (40px).                                                                                                                                                     | Designs           |
-| 6   | Secondary text, light     | Use `fg.muted` (#37707C).                                                                                                                                                                                                              | Designs           |
-| 7   | Sunlight mode             | Stays a design-only idea. The app has no tokens for it. The inspector flags it.                                                                                                                                                        | Not built         |
-| 8   | Design-only effects       | Teal gradient numerals, glass buttons and glow shadows are not tokens. Build them as one-offs when needed.                                                                                                                             | Not built         |
-| 9   | Wind colors               | Keep lime. `wind.strong` uses `lime.400` and `lime.700`, the brand guide and tests depend on it. Only those two lime steps remain.                                                                                                     | Kept              |
+| #   | Topic                     | Decision                                                                                                                                                                                                                                     | Done in         |
+| --- | ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------- |
+| 1   | Primary button, dark mode | Use `accent.solid` (#19AEB5, text #071216). It already clears 7:1 contrast.                                                                                                                                                                  | Designs         |
+| 2   | Card border, dark mode    | Use `border.muted` (faint teal line, 10% alpha).                                                                                                                                                                                             | Designs         |
+| 3   | Destructive button        | Use `danger.solid` (#963731).                                                                                                                                                                                                                | Designs         |
+| 4   | Text sizes                | Use the app styles. List screen titles are `heading` (30px). Hero titles are `largeTitle` (36px) and stat numbers are `metric` (36px), both added. Still design-only: the 100px hero numerals and 15px secondary text (use `caption`, 14px). | Designs and app |
+| 5   | Button heights            | Use app sizes only. Main buttons are `lg` (44px), compact buttons are `md` (40px).                                                                                                                                                           | Designs         |
+| 6   | Secondary text, light     | Use `fg.muted` (#37707C).                                                                                                                                                                                                                    | Designs         |
+| 7   | Sunlight mode             | Stays a design-only idea. The app has no tokens for it. The inspector flags it.                                                                                                                                                              | Not built       |
+| 8   | Design-only effects       | Teal gradient numerals, glass buttons and glow shadows are not tokens. Build them as one-offs when needed.                                                                                                                                   | Not built       |
+| 9   | Wind colors               | Keep lime. `wind.strong` uses `lime.400` and `lime.700`, the brand guide and tests depend on it. Only those two lime steps remain.                                                                                                           | Kept            |
 
 Outline buttons and the round back button now use `ink.border` for their edge (dark #6B99A2, light #3D7784) and `ink.fg` for outline button text, as the app's Button does.
 
-## 6. Components the app does not have yet
+## 6. Components: built and still missing
 
-Notification row and bell badge, filter chips, bottom sheet, bottom tab bar, large-title scroll header, wind range slider, day picker, settings list row. Use the closest existing component (Tabs, Drawer, AeryoCard) until each one is built.
+Built and merged (Storybook has a story for each):
+
+| Component                 | Story title               | Notes                                                         |
+| ------------------------- | ------------------------- | ------------------------------------------------------------- |
+| `ChipGroup`               | Forms/ChipGroup           | Filter chips and the day-picker row (scroll layout)           |
+| `SettingsListCard`        | Surfaces/SettingsListCard | The card and dividers only. Rows are written where it is used |
+| `NotificationRow`         | Surfaces/NotificationRow  | Time and unread dot sit in the title row                      |
+| `WindRangeSlider`         | Forms/WindRangeSlider     | Track has a 1px `fg.subtle` outline to reach 3:1 contrast     |
+| Bottom sheet styling      | Data display/Drawer       | `placement="bottom"`                                          |
+| `largeTitle` and `metric` | Foundations/Typography    | Text styles                                                   |
+
+Still missing:
+
+- Bell badge (unread count on the bell icon).
+- Large-title header that collapses while scrolling (the 36px style exists, the behaviour does not).
+- Day-picker chip (132 x 68px with weekday, date and wind). `ChipGroup` only does the pill chip.
+- Settings rows themselves.
+
+## 7. Open items
+
+- **Grab handle color.** The bottom drawer handle uses Chakra's stock `border.emphasized` (dark #3F3F46, not in the palette). The prototype uses a muted teal-gray. Pick a token from the Aeryo palette and use it in both.
+- **Divider token.** The prototype uses `border.muted` for dividers and card edges. `SettingsListCard` uses `border` for dividers (dark 16% teal, light #DDE4E7). Choose one.
+- **Error surfaces.** The prototype mixes `bg.error`, `danger.muted` and `border.error` in banners. Name the intended tokens.
+- **Hardcoded colors in the prototype.** 19 distinct hex values sit outside the theme variables (mostly photo screens and gradient numerals). Turn them into tokens or mark them design-only.
+- **Not yet compared.** `caution`, `success`, the wind scale (`lime`), `fg.subtle` and `bg.emphasized` between design and app.
+- **Not verified.** Real iPhone, screen reader, sunlight. Android is deferred.
