@@ -127,7 +127,7 @@ Still missing:
 ## 7. Open items
 
 - **Divider token.** The prototype uses `border.muted` for dividers and card edges. `SettingsListCard` uses `border` for dividers (dark 16% teal, light #DDE4E7). Choose one.
-- **Error surfaces.** The prototype mixes `bg.error`, `danger.muted` and `border.error` in banners. Name the intended tokens.
+- **Error surfaces (resolved).** Error banners and the danger card use `bg.error` (surface), `border.error` (outline) and `fg.error` (text). The prototype never used `danger.muted`. Its dark border was `#6E2823` (1.66:1 on `bg.error`) and now matches the app's `#D96F62` (5.32:1).
 - **Hardcoded colors in the prototype.** 19 distinct hex values sit outside the theme variables (mostly photo screens and gradient numerals). Turn them into tokens or mark them design-only.
 - **Not yet compared.** `caution`, `success`, the wind scale (`lime`), `fg.subtle` and `bg.emphasized` between design and app.
 - **Not verified.** Real iPhone, screen reader, sunlight. Android is deferred.
