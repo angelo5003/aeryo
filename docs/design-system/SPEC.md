@@ -128,6 +128,9 @@ Still missing:
 
 - **Divider token (resolved).** Card edges use `border.muted`. Dividers between rows use `border` (dark 16% teal, light #DDE4E7), one step stronger, as in `SettingsListCard`. The prototype now has a separate divider color for row separators.
 - **Error surfaces (resolved).** Error banners and the danger card use `bg.error` (surface), `border.error` (outline) and `fg.error` (text). The prototype never used `danger.muted`. Its dark border was `#6E2823` (1.66:1 on `bg.error`) and now matches the app's `#D96F62` (5.32:1).
-- **Hardcoded colors in the prototype.** 19 distinct hex values sit outside the theme variables (mostly photo screens and gradient numerals). Turn them into tokens or mark them design-only.
+- **Hardcoded colors in the prototype (triaged, no change needed).** 19 hex values sit outside the theme variables, in three groups:
+  - **Fallbacks** inside `var(--x, #hex)`. They equal app tokens (for example `#63E6D5` is `teal.300`, `#071216` is `ink.950`).
+  - **Design-only gradient numerals** on photo screens: `#D4FBF5`, `#2BC7C0`, `#0F8A91`, `#DCEEEB`, `#A8EEE5`. Do not turn these into tokens.
+  - **Sample gear art colors** (`#D9902B`, `#3F6FC4`, `#2E9E6B`) and the Spec-mode inspector colors (`#1FA597`, `#D98A3A`). Not app UI.
 - **Remaining colors (compared).** `fg.subtle` matches the app (light #3D7784, dark #66969F). The prototype uses no `caution`, `success`, wind-scale (`lime`) or `bg.emphasized` color, so there is nothing to compare yet. Check them when a screen first uses them. The only off-palette greens and oranges (`.sp-ok`, `.sp-warn`) belong to the Spec-mode inspector, not the app UI.
 - **Not verified.** Real iPhone, screen reader, sunlight. Android is deferred.
