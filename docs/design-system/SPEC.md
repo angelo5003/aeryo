@@ -114,7 +114,7 @@ Built and merged (Storybook has a story for each):
 | `SettingsListCard`        | Surfaces/SettingsListCard | The card and dividers only. Rows are written where it is used |
 | `NotificationRow`         | Surfaces/NotificationRow  | Time and unread dot sit in the title row                      |
 | `WindRangeSlider`         | Forms/WindRangeSlider     | Track has a 1px `fg.subtle` outline to reach 3:1 contrast     |
-| Bottom sheet styling      | Data display/Drawer       | `placement="bottom"`                                          |
+| Bottom sheet styling      | Data Display/Drawer       | `placement="bottom"`                                          |
 | `largeTitle` and `metric` | Foundations/Typography    | Text styles                                                   |
 
 Still missing:
