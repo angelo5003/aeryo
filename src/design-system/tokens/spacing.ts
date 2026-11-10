@@ -11,10 +11,17 @@
  */
 export const spacing = {
   0: { value: "0" },
+  // Half steps: the 2/6/10/14/18px values the screen designs already use.
+  // Same names as Chakra's default scale, so `p="1.5"` resolves either way.
+  "0.5": { value: "0.125rem" }, // 2px
   1: { value: "0.25rem" }, // 4px
+  "1.5": { value: "0.375rem" }, // 6px
   2: { value: "0.5rem" }, // 8px
+  "2.5": { value: "0.625rem" }, // 10px
   3: { value: "0.75rem" }, // 12px
+  "3.5": { value: "0.875rem" }, // 14px
   4: { value: "1rem" }, // 16px
+  "4.5": { value: "1.125rem" }, // 18px
   5: { value: "1.25rem" }, // 20px
   6: { value: "1.5rem" }, // 24px
   8: { value: "2rem" }, // 32px
