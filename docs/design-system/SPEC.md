@@ -59,25 +59,25 @@ Not in the table on purpose: every `*.solid`, `*.fg`, `*.subtle`, `*.muted`, `*.
 
 ## 3. Components and sizes
 
-| What you see in the design           | Use                                                                 | Size / props                                                                  |
-| ------------------------------------ | ------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
-| Page title (Settings, Notifications) | `Heading variant="heading"` or `"display"`                          | 30px or 48px, see section 5 decision 4                                        |
-| Primary button                       | `Button intent="primary" variant="solid" size="lg"`                 | height 2.75rem (44px)                                                         |
-| Secondary / outline button           | `Button intent="secondary" variant="outline"`                       | `sm` 36px, `md` 40px, `lg` 44px                                               |
-| Destructive button                   | `Button intent="danger"`                                            | same sizes                                                                    |
-| Round back button                    | `IconButton variant="outline" size="lg"`                            | 44 x 44px                                                                     |
-| Card                                 | `AeryoCard` (`variant="default"`)                                   | `bg.panel`, 1px `border.muted`, radius `xl` (14px), shadow `sm` in light only |
-| Pressable card                       | `AeryoCard variant="interactive"`                                   | same, with hover border `border`                                              |
-| Status pill                          | `StatusPill` (`neutral`, `primary`, `success`, `warning`, `danger`) | sizes `sm`, `md`, `lg`                                                        |
-| Tabs                                 | `Tabs` (or `SegmentedControl` for 2 to 4 options)                   | check in Storybook                                                            |
-| Filter chips, day picker row         | `ChipGroup`                                                         | 44px pills. `type="single"` or `"multiple"`, `layout="wrap"` or `"scroll"`    |
-| Stack of settings rows               | `SettingsListCard`                                                  | optional `label`. Rows are yours, at least 3.5rem (56px) high                 |
-| Notification row                     | `NotificationRow`                                                   | `icon`, `title`, `message`, `time`, `unread`, `href` or `onClick`, `actions`  |
-| Wind range (min and max)             | `WindRangeSlider`                                                   | two handles, 44px touch area, `unit="kt"`, `min`, `max`, `step`               |
-| Bottom sheet                         | `Drawer placement="bottom"`                                         | 22px top corners, grab handle, safe-area padding                              |
-| Round bell button with link          | `IconButton asChild` with a link inside                             | no `href` prop, same pattern as `BackLink`                                    |
-| On/off row                           | `Switch` inside a settings row                                      | n/a                                                                           |
-| Text field                           | `Field` + `Input`                                                   | n/a                                                                           |
+| What you see in the design           | Use                                                                 | Size / props                                                                                 |
+| ------------------------------------ | ------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| Page title (Settings, Notifications) | `Heading variant="heading"` or `"display"`                          | 30px or 48px, see section 5 decision 4                                                       |
+| Primary button                       | `Button intent="primary" variant="solid" size="lg"`                 | height 2.75rem (44px)                                                                        |
+| Secondary / outline button           | `Button intent="secondary" variant="outline"`                       | `sm` 36px, `md` 40px, `lg` 44px                                                              |
+| Destructive button                   | `Button intent="danger"`                                            | same sizes                                                                                   |
+| Round back button                    | `IconButton variant="outline" size="lg"`                            | 44 x 44px                                                                                    |
+| Card                                 | `AeryoCard` (`variant="default"`)                                   | `bg.panel`, 1px `border.muted`, radius `xl` (14px), shadow `sm` in light only                |
+| Pressable card                       | `AeryoCard variant="interactive"`                                   | same, with hover border `border`                                                             |
+| Status pill                          | `StatusPill` (`neutral`, `primary`, `success`, `warning`, `danger`) | sizes `sm`, `md`, `lg`                                                                       |
+| Tabs                                 | `Tabs` (or `SegmentedControl` for 2 to 4 options)                   | check in Storybook                                                                           |
+| Filter chips, day picker row         | `ChipGroup`                                                         | 44px pills, or 132 x 68px day cards with `size="day"`. `type`, `layout="wrap"` or `"scroll"` |
+| Stack of settings rows               | `SettingsListCard`                                                  | optional `label`. Rows are yours, at least 3.5rem (56px) high                                |
+| Notification row                     | `NotificationRow`                                                   | `icon`, `title`, `message`, `time`, `unread`, `href` or `onClick`, `actions`                 |
+| Wind range (min and max)             | `WindRangeSlider`                                                   | two handles, 44px touch area, `unit="kt"`, `min`, `max`, `step`                              |
+| Bottom sheet                         | `Drawer placement="bottom"`                                         | 22px top corners, grab handle, safe-area padding                                             |
+| Round bell button with link          | `IconButton asChild` with a link inside                             | no `href` prop, same pattern as `BackLink`                                                   |
+| On/off row                           | `Switch` inside a settings row                                      | n/a                                                                                          |
+| Text field                           | `Field` + `Input`                                                   | n/a                                                                                          |
 
 Spacing steps: 4, 8, 12, 16, 20, 24, 32, 40, 48, 64px (`spacing.1` to `spacing.16`).
 Corner radii: xs 4, sm 6, md 8, lg 10, xl 14, 2xl 18, 3xl 22px, full.
@@ -119,9 +119,8 @@ Built and merged (Storybook has a story for each):
 
 Still missing:
 
-- Bell badge (unread count on the bell icon).
+- Bell badge: no component needed. It is an icon inside a button, used only in the top navigation bar.
 - Large-title header that collapses while scrolling (the 36px style exists, the behaviour does not).
-- Day-picker chip (132 x 68px with weekday, date and wind). `ChipGroup` only does the pill chip.
 - Settings rows themselves.
 
 ## 7. Open items

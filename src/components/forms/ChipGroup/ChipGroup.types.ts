@@ -6,9 +6,20 @@ export interface ChipOption {
   value: string;
   /** What the rider reads on the chip. */
   label: React.ReactNode;
+  /**
+   * A second, smaller line under the label (for example "8 Nov · 18 kt").
+   * Only shown when `size` is `"day"`.
+   */
+  detail?: React.ReactNode;
   /** A disabled chip cannot be picked. */
   disabled?: boolean;
 }
+
+/**
+ * `pill` is the 44px one-line chip (default). `day` is the taller, left
+ * aligned card for the day picker: a bold label and a smaller detail line.
+ */
+export type ChipGroupSize = "pill" | "day";
 
 /**
  * `wrap` puts chips on extra lines when they do not fit (default).
@@ -24,6 +35,8 @@ interface ChipGroupSharedProps extends Omit<
   items: Array<string | ChipOption>;
   /** How chips behave when they do not fit on one line. */
   layout?: ChipGroupLayout;
+  /** The look of every chip in the group. */
+  size?: ChipGroupSize;
   /** Names the group for screen readers, for example "Filter". */
   "aria-label": string;
 }
