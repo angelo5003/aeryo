@@ -149,14 +149,15 @@ Outline buttons and the round back button now use `ink.border` for their edge (d
 
 Built and merged (Storybook has a story for each):
 
-| Component                 | Story title               | Notes                                                         |
-| ------------------------- | ------------------------- | ------------------------------------------------------------- |
-| `ChipGroup`               | Forms/ChipGroup           | Filter chips and the day-picker row (scroll layout)           |
-| `SettingsListCard`        | Surfaces/SettingsListCard | The card and dividers only. Rows are written where it is used |
-| `NotificationRow`         | Surfaces/NotificationRow  | Time and unread dot sit in the title row                      |
-| `WindRangeSlider`         | Forms/WindRangeSlider     | Track has a 1px `fg.subtle` outline to reach 3:1 contrast     |
-| Bottom sheet styling      | Data Display/Drawer       | `placement="bottom"`, grab handle uses `fg.subtle`            |
-| `largeTitle` and `metric` | Foundations/Typography    | Text styles                                                   |
+| Component                 | Story title               | Notes                                                                                                                |
+| ------------------------- | ------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| `ChipGroup`               | Forms/ChipGroup           | Filter chips and the day-picker row (scroll layout)                                                                  |
+| `SettingsListCard`        | Surfaces/SettingsListCard | The card and dividers only. Rows are written where it is used                                                        |
+| `NotificationRow`         | Surfaces/NotificationRow  | Time and unread dot sit in the title row                                                                             |
+| `SpotCard`                | Surfaces/SpotCard         | `layout="poster"` is the compact photo card (160 x 224 px). The scrolling row around it is a `Flex`, not a component |
+| `WindRangeSlider`         | Forms/WindRangeSlider     | Track has a 1px `fg.subtle` outline to reach 3:1 contrast                                                            |
+| Bottom sheet styling      | Data Display/Drawer       | `placement="bottom"`, grab handle uses `fg.subtle`                                                                   |
+| `largeTitle` and `metric` | Foundations/Typography    | Text styles                                                                                                          |
 
 Still missing:
 

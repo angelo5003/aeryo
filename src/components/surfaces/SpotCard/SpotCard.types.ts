@@ -5,7 +5,21 @@ import type {
   AeryoCardVariant,
 } from "@/components/surfaces/Card";
 
+/**
+ * `vertical` is the full card: photo on top, details below. `poster` is the
+ * compact rail card: the photo fills the card and the name sits over it.
+ */
+export type SpotCardLayout = "vertical" | "poster";
+
 export interface SpotCardOwnProps {
+  /**
+   * `poster` fills a 160 x 224 card with the photo and puts the name and
+   * `windSpeed · description` over it, with a scrim behind the text. It
+   * ignores `region`, `rating`, `onSave` and `size`. Lay out a row of them
+   * with `Flex overflowX="auto" scrollSnapType="x mandatory"`.
+   * @default "vertical"
+   */
+  layout?: SpotCardLayout;
   /** The spot's name (e.g. "Tarifa"). Rendered as the card's title, and used to derive the accessible name when `href`/`clickable` is set. */
   name: string;
   /** Where it is (e.g. "Andalusia, Spain"). Rendered above the title. */

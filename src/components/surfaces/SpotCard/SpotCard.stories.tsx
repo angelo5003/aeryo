@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
+import { Flex } from "@chakra-ui/react";
 import { expect, within } from "storybook/test";
 import { Badge } from "@/components/typography/Badge";
 import { DarkMode, LightMode } from "@/components/ui/color-mode";
@@ -30,6 +31,7 @@ const meta = {
     imageSrc: { control: "text" },
     href: { control: "text" },
     clickable: { control: "boolean" },
+    layout: { control: "select", options: ["vertical", "poster"] },
     size: { control: "select", options: ["sm", "md", "lg"] },
     variant: {
       control: "select",
@@ -70,6 +72,56 @@ export const Clickable: Story = {
     const link = canvas.getByRole("link", { name: "Open Tarifa" });
     await expect(link).toHaveAttribute("href", "/spots/tarifa");
   },
+};
+
+const POSTER_PHOTO = "/assets/onboarding/discover-the-elements-screen.webp";
+
+export const Poster: Story = {
+  args: {
+    layout: "poster",
+    name: "Wijk aan Zee",
+    windSpeed: "22 kt",
+    description: "P 2 min walk",
+    imageSrc: POSTER_PHOTO,
+  },
+  parameters: { controls: { disable: true } },
+  render: (args) => (
+    <SpotCard {...args} badges={<Badge intent="success">Matches you</Badge>} />
+  ),
+};
+
+/** The row the Home screen uses: free scroll with snap points, next card peeking in. */
+export const PosterRow: Story = {
+  parameters: { controls: { disable: true }, layout: "padded" },
+  render: () => (
+    <Flex
+      gap="3"
+      overflowX="auto"
+      scrollSnapType="x mandatory"
+      maxW="sm"
+      py="2"
+    >
+      {["Wijk aan Zee", "Ouddorp", "Hoek van Holland", "Scheveningen"].map(
+        (spotName) => (
+          <SpotCard
+            key={spotName}
+            layout="poster"
+            name={spotName}
+            windSpeed="20 kt"
+            description="P 2 min walk"
+            imageSrc={POSTER_PHOTO}
+            href={`/spots/${spotName}`}
+          />
+        ),
+      )}
+    </Flex>
+  ),
+};
+
+export const PosterLoading: Story = {
+  args: { layout: "poster", loading: true },
+  parameters: { controls: { disable: true } },
+  render: (args) => <SpotCard {...args} />,
 };
 
 export const Loading: Story = {
