@@ -72,6 +72,26 @@ Reserved (defined, no component uses them yet, kept on purpose because the desig
 
 Not in the table on purpose: every `*.solid`, `*.fg`, `*.subtle`, `*.muted`, `*.border`, `*.contrast` of `teal`, `ink`, `danger`, `caution` and `success` is reached through `Button intent` and `StatusPill variant`, not by name.
 
+### Gradients
+
+Every gradient is a token, built only from color tokens, so it follows the color mode. Apply with `bgImage="photoScrim.bottom"` (or `bgGradient`), never a raw `linear-gradient()`. Source: `src/design-system/theme/gradient-tokens.ts`.
+
+| Token               | Use                                                                                |
+| ------------------- | ---------------------------------------------------------------------------------- |
+| `photoScrim.bottom` | Dims the bottom of a photo so text stays readable (intro, onboarding, photo cards) |
+| `photoScrim.full`   | Dims top and bottom of a photo (heroes, welcome, photo cards with a top label)     |
+| `photoScrim.top`    | Dims the top of a photo behind the status bar and back button                      |
+| `fade.top`          | Content scrolling under the top bar fades into `bg`                                |
+| `fade.bottom`       | Content scrolling under the tab bar fades into `bg`                                |
+| `panel.accent`      | Teal-tinted card that fades into `bg.panel` (next window, tall list rows)          |
+| `panel.raised`      | Faint sheen at the top of cards and sheets                                         |
+| `panel.danger`      | The danger card (`bg.error` with a faint red tint)                                 |
+| `screenGlow`        | Soft teal wash at the top of a screen. Layer over `bg`                             |
+| `metric`            | Fill for the big wind numerals. Use with `bgClip="text"`                           |
+| `avatar`            | Avatar fill (`session.planning` to `accent.solid`)                                 |
+
+Not tokens: photos (assets, put a `photoScrim` over them), the welcome brand panel (one-off), and the sunlight-mode scrims (design-only). On a photo, always use the dark `metric` value (wrap in `<DarkMode>`). The prototype mirrors these as `--gr-*` variables, and Spec mode names the token.
+
 ## 3. Components and sizes
 
 | What you see in the design           | Use                                                                 | Size / props                                                                                 |
@@ -114,7 +134,7 @@ Rule used: the app tokens win. The designs were changed to match, except where n
 | 5   | Button heights            | Use app sizes only. Main buttons are `lg` (44px), compact buttons are `md` (40px).                                                                                                                                                           | Designs         |
 | 6   | Secondary text, light     | Use `fg.muted` (#37707C).                                                                                                                                                                                                                    | Designs         |
 | 7   | Sunlight mode             | Stays a design-only idea. The app has no tokens for it. The inspector flags it.                                                                                                                                                              | Not built       |
-| 8   | Design-only effects       | Teal gradient numerals, glass buttons and glow shadows are not tokens. Build them as one-offs when needed.                                                                                                                                   | Not built       |
+| 8   | Design-only effects       | Glass buttons and glow shadows are not tokens. Build them as one-offs when needed. Gradients are tokens (section 2).                                                                                                                         | Not built       |
 | 9   | Wind colors               | Keep lime. `wind.strong` uses `lime.400` and `lime.700`, the brand guide and tests depend on it. Only those two lime steps remain.                                                                                                           | Kept            |
 
 Outline buttons and the round back button now use `ink.border` for their edge (dark #6B99A2, light #3D7784) and `ink.fg` for outline button text, as the app's Button does.
@@ -171,7 +191,7 @@ Rules from the copy review of the app flow. The prototype follows them.
 - **Error surfaces (resolved).** Error banners and the danger card use `bg.error` (surface), `border.error` (outline) and `fg.error` (text). The prototype never used `danger.muted`. Its dark border was `#6E2823` (1.66:1 on `bg.error`) and now matches the app's `#D96F62` (5.32:1).
 - **Hardcoded colors in the prototype (triaged, no change needed).** 19 hex values sit outside the theme variables, in three groups:
   - **Fallbacks** inside `var(--x, #hex)`. They equal app tokens (for example `#63E6D5` is `teal.300`, `#071216` is `ink.950`).
-  - **Design-only gradient numerals** on photo screens: `#D4FBF5`, `#2BC7C0`, `#0F8A91`, `#DCEEEB`, `#A8EEE5`. Do not turn these into tokens.
+  - **Old gradient numeral colors** on photo screens (`#D4FBF5`, `#2BC7C0`, `#0F8A91`, `#DCEEEB`, `#A8EEE5`) are replaced by `fg.metric.*` and `gradients.metric`.
   - **Sample gear art colors** (`#D9902B`, `#3F6FC4`, `#2E9E6B`) and the Spec-mode inspector colors (`#1FA597`, `#D98A3A`). Not app UI.
 - **Remaining colors (compared).** `fg.subtle` matches the app (light #3D7784, dark #66969F). The prototype uses no `caution`, `success`, wind-scale (`lime`) or `bg.emphasized` color, so there is nothing to compare yet. Check them when a screen first uses them. The only off-palette greens and oranges (`.sp-ok`, `.sp-warn`) belong to the Spec-mode inspector, not the app UI.
 - **Not verified.** Real iPhone, screen reader, sunlight. Android is deferred.

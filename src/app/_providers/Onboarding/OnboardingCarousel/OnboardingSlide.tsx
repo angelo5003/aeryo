@@ -5,7 +5,6 @@ import Image from "next/image";
 import { KenBurnsFrame } from "@/app/_providers/SplashScreen/IntroScreen/KenBurnsFrame";
 import { Heading } from "@/components/typography/Heading";
 import { Text } from "@/components/typography/Text";
-import { PHOTO_SCRIM_BG_IMAGE } from "@/design-system/theme/photoScrim";
 import type { OnboardingSlideContent } from "../onboardingContent";
 
 export interface OnboardingSlideProps {
@@ -50,7 +49,7 @@ export function OnboardingSlide({
       <Box
         position="absolute"
         inset={0}
-        bgImage={PHOTO_SCRIM_BG_IMAGE}
+        bgImage="photoScrim.bottom"
         pointerEvents="none"
       />
 

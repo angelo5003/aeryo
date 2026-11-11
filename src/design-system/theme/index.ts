@@ -15,6 +15,7 @@ import {
   textStyles,
 } from "../tokens/typography";
 import { headingRecipe } from "./headingRecipe";
+import { gradientTokens } from "./gradient-tokens";
 import { semanticTokens } from "./semantic-tokens";
 import { toastRecipe } from "./toastRecipe";
 
@@ -34,7 +35,7 @@ const config = defineConfig({
       durations,
       easings,
     },
-    semanticTokens,
+    semanticTokens: { ...semanticTokens, gradients: gradientTokens },
     textStyles,
     recipes: {
       heading: headingRecipe,
