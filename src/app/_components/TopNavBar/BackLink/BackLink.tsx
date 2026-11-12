@@ -12,6 +12,8 @@ const BackLink: FC<BackLinkProps> = ({ href, label }) => {
       size="lg"
       aria-label={`Back to ${label}`}
       intent="secondary"
+      borderRadius="full"
+      border="1px solid red"
     >
       <Link href={href}>
         <LuArrowLeft />
