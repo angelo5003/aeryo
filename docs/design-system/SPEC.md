@@ -65,10 +65,11 @@ Sora never goes below `title` (20px). Numbers that must not jitter (wind speed) 
 | `teal.fg`           | #0B4D52      | #63E6D5                  | Teal text and links                                         |
 | `danger.solid`      | #963731      | #963731                  | Destructive button fill                                     |
 | `danger.contrast`   | #FFFFFF      | #FFFFFF                  | Text on destructive button                                  |
-| `ink.border`        | #3D7784      | #6B99A2                  | Outline button border (secondary)                           |
+| `border.emphasized` | #3D7784      | #6B99A2                  | Outline of a control: outline buttons, unselected chips     |
+| `ink.border`        | #3D7784      | #6B99A2                  | Same value; points at `border.emphasized`                   |
 | `ink.fg`            | #123640      | #C0D6D9                  | Outline button text (secondary)                             |
 
-Outline buttons draw their edge with `<palette>.border` and their text with `<palette>.fg` (per Chakra's button recipe). With `intent="secondary"` that is `ink.border` and `ink.fg`, with `intent="primary"` it is `teal.border` and `teal.fg`.
+Outline buttons draw their edge with `<palette>.border` and their text with `<palette>.fg` (per Chakra's button recipe). With `intent="secondary"` that is `ink.border` (= `border.emphasized`) and `ink.fg`, with `intent="primary"` it is `teal.border` and `teal.fg`.
 
 Shadows follow the same rule: `shadows.xs` to `2xl`, `inner`, `inset` and `onPhoto` (text on photos). There is no teal glow token, because the theme test says every shadow tints `ink`. Use a `border.accent` outline for selected chips and pills instead.
 

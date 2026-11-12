@@ -272,6 +272,13 @@ export const semanticTokens = {
           _dark: "{colors.teal.300/10}",
         },
       },
+      // Outline of a control: outline buttons, unselected chips. Unlike the
+      // decorative hairline above it is a component boundary, so it needs 3:1
+      // (4.31:1 to 6.05:1 on bg, bg.subtle, bg.muted and bg.panel; tests check
+      // it). `ink.border` points here.
+      emphasized: {
+        value: { _light: "{colors.ink.500}", _dark: "{colors.ink.400}" },
+      },
       // Hairline on photos and glass. Same value in both modes, like
       // `bg.photo`. Decorative (2.54:1), like `border` itself.
       photo: {
@@ -466,6 +473,17 @@ export const semanticTokens = {
       contrast: {
         value: { _light: "{colors.ink.50}", _dark: "{colors.ink.950}" },
       },
+      // The rest of the palette, same steps as danger/caution/success so
+      // `colorPalette="teal"` resolves every part.
+      emphasized: {
+        value: { _light: "{colors.teal.300}", _dark: "{colors.teal.700}" },
+      },
+      focusRing: {
+        value: { _light: "{colors.teal.500}", _dark: "{colors.teal.500}" },
+      },
+      border: {
+        value: { _light: "{colors.teal.500}", _dark: "{colors.teal.400}" },
+      },
     },
     ink: {
       contrast: {
@@ -495,9 +513,7 @@ export const semanticTokens = {
       // paper.300 reached only 1.10:1 to 1.29:1. Dark verified 6.05:1/
       // 4.86:1/4.12:1/4.86:1 on the same grounds; the old ink.800 reached
       // only 1.00:1 to 1.47:1. Same step as this palette's `focusRing`.
-      border: {
-        value: { _light: "{colors.ink.500}", _dark: "{colors.ink.400}" },
-      },
+      border: { value: "{colors.border.emphasized}" },
     },
     danger: {
       contrast: {
