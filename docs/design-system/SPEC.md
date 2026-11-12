@@ -100,25 +100,26 @@ Not tokens: photos (assets, put a `photoScrim` over them), the welcome brand pan
 
 ## 3. Components and sizes
 
-| What you see in the design           | Use                                                                 | Size / props                                                                                 |
-| ------------------------------------ | ------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
-| Page title (Settings, Notifications) | `Heading variant="heading"` or `"display"`                          | 30px or 48px, see section 5 decision 4                                                       |
-| Primary button                       | `Button intent="primary" variant="solid" size="lg"`                 | height 2.75rem (44px)                                                                        |
-| Secondary / outline button           | `Button intent="secondary" variant="outline"`                       | `sm` 36px, `md` 40px, `lg` 44px                                                              |
-| Destructive button                   | `Button intent="danger"`                                            | same sizes                                                                                   |
-| Round back button                    | `IconButton variant="outline" size="lg"`                            | 44 x 44px                                                                                    |
-| Card                                 | `AeryoCard` (`variant="default"`)                                   | `bg.panel`, 1px `border.muted`, radius `xl` (14px), shadow `sm` in light only                |
-| Pressable card                       | `AeryoCard variant="interactive"`                                   | same, with hover border `border`                                                             |
-| Status pill                          | `StatusPill` (`neutral`, `primary`, `success`, `warning`, `danger`) | sizes `sm`, `md`, `lg`                                                                       |
-| Tabs                                 | `Tabs` (or `SegmentedControl` for 2 to 4 options)                   | check in Storybook                                                                           |
-| Filter chips, day picker row         | `ChipGroup`                                                         | 44px pills, or 132 x 68px day cards with `size="day"`. `type`, `layout="wrap"` or `"scroll"` |
-| Stack of settings rows               | `SettingsListCard`                                                  | optional `label`. Rows are yours, at least 3.5rem (56px) high                                |
-| Notification row                     | `NotificationRow`                                                   | `icon`, `title`, `message`, `time`, `unread`, `href` or `onClick`, `actions`                 |
-| Wind range (min and max)             | `WindRangeSlider`                                                   | two handles, 44px touch area, `unit="kt"`, `min`, `max`, `step`                              |
-| Bottom sheet                         | `Drawer placement="bottom"`                                         | 22px top corners, grab handle, safe-area padding                                             |
-| Round bell button with link          | `IconButton asChild` with a link inside                             | no `href` prop, same pattern as `BackLink`                                                   |
-| On/off row                           | `Switch` inside a settings row                                      | n/a                                                                                          |
-| Text field                           | `Field` + `Input`                                                   | n/a                                                                                          |
+| What you see in the design           | Use                                                                 | Size / props                                                                                              |
+| ------------------------------------ | ------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| Page title (Settings, Notifications) | `Heading variant="heading"` or `"display"`                          | 30px or 48px, see section 5 decision 4                                                                    |
+| Primary button                       | `Button intent="primary" variant="solid" size="lg"`                 | height 2.75rem (44px)                                                                                     |
+| Secondary / outline button           | `Button intent="secondary" variant="outline"`                       | `sm` 36px, `md` 40px, `lg` 44px                                                                           |
+| Destructive button                   | `Button intent="danger"`                                            | same sizes                                                                                                |
+| Round back button                    | `IconButton variant="outline" size="lg"`                            | 44 x 44px                                                                                                 |
+| Card                                 | `AeryoCard` (`variant="default"`)                                   | `bg.panel`, 1px `border.muted`, radius `xl` (14px), shadow `sm` in light only                             |
+| Pressable card                       | `AeryoCard variant="interactive"`                                   | same, with hover border `border`                                                                          |
+| Status pill                          | `StatusPill` (`neutral`, `primary`, `success`, `warning`, `danger`) | sizes `sm`, `md`, `lg`                                                                                    |
+| Tabs                                 | `Tabs` (or `SegmentedControl` for 2 to 4 options)                   | check in Storybook                                                                                        |
+| Filter chips, day picker row         | `ChipGroup`                                                         | 44px pills, or 132 x 68px day cards with `size="day"`. `type`, `layout="wrap"` or `"scroll"`              |
+| Stack of settings rows               | `SettingsListCard`                                                  | optional `label`. Rows are yours, at least 3.5rem (56px) high                                             |
+| Notification row                     | `NotificationRow`                                                   | `icon`, `title`, `message`, `time`, `unread`, `href` or `onClick`, `actions`                              |
+| Pick one from a list with photos     | `OptionList` + `OptionRow`                                          | `label` names the group. Rows: `value`, `title`, `description`, `media`. 64px high, check mark at the end |
+| Wind range (min and max)             | `WindRangeSlider`                                                   | two handles, 44px touch area, `unit="kt"`, `min`, `max`, `step`                                           |
+| Bottom sheet                         | `Drawer placement="bottom"`                                         | 22px top corners, grab handle, safe-area padding                                                          |
+| Round bell button with link          | `IconButton asChild` with a link inside                             | no `href` prop, same pattern as `BackLink`                                                                |
+| On/off row                           | `Switch` inside a settings row                                      | n/a                                                                                                       |
+| Text field                           | `Field` + `Input`                                                   | n/a                                                                                                       |
 
 Spacing steps: 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 24, 32, 40, 48, 64, 80, 96, 128px (`spacing.0.5` to `spacing.32`). The half steps (`0.5`, `1.5`, `2.5`, `3.5`, `4.5`) cover the 2, 6, 10, 14 and 18px the designs use. Any other value snaps to the nearest step.
 Corner radii: xs 4, sm 6, md 8, lg 10, xl 14, 2xl 18, 3xl 22px, full.
@@ -149,15 +150,16 @@ Outline buttons and the round back button now use `ink.border` for their edge (d
 
 Built and merged (Storybook has a story for each):
 
-| Component                 | Story title               | Notes                                                                                                                |
-| ------------------------- | ------------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| `ChipGroup`               | Forms/ChipGroup           | Filter chips and the day-picker row (scroll layout)                                                                  |
-| `SettingsListCard`        | Surfaces/SettingsListCard | The card and dividers only. Rows are written where it is used                                                        |
-| `NotificationRow`         | Surfaces/NotificationRow  | Time and unread dot sit in the title row                                                                             |
-| `SpotCard`                | Surfaces/SpotCard         | `layout="poster"` is the compact photo card (160 x 224 px). The scrolling row around it is a `Flex`, not a component |
-| `WindRangeSlider`         | Forms/WindRangeSlider     | Track has a 1px `fg.subtle` outline to reach 3:1 contrast                                                            |
-| Bottom sheet styling      | Data Display/Drawer       | `placement="bottom"`, grab handle uses `fg.subtle`                                                                   |
-| `largeTitle` and `metric` | Foundations/Typography    | Text styles                                                                                                          |
+| Component                 | Story title               | Notes                                                                                                                                                              |
+| ------------------------- | ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `ChipGroup`               | Forms/ChipGroup           | Filter chips and the day-picker row (scroll layout)                                                                                                                |
+| `SettingsListCard`        | Surfaces/SettingsListCard | The card and dividers only. Rows are written where it is used                                                                                                      |
+| `NotificationRow`         | Surfaces/NotificationRow  | Time and unread dot sit in the title row                                                                                                                           |
+| `SpotCard`                | Surfaces/SpotCard         | `layout="poster"` is the compact photo card (160 x 224 px). The scrolling row around it is a `Flex`, not a component                                               |
+| `WindRangeSlider`         | Forms/WindRangeSlider     | Track has a 1px `fg.subtle` outline to reach 3:1 contrast                                                                                                          |
+| `OptionList`, `OptionRow` | Forms/OptionList          | Built on Chakra `RadioCard`. One rounded card, dividers between rows. Mark ring is `fg.muted` (5.4:1 or more). Single choice only, a checkbox version is not built |
+| Bottom sheet styling      | Data Display/Drawer       | `placement="bottom"`, grab handle uses `fg.subtle`                                                                                                                 |
+| `largeTitle` and `metric` | Foundations/Typography    | Text styles                                                                                                                                                        |
 
 Still missing:
 
