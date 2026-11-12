@@ -258,6 +258,21 @@ export const SemanticTokens: Story = {
               label: "bg.overlay.strong",
               usedFor: "Near-solid bars over photos",
             },
+            {
+              token: "bg.warning",
+              label: "bg.warning",
+              usedFor: "Warning surface",
+            },
+            {
+              token: "bg.success",
+              label: "bg.success",
+              usedFor: "Success surface",
+            },
+            {
+              token: "bg.info",
+              label: "bg.info",
+              usedFor: "Info surface",
+            },
           ]}
         />
         <SemanticGroup
@@ -291,6 +306,26 @@ export const SemanticTokens: Story = {
               label: "fg.metric.bottom",
               usedFor: "Bottom of big wind numbers",
             },
+            {
+              token: "fg.photo.accent",
+              label: "fg.photo.accent",
+              usedFor: "Teal text on a photo",
+            },
+            {
+              token: "fg.warning",
+              label: "fg.warning",
+              usedFor: "Warning text",
+            },
+            {
+              token: "fg.success",
+              label: "fg.success",
+              usedFor: "Success text",
+            },
+            {
+              token: "fg.info",
+              label: "fg.info",
+              usedFor: "Info text",
+            },
           ]}
         />
         <SemanticGroup
@@ -320,6 +355,27 @@ export const SemanticTokens: Story = {
               token: "border.error",
               label: "border.error",
               usedFor: "Invalid field outline",
+            },
+            {
+              token: "border.emphasized",
+              label: "border.emphasized",
+              usedFor:
+                "Outline of a control: outline buttons, unselected chips",
+            },
+            {
+              token: "border.warning",
+              label: "border.warning",
+              usedFor: "Warning outline",
+            },
+            {
+              token: "border.success",
+              label: "border.success",
+              usedFor: "Success outline",
+            },
+            {
+              token: "border.info",
+              label: "border.info",
+              usedFor: "Info outline",
             },
           ]}
         />
@@ -403,6 +459,211 @@ export const SemanticTokens: Story = {
               token: "danger.contrast",
               label: "danger.contrast",
               usedFor: "Text on danger.solid",
+            },
+          ]}
+        />
+        <SemanticGroup
+          title="Teal palette"
+          tokens={[
+            {
+              token: "teal.fg",
+              label: "teal.fg",
+              usedFor: "Active text",
+            },
+            {
+              token: "teal.solid",
+              label: "teal.solid",
+              usedFor: "Filled button and badge",
+            },
+            {
+              token: "teal.contrast",
+              label: "teal.contrast",
+              usedFor: "Text on solid",
+            },
+            {
+              token: "teal.emphasized",
+              label: "teal.emphasized",
+              usedFor: "Next step after solid",
+            },
+            {
+              token: "teal.focusRing",
+              label: "teal.focusRing",
+              usedFor: "Focus outline",
+            },
+            {
+              token: "teal.border",
+              label: "teal.border",
+              usedFor: "Outline",
+            },
+          ]}
+        />
+        <SemanticGroup
+          title="Ink palette"
+          tokens={[
+            {
+              token: "ink.fg",
+              label: "ink.fg",
+              usedFor: "Text and icons in this color",
+            },
+            {
+              token: "ink.subtle",
+              label: "ink.subtle",
+              usedFor: "Quiet tinted surface",
+            },
+            {
+              token: "ink.muted",
+              label: "ink.muted",
+              usedFor: "Tinted surface, pressed",
+            },
+            {
+              token: "ink.emphasized",
+              label: "ink.emphasized",
+              usedFor: "Next step after muted",
+            },
+            {
+              token: "ink.solid",
+              label: "ink.solid",
+              usedFor: "Filled button and badge",
+            },
+            {
+              token: "ink.contrast",
+              label: "ink.contrast",
+              usedFor: "Text on solid",
+            },
+            {
+              token: "ink.focusRing",
+              label: "ink.focusRing",
+              usedFor: "Focus outline",
+            },
+            {
+              token: "ink.border",
+              label: "ink.border",
+              usedFor: "Outline",
+            },
+          ]}
+        />
+        <SemanticGroup
+          title="Danger palette"
+          tokens={[
+            {
+              token: "danger.fg",
+              label: "danger.fg",
+              usedFor: "Text and icons in this color",
+            },
+            {
+              token: "danger.subtle",
+              label: "danger.subtle",
+              usedFor: "Quiet tinted surface",
+            },
+            {
+              token: "danger.muted",
+              label: "danger.muted",
+              usedFor: "Tinted surface, pressed",
+            },
+            {
+              token: "danger.emphasized",
+              label: "danger.emphasized",
+              usedFor: "Next step after muted",
+            },
+            {
+              token: "danger.focusRing",
+              label: "danger.focusRing",
+              usedFor: "Focus outline",
+            },
+            {
+              token: "danger.border",
+              label: "danger.border",
+              usedFor: "Outline",
+            },
+          ]}
+        />
+        <SemanticGroup
+          title="Caution palette"
+          tokens={[
+            {
+              token: "caution.fg",
+              label: "caution.fg",
+              usedFor: "Text and icons in this color",
+            },
+            {
+              token: "caution.subtle",
+              label: "caution.subtle",
+              usedFor: "Quiet tinted surface",
+            },
+            {
+              token: "caution.muted",
+              label: "caution.muted",
+              usedFor: "Tinted surface, pressed",
+            },
+            {
+              token: "caution.emphasized",
+              label: "caution.emphasized",
+              usedFor: "Next step after muted",
+            },
+            {
+              token: "caution.solid",
+              label: "caution.solid",
+              usedFor: "Filled button and badge",
+            },
+            {
+              token: "caution.contrast",
+              label: "caution.contrast",
+              usedFor: "Text on solid",
+            },
+            {
+              token: "caution.focusRing",
+              label: "caution.focusRing",
+              usedFor: "Focus outline",
+            },
+            {
+              token: "caution.border",
+              label: "caution.border",
+              usedFor: "Outline",
+            },
+          ]}
+        />
+        <SemanticGroup
+          title="Success palette"
+          tokens={[
+            {
+              token: "success.fg",
+              label: "success.fg",
+              usedFor: "Text and icons in this color",
+            },
+            {
+              token: "success.subtle",
+              label: "success.subtle",
+              usedFor: "Quiet tinted surface",
+            },
+            {
+              token: "success.muted",
+              label: "success.muted",
+              usedFor: "Tinted surface, pressed",
+            },
+            {
+              token: "success.emphasized",
+              label: "success.emphasized",
+              usedFor: "Next step after muted",
+            },
+            {
+              token: "success.solid",
+              label: "success.solid",
+              usedFor: "Filled button and badge",
+            },
+            {
+              token: "success.contrast",
+              label: "success.contrast",
+              usedFor: "Text on solid",
+            },
+            {
+              token: "success.focusRing",
+              label: "success.focusRing",
+              usedFor: "Focus outline",
+            },
+            {
+              token: "success.border",
+              label: "success.border",
+              usedFor: "Outline",
             },
           ]}
         />

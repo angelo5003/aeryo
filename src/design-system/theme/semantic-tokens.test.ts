@@ -79,24 +79,31 @@ describe("semantic tokens in light mode", () => {
   });
 });
 
+test("should point ink.border at border.emphasized so the two cannot drift apart", () => {
+  expect(ink.border.value).toBe("{colors.border.emphasized}");
+});
+
 describe.each([
   ["light", "_light"],
   ["dark", "_dark"],
-] as const)("the ink button outline in %s mode", (_modeName, colorModeKey) => {
-  test.each([
-    ["bg", bg.DEFAULT],
-    ["bg.subtle", bg.subtle],
-    ["bg.muted", bg.muted],
-    ["bg.panel", bg.panel],
-  ])("should stay visible on %s", (_groundName, ground) => {
-    expect(
-      getContrastRatio(
-        readPrimitiveHex(ink.border, colorModeKey),
-        readPrimitiveHex(ground, colorModeKey),
-      ),
-    ).toBeGreaterThanOrEqual(MARK_MINIMUM_CONTRAST);
-  });
-});
+] as const)(
+  "the control outline border.emphasized in %s mode",
+  (_modeName, colorModeKey) => {
+    test.each([
+      ["bg", bg.DEFAULT],
+      ["bg.subtle", bg.subtle],
+      ["bg.muted", bg.muted],
+      ["bg.panel", bg.panel],
+    ])("should stay visible on %s", (_groundName, ground) => {
+      expect(
+        getContrastRatio(
+          readPrimitiveHex(border.emphasized, colorModeKey),
+          readPrimitiveHex(ground, colorModeKey),
+        ),
+      ).toBeGreaterThanOrEqual(MARK_MINIMUM_CONTRAST);
+    });
+  },
+);
 
 describe.each([
   ["light", "_light"],
