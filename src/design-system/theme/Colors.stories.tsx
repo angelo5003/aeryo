@@ -685,6 +685,26 @@ export const SemanticTokens: Story = {
               label: "rider.offline",
               usedFor: "Offline",
             },
+            {
+              token: "rider.online",
+              label: "rider.online",
+              usedFor: "Online dot (Community)",
+            },
+            {
+              token: "rider.online.fg",
+              label: "rider.online.fg",
+              usedFor: "Online text",
+            },
+            {
+              token: "rider.onwater",
+              label: "rider.onwater",
+              usedFor: "On the water dot (Community)",
+            },
+            {
+              token: "rider.onwater.fg",
+              label: "rider.onwater.fg",
+              usedFor: "On the water text",
+            },
           ]}
         />
         <SemanticGroup
@@ -749,7 +769,8 @@ export const Primitives: Story = {
             use the Semantic Tokens page, not these. `teal` (the one primary)
             also works as `colorPalette` on any Chakra component. `lime` is for
             wind data only. `danger`, `caution` and `success` are safety-only,
-            never decorative. `paper` is light-mode chrome only.
+            never decorative. `online` and `onwater` are for rider presence dots
+            and text only (Community tab). `paper` is light-mode chrome only.
           </Text>
         </Stack>
         <Scale
@@ -764,6 +785,8 @@ export const Primitives: Story = {
         <Scale family="danger" steps={SCALE_STEPS} />
         <Scale family="caution" steps={SCALE_STEPS} />
         <Scale family="success" steps={SCALE_STEPS} />
+        <Scale family="online" steps={[400, 700, 800]} />
+        <Scale family="onwater" steps={[300, 400, 600, 800]} />
       </Stack>
     </Box>
   ),

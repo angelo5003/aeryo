@@ -133,4 +133,24 @@ export const colors = {
     900: { value: "#174A32" },
     950: { value: "#0E2F20" },
   },
+  // Presence ramps (Community tab): `online` = "this rider has the app
+  // open", `onwater` = "this rider is riding at a spot right now". Two
+  // separate families on purpose — they must never be confused, and
+  // neither may reuse `lime` (wind-data only) or `success` (safety/status
+  // only). Not a full 50–950 ramp: each step below is chosen for one job
+  // and its WCAG ratio was calculated against `paper.50` (light) and
+  // `ink.950` (dark). Same rule as danger/caution/success: reach for these
+  // only through the `rider.online` / `rider.onwater` semantic tokens,
+  // never decoratively.
+  online: {
+    400: { value: "#2EFF74" },
+    700: { value: "#009B36" },
+    800: { value: "#007A2C" },
+  },
+  onwater: {
+    300: { value: "#D6F25A" },
+    400: { value: "#C8F03C" },
+    600: { value: "#6E8C00" },
+    800: { value: "#566B00" },
+  },
 } as const;
