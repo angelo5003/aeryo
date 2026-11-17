@@ -26,6 +26,9 @@
  * `success` are the three sanctioned safety/status-only exceptions to
  * "one primary, one highlight" — universal signal colors, never brand
  * decoration (see colors.ts for why they're named by role, not hue).
+ * `rider.online` and `rider.onwater` are the one further, presence-only
+ * exception (Community tab): two status dots that must never be confused
+ * with each other, with `lime`, or with `success`.
  *
  * WCAG NOTE: every dark-mode text/foreground value below is verified
  * against the surface(s) it's actually paired with (WCAG 2.1 contrast
@@ -387,6 +390,41 @@ export const semanticTokens = {
       },
       offline: {
         value: { _light: "{colors.ink.500}", _dark: "{colors.ink.400}" },
+      },
+      // Community presence. These two are the sanctioned exception to "one
+      // primary, shades only" above: they must be told apart from each
+      // other at a glance, and from teal `riding`, so each has its own
+      // family (`online`, `onwater` in colors.ts) instead of a teal shade.
+      // `DEFAULT` is the dot/mark (needs 3:1); `fg` is text on a surface
+      // (needs 4.5:1) — same `DEFAULT` + children shape as `bg`/`fg`.
+      // Ratios are in docs/superpowers/plans/2026-11-17-presence-color-tokens.md.
+      online: {
+        DEFAULT: {
+          value: {
+            _light: "{colors.online.700}",
+            _dark: "{colors.online.400}",
+          },
+        },
+        fg: {
+          value: {
+            _light: "{colors.online.800}",
+            _dark: "{colors.online.400}",
+          },
+        },
+      },
+      onwater: {
+        DEFAULT: {
+          value: {
+            _light: "{colors.onwater.600}",
+            _dark: "{colors.onwater.400}",
+          },
+        },
+        fg: {
+          value: {
+            _light: "{colors.onwater.800}",
+            _dark: "{colors.onwater.300}",
+          },
+        },
       },
     },
 

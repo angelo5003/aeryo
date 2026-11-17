@@ -131,6 +131,51 @@ test("should keep border.accent visible as a boundary on bg in light mode", () =
   ).toBeGreaterThanOrEqual(MARK_MINIMUM_CONTRAST);
 });
 
+describe.each([
+  ["light", "_light"],
+  ["dark", "_dark"],
+] as const)("the presence colors in %s mode", (_modeName, colorModeKey) => {
+  test.each([
+    ["rider.online", rider.online.DEFAULT, "bg", bg.DEFAULT],
+    ["rider.online", rider.online.DEFAULT, "bg.subtle", bg.subtle],
+    ["rider.onwater", rider.onwater.DEFAULT, "bg", bg.DEFAULT],
+    ["rider.onwater", rider.onwater.DEFAULT, "bg.subtle", bg.subtle],
+  ])(
+    "should keep the %s dot visible on %s",
+    (_tokenName, dot, _groundName, ground) => {
+      expect(
+        getContrastRatio(
+          readPrimitiveHex(dot, colorModeKey),
+          readPrimitiveHex(ground, colorModeKey),
+        ),
+      ).toBeGreaterThanOrEqual(MARK_MINIMUM_CONTRAST);
+    },
+  );
+
+  test.each([
+    ["rider.online.fg", rider.online.fg, "bg", bg.DEFAULT],
+    ["rider.online.fg", rider.online.fg, "bg.subtle", bg.subtle],
+    ["rider.onwater.fg", rider.onwater.fg, "bg", bg.DEFAULT],
+    ["rider.onwater.fg", rider.onwater.fg, "bg.subtle", bg.subtle],
+  ])(
+    "should keep %s readable as text on %s",
+    (_tokenName, text, _groundName, ground) => {
+      expect(
+        getContrastRatio(
+          readPrimitiveHex(text, colorModeKey),
+          readPrimitiveHex(ground, colorModeKey),
+        ),
+      ).toBeGreaterThanOrEqual(TEXT_MINIMUM_CONTRAST);
+    },
+  );
+
+  test("should keep online and onwater different colors so they are never confused", () => {
+    expect(readPrimitiveHex(rider.online.DEFAULT, colorModeKey)).not.toBe(
+      readPrimitiveHex(rider.onwater.DEFAULT, colorModeKey),
+    );
+  });
+});
+
 describe("semantic-tokens.ts source", () => {
   const sourceWithoutComments = readFileSync(
     join(__dirname, "semantic-tokens.ts"),
