@@ -42,7 +42,7 @@ export interface OnboardingCarouselProps {
  * is `false`. Both `Skip` and the final `Create account` CTA call
  * `onComplete` (marks onboarding seen) and then navigate to `/signup`.
  */
-export function OnboardingCarousel({ onComplete }: OnboardingCarouselProps) {
+export const OnboardingCarousel = ({ onComplete }: OnboardingCarouselProps) => {
   const reduceMotion = useReducedMotion();
   const router = useRouter();
   const [activeId, setActiveId] = React.useState(FIRST_ONBOARDING_SLIDE_ID);
@@ -198,4 +198,4 @@ export function OnboardingCarousel({ onComplete }: OnboardingCarouselProps) {
       </Box>
     </Box>
   );
-}
+};

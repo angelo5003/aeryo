@@ -72,12 +72,14 @@ export const PRELOAD_ONBOARDING_SLIDE_IDS = new Set(
 );
 
 /** Next slide in display order, or `undefined` when `currentId` is last/unknown. */
-export function getNextOnboardingSlideId(
+export const getNextOnboardingSlideId = (
   currentId: string,
-): string | undefined {
-  const current = ONBOARDING_SLIDES.findIndex((slide) => slide.id === currentId);
+): string | undefined => {
+  const current = ONBOARDING_SLIDES.findIndex(
+    (slide) => slide.id === currentId,
+  );
   if (current === -1) {
     return undefined;
   }
   return ONBOARDING_SLIDES[current + 1]?.id;
-}
+};

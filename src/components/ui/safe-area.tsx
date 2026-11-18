@@ -40,7 +40,7 @@ export interface SafeAreaProviderProps {
   children?: React.ReactNode;
 }
 
-export function SafeAreaProvider({ children }: SafeAreaProviderProps) {
+export const SafeAreaProvider = ({ children }: SafeAreaProviderProps) => {
   const probeRef = React.useRef<HTMLDivElement>(null);
   const [insets, setInsets] = React.useState<SafeAreaInsets>(ZERO_INSETS);
 
@@ -87,8 +87,8 @@ export function SafeAreaProvider({ children }: SafeAreaProviderProps) {
       {children}
     </SafeAreaContext.Provider>
   );
-}
+};
 
-export function useSafeArea(): SafeAreaInsets {
+export const useSafeArea = (): SafeAreaInsets => {
   return React.useContext(SafeAreaContext);
-}
+};

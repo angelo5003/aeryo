@@ -27,7 +27,7 @@ export interface AppUrlListenerProps {
  * This listener is the hook for later destinations (invite, auth callback)
  * without inventing Next.js routes.
  */
-export function AppUrlListener({ onUrlOpen }: AppUrlListenerProps) {
+export const AppUrlListener = ({ onUrlOpen }: AppUrlListenerProps) => {
   const onUrlOpenRef = React.useRef(onUrlOpen);
 
   React.useEffect(() => {
@@ -83,4 +83,4 @@ export function AppUrlListener({ onUrlOpen }: AppUrlListenerProps) {
   }, []);
 
   return null;
-}
+};

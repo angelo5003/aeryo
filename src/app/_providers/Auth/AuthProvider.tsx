@@ -18,7 +18,7 @@ export interface AuthProviderProps {
 }
 
 // Wrap the app with this (already done in layout.tsx) so every screen can ask "is someone logged in?"
-export function AuthProvider({ children }: AuthProviderProps) {
+export const AuthProvider = ({ children }: AuthProviderProps) => {
   // Remember the logged-in user. Starts as null = nobody, until Supabase answers.
   const [session, setSession] = useState<Session | null>(null);
   // False until Supabase has answered once. Without this, "still loading" looks the same as "logged out".
@@ -44,16 +44,16 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   // Put that object in the shared box, and render the rest of the app inside it.
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
-}
+};
 
 /**
  * Any screen can call this to get the current session and whether we have heard from Supabase yet.
  * It only works if AuthProvider is wrapped around the app (see layout.tsx).
  */
-export function useAuth(): AuthContextValue {
+export const useAuth = (): AuthContextValue => {
   const context = React.useContext(AuthContext);
   if (!context) {
     throw new Error("useAuth must be used within an AuthProvider");
   }
   return context;
-}
+};

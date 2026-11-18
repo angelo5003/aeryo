@@ -68,10 +68,7 @@ let cachedSnapshot: ThemeSnapshot = SERVER_SNAPSHOT;
 function getSnapshot(): ThemeSnapshot {
   const theme = readStoredPreference();
   const resolved = theme === "system" ? getSystemTheme() : theme;
-  if (
-    cachedSnapshot.theme === theme &&
-    cachedSnapshot.resolved === resolved
-  ) {
+  if (cachedSnapshot.theme === theme && cachedSnapshot.resolved === resolved) {
     return cachedSnapshot;
   }
   cachedSnapshot = { theme, resolved };
@@ -145,7 +142,7 @@ function applyThemeClass(theme: ColorMode) {
  * what made React 19 hydrate next-themes' script against Emotion's SSR
  * `<style>` (`src/components/ui/color-mode.test.tsx`).
  */
-export function ColorModeProvider({ children }: ColorModeProviderProps) {
+export const ColorModeProvider = ({ children }: ColorModeProviderProps) => {
   const snapshot = React.useSyncExternalStore(
     subscribe,
     getSnapshot,
@@ -169,7 +166,7 @@ export function ColorModeProvider({ children }: ColorModeProviderProps) {
   return (
     <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
   );
-}
+};
 
 export type UseColorModeReturn = {
   colorMode: ColorMode | undefined;
@@ -177,7 +174,7 @@ export type UseColorModeReturn = {
   toggleColorMode: () => void;
 };
 
-export function useColorMode(): UseColorModeReturn {
+export const useColorMode = (): UseColorModeReturn => {
   const { resolvedTheme, setTheme } = React.useContext(ThemeContext);
   const toggleColorMode = () => {
     setTheme(resolvedTheme === "dark" ? "light" : "dark");
@@ -187,17 +184,17 @@ export function useColorMode(): UseColorModeReturn {
     setColorMode: (colorMode) => setTheme(colorMode),
     toggleColorMode,
   };
-}
+};
 
-export function useColorModeValue<T>(light: T, dark: T) {
+export const useColorModeValue = <T,>(light: T, dark: T) => {
   const { colorMode } = useColorMode();
   return colorMode === "dark" ? dark : light;
-}
+};
 
-export function ColorModeIcon() {
+export const ColorModeIcon = () => {
   const { colorMode } = useColorMode();
   return colorMode === "dark" ? <LuMoon /> : <LuSun />;
-}
+};
 
 type ColorModeButtonProps = Omit<IconButtonProps, "aria-label">;
 

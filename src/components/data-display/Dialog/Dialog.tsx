@@ -20,11 +20,11 @@ import type {
  * `placement`, …) passes through untouched — unlike `Drawer`, a dialog has
  * no edge to slide from, so there's no physical-vocabulary prop to narrow.
  */
-export function Dialog(props: DialogProps) {
+export const Dialog = (props: DialogProps) => {
   const { children = null, ...rest } = props;
 
   return <ChakraDialog.Root {...rest}>{children}</ChakraDialog.Root>;
-}
+};
 
 /** Opens the dialog when clicked/activated. */
 export const DialogTrigger = React.forwardRef<

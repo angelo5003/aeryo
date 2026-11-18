@@ -17,16 +17,16 @@ const AeryoCardContext = React.createContext<AeryoCardContextValue | null>(
   null,
 );
 
-export function AeryoCardProvider(props: {
+export const AeryoCardProvider = (props: {
   value: AeryoCardContextValue;
   children: React.ReactNode;
-}) {
+}) => {
   return (
     <AeryoCardContext.Provider value={props.value}>
       {props.children}
     </AeryoCardContext.Provider>
   );
-}
+};
 
 /**
  * Reads the nearest `AeryoCard`'s `{ size, layout, variant, disabled,
@@ -35,7 +35,7 @@ export function AeryoCardProvider(props: {
  * Chakra's own compound components (`Card.Header` outside `Card.Root`,
  * etc.) are not meant to stand alone.
  */
-export function useAeryoCardContext(): AeryoCardContextValue {
+export const useAeryoCardContext = (): AeryoCardContextValue => {
   const context = React.useContext(AeryoCardContext);
   if (!context) {
     throw new Error(
@@ -45,4 +45,4 @@ export function useAeryoCardContext(): AeryoCardContextValue {
     );
   }
   return context;
-}
+};

@@ -43,7 +43,7 @@ export interface SplashProviderProps {
  * there's no native splash screen to control there — `isNativeSplashHidden`
  * starts `true` so web-only code paths never wait on it.
  */
-export function SplashProvider({ children }: SplashProviderProps) {
+export const SplashProvider = ({ children }: SplashProviderProps) => {
   const [isNativeSplashHidden, setIsNativeSplashHidden] = React.useState(
     () => !Capacitor.isNativePlatform(),
   );
@@ -76,17 +76,17 @@ export function SplashProvider({ children }: SplashProviderProps) {
       {children}
     </SplashScreenContext.Provider>
   );
-}
+};
 
 /**
  * Read splash-screen state or trigger the native splash to hide. Must be
  * used within a `SplashProvider` (mounted once near the root — see
  * `src/app/layout.tsx`).
  */
-export function useSplashScreen(): SplashScreenContextValue {
+export const useSplashScreen = (): SplashScreenContextValue => {
   const context = React.useContext(SplashScreenContext);
   if (!context) {
     throw new Error("useSplashScreen must be used within a SplashProvider");
   }
   return context;
-}
+};

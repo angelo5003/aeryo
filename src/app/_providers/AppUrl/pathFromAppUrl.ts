@@ -14,7 +14,7 @@ export const APP_URL_SCHEME = "com.aeryo.app";
  * Returns `null` when the string is not a URL, or uses a scheme this app
  * does not handle.
  */
-export function pathFromAppUrl(rawUrl: string): string | null {
+export const pathFromAppUrl = (rawUrl: string): string | null => {
   let url: URL;
   try {
     url = new URL(rawUrl);
@@ -37,4 +37,4 @@ export function pathFromAppUrl(rawUrl: string): string | null {
   }
 
   return null;
-}
+};
