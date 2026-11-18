@@ -21,12 +21,12 @@ import type { ProgressDotsProps } from "./ProgressDots.types";
  * placeholders). Dots use `fg.photo` / `fg.photo.muted` because they
  * sit on a photographic scrim, not on `bg`/`fg`.
  */
-export function ProgressDots({
+export const ProgressDots = ({
   ids,
   activeId,
   count,
   activeIndex,
-}: ProgressDotsProps) {
+}: ProgressDotsProps) => {
   const steps =
     ids && ids.length > 0
       ? ids
@@ -56,4 +56,4 @@ export function ProgressDots({
       ))}
     </HStack>
   );
-}
+};

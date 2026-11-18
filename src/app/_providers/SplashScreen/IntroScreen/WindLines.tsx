@@ -19,7 +19,7 @@ const LINES = [
  * rather than just frozen, since it has no informational content to
  * preserve.
  */
-export function WindLines() {
+export const WindLines = () => {
   const reduceMotion = useReducedMotion();
   const [photoFg] = useToken("colors", ["fg.photo"]);
   if (reduceMotion) return null;
@@ -48,4 +48,4 @@ export function WindLines() {
       ))}
     </Box>
   );
-}
+};

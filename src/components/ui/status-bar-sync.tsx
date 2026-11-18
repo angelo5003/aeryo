@@ -19,7 +19,7 @@ import { useColorMode } from "./color-mode";
  * Guarded by `Capacitor.isNativePlatform()` so this is a no-op in a regular
  * browser (including `next dev`) — there's no status bar to control there.
  */
-export function StatusBarSync() {
+export const StatusBarSync = () => {
   const { colorMode } = useColorMode();
 
   React.useEffect(() => {
@@ -51,4 +51,4 @@ export function StatusBarSync() {
   }, [colorMode]);
 
   return null;
-}
+};

@@ -26,11 +26,11 @@ export interface OnboardingSlideProps {
  * one step heavier and looser than chrome body) so light text on the dark
  * scrim stays readable.
  */
-export function OnboardingSlide({
+export const OnboardingSlide = ({
   slide,
   isActive = true,
   priority = false,
-}: OnboardingSlideProps) {
+}: OnboardingSlideProps) => {
   return (
     <Box position="relative" width="100%" height="100%" overflow="hidden">
       <KenBurnsFrame active={isActive}>
@@ -77,4 +77,4 @@ export function OnboardingSlide({
       </Box>
     </Box>
   );
-}
+};

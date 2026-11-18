@@ -15,7 +15,7 @@ const ONBOARDING_SEEN_KEY = "aeryo:onboarding-seen";
  * seen yet" so a broken read can't crash the boot sequence — worst case
  * the carousel just shows once more than it should.
  */
-export async function hasSeenOnboarding(): Promise<boolean> {
+export const hasSeenOnboarding = async (): Promise<boolean> => {
   try {
     const { value } = await Preferences.get({ key: ONBOARDING_SEEN_KEY });
     return value === "true";
@@ -23,7 +23,7 @@ export async function hasSeenOnboarding(): Promise<boolean> {
     console.error("onboardingStorage: failed to read", error);
     return false;
   }
-}
+};
 
 /**
  * Records that the user has completed (or skipped) the onboarding
@@ -31,10 +31,10 @@ export async function hasSeenOnboarding(): Promise<boolean> {
  * failures — worst case the carousel shows once more next launch, which is
  * a far better failure mode than crashing the boot sequence.
  */
-export async function markOnboardingSeen(): Promise<void> {
+export const markOnboardingSeen = async (): Promise<void> => {
   try {
     await Preferences.set({ key: ONBOARDING_SEEN_KEY, value: "true" });
   } catch (error) {
     console.error("onboardingStorage: failed to write", error);
   }
-}
+};

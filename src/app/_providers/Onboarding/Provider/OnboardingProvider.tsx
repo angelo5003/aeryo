@@ -31,7 +31,7 @@ export interface OnboardingProviderProps {
  * `hasCompletedOnboarding` to decide whether to show the carousel after
  * the intro screen.
  */
-export function OnboardingProvider({ children }: OnboardingProviderProps) {
+export const OnboardingProvider = ({ children }: OnboardingProviderProps) => {
   const [hasCompletedOnboarding, setHasCompletedOnboarding] = React.useState<
     boolean | null
   >(null);
@@ -61,17 +61,17 @@ export function OnboardingProvider({ children }: OnboardingProviderProps) {
       {children}
     </OnboardingContext.Provider>
   );
-}
+};
 
 /**
  * Read onboarding-completion state or mark it complete. Must be used
  * within an `OnboardingProvider` (mounted once near the root — see
  * `src/app/layout.tsx`).
  */
-export function useOnboarding(): OnboardingContextValue {
+export const useOnboarding = (): OnboardingContextValue => {
   const context = React.useContext(OnboardingContext);
   if (!context) {
     throw new Error("useOnboarding must be used within an OnboardingProvider");
   }
   return context;
-}
+};

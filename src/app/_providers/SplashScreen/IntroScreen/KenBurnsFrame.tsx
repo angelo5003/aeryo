@@ -17,7 +17,10 @@ export interface KenBurnsFrameProps {
  * Slow zoom on a full-bleed photo. Transform-only, compositor-safe, and
  * skipped entirely under `prefers-reduced-motion`.
  */
-export function KenBurnsFrame({ active = true, children }: KenBurnsFrameProps) {
+export const KenBurnsFrame = ({
+  active = true,
+  children,
+}: KenBurnsFrameProps) => {
   const reduceMotion = useReducedMotion();
   const still = reduceMotion || !active;
 
@@ -38,4 +41,4 @@ export function KenBurnsFrame({ active = true, children }: KenBurnsFrameProps) {
       {children}
     </motion.div>
   );
-}
+};

@@ -21,7 +21,7 @@ const AUTH_CONFIRM_PATH = "/auth-confirm";
  * users before the Universal Links / App Links work (parked separately,
  * needs a real domain + Apple Developer membership) is done.
  */
-export function AppUrlAuthHandler() {
+export const AppUrlAuthHandler = () => {
   const handleUrlOpen = (path: string) => {
     // Ignore every link that isn't the confirmation-email callback.
     if (!path.startsWith(AUTH_CONFIRM_PATH)) return;
@@ -46,4 +46,4 @@ export function AppUrlAuthHandler() {
   };
 
   return <AppUrlListener onUrlOpen={handleUrlOpen} />;
-}
+};

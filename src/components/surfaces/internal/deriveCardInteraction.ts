@@ -10,14 +10,14 @@ import type { AeryoCardInteractionProps } from "@/components/surfaces/Card";
  * WeatherCard never have to think about `aria-label` themselves, unlike
  * `AeryoCard` itself.
  */
-export function deriveCardInteraction(params: {
+export const deriveCardInteraction = (params: {
   href?: string;
   clickable?: boolean;
   onClick?: (
     event: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>,
   ) => void;
   ariaLabel: string;
-}): AeryoCardInteractionProps {
+}): AeryoCardInteractionProps => {
   const { href, clickable, onClick, ariaLabel } = params;
 
   if (href) {
@@ -27,4 +27,4 @@ export function deriveCardInteraction(params: {
     return { clickable: true, onClick, "aria-label": ariaLabel };
   }
   return { clickable: false };
-}
+};

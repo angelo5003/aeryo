@@ -55,7 +55,7 @@ const CHAKRA_PLACEMENT: Record<DrawerPlacement, "start" | "end" | "bottom"> = {
  * Chakra's own `Drawer.Root`, which is a logical/context provider, not a
  * rendered element.
  */
-export function Drawer(props: DrawerProps) {
+export const Drawer = (props: DrawerProps) => {
   const { placement = "right", children = null, ...rest } = props;
 
   return (
@@ -65,7 +65,7 @@ export function Drawer(props: DrawerProps) {
       </ChakraDrawer.Root>
     </DrawerPlacementContext.Provider>
   );
-}
+};
 
 /** Opens the drawer when clicked/activated. */
 export const DrawerTrigger = React.forwardRef<

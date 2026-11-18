@@ -23,7 +23,7 @@ export interface IntroScreenProps {
  * under `prefers-reduced-motion` — everything just appears in its final
  * state instantly instead.
  */
-export function IntroScreen({ onBackgroundLoad }: IntroScreenProps) {
+export const IntroScreen = ({ onBackgroundLoad }: IntroScreenProps) => {
   const reduceMotion = useReducedMotion();
 
   return (
@@ -124,4 +124,4 @@ export function IntroScreen({ onBackgroundLoad }: IntroScreenProps) {
       </Box>
     </Box>
   );
-}
+};
