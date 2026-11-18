@@ -115,6 +115,9 @@ new variable, constant, function, hook, component, prop, type, file and test.
 - **Functions, components and hooks are arrow functions:**
   `export const useHideOnScroll = (...): boolean => { ... };`, never
   `function useHideOnScroll()`.
+  **Exception:** Next.js route files (`page`, `layout`, `error`, `global-error`,
+  `not-found`) keep `export default function Name() { ... }`, matching the
+  Next.js docs in `node_modules/next/dist/docs/`.
 - Test names follow `TESTING.md` ("should do X when Y happens").
 
 Existing code isn't renamed wholesale; rename when you touch it.
