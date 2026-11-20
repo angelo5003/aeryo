@@ -103,6 +103,10 @@ graphify-out/
 #impeccable
 .impeccable/
 
+# local design prototypes and MiroFish simulation seeds, never committed
+prototype/
+mirofish-seeds/
+
 
 
 # skill-creator eval results (local only)
