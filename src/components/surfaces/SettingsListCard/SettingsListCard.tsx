@@ -12,8 +12,9 @@ import type { SettingsListCardProps } from "./SettingsListCard.types";
  *
  * It only supplies the container: no inner padding, a `border` divider
  * between neighbouring children, and an optional small `label` above.
- * Each row is yours to write. Keep rows at least 3.5rem (56px) high and
- * make the whole row pressable, so wet hands and gloves can hit it.
+ * The card is a real list (`ul`) named by its label, and each row is a
+ * list item, so screen readers announce "list, 3 items" and each row's
+ * position. Use `SettingsRow` for the rows: it renders the `li` itself.
  */
 export const SettingsListCard = React.forwardRef<
   HTMLDivElement,
@@ -31,10 +32,13 @@ export const SettingsListCard = React.forwardRef<
       )}
       <AeryoCard
         ref={ref}
+        as="ul"
         variant="default"
-        role="group"
         aria-labelledby={label ? labelId : undefined}
         gap="0"
+        margin="0"
+        padding="0"
+        listStyleType="none"
         css={{
           "& > * + *": { borderTopWidth: "1px", borderColor: "border" },
         }}

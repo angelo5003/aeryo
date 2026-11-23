@@ -6,7 +6,9 @@ import type { SettingsRowProps } from "./SettingsRow.types";
 const buildComponent = (props?: Partial<SettingsRowProps>) =>
   render(
     <Provider>
-      <SettingsRow title="Riding preferences" href="/settings" {...props} />
+      <ul>
+        <SettingsRow title="Riding preferences" href="/settings" {...props} />
+      </ul>
     </Provider>,
   );
 
@@ -25,6 +27,14 @@ describe("SettingsRow", () => {
       screen.getByRole("link", { name: "Riding preferences" }),
     ).toHaveAttribute("href", "/community");
     expect(screen.queryByRole("button")).not.toBeInTheDocument();
+  });
+
+  test("should render as a list item when rendered", () => {
+    buildComponent();
+
+    expect(screen.getByRole("listitem")).toContainElement(
+      screen.getByRole("link", { name: "Riding preferences" }),
+    );
   });
 
   test("should hide the arrow from screen readers when rendered", () => {
