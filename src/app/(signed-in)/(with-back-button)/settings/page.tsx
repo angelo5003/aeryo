@@ -1,20 +1,15 @@
 "use client";
 
 import type { FC } from "react";
-import { Box } from "@/components/primitives/Box/Box";
 import { Stack } from "@/components/primitives/Stack/Stack";
 import SettingsList from "./components/SettingsList/SettingsList";
 import { AccountCard } from "./index";
 
 const SettingsPage: FC = () => {
   return (
-    <Stack as="ul" gap="4" align="center" justify="center" p="4">
-      <Box as="li" w="100%">
-        <AccountCard />
-      </Box>
-      <Box as="li" w="100%">
-        <SettingsList />
-      </Box>
+    <Stack gap="4" align="stretch" justify="center" p="4">
+      <AccountCard />
+      <SettingsList />
     </Stack>
   );
 };
