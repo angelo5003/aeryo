@@ -21,9 +21,9 @@ const meta = {
         <SettingsRow
           title="Riding preferences"
           value="14–28 kt · Sea"
-          showChevron
+          href="/settings"
         />
-        <SettingsRow title="My gear" value="7 items" showChevron />
+        <SettingsRow title="My gear" value="7 items" href="/settings" />
       </>
     ),
   },
@@ -50,7 +50,11 @@ export const Default: Story = {};
 export const WithoutLabel: Story = { args: { label: undefined } };
 
 export const SingleRow: Story = {
-  args: { children: <SettingsRow title="Appearance" value="System" /> },
+  args: {
+    children: (
+      <SettingsRow title="Appearance" value="System" href="/settings" />
+    ),
+  },
 };
 
 export const ManyRows: Story = {
@@ -58,10 +62,10 @@ export const ManyRows: Story = {
     label: "Preferences",
     children: (
       <>
-        <SettingsRow title="Notifications" value="2 on" />
-        <SettingsRow title="Appearance" value="System" />
-        <SettingsRow title="Language" value="English" />
-        <SettingsRow title="Units" value="Knots" />
+        <SettingsRow title="Notifications" value="2 on" href="/settings" />
+        <SettingsRow title="Appearance" value="System" href="/settings" />
+        <SettingsRow title="Language" value="English" href="/settings" />
+        <SettingsRow title="Units" value="Knots" href="/settings" />
       </>
     ),
   },

@@ -11,6 +11,8 @@ const SettingsPage: FC = () => {
     <Stack as="ul" gap="4" align="center" justify="center" p="4">
       <Box as="li" w="100%">
         <AccountCard />
+      </Box>
+      <Box as="li" w="100%">
         <SettingsList />
       </Box>
     </Stack>

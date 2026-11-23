@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 import { Box } from "@chakra-ui/react";
-import { expect, fn, userEvent } from "storybook/test";
+import { expect } from "storybook/test";
 import { RESPONSIVE_VIEWPORTS } from "@/components/internal/storybookViewports";
 import { DarkMode, LightMode } from "@/components/ui/color-mode";
 import { SettingsListCard } from "./SettingsListCard";
@@ -18,7 +18,7 @@ const meta = {
   args: {
     title: "Riding preferences",
     value: "14–28 kt · Sea",
-    onClick: fn(),
+    href: "/settings",
   },
   parameters: { layout: "padded" },
   // The row is made to sit inside a card, so every story shows it there.
@@ -36,29 +36,20 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {};
 
-export const WithArrow: Story = { args: { showChevron: true } };
-
 export const WithoutValue: Story = {
   args: { title: "Delete account", value: undefined },
 };
 
-export const AsLink: Story = {
-  args: { href: "/settings", onClick: undefined, showChevron: true },
-};
-
-export const CallsOnClickWhenPressed: Story = {
+export const OpensAnotherScreen: Story = {
   play: async ({ args, canvas }) => {
-    await userEvent.click(
-      canvas.getByRole("button", { name: /Riding preferences/ }),
-    );
-
-    await expect(args.onClick).toHaveBeenCalledTimes(1);
+    await expect(
+      canvas.getByRole("link", { name: /Riding preferences/ }),
+    ).toHaveAttribute("href", args.href);
   },
 };
 
 export const DarkModeStory: Story = {
   name: "Dark Mode",
-  args: { showChevron: true },
   render: (args) => (
     <DarkMode>
       <Box bg="bg" p="6">
@@ -72,7 +63,6 @@ export const DarkModeStory: Story = {
 
 export const LightModeStory: Story = {
   name: "Light Mode",
-  args: { showChevron: true },
   render: (args) => (
     <LightMode>
       <Box bg="bg" p="6">
@@ -93,6 +83,5 @@ export const LongTitleAndValue: Story = {
   args: {
     title: "Notification settings for every spot you follow",
     value: "Wind alerts, rider check-ins and session reminders",
-    showChevron: true,
   },
 };
