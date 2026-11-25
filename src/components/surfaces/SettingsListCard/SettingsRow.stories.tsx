@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 import { Box } from "@chakra-ui/react";
+import { LuWind } from "react-icons/lu";
 import { expect } from "storybook/test";
 import { RESPONSIVE_VIEWPORTS } from "@/components/internal/storybookViewports";
 import { DarkMode, LightMode } from "@/components/ui/color-mode";
@@ -38,6 +39,10 @@ export const Default: Story = {};
 
 export const WithoutValue: Story = {
   args: { title: "Delete account", value: undefined },
+};
+
+export const WithIcon: Story = {
+  args: { icon: LuWind },
 };
 
 export const OpensAnotherScreen: Story = {

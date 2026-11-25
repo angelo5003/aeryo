@@ -1,4 +1,5 @@
 import { render, screen } from "@testing-library/react";
+import { LuWind } from "react-icons/lu";
 import { Provider } from "@/components/ui/provider";
 import { SettingsRow } from "./SettingsRow";
 import type { SettingsRowProps } from "./SettingsRow.types";
@@ -44,5 +45,20 @@ describe("SettingsRow", () => {
       "aria-hidden",
       "true",
     );
+  });
+
+  test("should show the icon and keep it out of the link name when an icon is given", () => {
+    const { container } = buildComponent({ icon: LuWind });
+
+    expect(container.querySelectorAll("svg")).toHaveLength(2);
+    expect(
+      screen.getByRole("link", { name: "Riding preferences" }),
+    ).toBeInTheDocument();
+  });
+
+  test("should show only the arrow when no icon is given", () => {
+    const { container } = buildComponent();
+
+    expect(container.querySelectorAll("svg")).toHaveLength(1);
   });
 });

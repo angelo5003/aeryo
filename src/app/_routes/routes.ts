@@ -1,6 +1,17 @@
 import type { Route } from "next";
 import type { IconType } from "react-icons";
-import { LuCompass, LuGauge, LuHouse, LuUser, LuUsers } from "react-icons/lu";
+import {
+  LuBackpack,
+  LuBell,
+  LuCompass,
+  LuGauge,
+  LuHouse,
+  LuPalette,
+  LuSlidersHorizontal,
+  LuUser,
+  LuUsers,
+  LuWind,
+} from "react-icons/lu";
 
 export type UserRole = "rider"; // what an account can be, not what a route can be
 
@@ -13,6 +24,8 @@ export interface AppRoute {
   roles: readonly [RouteAccess, ...RouteAccess[]];
   tabBarIcon?: IconType;
   parentHref?: Route; // if the route is a child of another route, this is the parent href. Tabs or pages like home don't need a parent href. that is why it is optional.
+  isHiddenInSettings?: boolean;
+  settingsCardIcon?: IconType;
 }
 
 // satisfies checks if every route has the shape of the AppRoute. Each href must be a real path.
@@ -70,6 +83,55 @@ export const routes = {
     roles: ["rider"],
     parentHref: "/profile",
   },
+  account: {
+    href: "/account",
+    label: "Account",
+    roles: ["rider"],
+    parentHref: "/settings",
+    isHiddenInSettings: true,
+  },
+  riderPreferences: {
+    href: "/riding-preferences",
+    label: "Riding preferences",
+    roles: ["rider"],
+    parentHref: "/settings",
+    settingsCardIcon: LuSlidersHorizontal,
+  },
+  myGear: {
+    href: "/my-gear",
+    label: "My Gear",
+    roles: ["rider"],
+    parentHref: "/settings",
+    settingsCardIcon: LuBackpack,
+  },
+  notifications: {
+    href: "/notifications",
+    label: "Notifications",
+    roles: ["rider"],
+    parentHref: "/settings",
+    settingsCardIcon: LuBell,
+  },
+  onlineStatus: {
+    href: "/online-status",
+    label: "Online Status",
+    roles: ["rider"],
+    parentHref: "/settings",
+    settingsCardIcon: LuUsers,
+  },
+  windspeed: {
+    href: "/windspeed",
+    label: "Windspeed",
+    roles: ["rider"],
+    parentHref: "/settings",
+    settingsCardIcon: LuWind,
+  },
+  appearance: {
+    href: "/appearance",
+    label: "Appearance",
+    roles: ["rider"],
+    parentHref: "/settings",
+    settingsCardIcon: LuPalette,
+  },
 } as const satisfies Record<string, AppRoute>;
 
 // by adding a type to the allRoutes variable, TS sees every item as a AppRoute object.
@@ -82,6 +144,11 @@ export const getRouteByHref = (href: string): AppRoute | undefined => {
 export const getRoutesForAccess = (access: RouteAccess): AppRoute[] => {
   return allRoutes.filter((route) => route.roles.includes(access));
 };
+
+export const getSettingsRoutes = (): AppRoute[] =>
+  getRoutesForAccess("rider").filter(
+    (route) => route.parentHref === "/settings" && !route.isHiddenInSettings,
+  );
 
 export const getRiderRoutes = (): AppRoute[] => getRoutesForAccess("rider");
 

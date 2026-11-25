@@ -3,6 +3,7 @@ import {
   getPublicRoutes,
   getRiderRoutes,
   getRouteByHref,
+  getSettingsRoutes,
   routes,
 } from "./routes";
 
@@ -28,6 +29,28 @@ describe("Routes for access", () => {
       "/community",
       "/profile",
       "/settings",
+      "/account",
+      "/riding-preferences",
+      "/my-gear",
+      "/notifications",
+      "/online-status",
+      "/windspeed",
+      "/appearance",
+    ]);
+  });
+});
+
+describe("getSettingsRoutes", () => {
+  it("should return the settings sub-pages without the hidden account page", () => {
+    const settingsRouteHrefs = getSettingsRoutes().map((route) => route.href);
+
+    expect(settingsRouteHrefs).toStrictEqual([
+      "/riding-preferences",
+      "/my-gear",
+      "/notifications",
+      "/online-status",
+      "/windspeed",
+      "/appearance",
     ]);
   });
 });

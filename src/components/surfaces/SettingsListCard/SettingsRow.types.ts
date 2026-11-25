@@ -1,5 +1,6 @@
 import type { FlexProps } from "@chakra-ui/react";
 import type { Route } from "next";
+import type { IconType } from "react-icons";
 
 /**
  * Props for `SettingsRow`. Style props pass through, but the row decides its
@@ -11,6 +12,12 @@ export interface SettingsRowProps extends Omit<
 > {
   /** What the setting is called, for example "Riding preferences". */
   title: string;
+  /**
+   * Optional icon shown before the title: a `react-icons` component itself
+   * (`LuBell`, not `<LuBell />`), same type as `tabBarIcon` in `routes.ts`.
+   * Decorative: the title already names the row.
+   */
+  icon?: IconType;
   /** The current choice, shown on the right, for example "14–28 kt · Sea". */
   value?: string;
   /**
