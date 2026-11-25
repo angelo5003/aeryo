@@ -26,7 +26,7 @@ export const OptionList = React.forwardRef<HTMLDivElement, OptionListProps>(
     const { label, children, ...rest } = props;
 
     return (
-      <RadioCard.Root ref={ref} colorPalette="teal" gap="2" {...rest}>
+      <RadioCard.Root ref={ref} colorPalette="brand" gap="2" {...rest}>
         <RadioCard.Label textStyle="label" color="fg.muted" paddingX="1">
           {label}
         </RadioCard.Label>
@@ -103,9 +103,9 @@ export const OptionRow = React.forwardRef<HTMLDivElement, OptionRowProps>(
                 placeItems="center"
                 borderRadius="full"
                 borderWidth="2px"
-                borderColor={item.checked ? "teal.solid" : "fg.muted"}
-                bg={item.checked ? "teal.solid" : "transparent"}
-                color="teal.contrast"
+                borderColor={item.checked ? "accent.solid" : "fg.muted"}
+                bg={item.checked ? "accent.solid" : "transparent"}
+                color="accent.contrast"
               >
                 {item.checked && <LuCheck size={14} />}
               </chakra.span>

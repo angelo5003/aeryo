@@ -4,7 +4,7 @@ import type { RadioGroupProps, RadioProps } from "./RadioGroup.types";
 
 /**
  * AERYO's radio group — a thin wrapper around Chakra UI's `RadioGroup`.
- * Always uses AERYO's one brand color (`colorPalette="teal"`, not
+ * Always uses AERYO's one brand color (`colorPalette="brand"`, not
  * configurable) — same reasoning as `Checkbox`: Chakra's own radiomark
  * recipe defaults to a literal `colorPalette: "red"` when none is set.
  * Compose with `Radio` for each option:
@@ -22,7 +22,7 @@ import type { RadioGroupProps, RadioProps } from "./RadioGroup.types";
  */
 export const RadioGroup = React.forwardRef<HTMLDivElement, RadioGroupProps>(
   function RadioGroup(props, ref) {
-    return <ChakraRadioGroup.Root ref={ref} colorPalette="teal" {...props} />;
+    return <ChakraRadioGroup.Root ref={ref} colorPalette="brand" {...props} />;
   },
 );
 

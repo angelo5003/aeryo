@@ -278,7 +278,7 @@ export const semanticTokens = {
       // Outline of a control: outline buttons, unselected chips. Unlike the
       // decorative hairline above it is a component boundary, so it needs 3:1
       // (4.31:1 to 6.05:1 on bg, bg.subtle, bg.muted and bg.panel; tests check
-      // it). `ink.border` points here.
+      // it). `neutral.border` and `control.border` point here.
       emphasized: {
         value: { _light: "{colors.ink.500}", _dark: "{colors.ink.400}" },
       },
@@ -361,6 +361,34 @@ export const semanticTokens = {
       strong: {
         value: { _light: "{colors.ink.950}", _dark: "{colors.ink.50}" },
       },
+    },
+
+    // Role tokens: named for what they do in the app, not for a color.
+    // Active item in the bottom tab bar (text and icon).
+    nav: {
+      active: { value: "{colors.brand.fg}" },
+    },
+    // Rounded tile behind a row icon (settings rows, notification and ride
+    // tiles). `bg` is the same hue as `fg` at 14%, so the icon keeps its
+    // contrast on the tile in both modes.
+    iconTile: {
+      fg: { value: "{colors.brand.fg}" },
+      bg: {
+        value: {
+          _light: "color-mix(in srgb, {colors.teal.800} 14%, transparent)",
+          _dark: "color-mix(in srgb, {colors.teal.300} 14%, transparent)",
+        },
+      },
+    },
+    // Quiet form controls (unpicked chips, outline boundaries): the edge
+    // needs 3:1, so it follows `border.emphasized`.
+    control: {
+      border: { value: "{colors.border.emphasized}" },
+      fg: { value: "{colors.neutral.fg}" },
+    },
+    // Keyboard focus outline on controls.
+    focus: {
+      ring: { value: "{colors.brand.focusRing}" },
     },
 
     // Solid fills for buttons and badges that sit on a photo (home hero,
@@ -480,7 +508,7 @@ export const semanticTokens = {
     // only resolves to real colors for the ~12 families Chakra hardcodes in
     // its own theme/semantic-tokens/colors.js (gray, red, teal, …) — a
     // custom family with no matching entry here silently renders as an
-    // unstyled native element (confirmed: colorPalette="ink" with no block
+    // unstyled native element (confirmed: colorPalette="neutral" with no block
     // below produced a bare white/black button, not a themed one). `ink`,
     // `danger`, and `caution` need their own block for the same reason
     // Chakra ships one for every default family; `teal` already gets one
@@ -499,8 +527,11 @@ export const semanticTokens = {
     // muted.200) landed just under 4.5:1 for AERYO's specific hex values
     // and needed a shade bumped a step darker/lighter than Chakra's
     // default formula to clear AA.
-    teal: {
-      // Also the bottom tab bar's active tab. On `bg.chrome` worst case:
+    // The one brand color. The slot names (`fg`, `solid`, …) are the fixed
+    // vocabulary Chakra's `colorPalette="brand"` looks up, so components
+    // reach for the role tokens below (`nav.active`, `iconTile`, …) instead.
+    brand: {
+      // Also the bottom tab bar's active tab (see `nav.active`). On `bg.chrome` worst case:
       // 8.72:1 light (teal.800), 9.11:1 dark (teal.300 mint).
       fg: {
         value: { _light: "{colors.teal.800}", _dark: "{colors.teal.300}" },
@@ -512,7 +543,7 @@ export const semanticTokens = {
         value: { _light: "{colors.ink.50}", _dark: "{colors.ink.950}" },
       },
       // The rest of the palette, same steps as danger/caution/success so
-      // `colorPalette="teal"` resolves every part.
+      // `colorPalette="brand"` resolves every part.
       emphasized: {
         value: { _light: "{colors.teal.300}", _dark: "{colors.teal.700}" },
       },
@@ -523,7 +554,10 @@ export const semanticTokens = {
         value: { _light: "{colors.teal.500}", _dark: "{colors.teal.400}" },
       },
     },
-    ink: {
+    // The quiet secondary intent (outline buttons, neutral pills). Same
+    // `colorPalette="neutral"` slot vocabulary as `brand`; components use
+    // the role tokens (`control.*`) instead of these slots directly.
+    neutral: {
       contrast: {
         value: { _light: "{colors.ink.50}", _dark: "{colors.ink.950}" },
       },
@@ -545,7 +579,7 @@ export const semanticTokens = {
       focusRing: {
         value: { _light: "{colors.ink.400}", _dark: "{colors.ink.400}" },
       },
-      // The outline of outline-style `ink` buttons (secondary intent), a
+      // The outline of outline-style `neutral` buttons (secondary intent), a
       // control boundary, so it needs 3:1. Light verified 4.80:1/4.60:1/
       // 4.31:1/5.04:1 against bg/bg.subtle/bg.muted/bg.panel; the old
       // paper.300 reached only 1.10:1 to 1.29:1. Dark verified 6.05:1/
@@ -653,7 +687,7 @@ export const semanticTokens = {
     // Unlike danger/caution (dark enough at .600 for white text, verified
     // 5.23:1/4.57:1 above), success's ramp is bright enough at every step
     // that white-on-.600 only clears 2.48:1 — a hard AA fail. Dark text
-    // (ink.950, same device teal.contrast already uses) on the solid step
+    // (ink.950, same device brand.contrast already uses) on the solid step
     // clears easily instead: 7.66:1.
     success: {
       contrast: {

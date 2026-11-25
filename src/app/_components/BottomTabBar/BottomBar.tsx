@@ -79,10 +79,13 @@ const BottomBar: React.FC<BottomBarProps> = ({ isBottomBarHidden }) => {
                     position="relative"
                     p={2}
                     color="fg"
-                    _currentPage={{ color: "teal.fg", fontWeight: "semibold" }}
+                    _currentPage={{
+                      color: "nav.active",
+                      fontWeight: "semibold",
+                    }}
                     aria-current={isCurrentPage ? "page" : undefined}
                     _active={{
-                      color: isCurrentPage ? "teal.fg" : "fg",
+                      color: isCurrentPage ? "nav.active" : "fg",
                       transform: "scale(0.94)",
                     }}
                     _visited={{ color: "fg" }}

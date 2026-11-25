@@ -45,8 +45,8 @@ export const toastRecipe = {
         "--toast-border-color": "{white/40}",
       },
       "&[data-type=info]": {
-        bg: "teal.solid",
-        color: "teal.contrast",
+        bg: "accent.solid",
+        color: "accent.contrast",
         "--toast-trigger-bg": "{white/10}",
         "--toast-border-color": "{white/40}",
       },

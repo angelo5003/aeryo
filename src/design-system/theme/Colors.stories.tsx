@@ -439,9 +439,9 @@ export const SemanticTokens: Story = {
               usedFor: "Text on bg.inverted",
             },
             {
-              token: "teal.fg",
-              label: "teal.fg",
-              usedFor: "Active tab, links, teal text",
+              token: "nav.active",
+              label: "nav.active",
+              usedFor: "Active tab text and icon",
             },
           ]}
         />
@@ -463,81 +463,116 @@ export const SemanticTokens: Story = {
           ]}
         />
         <SemanticGroup
-          title="Teal palette"
+          title="Role tokens"
           tokens={[
             {
-              token: "teal.fg",
-              label: "teal.fg",
+              token: "nav.active",
+              label: "nav.active",
+              usedFor: "Active tab text and icon",
+            },
+            {
+              token: "iconTile.fg",
+              label: "iconTile.fg",
+              usedFor: "Icon on an icon tile",
+            },
+            {
+              token: "iconTile.bg",
+              label: "iconTile.bg",
+              usedFor: "Icon tile background",
+            },
+            {
+              token: "control.border",
+              label: "control.border",
+              usedFor: "Edge of chips and quiet controls",
+            },
+            {
+              token: "control.fg",
+              label: "control.fg",
+              usedFor: "Text on quiet controls",
+            },
+            {
+              token: "focus.ring",
+              label: "focus.ring",
+              usedFor: "Keyboard focus outline",
+            },
+          ]}
+        />
+        <SemanticGroup
+          title="Brand palette"
+          tokens={[
+            {
+              token: "brand.fg",
+              label: "brand.fg",
               usedFor: "Active text",
             },
             {
-              token: "teal.solid",
-              label: "teal.solid",
+              token: "brand.solid",
+              label: "brand.solid",
               usedFor: "Filled button and badge",
             },
             {
-              token: "teal.contrast",
-              label: "teal.contrast",
+              token: "brand.contrast",
+              label: "brand.contrast",
               usedFor: "Text on solid",
             },
             {
-              token: "teal.emphasized",
-              label: "teal.emphasized",
+              token: "brand.emphasized",
+              label: "brand.emphasized",
               usedFor: "Next step after solid",
             },
             {
-              token: "teal.focusRing",
-              label: "teal.focusRing",
+              token: "brand.focusRing",
+              label: "brand.focusRing",
               usedFor: "Focus outline",
             },
             {
-              token: "teal.border",
-              label: "teal.border",
+              token: "brand.border",
+              label: "brand.border",
               usedFor: "Outline",
             },
           ]}
         />
         <SemanticGroup
-          title="Ink palette"
+          title="Neutral palette"
           tokens={[
             {
-              token: "ink.fg",
-              label: "ink.fg",
+              token: "neutral.fg",
+              label: "neutral.fg",
               usedFor: "Text and icons in this color",
             },
             {
-              token: "ink.subtle",
-              label: "ink.subtle",
+              token: "neutral.subtle",
+              label: "neutral.subtle",
               usedFor: "Quiet tinted surface",
             },
             {
-              token: "ink.muted",
-              label: "ink.muted",
+              token: "neutral.muted",
+              label: "neutral.muted",
               usedFor: "Tinted surface, pressed",
             },
             {
-              token: "ink.emphasized",
-              label: "ink.emphasized",
+              token: "neutral.emphasized",
+              label: "neutral.emphasized",
               usedFor: "Next step after muted",
             },
             {
-              token: "ink.solid",
-              label: "ink.solid",
+              token: "neutral.solid",
+              label: "neutral.solid",
               usedFor: "Filled button and badge",
             },
             {
-              token: "ink.contrast",
-              label: "ink.contrast",
+              token: "neutral.contrast",
+              label: "neutral.contrast",
               usedFor: "Text on solid",
             },
             {
-              token: "ink.focusRing",
-              label: "ink.focusRing",
+              token: "neutral.focusRing",
+              label: "neutral.focusRing",
               usedFor: "Focus outline",
             },
             {
-              token: "ink.border",
-              label: "ink.border",
+              token: "neutral.border",
+              label: "neutral.border",
               usedFor: "Outline",
             },
           ]}

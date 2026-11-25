@@ -71,7 +71,7 @@ export const Motion: Story = {
             <Box>
               <Button
                 size="sm"
-                colorPalette="teal"
+                colorPalette="brand"
                 onClick={() => setActive((v) => !v)}
               >
                 {active ? "Reset" : "Play"}

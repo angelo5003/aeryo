@@ -10,7 +10,7 @@ import type { ColorPalette } from "@chakra-ui/react";
  * `primary`/`secondary`/`danger` like Button's `ButtonIntent`) because
  * these are status indicators, not action intents — the spec's own
  * vocabulary for Badge/Tag. `error` maps to the same `danger` family
- * Button's `danger` intent uses; `info` maps to `teal` (AERYO's one
+ * Button's `danger` intent uses; `info` maps to `brand` (AERYO's one
  * brand color) since no dedicated "info" family exists — reusing the
  * brand color for informational status, not as a second decorative
  * accent, doesn't conflict with the restraint principle (semantic-tokens
@@ -34,9 +34,9 @@ export type StatusIntent = "neutral" | "success" | "warning" | "error" | "info";
 export type StatusVariant = "solid" | "subtle" | "outline" | "surface";
 
 export const STATUS_COLOR_PALETTE: Record<StatusIntent, ColorPalette> = {
-  neutral: "ink",
+  neutral: "neutral",
   success: "success",
   warning: "caution",
   error: "danger",
-  info: "teal",
+  info: "brand",
 };

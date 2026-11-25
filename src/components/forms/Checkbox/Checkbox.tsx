@@ -4,7 +4,7 @@ import type { CheckboxProps } from "./Checkbox.types";
 
 /**
  * AERYO's checkbox — a thin wrapper around Chakra UI's `Checkbox`.
- * Always uses AERYO's one brand color (`colorPalette="teal"`, not
+ * Always uses AERYO's one brand color (`colorPalette="brand"`, not
  * configurable): Chakra's own checkmark recipe defaults to a literal
  * `colorPalette: "red"` when none is set, which would render an
  * off-brand red check — confirmed in
@@ -18,7 +18,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
     const { icon, children, inputProps, rootRef, ...rest } = props;
 
     return (
-      <ChakraCheckbox.Root ref={rootRef} colorPalette="teal" {...rest}>
+      <ChakraCheckbox.Root ref={rootRef} colorPalette="brand" {...rest}>
         <ChakraCheckbox.HiddenInput ref={ref} {...inputProps} />
         <ChakraCheckbox.Control>
           {icon ?? <ChakraCheckbox.Indicator />}

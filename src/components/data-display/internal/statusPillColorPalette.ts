@@ -15,8 +15,8 @@ export const STATUS_PILL_COLOR_PALETTE: Record<
   StatusPillVariant,
   ColorPalette
 > = {
-  neutral: "ink",
-  primary: "teal",
+  neutral: "neutral",
+  primary: "brand",
   success: "success",
   warning: "caution",
   danger: "danger",

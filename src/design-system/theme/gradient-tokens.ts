@@ -71,7 +71,7 @@ export const gradientTokens = {
       _light:
         "linear-gradient(180deg, {colors.fg.metric.top}, {colors.fg.metric.bottom})",
       _dark:
-        "linear-gradient(180deg, {colors.fg.metric.top} 0%, {colors.teal.fg} 60%, {colors.fg.metric.bottom} 100%)",
+        "linear-gradient(180deg, {colors.fg.metric.top} 0%, {colors.brand.fg} 60%, {colors.fg.metric.bottom} 100%)",
     },
   },
   avatar: {

@@ -25,9 +25,8 @@
  * `ink.50` stays the brand off-white for `fg` in dark mode, photo type,
  * and on-accent contrast. Additive — Chakra's built-in `gray` is untouched.
  *
- * `teal` intentionally reclaims Chakra's default palette name (so
- * `colorPalette="teal"` resolves to AERYO's actual brand color, not
- * Chakra's stock teal); `lime` is a net-new, non-colliding family.
+ * `colorPalette="brand"` resolves to the semantic `brand` group, which
+ * points at this teal scale; `lime` is a net-new, non-colliding family.
  *
  * `danger` and `caution` (added after a critique flagged that
  * `session.cancelled`/`wind.extreme` were quietly reaching for Chakra's

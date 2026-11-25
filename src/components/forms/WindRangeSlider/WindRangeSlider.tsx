@@ -61,7 +61,7 @@ export const WindRangeSlider = React.forwardRef<
   return (
     <Slider.Root
       ref={ref}
-      colorPalette="teal"
+      colorPalette="brand"
       variant="outline"
       size="lg"
       min={min}
