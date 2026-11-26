@@ -63,6 +63,16 @@ function ScopedColorModeDialog(props: {
   );
 }
 
+// For stories that start open. `DialogContent` portals to `document.body`,
+// so on the Docs page they would stack on top of each other; each one gets
+// its own iframe. Iframed stories ignore the Docs controls and "Show code"
+// updates, so `Closed` (the controllable example) must stay inline.
+// per node_modules/@storybook/addon-docs (parameters.docs.story.inline)
+const OPEN_ON_LOAD_STORY_PARAMETERS = {
+  controls: { disable: true },
+  docs: { story: { inline: false, iframeHeight: "500px" } },
+};
+
 /**
  * AERYO's dialog. See `Dialog.tsx` for implementation notes — it wraps
  * Chakra UI's compound `Dialog` (Backdrop + Positioner + Content collapsed
@@ -84,18 +94,6 @@ const meta = {
   },
   parameters: {
     layout: "padded",
-    // `DialogContent` portals to `document.body` (see `Dialog.tsx`). The
-    // Docs page renders every story inline in one shared document by
-    // default, so every `defaultOpen` story's portaled content would land
-    // in that same `document.body` and stack on top of each other —
-    // rendering each story in its own iframe gives it its own document
-    // instead. Same fix as `Drawer.stories.tsx`.
-    docs: {
-      story: {
-        inline: false,
-        iframeHeight: "500px",
-      },
-    },
   },
 } satisfies Meta<typeof Dialog>;
 
@@ -130,7 +128,7 @@ export const Closed: Story = {
 
 export const Open: Story = {
   args: { defaultOpen: true },
-  parameters: { controls: { disable: true } },
+  parameters: OPEN_ON_LOAD_STORY_PARAMETERS,
   render: (args) => (
     <Dialog {...args}>
       <DialogTrigger asChild>
@@ -171,6 +169,12 @@ export const Open: Story = {
         ),
       ).toBeVisible(),
     );
+    // A body that does not scroll must not add an extra keyboard stop.
+    await expect(
+      canvas
+        .getByText(/This removes it from your log/)
+        .closest(".chakra-dialog__body"),
+    ).not.toHaveAttribute("tabindex");
   },
 };
 
@@ -180,7 +184,7 @@ export const Open: Story = {
 
 export const Small: Story = {
   args: { size: "sm", defaultOpen: true },
-  parameters: { controls: { disable: true } },
+  parameters: OPEN_ON_LOAD_STORY_PARAMETERS,
   render: (args) => (
     <Dialog {...args}>
       <DialogTrigger asChild>
@@ -201,7 +205,7 @@ export const Small: Story = {
 
 export const Large: Story = {
   args: { size: "lg", defaultOpen: true },
-  parameters: { controls: { disable: true } },
+  parameters: OPEN_ON_LOAD_STORY_PARAMETERS,
   render: (args) => (
     <Dialog {...args}>
       <DialogTrigger asChild>
@@ -227,7 +231,7 @@ export const Large: Story = {
 
 export const LongContent: Story = {
   args: { defaultOpen: true, scrollBehavior: "inside" },
-  parameters: { controls: { disable: true } },
+  parameters: OPEN_ON_LOAD_STORY_PARAMETERS,
   render: (args) => (
     <Dialog {...args}>
       <DialogTrigger asChild>
@@ -250,6 +254,14 @@ export const LongContent: Story = {
       </DialogContent>
     </Dialog>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement.ownerDocument.body);
+    const dialogBody = canvas
+      .getByText(/Session 20 —/)
+      .closest(".chakra-dialog__body");
+    // Keyboard users scroll the long text by focusing the body.
+    await expect(dialogBody).toHaveAttribute("tabindex", "0");
+  },
 };
 
 // ---------------------------------------------------------------------------
@@ -260,7 +272,7 @@ export const LongContent: Story = {
 
 export const CreateAccount: Story = {
   args: { defaultOpen: true },
-  parameters: { controls: { disable: true } },
+  parameters: OPEN_ON_LOAD_STORY_PARAMETERS,
   render: (args) => (
     <Dialog {...args}>
       <DialogTrigger asChild>
@@ -297,7 +309,7 @@ export const CreateAccount: Story = {
 export const DarkModeStory: Story = {
   name: "Dark Mode",
   args: { defaultOpen: true },
-  parameters: { controls: { disable: true } },
+  parameters: OPEN_ON_LOAD_STORY_PARAMETERS,
   // `Dialog` portals to `document.body` by default, which escapes
   // `DarkMode`'s scoping wrapper entirely (color-mode scoping only
   // affects descendants of the element it's applied to) — `portalRef`
@@ -310,7 +322,7 @@ export const DarkModeStory: Story = {
 export const LightModeStory: Story = {
   name: "Light Mode",
   args: { defaultOpen: true },
-  parameters: { controls: { disable: true } },
+  parameters: OPEN_ON_LOAD_STORY_PARAMETERS,
   render: (args) => <ScopedColorModeDialog mode="light" args={args} />,
 };
 
@@ -321,7 +333,7 @@ export const LightModeStory: Story = {
 export const Mobile: Story = {
   args: { defaultOpen: true },
   parameters: {
-    controls: { disable: true },
+    ...OPEN_ON_LOAD_STORY_PARAMETERS,
     viewport: { options: RESPONSIVE_VIEWPORTS },
   },
   globals: { viewport: { value: "aeryoMobile" } },
@@ -350,7 +362,7 @@ export const Mobile: Story = {
 export const Desktop: Story = {
   args: { defaultOpen: true },
   parameters: {
-    controls: { disable: true },
+    ...OPEN_ON_LOAD_STORY_PARAMETERS,
     viewport: { options: RESPONSIVE_VIEWPORTS },
   },
   globals: { viewport: { value: "aeryoDesktop" } },

@@ -12,6 +12,9 @@ import type {
   DialogTriggerProps,
 } from "./Dialog.types";
 
+/** Whether `DialogBody` is the part that scrolls (`scrollBehavior="inside"`). */
+const IsDialogBodyScrollingContext = React.createContext(false);
+
 /**
  * AERYO's dialog — a thin wrapper around Chakra UI's compound `Dialog`
  * (built on Ark UI's Dialog, the same primitive `Drawer` wraps). Chakra is
@@ -23,7 +26,13 @@ import type {
 export const Dialog = (props: DialogProps) => {
   const { children = null, ...rest } = props;
 
-  return <ChakraDialog.Root {...rest}>{children}</ChakraDialog.Root>;
+  return (
+    <IsDialogBodyScrollingContext.Provider
+      value={rest.scrollBehavior === "inside"}
+    >
+      <ChakraDialog.Root {...rest}>{children}</ChakraDialog.Root>
+    </IsDialogBodyScrollingContext.Provider>
+  );
 };
 
 /** Opens the dialog when clicked/activated. */
@@ -63,10 +72,22 @@ export const DialogHeader = React.forwardRef<HTMLDivElement, DialogHeaderProps>(
   },
 );
 
-/** Scrolls on overflow — see `DialogContent`'s doc comment. */
+/**
+ * Scrolls on overflow — see `DialogContent`'s doc comment. A scrolling body
+ * is focusable so keyboard users can scroll it (axe
+ * `scrollable-region-focusable`).
+ */
 export const DialogBody = React.forwardRef<HTMLDivElement, DialogBodyProps>(
   function DialogBody(props, ref) {
-    return <ChakraDialog.Body ref={ref} {...props} />;
+    const isScrolling = React.useContext(IsDialogBodyScrollingContext);
+
+    return (
+      <ChakraDialog.Body
+        ref={ref}
+        tabIndex={isScrolling ? 0 : undefined}
+        {...props}
+      />
+    );
   },
 );
 
