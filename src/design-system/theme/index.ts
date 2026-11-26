@@ -14,6 +14,11 @@ import {
   lineHeights,
   textStyles,
 } from "../tokens/typography";
+import {
+  inputRecipe,
+  selectSlotRecipe,
+  textareaRecipe,
+} from "./controlBorderRecipes";
 import { headingRecipe } from "./headingRecipe";
 import { gradientTokens } from "./gradient-tokens";
 import { semanticTokens } from "./semantic-tokens";
@@ -39,9 +44,12 @@ const config = defineConfig({
     textStyles,
     recipes: {
       heading: headingRecipe,
+      input: inputRecipe,
+      textarea: textareaRecipe,
     },
     slotRecipes: {
       toast: toastRecipe,
+      select: selectSlotRecipe,
     },
   },
 });

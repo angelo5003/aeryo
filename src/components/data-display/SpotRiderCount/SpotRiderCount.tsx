@@ -7,9 +7,8 @@ import type { SpotRiderCountProps } from "./SpotRiderCount.types";
 /**
  * A spot's live rider count — guide §5/§26 "🟢 14 riding / 👥 6 planning"
  * wireframe. Purely presentational: pass the two numbers, no polling or
- * data-fetching logic here. The riding count uses a small `success.solid`
- * dot (the same token `Avatar`'s `status="online"` indicator uses)
- * instead of an emoji; planning uses `LuUsers`.
+ * data-fetching logic here. The riding count uses a small `rider.onwater`
+ * presence dot instead of an emoji; planning uses `LuUsers`.
  */
 export const SpotRiderCount = React.forwardRef<
   HTMLDivElement,
@@ -20,7 +19,7 @@ export const SpotRiderCount = React.forwardRef<
   return (
     <Stack ref={ref} gap={gap} {...rest}>
       <Flex align="center" gap="2">
-        <Box boxSize="2.5" borderRadius="full" bg="success.solid" />
+        <Box boxSize="2.5" borderRadius="full" bg="rider.onwater" />
         <Text variant="body" fontWeight="semibold">
           {riding} riding
         </Text>
