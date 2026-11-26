@@ -47,7 +47,12 @@ export const SettingsRow = (props: SettingsRowProps) => {
                 <Icon as={icon} />
               </Flex>
             )}
-            <Text variant="body" fontWeight="semibold">
+            <Text
+              variant="body"
+              fontWeight="semibold"
+              lineHeight="normal"
+              color="fg"
+            >
               {title}
             </Text>
           </Flex>

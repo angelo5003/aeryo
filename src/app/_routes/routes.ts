@@ -6,12 +6,13 @@ import {
   LuCompass,
   LuGauge,
   LuHouse,
-  LuPalette,
   LuSlidersHorizontal,
+  LuSunMedium,
   LuUser,
   LuUsers,
   LuWind,
 } from "react-icons/lu";
+import type { SettingsGroupKey } from "./config";
 
 export type UserRole = "rider"; // what an account can be, not what a route can be
 
@@ -26,6 +27,7 @@ export interface AppRoute {
   parentHref?: Route; // if the route is a child of another route, this is the parent href. Tabs or pages like home don't need a parent href. that is why it is optional.
   isHiddenInSettings?: boolean;
   settingsCardIcon?: IconType;
+  groupKey?: SettingsGroupKey;
 }
 
 // satisfies checks if every route has the shape of the AppRoute. Each href must be a real path.
@@ -96,6 +98,7 @@ export const routes = {
     roles: ["rider"],
     parentHref: "/settings",
     settingsCardIcon: LuSlidersHorizontal,
+    groupKey: "riding",
   },
   myGear: {
     href: "/my-gear",
@@ -103,6 +106,7 @@ export const routes = {
     roles: ["rider"],
     parentHref: "/settings",
     settingsCardIcon: LuBackpack,
+    groupKey: "riding",
   },
   notifications: {
     href: "/notifications",
@@ -110,6 +114,7 @@ export const routes = {
     roles: ["rider"],
     parentHref: "/settings",
     settingsCardIcon: LuBell,
+    groupKey: "preferences",
   },
   onlineStatus: {
     href: "/online-status",
@@ -117,6 +122,7 @@ export const routes = {
     roles: ["rider"],
     parentHref: "/settings",
     settingsCardIcon: LuUsers,
+    groupKey: "preferences",
   },
   windspeed: {
     href: "/windspeed",
@@ -124,13 +130,15 @@ export const routes = {
     roles: ["rider"],
     parentHref: "/settings",
     settingsCardIcon: LuWind,
+    groupKey: "preferences",
   },
   appearance: {
     href: "/appearance",
     label: "Appearance",
     roles: ["rider"],
     parentHref: "/settings",
-    settingsCardIcon: LuPalette,
+    settingsCardIcon: LuSunMedium,
+    groupKey: "preferences",
   },
 } as const satisfies Record<string, AppRoute>;
 
