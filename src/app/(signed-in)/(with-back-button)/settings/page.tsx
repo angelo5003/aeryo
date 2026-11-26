@@ -1,13 +1,20 @@
 "use client";
 
-import type { FC } from "react";
+import { type FC, useState } from "react";
 import { LuLogOut, LuTrash2 } from "react-icons/lu";
 import { Button } from "@/components/actions/Button";
 import { Stack } from "@/components/primitives/Stack/Stack";
 import SettingsList from "./components/SettingsList/SettingsList";
-import { AccountCard } from "./index";
+import { AccountCard, DeleteAccountBottomSheet } from "./index";
 
 const SettingsPage: FC = () => {
+  const [isDeleteAccountBottomSheetOpen, setIsDeleteAccountBottomSheetOpen] =
+    useState(false);
+
+  const handleDeleteAccount = () => {
+    setIsDeleteAccountBottomSheetOpen(true);
+  };
+
   return (
     <Stack gap="4" align="stretch" justify="center" p="4">
       <AccountCard />
@@ -34,7 +41,7 @@ const SettingsPage: FC = () => {
         </Button>
         <Button
           intent="danger"
-          onClick={() => {}}
+          onClick={handleDeleteAccount}
           size="lg"
           variant="solid"
           iconLeft={<LuTrash2 size={16} />}
@@ -47,6 +54,12 @@ const SettingsPage: FC = () => {
         >
           Delete account
         </Button>
+        {isDeleteAccountBottomSheetOpen && (
+          <DeleteAccountBottomSheet
+            isOpen={isDeleteAccountBottomSheetOpen}
+            onClose={() => setIsDeleteAccountBottomSheetOpen(false)}
+          />
+        )}
       </Stack>
     </Stack>
   );
