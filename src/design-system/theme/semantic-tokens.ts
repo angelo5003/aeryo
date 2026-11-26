@@ -616,12 +616,13 @@ export const semanticTokens = {
         },
       },
       solid: {
-        // danger.600 (white text) was 3.92:1 — under WCAG AA's 4.5:1 floor
-        // for normal text (00-project-context-architecture.md, Contrast).
-        // danger.700 (white text) is 7.27:1 — clears AA and AAA.
+        // White text on danger.vivid is 4.83:1, clearing WCAG AA's 4.5:1
+        // floor for normal text (00-project-context-architecture.md,
+        // Contrast). The fill clears 3:1 on light bg (4.61:1), dark bg
+        // (3.93:1) and the dark `bg.error` card (3.61:1).
         value: {
-          _light: "{colors.danger.700}",
-          _dark: "{colors.danger.700}",
+          _light: "{colors.danger.vivid}",
+          _dark: "{colors.danger.vivid}",
         },
       },
       focusRing: {

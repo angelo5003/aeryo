@@ -43,7 +43,7 @@ The prototype already uses the right values but under its own `--p-*` names. Ren
 | `box-shadow rgba(0,0,0,.18-.45)`, `--p-shadow`, `--p-lift` (about 20 uses) | `shadows.sm` / `md` / `lg` / `inset`                      | Cards, sheets, bars. Already tokens                               |
 
 Mismatch to fix: the prototype's delete button uses `#B84740` (`danger.600`, 5.23:1 with white).
-The token `danger.solid` is `#963731` (`danger.700`, 7.27:1). Use the token.
+The token `danger.solid` is `#D92D20` (`danger.vivid`, 4.83:1 with white). Use the token.
 
 ## 3. New semantic tokens (proposed, need your OK)
 

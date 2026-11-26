@@ -97,6 +97,10 @@ export const colors = {
     800: { value: "#6E2823" },
     900: { value: "#4A1B17" },
     950: { value: "#2E110E" },
+    // The one deliberately bright, non-muted red (user decision, 2026-11-26):
+    // destructive solid fills must read as danger at a glance. Only
+    // `danger.solid` points here.
+    vivid: { value: "#D92D20" },
   },
   caution: {
     50: { value: "#FCF1E2" },

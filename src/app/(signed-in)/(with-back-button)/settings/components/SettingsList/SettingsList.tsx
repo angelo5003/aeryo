@@ -6,12 +6,14 @@ import {
   SettingsRow,
 } from "@/components/surfaces/SettingsListCard";
 
+const settingsRoutes = getSettingsRoutes();
+
 const SettingsList: FC = () => {
   return (
     <>
       {SETTINGS_GROUPS.map((group) => (
         <SettingsListCard key={group.groupKey} label={group.title}>
-          {getSettingsRoutes()
+          {settingsRoutes
             .filter((route) => route.groupKey === group.groupKey)
             .map((route) => (
               <SettingsRow

@@ -10,6 +10,7 @@ colors:
   off-white: "#EDF8F6"
   wind-lime: "#D7FF3F"
   danger: "#B84740"
+  danger-solid: "#D92D20"
   caution: "#A6672A"
   success: "#41B981"
   hairline-dark: "rgba(99, 230, 213, 0.16)"
