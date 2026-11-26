@@ -23,6 +23,27 @@ describe("design system theme", () => {
     expect(system.breakpoints.keys()).toContain("md");
   });
 
+  // A missing slot falls back to Chakra's gray palette without any error.
+  it("should define every color slot when a component uses one of our palettes", () => {
+    const palettes = ["brand", "neutral", "success", "caution", "danger"];
+    const slots = [
+      "fg",
+      "subtle",
+      "muted",
+      "emphasized",
+      "solid",
+      "contrast",
+      "focusRing",
+      "border",
+    ];
+
+    const missingColors = palettes
+      .flatMap((palette) => slots.map((slot) => `colors.${palette}.${slot}`))
+      .filter((color) => !system.token(color));
+
+    expect(missingColors).toEqual([]);
+  });
+
   it("clamps Chakra heading sizes below title onto title", () => {
     expect(headingRecipe.variants.size.xs.textStyle).toBe("title");
     expect(headingRecipe.variants.size.sm.textStyle).toBe("title");

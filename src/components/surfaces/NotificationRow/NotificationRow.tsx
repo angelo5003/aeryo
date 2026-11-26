@@ -49,8 +49,8 @@ export const NotificationRow = React.forwardRef<
           borderRadius="xl"
           alignItems="center"
           justifyContent="center"
-          bg="bg.muted"
-          color="accent.solid"
+          bg="iconTile.bg"
+          color="iconTile.fg"
           fontSize="xl"
           aria-hidden="true"
         >

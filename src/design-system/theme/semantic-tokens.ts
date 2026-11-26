@@ -373,12 +373,7 @@ export const semanticTokens = {
     // contrast on the tile in both modes.
     iconTile: {
       fg: { value: "{colors.brand.fg}" },
-      bg: {
-        value: {
-          _light: "color-mix(in srgb, {colors.teal.800} 14%, transparent)",
-          _dark: "color-mix(in srgb, {colors.teal.300} 14%, transparent)",
-        },
-      },
+      bg: { value: "{colors.brand.subtle}" },
     },
     // Quiet form controls (unpicked chips, outline boundaries): the edge
     // needs 3:1, so it follows `border.emphasized`.
@@ -542,8 +537,22 @@ export const semanticTokens = {
       contrast: {
         value: { _light: "{colors.ink.50}", _dark: "{colors.ink.950}" },
       },
-      // The rest of the palette, same steps as danger/caution/success so
-      // `colorPalette="brand"` resolves every part.
+      // The rest of the palette, same slots as danger/caution/success so
+      // `colorPalette="brand"` resolves every part. A missing slot silently
+      // falls back to the page's gray palette. `subtle` (soft pills, ghost
+      // hover) and `muted` (soft hover) are `fg` at 14% and 22%.
+      subtle: {
+        value: {
+          _light: "color-mix(in srgb, {colors.teal.800} 14%, transparent)",
+          _dark: "color-mix(in srgb, {colors.teal.300} 14%, transparent)",
+        },
+      },
+      muted: {
+        value: {
+          _light: "color-mix(in srgb, {colors.teal.800} 22%, transparent)",
+          _dark: "color-mix(in srgb, {colors.teal.300} 22%, transparent)",
+        },
+      },
       emphasized: {
         value: { _light: "{colors.teal.300}", _dark: "{colors.teal.700}" },
       },

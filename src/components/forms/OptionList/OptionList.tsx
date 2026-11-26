@@ -89,10 +89,9 @@ export const OptionRow = React.forwardRef<HTMLDivElement, OptionRowProps>(
           </RadioCard.ItemContent>
           {/* The mark is drawn here, not with RadioCard.ItemIndicator: that
               part swaps itself for the icon when `checked` is passed and
-              drops its own styles. The unchecked ring uses fg.muted
-              because Chakra's default `border.emphasized` is not an AERYO
-              token and `border` is a decorative hairline (about 1.5:1).
-              Contrast is at least 5.4:1 in both modes. */}
+              drops its own styles. The unchecked ring uses
+              `control.border` like every other control edge (about 5:1);
+              `border` is a decorative hairline (about 1.3:1). */}
           <RadioCard.ItemContext>
             {(item) => (
               <chakra.span
@@ -103,7 +102,7 @@ export const OptionRow = React.forwardRef<HTMLDivElement, OptionRowProps>(
                 placeItems="center"
                 borderRadius="full"
                 borderWidth="2px"
-                borderColor={item.checked ? "accent.solid" : "fg.muted"}
+                borderColor={item.checked ? "accent.solid" : "control.border"}
                 bg={item.checked ? "accent.solid" : "transparent"}
                 color="accent.contrast"
               >
