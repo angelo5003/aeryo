@@ -62,6 +62,16 @@ function ScopedColorModeDrawer(props: {
   );
 }
 
+// For stories that start open. `DrawerContent` portals to `document.body`,
+// so on the Docs page they would stack on top of each other; each one gets
+// its own iframe. Iframed stories ignore the Docs controls and "Show code"
+// updates, so `Closed` (the controllable example) must stay inline.
+// per node_modules/@storybook/addon-docs (parameters.docs.story.inline)
+const OPEN_ON_LOAD_STORY_PARAMETERS = {
+  controls: { disable: true },
+  docs: { story: { inline: false, iframeHeight: "500px" } },
+};
+
 /**
  * AERYO's drawer. See `Drawer.tsx` for implementation notes — it wraps
  * Chakra UI's compound `Drawer` (Backdrop + Positioner + Content
@@ -81,18 +91,6 @@ const meta = {
   },
   parameters: {
     layout: "padded",
-    // `DrawerContent` portals to `document.body` (see `Drawer.tsx`). The
-    // Docs page renders every story inline in one shared document by
-    // default, so every `defaultOpen` story's portaled content would land
-    // in that same `document.body` and stack on top of each other —
-    // rendering each story in its own iframe gives it its own document
-    // instead.
-    docs: {
-      story: {
-        inline: false,
-        iframeHeight: "500px",
-      },
-    },
   },
 } satisfies Meta<typeof Drawer>;
 
@@ -127,7 +125,7 @@ export const Closed: Story = {
 
 export const Open: Story = {
   args: { defaultOpen: true },
-  parameters: { controls: { disable: true } },
+  parameters: OPEN_ON_LOAD_STORY_PARAMETERS,
   render: (args) => (
     <Drawer {...args}>
       <DrawerTrigger asChild>
@@ -157,9 +155,7 @@ export const Open: Story = {
     // `defaultOpen` runs the drawer through its enter transition — the
     // title/body are in the DOM immediately but stay visibility-hidden
     // until the animation settles, so wait rather than asserting instantly.
-    await waitFor(() =>
-      expect(canvas.getByText("Filters")).toBeVisible(),
-    );
+    await waitFor(() => expect(canvas.getByText("Filters")).toBeVisible());
     await waitFor(() =>
       expect(
         canvas.getByText(
@@ -167,6 +163,10 @@ export const Open: Story = {
         ),
       ).toBeVisible(),
     );
+    // A body that does not overflow must not add an extra keyboard stop.
+    await expect(
+      canvas.getByText(/Narrow down spots/).closest(".chakra-drawer__body"),
+    ).not.toHaveAttribute("tabindex");
   },
 };
 
@@ -176,7 +176,7 @@ export const Open: Story = {
 
 export const LeftPlacement: Story = {
   args: { placement: "left", defaultOpen: true },
-  parameters: { controls: { disable: true } },
+  parameters: OPEN_ON_LOAD_STORY_PARAMETERS,
   render: (args) => (
     <Drawer {...args}>
       <DrawerTrigger asChild>
@@ -197,7 +197,7 @@ export const LeftPlacement: Story = {
 
 export const BottomPlacement: Story = {
   args: { placement: "bottom", defaultOpen: true },
-  parameters: { controls: { disable: true } },
+  parameters: OPEN_ON_LOAD_STORY_PARAMETERS,
   render: (args) => (
     <Drawer {...args}>
       <DrawerTrigger asChild>
@@ -223,7 +223,7 @@ export const BottomPlacement: Story = {
 
 export const LongContent: Story = {
   args: { defaultOpen: true },
-  parameters: { controls: { disable: true } },
+  parameters: OPEN_ON_LOAD_STORY_PARAMETERS,
   render: (args) => (
     <Drawer {...args}>
       <DrawerTrigger asChild>
@@ -236,9 +236,9 @@ export const LongContent: Story = {
         </DrawerHeader>
         <DrawerBody>
           <Stack gap="4">
-            {Array.from({ length: 20 }, (_, i) => (
+            {Array.from({ length: 40 }, (_, i) => (
               <Text key={i} variant="body">
-                Session {20 - i} — 18 kt, WNW, 2h 15m.
+                Session {40 - i} — 18 kt, WNW, 2h 15m.
               </Text>
             ))}
           </Stack>
@@ -246,6 +246,14 @@ export const LongContent: Story = {
       </DrawerContent>
     </Drawer>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement.ownerDocument.body);
+    const drawerBody = canvas
+      .getByText(/Session 40 —/)
+      .closest(".chakra-drawer__body");
+    // Keyboard users scroll the long text by focusing the body.
+    await waitFor(() => expect(drawerBody).toHaveAttribute("tabindex", "0"));
+  },
 };
 
 // ---------------------------------------------------------------------------
@@ -255,7 +263,7 @@ export const LongContent: Story = {
 
 export const MobileNavigation: Story = {
   args: { placement: "left", defaultOpen: true },
-  parameters: { controls: { disable: true } },
+  parameters: OPEN_ON_LOAD_STORY_PARAMETERS,
   render: (args) => (
     <Drawer {...args}>
       <DrawerTrigger asChild>
@@ -300,7 +308,7 @@ export const MobileNavigation: Story = {
 export const DarkModeStory: Story = {
   name: "Dark Mode",
   args: { defaultOpen: true },
-  parameters: { controls: { disable: true } },
+  parameters: OPEN_ON_LOAD_STORY_PARAMETERS,
   // `Drawer` portals to `document.body` by default, which escapes
   // `DarkMode`'s scoping wrapper entirely (color-mode scoping only
   // affects descendants of the element it's applied to) — `portalRef`
@@ -313,7 +321,7 @@ export const DarkModeStory: Story = {
 export const LightModeStory: Story = {
   name: "Light Mode",
   args: { defaultOpen: true },
-  parameters: { controls: { disable: true } },
+  parameters: OPEN_ON_LOAD_STORY_PARAMETERS,
   render: (args) => <ScopedColorModeDrawer mode="light" args={args} />,
 };
 
@@ -324,7 +332,7 @@ export const LightModeStory: Story = {
 export const Mobile: Story = {
   args: { placement: "bottom", defaultOpen: true },
   parameters: {
-    controls: { disable: true },
+    ...OPEN_ON_LOAD_STORY_PARAMETERS,
     viewport: { options: RESPONSIVE_VIEWPORTS },
   },
   globals: { viewport: { value: "aeryoMobile" } },
@@ -349,7 +357,7 @@ export const Mobile: Story = {
 export const Desktop: Story = {
   args: { defaultOpen: true },
   parameters: {
-    controls: { disable: true },
+    ...OPEN_ON_LOAD_STORY_PARAMETERS,
     viewport: { options: RESPONSIVE_VIEWPORTS },
   },
   globals: { viewport: { value: "aeryoDesktop" } },

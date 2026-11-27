@@ -5,7 +5,7 @@ import type { LinkProps } from "./Link.types";
 
 /**
  * AERYO's link primitive — a thin wrapper around Chakra UI's `Link`.
- * Always uses AERYO's one brand color (`colorPalette="teal"`, not
+ * Always uses AERYO's one brand color (`colorPalette="brand"`, not
  * configurable — matches the restraint principle in semantic-tokens.ts).
  * Chakra's own recipe already covers default (`colorPalette.fg`) and
  * hover (underline) styling; `_active` and `_visited` are added here
@@ -32,7 +32,7 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
       <ChakraLink
         ref={ref}
         asChild={href !== undefined}
-        colorPalette="teal"
+        colorPalette="brand"
         _active={{ color: "accent.solid" }}
         _visited={{ color: "fg.muted" }}
         {...rest}

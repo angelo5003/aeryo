@@ -22,6 +22,6 @@ Tokens live in `src/design-system/tokens/` (primitives) and `src/design-system/t
 <Box bg="bg.photo" color="fg.photo" />
 ```
 
-If the role you need is missing, add a semantic token in `semantic-tokens.ts` that points at a primitive. Do not invent a one-off hex or use `ink.*` in a screen.
+If the role you need is missing, add a semantic token in `semantic-tokens.ts` that points at a primitive. Do not invent a one-off hex or use `ink.*`/`teal.*` in a screen.
 
-Do not use Chakra's unthemed palettes (`gray`, `red`, `orange`, `whiteAlpha`, …). Use `teal` (the one primary), `danger`/`caution`/`success` for status, `lime` only for wind data.
+Do not use Chakra's unthemed palettes (`gray`, `red`, `orange`, `whiteAlpha`, …). Use `brand` (the one primary; never type its slots like `brand.fg` in a screen — use role tokens such as `nav.active`, `iconTile.bg`, `control.border`, `focus.ring`, `accent.solid`), `danger`/`caution`/`success` for status, `lime` only for wind data.

@@ -4,7 +4,7 @@ import type { SwitchProps } from "./Switch.types";
 
 /**
  * AERYO's switch — a thin wrapper around Chakra UI's `Switch`. Always
- * uses AERYO's one brand color (`colorPalette="teal"`, not configurable):
+ * uses AERYO's one brand color (`colorPalette="brand"`, not configurable):
  * Chakra's switch recipe has no built-in colorPalette fallback at all, so
  * without an explicit one the "on" state renders unstyled. Every other
  * Chakra `Switch.RootProps` field (`size`, `disabled`, style props,
@@ -15,7 +15,7 @@ export const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
     const { inputProps, children, rootRef, ...rest } = props;
 
     return (
-      <ChakraSwitch.Root ref={rootRef} colorPalette="teal" {...rest}>
+      <ChakraSwitch.Root ref={rootRef} colorPalette="brand" {...rest}>
         <ChakraSwitch.HiddenInput ref={ref} {...inputProps} />
         <ChakraSwitch.Control>
           <ChakraSwitch.Thumb />

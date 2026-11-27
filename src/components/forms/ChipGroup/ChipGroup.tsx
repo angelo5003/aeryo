@@ -30,7 +30,7 @@ const turnValueIntoList = (
  * connected bar.
  *
  * Look (tokens only, see docs/design-system/SPEC.md):
- * - not picked: `bg.panel` fill, `ink.border` edge, `ink.fg` text
+ * - not picked: `bg.panel` fill, `control.border` edge, `control.fg` text
  * - picked: `accent.solid` fill, `accent.contrast` text
  * - height: 2.75rem (44px), the minimum touch target for wet hands
  */
@@ -115,16 +115,16 @@ export const ChipGroup = React.forwardRef<HTMLDivElement, ChipGroupProps>(
             gap={isDaySize ? "1" : undefined}
             borderRadius={isDaySize ? "xl" : "full"}
             borderWidth="1px"
-            borderColor="ink.border"
+            borderColor="control.border"
             bg="bg.panel"
-            color="ink.fg"
+            color="control.fg"
             textStyle="body"
             fontWeight="semibold"
             cursor="pointer"
             transitionProperty="background-color, border-color, color"
             transitionDuration="fast"
             focusVisibleRing="outside"
-            focusRingColor="teal.focusRing"
+            focusRingColor="focus.ring"
             _hover={{ bg: "bg.muted" }}
             _pressed={{
               bg: "accent.solid",

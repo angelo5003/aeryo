@@ -1,9 +1,9 @@
 "use client";
-import { Icon } from "@chakra-ui/react";
 import { motion, useReducedMotion } from "framer-motion";
 import { usePathname } from "next/navigation";
 import type React from "react";
 import { Box } from "@/components/primitives/Box";
+import { Icon } from "@/components/primitives/Icon";
 import { Stack } from "@/components/primitives/Stack/Stack";
 import { Link } from "@/components/typography/Link";
 import { navItems } from "./navItems";
@@ -79,10 +79,13 @@ const BottomBar: React.FC<BottomBarProps> = ({ isBottomBarHidden }) => {
                     position="relative"
                     p={2}
                     color="fg"
-                    _currentPage={{ color: "teal.fg", fontWeight: "semibold" }}
+                    _currentPage={{
+                      color: "nav.active",
+                      fontWeight: "semibold",
+                    }}
                     aria-current={isCurrentPage ? "page" : undefined}
                     _active={{
-                      color: isCurrentPage ? "teal.fg" : "fg",
+                      color: isCurrentPage ? "nav.active" : "fg",
                       transform: "scale(0.94)",
                     }}
                     _visited={{ color: "fg" }}

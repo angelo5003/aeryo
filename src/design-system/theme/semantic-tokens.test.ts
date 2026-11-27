@@ -42,7 +42,7 @@ const getContrastRatio = (firstHex: string, secondHex: string): number => {
   return (lighter + 0.05) / (darker + 0.05);
 };
 
-const { bg, fg, border, rider, session, wind, ink, photo, mark } =
+const { bg, fg, border, rider, session, wind, neutral, control, photo, mark } =
   semanticTokens.colors;
 const LARGE_TEXT_MINIMUM_CONTRAST = 3;
 
@@ -79,8 +79,9 @@ describe("semantic tokens in light mode", () => {
   });
 });
 
-test("should point ink.border at border.emphasized so the two cannot drift apart", () => {
-  expect(ink.border.value).toBe("{colors.border.emphasized}");
+test("should point neutral.border and control.border at border.emphasized so they cannot drift apart", () => {
+  expect(neutral.border.value).toBe("{colors.border.emphasized}");
+  expect(control.border.value).toBe("{colors.border.emphasized}");
 });
 
 describe.each([

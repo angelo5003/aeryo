@@ -62,18 +62,18 @@ Sora never goes below `title` (20px). Numbers that must not jitter (wind speed) 
 | `border.error`      | #D45B52      | #D96F62                  | Danger border                                               |
 | `accent.solid`      | #106B70      | #19AEB5                  | Primary button fill, active tab                             |
 | `accent.contrast`   | #EDF8F6      | #071216                  | Text on the primary button                                  |
-| `teal.fg`           | #0B4D52      | #63E6D5                  | Teal text and links                                         |
-| `danger.solid`      | #963731      | #963731                  | Destructive button fill                                     |
+| `brand.fg`          | #0B4D52      | #63E6D5                  | Teal text and links                                         |
+| `danger.solid`      | #D92D20      | #D92D20                  | Destructive button fill                                     |
 | `danger.contrast`   | #FFFFFF      | #FFFFFF                  | Text on destructive button                                  |
 | `border.emphasized` | #3D7784      | #6B99A2                  | Outline of a control: outline buttons, unselected chips     |
-| `ink.border`        | #3D7784      | #6B99A2                  | Same value; points at `border.emphasized`                   |
-| `ink.fg`            | #123640      | #C0D6D9                  | Outline button text (secondary)                             |
+| `neutral.border`    | #3D7784      | #6B99A2                  | Same value; points at `border.emphasized`                   |
+| `neutral.fg`        | #123640      | #C0D6D9                  | Outline button text (secondary)                             |
 
-Outline buttons draw their edge with `<palette>.border` and their text with `<palette>.fg` (per Chakra's button recipe). With `intent="secondary"` that is `ink.border` (= `border.emphasized`) and `ink.fg`, with `intent="primary"` it is `teal.border` and `teal.fg`.
+Outline buttons draw their edge with `<palette>.border` and their text with `<palette>.fg` (per Chakra's button recipe). With `intent="secondary"` that is `neutral.border` (= `border.emphasized`) and `neutral.fg`, with `intent="primary"` it is `brand.border` and `brand.fg`.
 
 Shadows follow the same rule: `shadows.xs` to `2xl`, `inner`, `inset` and `onPhoto` (text on photos). There is no teal glow token, because the theme test says every shadow tints `ink`. Use a `border.accent` outline for selected chips and pills instead.
 
-The prototype uses these token names as CSS variables (`--tk-bg-panel`, `--tk-fg-photo`, …), with the primitives in one `--prim-*` block. Elements that always sit on a photo use the `--tk-dark-*` variables, which hold the dark value in both modes (like `<DarkMode>`). Sunlight mode reuses existing tokens (`ink.border`, `fg.emphasized`) until it is built in the app. The full audit is in `color-audit.md`.
+The prototype uses these token names as CSS variables (`--tk-bg-panel`, `--tk-fg-photo`, …), with the primitives in one `--prim-*` block. Elements that always sit on a photo use the `--tk-dark-*` variables, which hold the dark value in both modes (like `<DarkMode>`). Sunlight mode reuses existing tokens (`neutral.border`, `fg.emphasized`) until it is built in the app. The full audit is in `color-audit.md`.
 
 Reserved (defined, no component uses them yet, kept on purpose because the design docs list them): `bg.warning`, `bg.info`, `fg.warning`, `fg.info`, `border.warning`, `fg.photo.accent`.
 
@@ -137,7 +137,7 @@ Rule used: the app tokens win. The designs were changed to match, except where n
 | --- | ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------- |
 | 1   | Primary button, dark mode | Use `accent.solid` (#19AEB5, text #071216). It already clears 7:1 contrast.                                                                                                                                                                  | Designs         |
 | 2   | Card border, dark mode    | Use `border.muted` (faint teal line, 10% alpha).                                                                                                                                                                                             | Designs         |
-| 3   | Destructive button        | Use `danger.solid` (#963731).                                                                                                                                                                                                                | Designs         |
+| 3   | Destructive button        | Use `danger.solid` (#D92D20).                                                                                                                                                                                                                | Designs         |
 | 4   | Text sizes                | Use the app styles. List screen titles are `heading` (30px). Hero titles are `largeTitle` (36px) and stat numbers are `metric` (36px), both added. Still design-only: the 100px hero numerals and 15px secondary text (use `caption`, 14px). | Designs and app |
 | 5   | Button heights            | Use app sizes only. Main buttons are `lg` (44px), compact buttons are `md` (40px).                                                                                                                                                           | Designs         |
 | 6   | Secondary text, light     | Use `fg.muted` (#37707C).                                                                                                                                                                                                                    | Designs         |
@@ -145,7 +145,7 @@ Rule used: the app tokens win. The designs were changed to match, except where n
 | 8   | Design-only effects       | Glass buttons and glow shadows are not tokens. Build them as one-offs when needed. Gradients are tokens (section 2).                                                                                                                         | Not built       |
 | 9   | Wind colors               | Keep lime. `wind.strong` uses `lime.400` and `lime.700`, the brand guide and tests depend on it. Only those two lime steps remain.                                                                                                           | Kept            |
 
-Outline buttons and the round back button now use `ink.border` for their edge (dark #6B99A2, light #3D7784) and `ink.fg` for outline button text, as the app's Button does.
+Outline buttons and the round back button now use `neutral.border` for their edge (dark #6B99A2, light #3D7784) and `neutral.fg` for outline button text, as the app's Button does.
 
 ## 6. Components: built and still missing
 

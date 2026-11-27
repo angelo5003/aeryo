@@ -45,7 +45,7 @@ export const Avatar = React.forwardRef<HTMLDivElement, AvatarProps>(
             right="0"
             boxSize={indicatorSize}
             borderRadius="full"
-            bg={status === "online" ? "success.solid" : "ink.emphasized"}
+            bg={status === "online" ? "success.solid" : "rider.offline"}
             borderWidth="2px"
             borderColor="bg"
           />

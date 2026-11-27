@@ -144,6 +144,13 @@ const SEMANTIC_USAGE = {
   "border-warning": "Warning edge.",
   "border-success": "Success edge.",
   "border-info": "Info edge.",
+  "nav-active": "Active tab text and icon in the bottom bar.",
+  "iconTile-fg": "Icon on an icon tile.",
+  "iconTile-bg": "Soft tile behind a row icon, such as a settings row.",
+  "control-border":
+    "Edge of unpicked chips and other quiet controls, 3:1 or better.",
+  "control-fg": "Text on quiet controls.",
+  "focus-ring": "Keyboard focus outline on controls.",
   "accent-solid": "Default fill for primary actions.",
   "accent-contrast": "Text on `accent-solid`.",
   "rider-riding": "Rider presence: riding now.",
@@ -176,7 +183,7 @@ const TOKENS_WITH_KNOWN_GAPS = {
     "Outline for success badges. Light mode reaches 1.78:1 on `bg`, under the 3:1 target, so pair it with a word.",
 };
 
-const PALETTE_NAMES = ["teal", "ink", "danger", "caution", "success"];
+const PALETTE_NAMES = ["brand", "neutral", "danger", "caution", "success"];
 
 const describeSemanticToken = (tokenName) => {
   if (TOKENS_WITH_KNOWN_GAPS[tokenName])
@@ -208,12 +215,15 @@ const collectSemanticTokens = (tokenGroup, namePrefix = "") =>
         ? namePrefix
         : [namePrefix, key].filter(Boolean).join("-");
     if (entry.value) {
+      // A plain string value (e.g. `control.border`) is the same in both modes.
+      const lightValue = entry.value._light ?? entry.value;
+      const darkValue = entry.value._dark ?? entry.value;
       return [
         {
           name: tokenName,
           value: {
-            light: convertColorValue(entry.value._light),
-            dark: convertColorValue(entry.value._dark),
+            light: convertColorValue(lightValue),
+            dark: convertColorValue(darkValue),
           },
           usage: describeSemanticToken(tokenName),
         },
@@ -498,8 +508,8 @@ const TEXT_PAIRS = [
   ["fg-photo", "bg-photo"],
   ["fg-photo-accent", "bg-photo"],
   ["accent-contrast", "accent-solid"],
-  ["teal-contrast", "teal-solid"],
-  ["ink-contrast", "ink-solid"],
+  ["brand-contrast", "brand-solid"],
+  ["neutral-contrast", "neutral-solid"],
   ["danger-contrast", "danger-solid"],
   ["caution-contrast", "caution-solid"],
   ["success-contrast", "success-solid"],
@@ -508,7 +518,7 @@ const TEXT_PAIRS = [
     [`fg-${status}`, "bg-subtle"],
     [`fg-${status}`, `bg-${status}`],
   ]),
-  ...["danger", "caution", "success", "ink"].flatMap((palette) => [
+  ...["danger", "caution", "success", "neutral"].flatMap((palette) => [
     [`${palette}-fg`, `${palette}-subtle`],
     [`${palette}-fg`, `${palette}-muted`],
   ]),
@@ -537,10 +547,10 @@ const MARK_PAIRS = [
   ["border-success", "bg"],
   ["border-info", "bg"],
   ["fg-photo-muted", "bg-photo"],
-  ["ink-border", "bg"],
-  ["ink-border", "bg-subtle"],
-  ["ink-border", "bg-muted"],
-  ["ink-border", "bg-panel"],
+  ["neutral-border", "bg"],
+  ["neutral-border", "bg-subtle"],
+  ["neutral-border", "bg-muted"],
+  ["neutral-border", "bg-panel"],
   ["danger-border", "bg"],
   ["caution-border", "bg"],
   ["success-border", "bg"],

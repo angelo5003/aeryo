@@ -1,4 +1,4 @@
-import { Drawer as ChakraDrawer, Portal } from "@chakra-ui/react";
+import { Drawer as ChakraDrawer, mergeRefs, Portal } from "@chakra-ui/react";
 import * as React from "react";
 import { LuX } from "react-icons/lu";
 import type {
@@ -14,6 +14,45 @@ import type {
 } from "./Drawer.types";
 
 const DrawerPlacementContext = React.createContext<DrawerPlacement>("right");
+
+/**
+ * Reports whether an element's content is taller than the element itself.
+ * Put the returned ref on the element to watch.
+ */
+const useIsContentOverflowing = () => {
+  const [isOverflowing, setIsOverflowing] = React.useState(false);
+
+  // The returned cleanup runs on unmount (React 19 ref cleanup).
+  const watchOverflowRef = React.useCallback((element: HTMLElement | null) => {
+    // jsdom (Jest) has no ResizeObserver.
+    if (!element || typeof ResizeObserver === "undefined") return;
+
+    const checkOverflow = () =>
+      setIsOverflowing(element.scrollHeight > element.clientHeight);
+    const sizeObserver = new ResizeObserver(checkOverflow);
+    // The element's own size and its children's sizes can both change.
+    const watchSizes = () => {
+      [element, ...element.children].forEach((watchedElement) =>
+        sizeObserver.observe(watchedElement),
+      );
+      checkOverflow();
+    };
+    const contentObserver = new MutationObserver(watchSizes);
+    contentObserver.observe(element, {
+      childList: true,
+      subtree: true,
+      characterData: true,
+    });
+    watchSizes();
+
+    return () => {
+      sizeObserver.disconnect();
+      contentObserver.disconnect();
+    };
+  }, []);
+
+  return [isOverflowing, watchOverflowRef] as const;
+};
 
 /**
  * Bottom-sheet look, applied only when `placement="bottom"`: rounded top
@@ -109,10 +148,27 @@ export const DrawerHeader = React.forwardRef<HTMLDivElement, DrawerHeaderProps>(
   },
 );
 
-/** Scrolls on overflow — see `DrawerContent`'s doc comment. */
+/**
+ * Scrolls on overflow — see `DrawerContent`'s doc comment. While its content
+ * overflows it is focusable, so keyboard users can scroll it (axe
+ * `scrollable-region-focusable`).
+ */
 export const DrawerBody = React.forwardRef<HTMLDivElement, DrawerBodyProps>(
   function DrawerBody(props, ref) {
-    return <ChakraDrawer.Body ref={ref} {...props} />;
+    const [isOverflowing, watchOverflowRef] = useIsContentOverflowing();
+    // per node_modules/@chakra-ui/react/dist/types/merge-refs.d.ts
+    const bodyRef = React.useMemo(
+      () => mergeRefs(ref, watchOverflowRef),
+      [ref, watchOverflowRef],
+    );
+
+    return (
+      <ChakraDrawer.Body
+        ref={bodyRef}
+        tabIndex={isOverflowing ? 0 : undefined}
+        {...props}
+      />
+    );
   },
 );
 
