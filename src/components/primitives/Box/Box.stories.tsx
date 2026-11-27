@@ -1,12 +1,29 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 import { Text } from "@chakra-ui/react";
+import { LuArrowRight, LuWind } from "react-icons/lu";
+import { expect } from "storybook/test";
 import { DarkMode, LightMode } from "@/components/ui/color-mode";
 import { RESPONSIVE_VIEWPORTS } from "@/components/internal/storybookViewports";
 import { Box } from "./Box";
 
+// The controls pick an icon by name; `mapping` swaps the name for the element.
+const ICON_CHOICES = {
+  none: undefined,
+  wind: <LuWind />,
+  arrow: <LuArrowRight />,
+};
+
+const ICON_CONTROL = {
+  control: "select",
+  options: Object.keys(ICON_CHOICES),
+  mapping: ICON_CHOICES,
+  table: { type: { summary: "ReactElement" } },
+} as const;
+
 /**
  * AERYO's most abstract layout primitive — a thin wrapper around Chakra
- * UI's `Box`. See `Box.tsx` for implementation notes.
+ * UI's `Box`, with optional `iconLeft`/`iconRight`. See `Box.tsx` for
+ * implementation notes.
  */
 const meta = {
   title: "Primitives/Box",
@@ -24,6 +41,15 @@ const meta = {
     as: { control: false },
     asChild: { control: false },
     children: { control: "text" },
+    iconLeft: {
+      ...ICON_CONTROL,
+      description:
+        "Icon before `children`. Lays the box out in a centred row. Cannot be combined with `asChild`.",
+    },
+    iconRight: {
+      ...ICON_CONTROL,
+      description: "Icon after `children`. See `iconLeft`.",
+    },
   },
   parameters: {
     layout: "padded",
@@ -113,4 +139,53 @@ export const LongContent: Story = {
       </Text>
     </Box>
   ),
+};
+
+// ---------------------------------------------------------------------------
+// Icons — set in `render` rather than `args` for the same reason as above.
+// `{...args}` follows the default icons so the icon controls can replace or
+// remove them. `asChild={false}` is what lets TypeScript accept icons here.
+// ---------------------------------------------------------------------------
+
+export const WithIcons: Story = {
+  args: { children: "Wind rising" },
+  render: (args) => (
+    <Box
+      iconLeft={<LuWind />}
+      iconRight={<LuArrowRight />}
+      {...args}
+      asChild={false}
+    />
+  ),
+  play: async ({ canvas, canvasElement }) => {
+    await expect(canvasElement.querySelectorAll("svg")).toHaveLength(2);
+    await expect(canvas.getByText("Wind rising")).toHaveStyle({
+      display: "flex",
+      alignItems: "center",
+    });
+  },
+};
+
+export const LongContentWithIcons: Story = {
+  args: {
+    width: "20rem",
+    children:
+      "A deliberately long run of text between two icons, to check that the text wraps onto new lines while both icons keep their size.",
+  },
+  render: (args) => (
+    <Box
+      iconLeft={<LuWind />}
+      iconRight={<LuArrowRight />}
+      {...args}
+      asChild={false}
+    />
+  ),
+  play: async ({ canvasElement }) => {
+    const icons = canvasElement.querySelectorAll("svg");
+
+    await expect(icons).toHaveLength(2);
+    for (const icon of icons) {
+      await expect(icon).toHaveStyle({ flexShrink: "0" });
+    }
+  },
 };
