@@ -51,6 +51,9 @@ const SignedInPageWithTopNavBar: FC<SignedInPageWithTopNavBarProps> = ({
         flex="1"
         minH="0"
         overflowY="auto"
+        // matches src/components/data-display/Tabs/Tabs.tsx (hidden scrollbar)
+        scrollbarWidth="none"
+        css={{ "&::-webkit-scrollbar": { display: "none" } }}
         pb={shouldShowBottomBar ? "20" : undefined}
       >
         <Heading as="h2" variant="heading" ref={largeTitleRef} px="4">
