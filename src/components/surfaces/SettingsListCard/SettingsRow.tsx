@@ -1,6 +1,7 @@
-import { Box, Flex, Icon } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 import NextLink from "next/link";
 import { LuChevronRight } from "react-icons/lu";
+import { Icon } from "@/components/primitives/Icon";
 import { Text } from "@/components/typography/Text";
 import type { SettingsRowProps } from "./SettingsRow.types";
 

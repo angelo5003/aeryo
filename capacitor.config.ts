@@ -20,7 +20,7 @@ const config: CapacitorConfig = {
     ? {}
     : {
         server: {
-          url: "http://192.168.1.107:3000",
+          url: "http://192.168.1.76:3000",
           cleartext: true,
         },
       }),

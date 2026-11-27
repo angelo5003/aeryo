@@ -80,7 +80,7 @@ const AuthLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
         mx="auto"
         pt="5"
       >
-        <Heading as="h1" textAlign="center" color="fg">
+        <Heading as="h1" variant="heading" textAlign="center" color="fg">
           AERYO
         </Heading>
         {children}

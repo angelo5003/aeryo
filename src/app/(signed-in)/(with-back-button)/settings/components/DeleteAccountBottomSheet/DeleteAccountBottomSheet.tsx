@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import { LuLogOut, LuTrash2 } from "react-icons/lu";
+import { LuTriangleAlert, LuX } from "react-icons/lu";
 import {
   Drawer,
   DrawerBody,
@@ -10,6 +10,9 @@ import {
   Text,
 } from "@/components";
 import { Button } from "@/components/actions/Button";
+import { Box } from "@/components/primitives/Box";
+import { Icon } from "@/components/primitives/Icon/Icon";
+import { Stack } from "@/components/primitives/Stack";
 
 type DeleteAccountBottomSheetProps = {
   isOpen: boolean;
@@ -24,16 +27,50 @@ const DeleteAccountBottomSheet: FC<DeleteAccountBottomSheetProps> = ({
     <Drawer placement="bottom" open={isOpen} onOpenChange={onClose}>
       <DrawerContent>
         <DrawerHeader>
-          <DrawerTitle>Menu</DrawerTitle>
+          <DrawerTitle>
+            <Box
+              display="inline-flex"
+              bg="bg.error"
+              color="fg.error"
+              borderRadius="full"
+              p="4"
+              alignItems="center"
+              justifyContent="center"
+            >
+              <Icon as={LuTriangleAlert} boxSize="6" />
+            </Box>
+          </DrawerTitle>
         </DrawerHeader>
         <DrawerBody>
-          <Text variant="body">Drawer content.</Text>
+          <Stack gap="4">
+            <DrawerTitle fontWeight="extrabold">
+              Delete your account?
+            </DrawerTitle>
+            <Stack as="ul" gap="2">
+              <Box as="li" iconLeft={<Icon as={LuX} color="danger.solid" />}>
+                <Text variant="body" fontSize="sm" color="fg.emphasized">
+                  42 sessions and your stats
+                </Text>
+              </Box>
+              <Box as="li" iconLeft={<Icon as={LuX} color="danger.solid" />}>
+                <Text variant="body" fontSize="sm" color="fg.emphasized">
+                  9 saved spots
+                </Text>
+              </Box>
+              <Box as="li" iconLeft={<Icon as={LuX} color="danger.solid" />}>
+                <Text variant="body" fontSize="sm" color="fg.emphasized">
+                  Your posts in Community
+                </Text>
+              </Box>
+            </Stack>
+          </Stack>
         </DrawerBody>
         <DrawerFooter
           gap="4"
           justifyContent="center"
           flexDirection="column"
           p="4"
+          alignItems="center"
         >
           <Button
             onClick={onClose}
@@ -46,6 +83,7 @@ const DeleteAccountBottomSheet: FC<DeleteAccountBottomSheetProps> = ({
             fontSize="md"
             alignItems="center"
             fontWeight="800"
+            w="full"
           >
             Delete account
           </Button>
@@ -64,6 +102,7 @@ const DeleteAccountBottomSheet: FC<DeleteAccountBottomSheetProps> = ({
             border="1px solid "
             borderColor="border.emphasized"
             fontWeight="800"
+            w="full"
           >
             Cancel
           </Button>

@@ -1,0 +1,686 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`SettingsPage should render 1`] = `
+<div>
+  <div
+    class="chakra-stack css-8g6mlc"
+  >
+    <a
+      class="chakra-card__root css-180g9ra"
+      href="/account"
+    >
+      <div
+        class="chakra-stack css-itgcle"
+      >
+        <div
+          class="chakra-avatar__root css-1hyz1d2"
+          data-part="root"
+          data-scope="avatar"
+          dir="ltr"
+          id="avatar:_r_0_"
+        >
+          <span
+            class="chakra-avatar__fallback css-1cuxwyn"
+            data-part="fallback"
+            data-scope="avatar"
+            data-state="visible"
+            dir="ltr"
+            id="avatar:_r_0_:fallback"
+          >
+            JD
+          </span>
+        </div>
+        <div
+          class="chakra-stack css-44c6y4"
+        >
+          <p
+            class="css-hrv85i"
+          >
+            John Doe
+          </p>
+          <p
+            class="css-18syp87"
+          >
+            john.doe@example.com
+          </p>
+        </div>
+      </div>
+      <svg
+        fill="none"
+        height="1em"
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        viewBox="0 0 24 24"
+        width="1em"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="m9 18 6-6-6-6"
+        />
+      </svg>
+    </a>
+    <div
+      class="css-1op6ogi"
+    >
+      <p
+        class="css-1masuhw"
+        id="_r_1_"
+      >
+        Riding
+      </p>
+      <ul
+        aria-labelledby="_r_1_"
+        class="chakra-card__root css-qqeakw"
+      >
+        <li
+          class="css-155za0w"
+        >
+          <a
+            class="css-1am0luk"
+            href="/riding-preferences"
+          >
+            <div
+              class="css-1snbwg6"
+            >
+              <div
+                class="css-yo97l6"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="chakra-icon css-1qiwd9j"
+                  fill="none"
+                  focusable="false"
+                  height="1em"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <line
+                    x1="21"
+                    x2="14"
+                    y1="4"
+                    y2="4"
+                  />
+                  <line
+                    x1="10"
+                    x2="3"
+                    y1="4"
+                    y2="4"
+                  />
+                  <line
+                    x1="21"
+                    x2="12"
+                    y1="12"
+                    y2="12"
+                  />
+                  <line
+                    x1="8"
+                    x2="3"
+                    y1="12"
+                    y2="12"
+                  />
+                  <line
+                    x1="21"
+                    x2="16"
+                    y1="20"
+                    y2="20"
+                  />
+                  <line
+                    x1="12"
+                    x2="3"
+                    y1="20"
+                    y2="20"
+                  />
+                  <line
+                    x1="14"
+                    x2="14"
+                    y1="2"
+                    y2="6"
+                  />
+                  <line
+                    x1="8"
+                    x2="8"
+                    y1="10"
+                    y2="14"
+                  />
+                  <line
+                    x1="16"
+                    x2="16"
+                    y1="18"
+                    y2="22"
+                  />
+                </svg>
+              </div>
+              <p
+                class="css-1ivihw3"
+              >
+                Riding preferences
+              </p>
+            </div>
+            <div
+              class="css-1cg6slf"
+            >
+              <p
+                class="css-vlbwj"
+              >
+                Riding preferences
+              </p>
+              <svg
+                aria-hidden="true"
+                fill="none"
+                height="1em"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="m9 18 6-6-6-6"
+                />
+              </svg>
+            </div>
+          </a>
+        </li>
+        <li
+          class="css-155za0w"
+        >
+          <a
+            class="css-1am0luk"
+            href="/my-gear"
+          >
+            <div
+              class="css-1snbwg6"
+            >
+              <div
+                class="css-yo97l6"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="chakra-icon css-1qiwd9j"
+                  fill="none"
+                  focusable="false"
+                  height="1em"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M4 10a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"
+                  />
+                  <path
+                    d="M8 10h8"
+                  />
+                  <path
+                    d="M8 18h8"
+                  />
+                  <path
+                    d="M8 22v-6a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v6"
+                  />
+                  <path
+                    d="M9 6V4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"
+                  />
+                </svg>
+              </div>
+              <p
+                class="css-1ivihw3"
+              >
+                My Gear
+              </p>
+            </div>
+            <div
+              class="css-1cg6slf"
+            >
+              <p
+                class="css-vlbwj"
+              >
+                My Gear
+              </p>
+              <svg
+                aria-hidden="true"
+                fill="none"
+                height="1em"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="m9 18 6-6-6-6"
+                />
+              </svg>
+            </div>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div
+      class="css-1op6ogi"
+    >
+      <p
+        class="css-1masuhw"
+        id="_r_2_"
+      >
+        Preferences
+      </p>
+      <ul
+        aria-labelledby="_r_2_"
+        class="chakra-card__root css-qqeakw"
+      >
+        <li
+          class="css-155za0w"
+        >
+          <a
+            class="css-1am0luk"
+            href="/notifications"
+          >
+            <div
+              class="css-1snbwg6"
+            >
+              <div
+                class="css-yo97l6"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="chakra-icon css-1qiwd9j"
+                  fill="none"
+                  focusable="false"
+                  height="1em"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"
+                  />
+                  <path
+                    d="M10.3 21a1.94 1.94 0 0 0 3.4 0"
+                  />
+                </svg>
+              </div>
+              <p
+                class="css-1ivihw3"
+              >
+                Notifications
+              </p>
+            </div>
+            <div
+              class="css-1cg6slf"
+            >
+              <p
+                class="css-vlbwj"
+              >
+                Notifications
+              </p>
+              <svg
+                aria-hidden="true"
+                fill="none"
+                height="1em"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="m9 18 6-6-6-6"
+                />
+              </svg>
+            </div>
+          </a>
+        </li>
+        <li
+          class="css-155za0w"
+        >
+          <a
+            class="css-1am0luk"
+            href="/online-status"
+          >
+            <div
+              class="css-1snbwg6"
+            >
+              <div
+                class="css-yo97l6"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="chakra-icon css-1qiwd9j"
+                  fill="none"
+                  focusable="false"
+                  height="1em"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"
+                  />
+                  <circle
+                    cx="9"
+                    cy="7"
+                    r="4"
+                  />
+                  <path
+                    d="M22 21v-2a4 4 0 0 0-3-3.87"
+                  />
+                  <path
+                    d="M16 3.13a4 4 0 0 1 0 7.75"
+                  />
+                </svg>
+              </div>
+              <p
+                class="css-1ivihw3"
+              >
+                Online Status
+              </p>
+            </div>
+            <div
+              class="css-1cg6slf"
+            >
+              <p
+                class="css-vlbwj"
+              >
+                Online Status
+              </p>
+              <svg
+                aria-hidden="true"
+                fill="none"
+                height="1em"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="m9 18 6-6-6-6"
+                />
+              </svg>
+            </div>
+          </a>
+        </li>
+        <li
+          class="css-155za0w"
+        >
+          <a
+            class="css-1am0luk"
+            href="/windspeed"
+          >
+            <div
+              class="css-1snbwg6"
+            >
+              <div
+                class="css-yo97l6"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="chakra-icon css-1qiwd9j"
+                  fill="none"
+                  focusable="false"
+                  height="1em"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M12.8 19.6A2 2 0 1 0 14 16H2"
+                  />
+                  <path
+                    d="M17.5 8a2.5 2.5 0 1 1 2 4H2"
+                  />
+                  <path
+                    d="M9.8 4.4A2 2 0 1 1 11 8H2"
+                  />
+                </svg>
+              </div>
+              <p
+                class="css-1ivihw3"
+              >
+                Windspeed
+              </p>
+            </div>
+            <div
+              class="css-1cg6slf"
+            >
+              <p
+                class="css-vlbwj"
+              >
+                Windspeed
+              </p>
+              <svg
+                aria-hidden="true"
+                fill="none"
+                height="1em"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="m9 18 6-6-6-6"
+                />
+              </svg>
+            </div>
+          </a>
+        </li>
+        <li
+          class="css-155za0w"
+        >
+          <a
+            class="css-1am0luk"
+            href="/appearance"
+          >
+            <div
+              class="css-1snbwg6"
+            >
+              <div
+                class="css-yo97l6"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="chakra-icon css-1qiwd9j"
+                  fill="none"
+                  focusable="false"
+                  height="1em"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <circle
+                    cx="12"
+                    cy="12"
+                    r="4"
+                  />
+                  <path
+                    d="M12 3v1"
+                  />
+                  <path
+                    d="M12 20v1"
+                  />
+                  <path
+                    d="M3 12h1"
+                  />
+                  <path
+                    d="M20 12h1"
+                  />
+                  <path
+                    d="m18.364 5.636-.707.707"
+                  />
+                  <path
+                    d="m6.343 17.657-.707.707"
+                  />
+                  <path
+                    d="m5.636 5.636.707.707"
+                  />
+                  <path
+                    d="m17.657 17.657.707.707"
+                  />
+                </svg>
+              </div>
+              <p
+                class="css-1ivihw3"
+              >
+                Appearance
+              </p>
+            </div>
+            <div
+              class="css-1cg6slf"
+            >
+              <p
+                class="css-vlbwj"
+              >
+                Appearance
+              </p>
+              <svg
+                aria-hidden="true"
+                fill="none"
+                height="1em"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="m9 18 6-6-6-6"
+                />
+              </svg>
+            </div>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div
+      class="chakra-stack css-1krqfcx"
+    >
+      <button
+        class="chakra-button css-1nieq0x"
+        type="button"
+      >
+        <svg
+          fill="none"
+          height="16"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          viewBox="0 0 24 24"
+          width="16"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"
+          />
+          <polyline
+            points="16 17 21 12 16 7"
+          />
+          <line
+            x1="21"
+            x2="9"
+            y1="12"
+            y2="12"
+          />
+        </svg>
+        Sign out
+      </button>
+      <section
+        class="chakra-stack css-eppfv7"
+      >
+        <div
+          class="chakra-stack css-1op6ogi"
+        >
+          <h2
+            class="css-14ewd3"
+          >
+            Delete your account
+          </h2>
+          <p
+            class="css-epji9g"
+          >
+            This permanently deletes your account and all your data.
+          </p>
+        </div>
+        <button
+          class="chakra-button css-2qrrjq"
+          type="button"
+        >
+          <svg
+            fill="none"
+            height="16"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M3 6h18"
+            />
+            <path
+              d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"
+            />
+            <path
+              d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"
+            />
+            <line
+              x1="10"
+              x2="10"
+              y1="11"
+              y2="17"
+            />
+            <line
+              x1="14"
+              x2="14"
+              y1="11"
+              y2="17"
+            />
+          </svg>
+          Delete account
+        </button>
+      </section>
+    </div>
+  </div>
+</div>
+`;

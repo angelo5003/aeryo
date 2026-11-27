@@ -15,7 +15,8 @@ export interface HeadingProps extends Omit<
 > {
   /**
    * Semantic heading role — selects the token-backed `textStyle`.
-   * @default "heading"
+   * When omitted, follows the `as` tag: h1 = display, h2 = heading,
+   * h3–h6 = title. Falls back to "heading".
    */
   variant?: HeadingVariant;
 }

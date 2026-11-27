@@ -35,6 +35,7 @@ export * from "./primitives/Center";
 export * from "./primitives/Container";
 export * from "./primitives/Flex";
 export * from "./primitives/Grid";
+export * from "./primitives/Icon";
 export * from "./primitives/Separator";
 export * from "./primitives/Stack";
 export * from "./surfaces/Card";
